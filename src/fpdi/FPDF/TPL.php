@@ -17,7 +17,6 @@
 //  limitations under the License.
 //
 namespace fpdi;
-use fpdf\FPDF;
 
 class FPDF_TPL extends FPDF {
     /**
