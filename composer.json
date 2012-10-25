@@ -1,10 +1,10 @@
 {
-    "name": "itbz/fpdi",
-    "description": "Unofficial PSR-0 compliant version of the FPDI library",
+    "name": "opichon/fpdi",
+    "description": "Fork of the unofficial PSR-0 compliant version of the FPDI library. Designed to be used with TCPDF.",
     "type": "library",
     "require": {
         "php": ">=5.3.0",
-        "itbz/fpdf": "1.7.*"
+        "tcpdf/tcpdf": "dev-master"
     },
     "autoload": {
         "psr-0": {
