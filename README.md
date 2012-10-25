@@ -1,7 +1,7 @@
 fpdi
 ====
 
-Unofficial PSR-0 compliant version of the FPDI library
+Fork of the unofficial PSR-0 compliant version of the FPDI library.
 
 
 This is version 1.4.2 of FPDI (and version 1.2 of FPDF_TPL) with some minor changes:
@@ -14,4 +14,4 @@ This is version 1.4.2 of FPDI (and version 1.2 of FPDF_TPL) with some minor chan
 
 * constructors are renamed *__construct* instead of class name
 
-* support for TCPDF via *fpdi2tcpdf_bridge* is removed (incompatible with PSR-0)
+* the library is designed to be used only with TCPDF. The \fpdi\FPDF is a bridge class from FPDI to TCPDF
