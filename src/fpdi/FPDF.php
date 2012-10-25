@@ -27,9 +27,8 @@
  * It'll be loaded and extended by FPDF_TPL.
  */
 namespace fpdi;
-use tcpdf\TCPDF;
 
-class FPDF extends TCPDF {
+class FPDF extends \TCPDF {
     
 	function _putstream($s) {
 		$this->_out($this->_getstream($s));
