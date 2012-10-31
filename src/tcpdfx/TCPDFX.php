@@ -1,7 +1,7 @@
 <?php
-$error_reporting = error_reporting(E_ALL);
-
 namespace tcpdfx;
+
+$error_reporting = error_reporting(E_ALL);
 
 use \fpdi\FPDI;
 
