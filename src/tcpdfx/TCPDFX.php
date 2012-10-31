@@ -1,6 +1,8 @@
 <?php
 $error_reporting = error_reporting(E_ALL);
 
+namespace tcpdfx;
+
 use \fpdi\FPDI;
 
 class TCPDFX extends FPDI {
