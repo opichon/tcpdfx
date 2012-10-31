@@ -20,12 +20,6 @@ namespace fpdi;
 
 define('FPDI_VERSION', '1.4.2');
 
-// Check for TCPDF and remap TCPDF to FPDF
-if (class_exists('TCPDF', false)) {
-#    require_once('fpdi2tcpdf_bridge.php');
-}
-
-
 class FPDI extends FPDF_TPL {
     /**
      * Actual filename
@@ -98,7 +92,7 @@ class FPDI extends FPDF_TPL {
      * @return fpdi_pdf_parser
      */
     function _getPdfParser($filename) {
-    	return new fpdi_pdf_parser($filename, $this);
+        return new fpdi_pdf_parser($filename, $this);
     }
     
     /**
@@ -107,17 +101,17 @@ class FPDI extends FPDF_TPL {
      * @return string
      */
     function getPDFVersion() {
-		return $this->PDFVersion;
-	}
+        return $this->PDFVersion;
+    }
     
-	/**
+    /**
      * Set the PDF version
      *
      * @return string
      */
-	function setPDFVersion($version = '1.3') {
-		$this->PDFVersion = $version;
-	}
+    function setPDFVersion($version = '1.3') {
+        $this->PDFVersion = $version;
+    }
 	
     /**
      * Import a page
@@ -287,7 +281,7 @@ class FPDI extends FPDF_TPL {
      */
     function _putformxobjects() {
         $filter=($this->compress) ? '/Filter /FlateDecode ' : '';
-	    reset($this->tpls);
+        reset($this->tpls);
         foreach($this->tpls AS $tplidx => $tpl) {
             $p=($this->compress) ? gzcompress($tpl['buffer']) : $tpl['buffer'];
     		$this->_newobj();
