@@ -8,7 +8,7 @@ define ('K_TCPDF_EXTERNAL_CONFIG', true);
  * Installation path (/var/www/tcpdf/).
  * By default it is automatically calculated but you can also set it as a fixed string to improve performances.
  */
-define ('K_PATH_MAIN', dirname(__FILE__).'/../vendor/tcpdf/tcpdf/');
+define ('K_PATH_MAIN', dirname(__FILE__).'/../../../tcpdf/tcpdf/');
 
 /**
  * path for PDF fonts
@@ -20,11 +20,6 @@ define ('K_PATH_FONTS', dirname(__FILE__).'/../data/fonts/');
  * cache directory for temporary files (full path)
  */
 define ('K_PATH_CACHE', K_PATH_MAIN.'cache/');
-
-/**
- * cache directory for temporary files (url path)
- */
-define ('K_PATH_URL_CACHE', K_PATH_URL.'cache/');
 
 /**
  *images directory
