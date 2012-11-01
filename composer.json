@@ -9,7 +9,7 @@
     "autoload": {
         "psr-0": {
             "fpdi": "lib/",
-            "tcpdf": "lib/"
+            "UAM": "lib/"
         },
         "classmap": [
           "data/fonts",
