@@ -1,11 +1,11 @@
 <?php
-namespace tcpdfx;
+namespace UAM;
 
 $error_reporting = error_reporting(E_ALL);
 
 use \fpdi\FPDI;
 
-class TCPDFX extends FPDI {
+class TCPDF extends FPDI {
 
   protected $name = 'doc.pdf';
   

@@ -1,5 +1,5 @@
 {
-    "name": "opichon/tcpdfx",
+    "name": "opichon/tcpdf",
     "description": "Fork of the unofficial PSR-0 compliant version of the FPDI library. Designed to be used with TCPDF.",
     "type": "library",
     "require": {
@@ -8,8 +8,8 @@
     },
     "autoload": {
         "psr-0": {
-            "fpdi": "src/",
-            "tcpdfx": "src/"
+            "fpdi": "lib/",
+            "tcpdf": "lib/"
         },
         "classmap": [
           "data/fonts",

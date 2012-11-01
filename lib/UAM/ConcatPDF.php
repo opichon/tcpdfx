@@ -1,6 +1,6 @@
 <?php
 
-namespace tcpdfx;
+namespace UAM;
 
 use \fpdi\FPDI;
 
