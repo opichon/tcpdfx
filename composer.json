@@ -1,7 +1,22 @@
 {
     "name": "uam/tcpdf",
-    "description": "Fork of the unofficial PSR-0 compliant version of the FPDI library. Designed to be used with TCPDF.",
     "type": "library",
+    "description": "Fork of the unofficial PSR-0 compliant version of the FPDI library. Designed to be used with TCPDF.",
+    "keywords": ["tcpdf", "pdf", "fpdi", "fpdf"],
+    "homepage": "https://github.com/opichon/tcpdf",
+    "license": "MIT",
+    "authors": [
+    	{
+	    	"name": "Olivier Pichon",
+	    	"email": "op@united-asian.com",
+	    	"role": "lead developer"
+    	},
+    	{
+	    	"name": "Alexander Kozlov",
+	    	"email": "alexskozlov@gmail.com",
+	    	"role": "developer"
+    	}
+    ],
     "require": {
         "php": ">=5.3.0",
         "tcpdf/tcpdf": "dev-master"
