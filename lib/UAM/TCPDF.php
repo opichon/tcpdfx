@@ -8,14 +8,10 @@ use \fpdi\FPDI;
 class TCPDF extends FPDI {
 
   protected $name = 'doc.pdf';
-  
+
   protected $display_mode = 'real';
 
-  protected $top_margin = 25;
   protected $bottom_margin = 25;
-  protected $left_margin = 20;
-  protected $right_margin = 20;
-  protected $content_width = 160; // unused
 
   protected $header_font_family = 'Georgia';
   protected $header_font_size = 12;
@@ -37,7 +33,7 @@ class TCPDF extends FPDI {
   protected $paginate_font_style = '';
   protected $paginate_x;
   protected $paginate_y;
-  
+
   protected $title;
 
   protected $font = 'Verdana';
@@ -62,28 +58,28 @@ class TCPDF extends FPDI {
   protected $subtitle_size = 11;
   protected $subtitle_style = 'B';
   protected $subtitle_cell_height = 6;
-  
+
   protected $watermark = null;
   protected $watermark_font = 'Verdana';
   protected $watermark_size = 58;
   protected $watermark_style = 'B';
   protected $watermark_cell = 10;
   protected $watermark_color = array(255, 205, 205);
-  
+
   protected $default_cell_padding = array('L' => 0.3, 'T' => 0.3, 'R' => 0.3, 'B' => 0.3);
-  
+
   protected $logo;
-  
+
   protected $letterhead;
   protected $letterhead_idx;
-  
+
   protected $name_pattern;
 
   public function __construct() {
     parent::__construct();
     // Set paper format
     $this->setPaperFormat();
-    /* Set this to false in various subclasses to embed fonts instead of subsetting them */	
+    /* Set this to false in various subclasses to embed fonts instead of subsetting them */
     $this->SetFontSubsetting(false);
   }
 
@@ -95,7 +91,6 @@ class TCPDF extends FPDI {
     $this->SetKeywords($this->keywords);
 
     $this->setDisplayMode($this->display_mode);
-    $this->setMargins($this->left_margin, $this->top_margin, $this->right_margin);
     $this->SetAutoPageBreak(true, $this->bottom_margin);
     $this->setPrintHeader(true);
     $this->setPrintFooter(true);
@@ -138,15 +133,15 @@ class TCPDF extends FPDI {
     header_remove('Content-Length');
   }
 
-  public function processName($name) { return $name; }
-  
+  protected function processName($name) { return $name; }
+
   protected function generate() {}
 
   public function getName() { return $this->name; }
   public function setName($name) { $this->name = $name; }
-  
+
   public function resetFont() {
-    $this->SetFont($this->font, '', $this->font_size);
+    $this->SetFont($this->FontFamily, $this->FontStyle, $this->FontSizePt);
   }
 
   /*
@@ -160,7 +155,7 @@ class TCPDF extends FPDI {
     $this->SetCellPaddings($old_cell_padding['L'], $old_cell_padding['T'], $old_cell_padding['R'], $old_cell_padding['B']);
   }
   */
-  
+
   public function getNumLines($txt, $w=0, $reseth=false, $autopadding=true, $cellpadding='', $border=0) {
     if (empty($txt)) { return 1; }
     else { return parent::getNumLines($txt, $w, $reseth, $autopadding, $cellpadding, $border); }
@@ -287,7 +282,7 @@ class TCPDF extends FPDI {
     foreach ($headers as $h) {
       $this->__row($h['data'], $h['width'], $h['align'], $h['border'],
                    $h['font'], $h['font_style'], $h['font_size'],
-                   $h['cell_height'], $h['min_row_height'], 0, 
+                   $h['cell_height'], $h['min_row_height'], 0,
                    isset($h['fill']) ? $h['fill'] : 0);
     }
 
@@ -303,10 +298,10 @@ class TCPDF extends FPDI {
         foreach ($headers as $h) {
           $this->__row($h['data'], $h['width'], $h['align'], $h['border'],
                        $h['font'], $h['font_style'], $h['font_size'],
-                       $h['cell_height'], $h['min_row_height'], 0, 
+                       $h['cell_height'], $h['min_row_height'], 0,
                        isset($h['fill']) ? $h['fill'] : 0);
         }
-      } 
+      }
 
       $this->__row($row, $width, $align, $border,
                    $font, $font_style, $font_size,
@@ -317,11 +312,11 @@ class TCPDF extends FPDI {
     foreach ($footers as $f) {
       $this->__row($f['data'], $f['width'], $f['align'], $f['border'],
                    $f['font'], $f['font_style'], $f['font_size'],
-                   $f['cell_height'], $f['min_row_height'], 
+                   $f['cell_height'], $f['min_row_height'],
                    isset($f['fill']) ? $f['fill'] : 0);
     }
   }
-  
+
   /**
    * This function calculate table height
    *
@@ -337,29 +332,29 @@ class TCPDF extends FPDI {
    */
   public function getTableHeight($data, $width, $border, $font, $font_style, $font_size,
                                  $cell_height, $min_row_height = 0, $headers = array(), $footers = array()) {
-                                  
+
     $height = 0;
     foreach ($headers as $h) {
       $height += $this->__row_height($h['data'], $h['width'], $h['align'],
-                                     $h['border'], $h['font'], 
-                                     $h['font_style'], $h['font_size'], 
+                                     $h['border'], $h['font'],
+                                     $h['font_style'], $h['font_size'],
                                      $h['cell_height'], $h['min_row_height']);
     }
 
     foreach ($data as $row) {
       $height += $this->__row_height($row, $width, '',
-                                     $border, $font, 
-                                     $font_style, $font_size, 
+                                     $border, $font,
+                                     $font_style, $font_size,
                                      $cell_height, $min_row_height);
     }
 
     foreach ($footers as $f) {
-      $height += $this->__row_height($f['data'], $f['width'], $f['align'], 
-                                     $f['border'], $f['font'], 
-                                     $f['font_style'], $f['font_size'], 
+      $height += $this->__row_height($f['data'], $f['width'], $f['align'],
+                                     $f['border'], $f['font'],
+                                     $f['font_style'], $f['font_size'],
                                      $f['cell_height'], $f['min_row_height']);
-    } 
-                                  
+    }
+
     return $height;
   }
 
@@ -372,9 +367,9 @@ class TCPDF extends FPDI {
     if ($height == 0) {
       $height = $this->__row_height($data, $width, $align, $border, $font, $font_style, $font_size, $cell_height, $min_height);
     }
-        
+
     $n = count($data);
-    
+
     for ($i = 0; $i < $n; $i++) {
       $this->SetXY($x1, $y0);
       $this->SetFont(is_array($font) ? $font[$i] : $font,
@@ -387,14 +382,14 @@ class TCPDF extends FPDI {
                        is_array($align) ? $align[$i] : $align,
                        is_array($fill) ? $fill[$i] : $fill,
                        1);
-      
+
         $x1 += is_array($width) ? $width[$i] : $width;
         $height = max($height, $this->getY() - $y0);
     }
-    
+
     $this->SetXY($x0, $y0 + $height);
   }
-  
+
 /**
    * This function calculate row height
    *
@@ -406,7 +401,7 @@ class TCPDF extends FPDI {
    * @param int $cell_height
    * @return int
    */
-  protected function __row_height($data, $width, $align, $border, $font, $font_style, $font_size, $cell_height, $min_height = 0) {    
+  protected function __row_height($data, $width, $align, $border, $font, $font_style, $font_size, $cell_height, $min_height = 0) {
     $lines = array();
     $height = array($cell_height, $min_height);
     $n = count($data);
@@ -417,21 +412,21 @@ class TCPDF extends FPDI {
                      is_array($font_size) ? $font_size[$i] : $font_size);
       $height[] = $this->getStringHeight($w ? $w : $width[$i], $data[$i], false, true, $this->cell_padding, $border);
     }
-    
-    return max($height); 
+
+    return max($height);
   }
 
   public function Header() {
     $this->addLogo();
     $this->addLetterhead();
 //    $this->addWatermark();
-    
+
     if ($this->getShowPageHeader()) {
       $this->SetY(max($this->GetY(), $this->getHeaderMargin()));
-      $this->printPageHeader(); 
+      $this->printPageHeader();
     }
-    
-    if ($this->getPaginate()) { $this->paginate(); }  
+
+    if ($this->getPaginate()) { $this->paginate(); }
   }
 
   protected function printPageHeader() {}
@@ -461,11 +456,11 @@ class TCPDF extends FPDI {
   protected function addLetterhead() {
     $letterhead = $this->getLetterhead();
     if (!$letterhead || !file_exists($letterhead) || is_dir($letterhead)) { return; }
-    if (is_null($this->letterhead_idx)) { 
-      $this->setSourceFile($letterhead); 
-      $this->letterhead_idx = $this->importPage(1); 
-    } 
-    $this->useTemplate($this->letterhead_idx);     
+    if (is_null($this->letterhead_idx)) {
+      $this->setSourceFile($letterhead);
+      $this->letterhead_idx = $this->importPage(1);
+    }
+    $this->useTemplate($this->letterhead_idx);
   }
 
   public function getWatermark() { return $this->watermark; }
@@ -543,10 +538,10 @@ class TCPDF extends FPDI {
     $this->SetFont($this->paginate_font_family, $this->paginate_font_style, $this->paginate_font_size);
 //    $cell_height = round(($this->getCellHeightRatio() * $headerfont[2]) / $this->getScaleFactor(), 2);
 
-    $this->SetX($this->paginate_x ? 
+    $this->SetX($this->paginate_x ?
                   $this->paginate_x :
                   ($this->getRTL() ? $this->rMargin : $this->lMargin));
-                  
+
     $this->SetY($this->paginate_y ? $this->paginate_y : max($this->getHeaderMargin(), $this->GetY()));
 
     if ($this->getRTL()) {
@@ -566,7 +561,7 @@ class TCPDF extends FPDI {
                       '%pages%' => $this->getPageGroupAlias());
 		return strtr($this->getPaginateFormat(), $params);
   }
-  
+
 }
 
 error_reporting($error_reporting);
