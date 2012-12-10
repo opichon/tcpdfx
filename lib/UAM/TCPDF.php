@@ -1,7 +1,7 @@
 <?php
 namespace UAM;
 
-$error_reporting = error_reporting(E_ALL);
+$error_reporting = error_reporting(E_ALL & ~E_STRICT & ~E_NOTICE);
 
 use \fpdi\FPDI;
 
