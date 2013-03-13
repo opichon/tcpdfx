@@ -30,7 +30,7 @@ namespace fpdi;
 
 class FPDF extends \TCPDF {
     
-	function _putstream($s) {
+	function _putstream($s, $n = 0) {
 		$this->_out($this->_getstream($s));
 	}
 	
