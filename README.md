@@ -37,7 +37,7 @@ use UAM\Pdf\TCPDF;
 $pdf = new TCPDF();
 ```
 
-`UAM\Pdf\TCPDF` is a sub-class of both fpdi\FPDI and \TCPDF, so all methods from thise classes are available, in addition to the convenience methods defined in UAM\Pdf\TCPDF itself.
+`UAM\Pdf\TCPDF` is a sub-class of both fpdi\FPDI and \TCPDF, so all methods from these classes are available, in addition to the convenience methods defined in UAM\Pdf\TCPDF itself.
 
 ### Concatenating files
 
@@ -51,7 +51,7 @@ tcpdfx makes use of:
 
 The TCPDF library is provided via the "tecnick.com/tcpdf" package, currently at release 6.0.032.
 
-This package is hosted at sourceforge, and because if persistent problems in downloading it, it is also mirrored at git@github.com:opichon/tcpdf.git.
+The original package is hosted at sourceforge, and because of persistent problems in downloading it, it is mirrored at git@github.com:opichon/tcpdf.git.
 
 ### FPDI
 
