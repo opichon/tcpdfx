@@ -14,7 +14,7 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "onigoetz/fpdi_tcpdf": "dev-master"
+        "onigoetz/fpdi_tcpdf": "~1.4"
     },
     "repositories": [
         {
