@@ -7,39 +7,23 @@ use \fpdi\FPDI;
 
 class TCPDF extends FPDI
 {
-    protected $name = 'doc.pdf';
-
-    protected $display_mode = 'real';
+    protected $name_pattern = 'doc.pdf';
 
     protected $bottom_margin = 25;
 
-    protected $header_font_family = 'Georgia';
-    protected $header_font_size = 12;
-    protected $header_font_style = 'B';
-    protected $header_cell = 5;
+    protected $letterhead;
+    protected $letterhead_idx;
 
-    // deprecate [OP 2011-03-24]
-    protected $footer_margin = 10;
-    protected $footer_font_family = 'Verdana';
-    protected $footer_font_size = 8;
-    protected $footer_font_style = '';
-    protected $footer_cell = 4;
+    protected $watermark = null;
+    protected $watermark_font = array('Verdana', 'B', 58);
+    protected $watermark_color = array(255, 205, 205);
+    protected $watermark_cell_height = 10;
 
-    protected $show_page_header = false;
-    protected $paginate = false;
-    protected $paginate_format = 'p. %page%/%pages%';
-    protected $paginate_font_family = 'Verdana';
-    protected $paginate_font_size = 8;
-    protected $paginate_font_style = '';
-    protected $paginate_x;
-    protected $paginate_y;
-
-    protected $title;
-
-    protected $font = 'Verdana';
-    protected $font_style = '';
-    protected $font_size = 10;
-    protected $cell_height = 5;
+    protected $pagination_in_header = 'p. %page%/%pages%';
+    protected $pagination_in_footer = false;
+    protected $pagination_font = array('Verdana', '', 8);
+    protected $pagination_x;
+    protected $pagination_y;
 
     protected $document_title_font = 'Georgia';
     protected $document_title_size = 16;
@@ -59,89 +43,166 @@ class TCPDF extends FPDI
     protected $subtitle_style = 'B';
     protected $subtitle_cell_height = 6;
 
-    protected $watermark = null;
-    protected $watermark_font = 'Verdana';
-    protected $watermark_size = 58;
-    protected $watermark_style = 'B';
-    protected $watermark_cell = 10;
-    protected $watermark_color = array(255, 205, 205);
 
     protected $default_cell_padding = array('L' => 0.3, 'T' => 0.3, 'R' => 0.3, 'B' => 0.3);
 
-    protected $logo;
-
-    protected $letterhead;
-    protected $letterhead_idx;
-
-    protected $name_pattern;
-
-    public function __construct()
+    public function __construct($orientation = 'P', $unit = 'mm', $format = 'A4', $unicode = true, $encoding = 'UTF-8', $diskcache = false, $pdfa = false)
     {
-        parent::__construct();
-        // Set paper format
-        $this->setPaperFormat();
-        /* Set this to false in various subclasses to embed fonts instead of subsetting them */
-        $this->SetFontSubsetting(false);
+        parent::__construct($orientation, $unit, $format, $unicode, $encoding, $diskcache, $pdfa);
+
+        $this->init();
     }
 
-    protected function init()
+    /**
+     * Returns the pattern to be used to generate this document's name when output.
+     */
+    public function getNamePattern()
     {
-        $this->SetCreator(PDF_CREATOR);
-        $this->SetAuthor($this->author);
-        $this->SetTitle($this->title);
-        $this->SetSubject($this->subject);
-        $this->SetKeywords($this->keywords);
-
-        $this->setDisplayMode($this->display_mode);
-        $this->SetAutoPageBreak(true, $this->bottom_margin);
-        $this->setPrintHeader(true);
-        $this->setPrintFooter(true);
-        $this->setHeaderFont(array($this->header_font_family, $this->header_font_style, $this->header_font_size));
-//    $this->setFooterFont(array($this->footer_font_family, $this->footer_font_style, $this->footer_font_size));
-        $this->SetHeaderMargin($this->header_margin);
-        $this->SetFooterMargin($this->footer_margin);
-        $this->SetFont($this->font, $this->font_style, $this->font_size);
-
-        $this->configure();
+        return $this->name_pattern;
     }
 
-    protected function setPaperFormat()
+    /**
+     * Sets the pattern to be used to generate thisdocument's name when output.
+     *
+     * @param string $pattern
+     */
+    public function setNamePattern($pattern)
     {
-        if (isset($this->paper_format)) {
-            $this->setPageFormat($this->paper_format);
-        } else {
-            /*
-             * Determine paper format - to be implemented later
-             * For instance - US 'LETTER' (8 1/2" x 11")/(216mm x 279mm)
-             * Implementation - $this->setPageFormat('LETTER');
-             */
-            // Use default page format - 'A4'
-            $this->setPageFormat('A4');
-        }
+        $this->name_pattern = $pattern;
     }
 
-    protected function configure() {}
+    /**
+     * Returns the name to be used by default for this document when output.
+     *
+     * When the Output method is called with a null $name parameter, this method
+     * is invoked to supply a default document name.
+     *
+     * By default, this method simply returns $this->getNamePattern. Override this method
+     * to process the name pattern according to your requirements.
+     */
+    public function getName()
+    {
+        return $this->getNamePattern();
+    }
 
-    /*
+    /**
+     * Returns the path to the file to be used as letterhead.
+     */
+    public function getLetterhead()
+    {
+        return $this->letterhead;
+    }
+
+    /**
+     * Sets the path to the file to be used as letterhead.
+     */
+    public function setLetterhead($letterhead)
+    {
+        $this->letterhead = $letterhead;
+    }
+
+    /**
+     * Returns the text to use as watermark.
+     *
+     * @return string
+     */
+    public function getWatermark()
+    {
+        return $this->watermark;
+    }
+
+    /**
+     * Sets the text of the watermark.
+     *
+     * @param $watermark
+     */
+    public function setWatermark($watermark)
+    {
+        $this->watermark = $watermark;
+    }
+
+    /**
+     * If not false or null, returns the format for the pagination in the page header.
+     */
+    public function getPaginationInHeader()
+    {
+        return $this->pagination_in_header;
+    }
+
+    /**
+     * Sets the format for the pagination in the header, or null/false to cancel pagination in the header.
+     */
+    public function setPaginationInHeader($format = null)
+    {
+        $this->pagination_in_header = $format;
+    }
+
+    /**
+     * If not false or null, returns the format for the pagination in the page footer.
+     */
+    public function getPaginationInFooer()
+    {
+        return $this->pagination_in_footer;
+    }
+
+    /**
+     * Sets the format for the pagination in the footer, or null/false to cancel pagination in the footer.
+     */
+    public function setPaginationInFooter($format = null)
+    {
+        $this->pagination_in_footer = $format;
+    }
+
+    /**
      * Do not override. Override 'generate' method instead.
      *
      */
-    // TODO [OP 2010-05-12] Make final
     public function Output($name = null, $dest = 'D')
     {
         $this->init();
+
         $this->AddPage();
+
         $this->generate();
+
         parent::Output($name ? $name : $this->processName($this->getName()), $dest);
+
         header_remove('Content-Length');
     }
 
-    protected function processName($name) { return $name; }
+    /**
+     * Generates the header.
+     *
+     *
+     */
+    public function Header()
+    {
+        $this->addLetterhead();
+        $this->addWatermark();
 
-    protected function generate() {}
+            $this->SetY(max($this->GetY(), $this->getHeaderMargin()));
+            $this->printPageHeader();
+        }
 
-    public function getName() { return $this->name; }
-    public function setName($name) { $this->name = $name; }
+        if ($this->getPaginationInHeader()) {
+            $this->paginate();
+        }
+    }
+
+    public function Footer()
+    {
+        $cur_y = $this->y;
+
+        $this->SetTextColorArray($this->footer_text_color);
+
+        $this->printPageFooter();
+
+        if ($this->getPaginationInFooter()) {
+            $this->paginate();
+        }
+
+        $this->SetY($cur_y);
+    }
 
     public function resetFont()
     {
@@ -161,9 +222,136 @@ class TCPDF extends FPDI
     }
     */
 
-    public function getNumLines($txt, $w=0, $reseth=false, $autopadding=true, $cellpadding='', $border=0)
+    protected function init()
     {
-        if (empty($txt)) { return 1; } else { return parent::getNumLines($txt, $w, $reseth, $autopadding, $cellpadding, $border); }
+        $this->SetAutoPageBreak(true, $this->bottom_margin);
+    }
+
+    protected function generate() {}
+
+    /**
+     * Adds the document;s letterhead.
+     */
+    protected function addLetterhead()
+    {
+        $letterhead = $this->getLetterhead();
+
+        if (!$letterhead || !file_exists($letterhead) || is_dir($letterhead)) {
+            return;
+        }
+
+        if (is_null($this->letterhead_idx)) {
+            $this->setSourceFile($letterhead);
+            $this->letterhead_idx = $this->importPage(1);
+        }
+
+        $this->useTemplate($this->letterhead_idx);
+    }
+
+    /**
+     * Prints the document's watermark.
+     * TODO [OP 2013-12-29] Add rtl support
+     * TODO [OP 2013-12-29] Use XObject template
+     */
+    protected function addWatermark()
+    {
+        $watermark = $this->getWatermark();
+
+        if (!is_array($watermark) || empty($watermark)) {
+            return;
+        }
+
+        $color = $this->TextColor;
+        $x = $this->GetX();
+        $y = $this->getY();
+
+        $this->SetFont($this->watermark_font);
+
+        $this->SetTextColorArray($this->watermark_color);
+
+        $this->setXY($this->lMargin, $this->h - $this->bMargin);
+
+        $this->StartTransform();
+
+        if ($this->CurOrientation == 'P') {
+            $this->Rotate(60);
+            $w = $this->w * 1.5;
+        } else {
+            $this->Rotate(30);
+            $w = $this->h * 1.5;
+        }
+
+        $this->MultiCell(
+            $w,
+            $this->watermark_cell,
+            $watermark,
+            0, 'C', 0, 0
+        );
+
+        $this->StopTransform();
+
+        $this->SetXY($x, $y);
+        $this->resetFont();
+        $this->TextColor = $color;
+    }
+
+    protected function printPageHeader()
+    {
+
+    }
+
+    protected function printPageFooter()
+    {
+
+    }
+
+    protected function paginate()
+    {
+        // save current graphic settings
+        $gvars = $this->getGraphicVars();
+
+        $this->SetFont($this->paginate_font);
+
+        $this->SetX(
+            $this->paginate_x
+            ? $this->paginate_x
+            : ($this->getRTL() ? $this->original_rMargin : $this->original_lMargin)
+        );
+
+        if ($this->paginate_y) {
+            $this->SetY($this->paginate_y);
+        } elseif ($this->InHeader) {
+            $this->SetY(max($this->getHeaderMargin(), $this->GetY());
+        } else if ($this->InFooter) {
+            $this->SetY($this->h - $this->footer_margin);
+        }
+
+        if ($this->getRTL()) {
+            $this->Cell(0, 0, $this->getPagination(), 0, 0, 'L');
+        } else {
+            $this->Cell(0, 0, $this->getAliasRightShift() . $this->getPagination(), 0, 0, 'R');
+        }
+
+        // restore graphic settings
+        $this->setGraphicVars($gvars);
+    }
+
+    protected function getPagination()
+    {
+        $params = empty($this->pagegroups)
+            ? array(
+                '%page%' => $this->getAliasNumPage(),
+                '%pages%' => $this->getAliasNbPages()
+            )
+            : array(
+                '%page%' => $this->getPageNumGroupAlias(),
+                '%pages%' => $this->getPageGroupAlias()
+            );
+
+        return strtr(
+            $this->getPaginationFormat(),
+            $params
+        );
     }
 
     protected function _cell($s, $link = '')
@@ -423,89 +611,6 @@ class TCPDF extends FPDI
         return max($height);
     }
 
-    public function Header()
-    {
-        $this->addLogo();
-        $this->addLetterhead();
-//    $this->addWatermark();
-
-        if ($this->getShowPageHeader()) {
-            $this->SetY(max($this->GetY(), $this->getHeaderMargin()));
-            $this->printPageHeader();
-        }
-
-        if ($this->getPaginate()) { $this->paginate(); }
-    }
-
-    protected function printPageHeader() {}
-
-    public function Footer()
-    {
-        $cur_y = $this->y;
-        $this->printPageFooter();
-        $this->SetY($cur_y);
-        $this->addWatermark();
-    }
-
-
-    public function printPageFooter() {}
-
-    public function getLogo() { return $this->logo; }
-
-    public function setLogo($logo) { $this->logo = $logo; }
-
-    public function addLogo()
-    {
-    }
-
-    public function getLetterhead() { return $this->letterhead; }
-
-    public function setLetterhead($letterhead) { $this->letterhead = $letterhead; }
-
-    protected function addLetterhead()
-    {
-        $letterhead = $this->getLetterhead();
-        if (!$letterhead || !file_exists($letterhead) || is_dir($letterhead)) { return; }
-        if (is_null($this->letterhead_idx)) {
-            $this->setSourceFile($letterhead);
-            $this->letterhead_idx = $this->importPage(1);
-        }
-        $this->useTemplate($this->letterhead_idx);
-    }
-
-    public function getWatermark() { return $this->watermark; }
-
-    public function setWatermark($watermark) { $this->watermark = $watermark; }
-
-    protected function addWatermark()
-    {
-        $watermark = $this->getWatermark();
-        if (empty($watermark)) { return; }
-        $color = $this->TextColor;
-        $x = $this->GetX();
-        $y = $this->getY();
-        $this->SetFont($this->watermark_font, $this->watermark_style, $this->watermark_size);
-        $this->SetTextColorArray($this->watermark_color);
-        $this->setXY($this->lMargin, $this->h - $this->bMargin);
-        $this->StartTransform();
-        if ($this->CurOrientation == 'P') {
-            $this->Rotate(60);
-            $w = $this->w * 1.5;
-        } else {
-            $this->Rotate(30);
-            $w = $this->h * 1.5;
-        }
-        $this->MultiCell($w,
-                                         $this->watermark_cell,
-                                         $watermark,
-                                         0, 'C', 0, 0);
-        $this->StopTransform();
-
-        $this->SetXY($x, $y);
-        $this->resetFont();
-        $this->TextColor = $color;
-    }
-
     public function sanitizeName($string = '')
     {
         $string = strtr(utf8_decode($string),
@@ -520,67 +625,6 @@ class TCPDF extends FPDI
         // Only allow one dash separator at a time (and make string lowercase)
         return mb_strtolower(preg_replace('/--+/u', '-', $string), 'UTF-8');
     }
-
-    public function getPaginate()
-    {
-        return $this->paginate;
-    }
-
-    public function setPaginate($paginate)
-    {
-        $this->paginate = $paginate;
-    }
-
-    public function getPaginateFormat()
-    {
-        return $this->paginate_format;
-    }
-
-    public function setPaginateFormat($format)
-    {
-        $this->paginate_format = $format;
-    }
-
-    public function getShowPageHeader()
-    {
-        return $this->show_page_header;
-    }
-
-    public function setShowPageHeader($show)
-    {
-        $this->show_page_header = $show;
-    }
-
-    protected function paginate()
-    {
-        $this->SetFont($this->paginate_font_family, $this->paginate_font_style, $this->paginate_font_size);
-//    $cell_height = round(($this->getCellHeightRatio() * $headerfont[2]) / $this->getScaleFactor(), 2);
-
-        $this->SetX($this->paginate_x ?
-                                    $this->paginate_x :
-                                    ($this->getRTL() ? $this->rMargin : $this->lMargin));
-
-        $this->SetY($this->paginate_y ? $this->paginate_y : max($this->getHeaderMargin(), $this->GetY()));
-
-        if ($this->getRTL()) {
-            $this->Cell(0, 0, $this->getPagination(), 0, 0, 'L');
-        } else {
-            $this->Cell(0, 0, $this->getPagination(), 0, 0, 'R');
-        }
-        $this->resetFont();
-    }
-
-    public function getPagination()
-    {
-        $params = empty($this->pagegroups) ?
-                                array('%page%' => $this->getAliasNumPage(),
-                                            '%pages%' => $this->getAliasNbPages()) :
-                                array('%page%' => $this->getPageNumGroupAlias(),
-                                            '%pages%' => $this->getPageGroupAlias());
-
-                return strtr($this->getPaginateFormat(), $params);
-    }
-
 }
 
 error_reporting($error_reporting);
