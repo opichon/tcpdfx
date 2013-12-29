@@ -18,15 +18,23 @@ class ConcatPDF extends FPDI
     public function concat()
     {
         $this->setDisplayMode('real');
+
         $this->setPrintHeader(false);
+
         $this->setPrintFooter(false);
+
         foreach ($this->files as $num => $file) {
             $pagecount = $this->setSourceFile($file);
+
             for ($i = 1; $i <= $pagecount; $i++) {
                 $tplidx = $this->ImportPage($i);
+
                 $s = $this->getTemplatesize($tplidx);
+
                 $orientation = @$this->files_orientation[$num] ? $this->files_orientation[$num] : 'P';
+
                 $this->AddPage($orientation, array($s['w'], $s['h']));
+
                 $this->useTemplate($tplidx);
             }
         }

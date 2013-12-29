@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * Stop the original tcpdf config file loading
  */
@@ -166,4 +166,3 @@ define('K_THAI_TOPCHARS', true);
  * IMPORTANT: For security reason, disable this feature if you are printing user HTML content.
  */
 define('K_TCPDF_CALLS_IN_HTML', true);
-?>

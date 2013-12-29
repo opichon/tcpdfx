@@ -241,42 +241,42 @@ class TCPDF extends FPDI
 
     /**
      * TODO [OP 2010-06-24] Refactor method as per docs below.
-     * @param Array $data  a multi-dimensional array containing the cell values. Required.
-     * @param mixed $width either an integer representing the width of all columns,
-     *                     or an array containing the widths of each column. Required.
-     * @param mixed $align either a single value representing the alignment applicable
-     *                     to the cells of all columns, or an array containing the
-     *                     alignment for each column. Allowed values: 'L', 'R', 'C'
-     *                     default 'L'.
-     * @param mixed $border either a single value defining the borders applicable to
-     *                      the cells of all columns, or an array containg the borders
-     *                      for each column. Required.
-     * @param mixed $font either a single value indicating the font of the cells of
-     *                    all columns or an array defining the fonts for each column.
-     *                    Required.
-     * @param mixed $font_style either a single value indicating the font style of
-     *                    the cells of all columns or an array defining the font
-     *                    styles for each column. Required.
-     * @param mixed $font_size either a single value indicating the font size of the
-     *                    cells of all columns or an array defining the font size
-     *                    for each column. Required.
+     * @param Array $data           a multi-dimensional array containing the cell values. Required.
+     * @param mixed $width          either an integer representing the width of all columns,
+     *                              or an array containing the widths of each column. Required.
+     * @param mixed $align          either a single value representing the alignment applicable
+     *                              to the cells of all columns, or an array containing the
+     *                              alignment for each column. Allowed values: 'L', 'R', 'C'
+     *                              default 'L'.
+     * @param mixed $border         either a single value defining the borders applicable to
+     *                              the cells of all columns, or an array containg the borders
+     *                              for each column. Required.
+     * @param mixed $font           either a single value indicating the font of the cells of
+     *                              all columns or an array defining the fonts for each column.
+     *                              Required.
+     * @param mixed $font_style     either a single value indicating the font style of
+     *                              the cells of all columns or an array defining the font
+     *                              styles for each column. Required.
+     * @param mixed $font_size      either a single value indicating the font size of the
+     *                              cells of all columns or an array defining the font size
+     *                              for each column. Required.
      * @param int   $cell_height.   Required.
      * @param int   $min_row_height minimum row height (default 0)
      * @param Array $headers        an array of arrays containing the header information. Each array
-     * defines a header row starting from the top (0 => first header row, etc.). Each header
-     * row array is an associative array defining the following keys:
-     * 'data' => the content of the header cells. Required.
-     * 'width => widths of the header cells. Required.
-     * 'align' => alignments of header cells. Default 'C'.
-     * 'border' => borders of header cells. Required.
-     * 'font' => font family of header cells. Required.
-     * 'font_style' => font style of header cells. Required.
-     * 'font_size' => font size of header cells. Required.
-     * 'cell_height' => cell height. Required.
-     * 'min_row_height' => minimum row height of header row (default 0)
-     * 'fill' => fill values
-     * All values except for keys 'data' and 'min_row_height' are either single values
-     * (applying to all header cells) or an array containing values for each cell.
+     *                              defines a header row starting from the top (0 => first header row, etc.). Each header
+     *                              row array is an associative array defining the following keys:
+     *                              'data' => the content of the header cells. Required.
+     *                              'width => widths of the header cells. Required.
+     *                              'align' => alignments of header cells. Default 'C'.
+     *                              'border' => borders of header cells. Required.
+     *                              'font' => font family of header cells. Required.
+     *                              'font_style' => font style of header cells. Required.
+     *                              'font_size' => font size of header cells. Required.
+     *                              'cell_height' => cell height. Required.
+     *                              'min_row_height' => minimum row height of header row (default 0)
+     *                              'fill' => fill values
+     *                              All values except for keys 'data' and 'min_row_height' are either single values
+     *                              (applying to all header cells) or an array containing values for each cell.
      */
     public function generateTable($data, $width, $align = 'L', $border, $font, $font_style, $font_size,
                                                                 $cell_height, $min_row_height = 0,
