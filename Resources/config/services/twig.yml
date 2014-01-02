@@ -1,0 +1,5 @@
+services:
+    twig.extension.dzangocart:
+        class: Dzangocart\Bundle\CoreBundle\Twig\Extension\DzangocartExtension
+        tags:
+            - { name: twig.extension }
