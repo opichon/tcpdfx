@@ -16,5 +16,5 @@
     "autoload": {
         "psr-0": { "Dzangocart\\Bundle\\CoreBundle": "" }
     },
-    "target-dir": "Dzangocart/Bundle//CoreBundle"
+    "target-dir": "Dzangocart/Bundle/CoreBundle"
 }
