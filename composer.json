@@ -1,6 +1,6 @@
 {
     "name": "dzangocart/core-bundle",
-"type": "symfony-bundle",
+    "type": "symfony-bundle",
     "license": "proprietary",
     "authors": [
         {
