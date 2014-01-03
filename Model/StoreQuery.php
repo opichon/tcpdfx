@@ -2,7 +2,11 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Model;
 
+use \Criteria;
+
 use Dzangocart\Bundle\CoreBundle\Model\om\BaseStoreQuery;
+
+use Symfony\Component\HttpFoundation\ParameterBag;
 
 class StoreQuery extends BaseStoreQuery
 {
