@@ -53,6 +53,6 @@ class StoreQuery extends BaseStoreQuery
     
     protected function defaultSort() 
     {
-        return $this->orderBy('store.name');
+        return $this->orderBy('store.domain');
     }
 }
