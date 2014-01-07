@@ -81,8 +81,8 @@
         <column name="auto_register_url" type="longvarchar" required="false" />
         <column name="profile_url"       type="longvarchar" required="false" />
         <column name="password_url"      type="longvarchar" required="false" />
-        <column name="email_as_login"    type="longvarchar" size="1" required="true" defaultValue="true" />
-        <column name="open_id"           type="longvarchar" size="1" required="true" defaultValue="false" />     
+        <column name="email_as_login"    type="boolean" size="1" required="true" defaultValue="true" />
+        <column name="open_id"           type="boolean" size="1" required="true" defaultValue="false" />     
         <foreign-key foreignTable="store" name="FI_user_settings_store" onDelete="RESTRICT" onUpdate="RESTRICT">
             <reference local="store_id" foreign="id"/>
         </foreign-key>
