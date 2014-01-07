@@ -83,7 +83,7 @@
         <column name="password_url"      type="longvarchar" required="false" />
         <column name="email_as_login"    type="boolean" size="1" required="true" defaultValue="true" />
         <column name="open_id"           type="boolean" size="1" required="true" defaultValue="false" />     
-        <foreign-key foreignTable="store" name="FI_user_settings_store" onDelete="RESTRICT" onUpdate="RESTRICT">
+        <foreign-key foreignTable="store" name="FI_user_settings_store" onDelete="restrict" onUpdate="restrict">
             <reference local="store_id" foreign="id"/>
         </foreign-key>
         <index name="store_id">
