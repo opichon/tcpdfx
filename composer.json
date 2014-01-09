@@ -1,7 +1,7 @@
 {
     "name": "uam/tcpdfx",
     "type": "library",
-    "description": "Fork of the unofficial PSR-0 compliant version of the FPDI library. Designed to be used with TCPDF.",
+    "description": "Extension of TCPDF library and FPDI library with added convenience methods.",
     "keywords": ["tcpdf", "pdf", "fpdi", "fpdf"],
     "homepage": "https://gitlab.com/opichon/tcpdfx",
     "license": "MIT",
@@ -30,5 +30,10 @@
           "data/fonts",
           "config"
         ]
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.0.x-dev"
+        }
     }
 }
