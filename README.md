@@ -1,4 +1,4 @@
-tcpdfx
+uam/tcpdf
 ======
 
 An extension of the TCPDF library.
@@ -6,12 +6,12 @@ An extension of the TCPDF library.
 Installation
 ------------
 ### Via composer
-Add the pagckage to your `composer.json` file:
+Add the package to your `composer.json` file:
 
 ```json
 {
 	"require": {
-		"uam/tcpdfx": "dev-master",
+		"uam/tcpdf": "dev-master",
 	},
 }
 ```
@@ -29,7 +29,7 @@ Usage
 -----
 ### TCPDF
 
-Instantiate a TCPDF document. 
+Instantiate a TCPDF document.
 
 ```php
 use UAM\Pdf\TCPDF;
@@ -45,13 +45,13 @@ $pdf = new TCPDF();
 
 External libraries
 ------------------
-tcpdfx makes use of:
+uam/tcpdf makes use of:
 
 ### TCPDF
 
-The TCPDF library is provided via the "tecnick.com/tcpdf" package, currently at release 6.0.032.
+The TCPDF library is provided via the "tecnick.com/tcpdf" package, currently at release 6.0.*
 
-The original package is hosted at sourceforge, and because of persistent problems in downloading it, it is mirrored at git@github.com:opichon/tcpdf.git.
+The original package is hosted at sourceforge, and because of persistent problems in downloading it, it is also mirrored at git@github.com:opichon/tcpdf.git.
 
 ### FPDI
 
