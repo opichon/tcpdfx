@@ -1,5 +1,5 @@
 {
-    "name": "uam/tcpdf",
+    "name": "uam/tcpdfx",
     "type": "library",
     "description": "Fork of the unofficial PSR-0 compliant version of the FPDI library. Designed to be used with TCPDF.",
     "keywords": ["tcpdf", "pdf", "fpdi", "fpdf"],

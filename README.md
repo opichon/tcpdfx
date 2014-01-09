@@ -1,4 +1,4 @@
-uam/tcpdf
+uam/tcpdfx
 ======
 
 An extension of the TCPDF library.
@@ -11,7 +11,7 @@ Add the package to your `composer.json` file:
 ```json
 {
 	"require": {
-		"uam/tcpdf": "dev-master",
+		"uam/tcpdfx": "dev-master",
 	},
 }
 ```
@@ -45,7 +45,7 @@ $pdf = new TCPDF();
 
 External libraries
 ------------------
-uam/tcpdf makes use of:
+uam/tcpdfx makes use of:
 
 ### TCPDF
 
