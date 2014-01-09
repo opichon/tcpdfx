@@ -99,4 +99,11 @@
             <index-column name="store_id"/>
         </index>
     </table>
+    <table name="tax" idMethod="native">
+        <column name="id"         type="integer" primaryKey="true" autoIncrement="true" required="true" />
+        <column name="country"    type="varchar" size="2" required="true" defaultValue="FR" />
+        <column name="name"       type="varchar" size="30" required="true" />
+        <column name="rate"       type="float" size="5" scale="2" required="false" />
+        <column name="is_default" type="tinyint" required="false" defaultValue="0" />
+    </table>
 </database>
