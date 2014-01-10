@@ -1,5 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <database name="default" namespace="Dzangocart\Bundle\CoreBundle\Model" defaultIdMethod="native">
+    <table name="category" idMethod="native">
+        <column name="id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true" />
+        <column name="code"                  type="varchar" size="128" required="false" />
+        <column name="pcode"                 type="varchar" size="32" required="false" />
+        <column name="name"                  type="varchar" size="128" required="true" />
+        <column name="price"                 type="float" size="8" scale="2" required="true" defaultValue="0.00" />
+        <column name="tax_rate_id"           type="integer" required="false" />
+        <column name="tax_included"          type="tinyint" required="true" defaultValue="0" />
+        <column name="export"                type="tinyint" required="true" defaultValue="0" />
+        <column name="shipping"              type="tinyint" required="false" defaultValue="0" />
+        <column name="download"              type="tinyint" required="false" defaultValue="0" />
+        <column name="pack"                  type="boolean" size="1" required="true" defaultValue="false" />
+        <column name="subscription"          type="boolean" size="1" required="true" defaultValue="false" />
+        <column name="min_quantity"          type="integer" required="true" defaultValue="1" />
+        <column name="max_quantity"          type="integer" required="true" defaultValue="0" />
+        <column name="max_per_code"          type="tinyint" required="true" defaultValue="0" />
+        <column name="created_at"            type="timestamp" required="false" />
+        <column name="updated_at"            type="timestamp" required="false" />
+        <column name="deleted_at"            type="timestamp" required="false" />
+        <column name="item_factory_class"    type="varchar" size="128" required="false" />
+        <column name="pack_only"             type="tinyint" required="false" defaultValue="0" />
+        <column name="not_for_sale"          type="boolean" size="1" required="true" defaultValue="false" />
+        <column name="fixed_price"           type="tinyint" required="false" defaultValue="0" />
+        <column name="requires_registration" type="boolean" size="1" required="true" defaultValue="false" />
+        <column name="restriction"           type="boolean" size="1" required="true" defaultValue="false" />
+        <column name="inventory"             type="boolean" size="1" required="true" defaultValue="false" />
+        <behavior name="nested_set">
+            <parameter name="use_scope" value="true" />
+            <parameter name="scope_column" value="store_id" />
+        </behavior>
+        <foreign-key foreignTable="store" name="FI_category_store" onDelete="cascade" onUpdate="restrict">
+            <reference local="store_id" foreign="id" />
+        </foreign-key>
+        <foreign-key foreignTable="tax" name="FI_category_tax" onDelete="restrict" onUpdate="restrict">
+            <reference local="tax_rate_id" foreign="id" />
+        </foreign-key>
+        <unique name="code">
+            <unique-column name="code" />
+            <unique-column name="pcode" />
+            <unique-column name="store_id" />
+        </unique>
+        <index name="store_id">
+            <index-column name="store_id" />
+        </index>
+        <index name="tax_rate_id">
+            <index-column name="tax_rate_id" />
+        </index>
+    </table>
     <table name="currency" idMethod="native">
         <column name="id"       type="varchar" size="3" primaryKey="true" required="true" />
         <column name="code"     type="varchar" size="3" required="true" />
