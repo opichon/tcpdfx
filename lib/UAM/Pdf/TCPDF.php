@@ -5,10 +5,10 @@ $error_reporting = error_reporting(E_ALL & ~E_STRICT & ~E_NOTICE);
 
 use \fpdi\FPDI;
 
+include_once dirname(__FILE__) . '/../../../config/tcpdf_config.php';
+
 class TCPDF extends FPDI
 {
-    protected $name_pattern = 'doc.pdf';
-
     protected $bottom_margin = 25;
 
     protected $letterhead;
@@ -54,35 +54,17 @@ class TCPDF extends FPDI
     }
 
     /**
-     * Returns the pattern to be used to generate this document's name when output.
-     */
-    public function getNamePattern()
-    {
-        return $this->name_pattern;
-    }
-
-    /**
-     * Sets the pattern to be used to generate thisdocument's name when output.
-     *
-     * @param string $pattern
-     */
-    public function setNamePattern($pattern)
-    {
-        $this->name_pattern = $pattern;
-    }
-
-    /**
      * Returns the name to be used by default for this document when output.
      *
      * When the Output method is called with a null $name parameter, this method
      * is invoked to supply a default document name.
      *
-     * By default, this method simply returns $this->getNamePattern. Override this method
-     * to process the name pattern according to your requirements.
+     * By default, this method simply returns 'doc'pdf'. Override this method
+     * according to your requirements.
      */
     public function getName()
     {
-        return $this->getNamePattern();
+        return 'doc.pdf';
     }
 
     /**
@@ -121,6 +103,26 @@ class TCPDF extends FPDI
         $this->watermark = $watermark;
     }
 
+    public function getWatermarkFont()
+    {
+        return $this->watermark_font;
+    }
+
+    public function setWatermarkFont(array $font)
+    {
+        $this->watermark_font = $font;
+    }
+
+    public function getWatermarkColor()
+    {
+        return $this->watermark_color;
+    }
+
+    public function setWatermarkColor(array $color)
+    {
+        $this->watermark_color = $color;
+    }
+
     /**
      * If not false or null, returns the format for the pagination in the page header.
      */
@@ -140,7 +142,7 @@ class TCPDF extends FPDI
     /**
      * If not false or null, returns the format for the pagination in the page footer.
      */
-    public function getPaginationInFooer()
+    public function getPaginationInFooter()
     {
         return $this->pagination_in_footer;
     }
@@ -151,6 +153,16 @@ class TCPDF extends FPDI
     public function setPaginationInFooter($format = null)
     {
         $this->pagination_in_footer = $format;
+    }
+
+    public function getPaginationFont()
+    {
+        return $this->pagination_font;
+    }
+
+    public function setPaginationFont(array $font)
+    {
+        $this->pagination_font = $font;
     }
 
     /**
@@ -165,7 +177,7 @@ class TCPDF extends FPDI
 
         $this->generate();
 
-        parent::Output($name ? $name : $this->processName($this->getName()), $dest);
+        parent::Output($name ? $name : $this->getName(), $dest);
 
         header_remove('Content-Length');
     }
@@ -180,9 +192,8 @@ class TCPDF extends FPDI
         $this->addLetterhead();
         $this->addWatermark();
 
-            $this->SetY(max($this->GetY(), $this->getHeaderMargin()));
-            $this->printPageHeader();
-        }
+        $this->SetY(max($this->GetY(), $this->getHeaderMargin()));
+        $this->printPageHeader();
 
         if ($this->getPaginationInHeader()) {
             $this->paginate();
@@ -265,9 +276,11 @@ class TCPDF extends FPDI
         $x = $this->GetX();
         $y = $this->getY();
 
-        $this->SetFont($this->watermark_font);
+        $font = $this->getWatermarkFont();
 
-        $this->SetTextColorArray($this->watermark_color);
+        $this->SetFont($font[0], $font[1], $font[2]);
+
+        $this->SetTextColorArray($this->getWatermarkColor());
 
         $this->setXY($this->lMargin, $this->h - $this->bMargin);
 
@@ -310,20 +323,28 @@ class TCPDF extends FPDI
         // save current graphic settings
         $gvars = $this->getGraphicVars();
 
-        $this->SetFont($this->paginate_font);
+        $font = $this->getPaginationFont();
+
+        $this->SetFont($font[0], $font[1], $font[2]);
 
         $this->SetX(
-            $this->paginate_x
-            ? $this->paginate_x
+            $this->pagination_x
+            ? $this->pagination_x
             : ($this->getRTL() ? $this->original_rMargin : $this->original_lMargin)
         );
 
-        if ($this->paginate_y) {
-            $this->SetY($this->paginate_y);
+        if ($this->pagination_y) {
+
+            $this->SetY($this->pagination_y);
+
         } elseif ($this->InHeader) {
-            $this->SetY(max($this->getHeaderMargin(), $this->GetY());
+
+            $this->SetY(max($this->getHeaderMargin(), $this->GetY()));
+
         } else if ($this->InFooter) {
+
             $this->SetY($this->h - $this->footer_margin);
+
         }
 
         if ($this->getRTL()) {
@@ -349,14 +370,16 @@ class TCPDF extends FPDI
             );
 
         return strtr(
-            $this->getPaginationFormat(),
+            $this->InHeader
+                ? $this->getPaginationInHeader()
+                : $this->getPaginationInFooter(),
             $params
         );
     }
 
     protected function _cell($s, $link = '')
     {
-        $this->Cell($this->getStringWidth($s), 6, $s, 0, 0, 'L', 0, $link);
+        $this->Cell($this->getStringWidth($s), 0, $s, 0, 0, 'L', 0, $link);
     }
 
     //public function getCellPadding() { return $this->cMargin; }
@@ -383,9 +406,9 @@ class TCPDF extends FPDI
     {
         $this->resetFont();
         if (!$multiline) {
-            $this->Cell(0, $this->cell_height, $text, 0, 1, 'L');
+            $this->Cell(0, 0, $text, 0, 1, 'L');
         } else {
-            $this->MultiCell(0, $this->cell_height, $text, '', 'L', 0, 1);
+            $this->MultiCell(0, 0, $text, '', 'L', 0, 1);
         }
     }
 
