@@ -1,0 +1,39 @@
+{
+    "name": "uam/tcpdfx",
+    "type": "library",
+    "description": "Extension of TCPDF library and FPDI library with added convenience methods.",
+    "keywords": ["tcpdf", "pdf", "fpdi", "fpdf"],
+    "homepage": "https://gitlab.com/opichon/tcpdfx",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Olivier Pichon",
+            "email": "op@united-asian.com",
+            "role": "lead developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "onigoetz/fpdi_tcpdf": "~1.4"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:opichon/tcpdf.git"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "UAM": "lib/"
+        },
+        "classmap": [
+          "data/fonts",
+          "config"
+        ]
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.0.x-dev"
+        }
+    }
+}
