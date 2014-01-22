@@ -82,45 +82,51 @@
         <column name="name" type="varchar" size="100" required="true"/>
     </table>
     <table name="store"  idMethod="native">
-        <column name="id"                  type="integer" primaryKey="true" autoIncrement="true" required="true" />
-        <column name="owner_id"            type="integer" required="true" />
-        <column name="name"                type="varchar" size="100" required="false" />
-        <column name="type_id"             type="integer" required="false" />
-        <column name="rcs"                 type="varchar" size="128" required="false" />
-        <column name="siren"               type="varchar" size="9" required="false" />
-        <column name="naf"                 type="varchar" size="5" required="false" />
-        <column name="vat_id"              type="varchar" size="14" required="false" />
-        <column name="address_id"          type="integer" required="false" />
-        <column name="bill_reg_address"    type="tinyint" required="false" defaultValue="1" />
-        <column name="billing_address_id"  type="integer" required="false" />
-        <column name="telephone"           type="varchar" size="20" required="false" />
-        <column name="fax"                 type="varchar" size="20" required="false" />
-        <column name="email"               type="varchar" size="100" required="false" />
-        <column name="domain"              type="varchar" size="32" required="true" />
-        <column name="realm"               type="varchar" size="32" required="true" />
-        <column name="host"                type="varchar" size="128" required="false" />
-        <column name="hostname"            type="varchar" size="132" required="false" />
-        <column name="website"             type="varchar" size="128" required="false" />
-        <column name="logo"                type="varchar" size="256" required="false" />
-        <column name="currency_id"         type="varchar" size="3" required="true" defaultValue="EUR" />
-        <column name="tax_included"        type="tinyint" required="true" defaultValue="0" />
-        <column name="default_category_id" type="integer" required="false" />
-        <column name="loading"             type="varchar" size="50" required="false"/>
-        <column name="template_minified"   type="longvarchar" required="false" />
-        <column name="key"                 type="varchar" size="40" required="false" />
-        <column name="testcode"            type="varchar" size="32" required="false" />
-        <column name="active"              type="boolean" size="1" required="true" defaultValue="false" />
-        <column name="suspended"           type="boolean" size="1" required="true" defaultValue="false" />
-        <column name="status"              type="integer" required="true" defaultValue="0"/>
-        <column name="created_at"          type="timestamp" required="true" />
-        <column name="updated_at"          type="timestamp" required="true" />
-        <column name="deleted_at"          type="timestamp" required="false" />
-        <column name="plan_id"             type="integer" required="false" />
-        <column name="expires_at"          type="timestamp" required="false" />
-        <column name="affiliate_id"        type="integer" required="false" />
-        <column name="oauth_token"         type="varchar" size="64" required="false" />
-        <column name="year_end"            type="boolean" size="1" required="true" defaultValue="12" />
-        <column name="country_id"          type="varchar" size="2" required="true" defaultValue="FR" />
+        <column name="id"                                           type="integer" primaryKey="true" autoIncrement="true" required="true" />
+        <column name="owner_id"                                     type="integer" required="true" />
+        <column name="name"                                         type="varchar" size="100" required="false" />
+        <column name="type_id"                                      type="integer" required="false" />
+        <column name="rcs"                                          type="varchar" size="128" required="false" />
+        <column name="siren"                                        type="varchar" size="9" required="false" />
+        <column name="naf"                                          type="varchar" size="5" required="false" />
+        <column name="vat_id"                                       type="varchar" size="14" required="false" />
+        <column name="address_id"         phpName="Address"         type="integer" required="false" />
+        <column name="bill_reg_address"                             type="tinyint" required="false" defaultValue="1" />
+        <column name="billing_address_id" phpName="BillingAddress"  type="integer" required="false" />
+        <column name="telephone"                                    type="varchar" size="20" required="false" />
+        <column name="fax"                                          type="varchar" size="20" required="false" />
+        <column name="email"                                        type="varchar" size="100" required="false" />
+        <column name="domain"                                       type="varchar" size="32" required="true" />
+        <column name="realm"                                        type="varchar" size="32" required="true" />
+        <column name="host"                                         type="varchar" size="128" required="false" />
+        <column name="hostname"                                     type="varchar" size="132" required="false" />
+        <column name="website"                                      type="varchar" size="128" required="false" />
+        <column name="logo"                                         type="varchar" size="256" required="false" />
+        <column name="currency_id"                                  type="varchar" size="3" required="true" defaultValue="EUR" />
+        <column name="tax_included"                                 type="tinyint" required="true" defaultValue="0" />
+        <column name="default_category_id"                          type="integer" required="false" />
+        <column name="loading"                                      type="varchar" size="50" required="false"/>
+        <column name="template_minified"                            type="longvarchar" required="false" />
+        <column name="key"                                          type="varchar" size="40" required="false" />
+        <column name="testcode"                                     type="varchar" size="32" required="false" />
+        <column name="active"                                       type="boolean" size="1" required="true" defaultValue="false" />
+        <column name="suspended"                                    type="boolean" size="1" required="true" defaultValue="false" />
+        <column name="status"                                       type="integer" required="true" defaultValue="0"/>
+        <column name="created_at"                                   type="timestamp" required="true" />
+        <column name="updated_at"                                   type="timestamp" required="true" />
+        <column name="deleted_at"                                   type="timestamp" required="false" />
+        <column name="plan_id"                                      type="integer" required="false" />
+        <column name="expires_at"                                   type="timestamp" required="false" />
+        <column name="affiliate_id"                                 type="integer" required="false" />
+        <column name="oauth_token"                                  type="varchar" size="64" required="false" />
+        <column name="year_end"                                     type="boolean" size="1" required="true" defaultValue="12" />
+        <column name="country_id"                                   type="varchar" size="2" required="true" defaultValue="FR" />
+        <foreign-key foreignTable="address" name="FI_store_address"  onDelete="RESTRICT" onUpdate="RESTRICT">
+            <reference local="address_id"  foreign="id" />
+        </foreign-key>
+        <foreign-key foreignTable="address" name="FI_store_address" onDelete="RESTRICT" onUpdate="RESTRICT">
+            <reference local="billing_address_id" foreign="id" />
+        </foreign-key>
         <unique name="domain">
             <unique-column name="domain" />
         </unique>
