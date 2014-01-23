@@ -7,8 +7,8 @@ use Dzangocart\Bundle\CoreBundle\Model\om\BaseStore;
 
 class Store extends BaseStore
 {
-    public function fixCatalogue($scope_id)
+    public function fixCatalogue()
     {
-        CategoryPeer::fixLevels($scope_id);
+        CategoryPeer::fixLevels($this->getId());
     }
 }
