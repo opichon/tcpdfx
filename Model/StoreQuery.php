@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 
 class StoreQuery extends BaseStoreQuery
 {
-        public function dataTablesSort(ParameterBag $params, array $columns = array())
+    public function dataTablesSort(ParameterBag $params, array $columns = array())
     {
         $control = 0;
         for ($i = 0; $i < $params->get('iSortingCols'); $i++) {
