@@ -30,30 +30,41 @@ class CartQuery extends BaseCartQuery
         }
         return $control ? $this : $this->defaultSort();
     }
-    
-    public function dataTablesSearch($search, array $columns = array())
-    {
-        $search = trim($search);
- 
-        if (empty($search)) { return $this; }
- 
-        $conditions = array();
- 
-        foreach ($columns as $i => $column) {
-            $this->condition(
-                'search_' . $i,
-                sprintf('%s LIKE ?', $column),
-                sprintf('%%%s%%', $search)
-            );
- 
-            $conditions [] = 'search_' . $i;
-        }
- 
-        return $this->where($conditions, 'or');
-    }
-    
+
     protected function defaultSort() 
     {
         return $this->orderBy('cart.id');
+    }
+    
+    public function dataTablesSearch(array $filters = null, array $columns = array())
+    {
+        if (empty($filters)) {
+            return $this;
+        }
+
+        $conditions = array();
+
+        foreach ($columns as $name => $condition) {
+            if (!array_key_exists($name, $filters)) {
+                continue;
+            }
+
+            $value = trim($filters[$name]);
+
+            if (empty($value) && !is_numeric($value)) {
+                continue;
+            }
+
+            $this->condition(
+                'search_' . $name,
+                sprintf($condition, $value)
+            );
+
+            $conditions[] = 'search_' . $name;
+        }
+
+        if (!empty($conditions)) {
+            return $this->where($conditions, 'and');
+        }
     }
 }
