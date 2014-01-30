@@ -11,8 +11,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 class UserSettingsType extends BaseAbstractType
 {
     protected $options = array(
-        'data_class' => 'Dzangocart\Bundle\CoreBundle\Model\UserSettings',
-        'name'       => 'usersettings',
+        'data_class' => 'Dzangocart\Bundle\CoreBundle\Model\StoreUserSettings',
+        'name'       => 'storeUserSettings',
     );
 
     /**
