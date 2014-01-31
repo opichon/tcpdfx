@@ -1,8 +1,8 @@
 <?php
 
-namespace Dzangocart\Bundle\CoreBundle\Controller
+namespace Dzangocart\Bundle\CoreBundle\Controller;
 
-use Dzangocart\Bundle\CoreBundle\Model\StoreQuery
+use Dzangocart\Bundle\CoreBundle\Model\StoreQuery;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
