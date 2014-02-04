@@ -207,6 +207,23 @@
             <index-column name="shipment_id" />
         </index>
     </table>
+    <table name="payment" idMethod="native">
+        <column name="id"             type="integer" primaryKey="true" autoIncrement="true" required="true" />
+        <column name="gateway_id"     type="integer" required="true" />
+        <column name="order_id"       type="integer" required="true" />
+        <column name="type_id"        type="integer" required="true" />
+        <column name="transaction_id" type="integer" required="true" />
+        <column name="status"         type="integer" size="4" required="true" defaultValue="0" />
+        <column name="created_at"     type="timestamp" required="false" />
+        <column name="updated_at"     type="timestamp" required="false" />
+        <column name="deleted_at"     type="timestamp" required="false" />
+        <index name="gateway_id">
+            <index-column name="gateway_id" />
+        </index>
+        <index name="order_id">
+            <index-column name="order_id" />
+        </index>
+    </table>
     <table name="store"  idMethod="native">
         <column name="id"                                           type="integer" primaryKey="true" autoIncrement="true" required="true" />
         <column name="owner_id"                                     type="integer" required="true" />
