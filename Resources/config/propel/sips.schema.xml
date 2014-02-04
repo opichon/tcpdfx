@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <database name="default" namespace="Dzangocart\Bundle\CoreBundle\Model" defaultIdMethod="native">
- <table name="sips_transaction" idMethod="native">
-    <column name="id"                    type="integer" primaryKey="true" autoIncrement="true" required="true" />
-    <column name="amount"                type="integer" required="true" />
-    <column name="authorization_id"      type="varchar" size="10" required="false" />
-    <column name="bank_response_code"    type="varchar" size="2" required="false" />
-    <column name="caddie"                type="longvarchar" required="false"/>
-    <column name="card_number"           type="varchar" size="7" required="false" />
-    <column name="complementary_code"    type="varchar" size="2" required="false" />
-    <column name="complementary_info"    type="varchar" size="255" required="false" />
-    <column name="currency_code"         type="varchar" size="3" required="false"/>
-    <column name="customer_email"        type="varchar" size="128" required="false"/>
-    <column name="customer_id"           type="varchar" size="19" required="false" />
-    <column name="customer_ip_address"   type="varchar" size="19" required="false" />
-    <column name="cvv_flag"              type="varchar" size="1" required="false" />
-    <column name="cvv_response_code"     type="varchar" size="2" required="false" />
-    <column name="data"                  type="longvarchar" required="false" />
-    <column name="language"              type="varchar" size="2" required="false" />
-    <column name="merchant_id"           type="varchar" size="15" required="false"/>
-    <column name="merchant_country"      type="varchar" size="2" required="false" />
-    <column name="order_id"              type="varchar" size="32" required="false" />
-    <column name="payment_certificate"   type="varchar" size="12" required="false" />
-    <column name="payment_date"          type="varchar" size="8" required="false" />
-    <column name="payment_means"         type="varchar" size="12" required="false" />
-    <column name="payment_time"          type="varchar" size="6" required="false" />
-    <column name="response_code"         type="varchar" size="2" required="false" />
-    <column name="return_context"        type="longvarchar" required="false" />
-    <column name="transaction_condition" type="varchar" size="64" required="false" />
-    <column name="transaction_id"        type="varchar" size="6" required="false" />
-    <column name="transmission_date"     type="varchar" size="14" required="false" />
-    <column name="status"                type="integer" required="false" defaultValue="0" />
-    <unique name="transaction_id">
-      <unique-column name="transaction_id" />
-    </unique>
-  </table>
+    <table name="sips_transaction" idMethod="native">
+        <column name="id"                    type="integer" primaryKey="true" autoIncrement="true" required="true" />
+        <column name="amount"                type="integer" required="true" />
+        <column name="authorization_id"      type="varchar" size="10" required="false" />
+        <column name="bank_response_code"    type="varchar" size="2" required="false" />
+        <column name="caddie"                type="longvarchar" required="false"/>
+        <column name="card_number"           type="varchar" size="7" required="false" />
+        <column name="complementary_code"    type="varchar" size="2" required="false" />
+        <column name="complementary_info"    type="varchar" size="255" required="false" />
+        <column name="currency_code"         type="varchar" size="3" required="false"/>
+        <column name="customer_email"        type="varchar" size="128" required="false"/>
+        <column name="customer_id"           type="varchar" size="19" required="false" />
+        <column name="customer_ip_address"   type="varchar" size="19" required="false" />
+        <column name="cvv_flag"              type="varchar" size="1" required="false" />
+        <column name="cvv_response_code"     type="varchar" size="2" required="false" />
+        <column name="data"                  type="longvarchar" required="false" />
+        <column name="language"              type="varchar" size="2" required="false" />
+        <column name="merchant_id"           type="varchar" size="15" required="false"/>
+        <column name="merchant_country"      type="varchar" size="2" required="false" />
+        <column name="order_id"              type="varchar" size="32" required="false" />
+        <column name="payment_certificate"   type="varchar" size="12" required="false" />
+        <column name="payment_date"          type="varchar" size="8" required="false" />
+        <column name="payment_means"         type="varchar" size="12" required="false" />
+        <column name="payment_time"          type="varchar" size="6" required="false" />
+        <column name="response_code"         type="varchar" size="2" required="false" />
+        <column name="return_context"        type="longvarchar" required="false" />
+        <column name="transaction_condition" type="varchar" size="64" required="false" />
+        <column name="transaction_id"        type="varchar" size="6" required="false" />
+        <column name="transmission_date"     type="varchar" size="14" required="false" />
+        <column name="status"                type="integer" required="false" defaultValue="0" />
+        <unique name="transaction_id">
+          <unique-column name="transaction_id" />
+        </unique>
+    </table>
 </database>
