@@ -19,6 +19,15 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('dzangocart_core');
+        
+        $rootNode
+            ->children()
+                ->scalarNode('host')
+                    ->defaultValue('dzangocart.net')
+                    ->isRequired()
+                    ->cannotBeEmpty()
+                ->end()
+            ->end();
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
