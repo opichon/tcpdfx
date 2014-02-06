@@ -2,6 +2,8 @@
 
 namespace Dzangocart\Bundle\CoreBundle\EventListener;
 
+use Dzangocart\Bundle\CoreBundle\Exception\UnknownStoreException
+
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,6 +26,12 @@ class StoreListener
     
     public function onKernelException(GetResponseForExceptionEvent $event)
     {
-        die();
+        $exception = $event->getException();
+
+        if (!($exception instanceof UnknownStoreException)) {
+            return;
+        } else {
+            die();
+        } 
     }
 }
