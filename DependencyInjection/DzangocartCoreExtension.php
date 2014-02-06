@@ -26,5 +26,6 @@ class DzangocartCoreExtension extends Extension
 
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config/services'));
         $loader->load('twig.yml');
+        $loader->load('security.yml');
     }
 }
