@@ -11,4 +11,9 @@ class Store extends BaseStore
     {
         CategoryPeer::fixLevels($this->getId());
     }
+    
+    public function getStoreUrl($host)
+    {
+        return $this->getDomain() . '.' . $host;
+    }
 }
