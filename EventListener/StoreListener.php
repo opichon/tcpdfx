@@ -2,7 +2,7 @@
 
 namespace Dzangocart\Bundle\CoreBundle\EventListener;
 
-use Dzangocart\Bundle\CoreBundle\Exception\UnknownStoreException
+use Dzangocart\Bundle\CoreBundle\Exception\UnknownStoreException;
 
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
