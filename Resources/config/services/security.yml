@@ -1,5 +1,5 @@
 services:
-    dzangocart.host_listener:
+    dzangocart.store_listener:
         class: Dzangocart\Bundle\CoreBundle\EventListener\StoreListener      
         tags:
             - { name: kernel.event_listener, event: kernel.controller, method: onFilterController, priority: -256 }
