@@ -12,16 +12,16 @@ use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 
 class StoreListener extends ContainerAware
 {
-    private $containerInterface;
+    protected $container;
     
-    public function __construct(ContainerInterface $containerInterface)
+    public function __construct(ContainerInterface $container)
     {
-        $this->containerInterface = $containerInterface;
+        $this->container = $container;
     }
     
     public function onFilterController(FilterControllerEvent $event)
     {
-        if(!in_array($event->getRequest()->getHost(), array('admin.dzangocart.org', 'admin.dzangocart.net', 'admin.dzangocart.com', 'api.dzangocart.org', 'api.dzangocart.net', 'api.dzangocart.com'))) {
+        if($this->container->getParameter('is_store_enable')) {
             if (!$this->getStore()) {
                 throw new UnknownStoreException('There is no store of this domain.');
             }
@@ -30,7 +30,7 @@ class StoreListener extends ContainerAware
     
     public function getStore()
     {
-        $request = $this->containerInterface->get('request');
+        $request = $this->container->get('request');
         $host_parts = array();
         $host = $request->getHost();
         $host_parts = explode('.', $host);

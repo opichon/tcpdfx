@@ -22,6 +22,9 @@ class Configuration implements ConfigurationInterface
         
         $rootNode
             ->children()
+                ->booleanNode('check_store')
+                    ->defaultFalse()
+                ->end()
                 ->scalarNode('host')
                     ->defaultValue('dzangocart.net')
                     ->isRequired()
