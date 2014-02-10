@@ -21,8 +21,8 @@ class DzangocartCoreExtension extends Extension
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
-        
-        $container->setParameter('dzangocart_core.host', $config['host']);
+
+        $container->setParameter('dzangocart.host', $config['host']);
 
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config/services'));
         $loader->load('twig.yml');
