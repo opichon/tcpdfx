@@ -36,11 +36,11 @@ class StoreListener extends ContainerAware
         $host_parts = explode('.', $host);
         $store_domain = $host_parts[0];
 
-        $store= StoreQuery::create()->findOneByDomain($store_domain);
+        $store = StoreQuery::create()->findOneByDomain($store_domain);
         if($store) {
-            return StoreQuery::create()->findPk($store->getId());
+            return $store;
         } else {
-            return ;
+            return NULL;
         }
 
         
