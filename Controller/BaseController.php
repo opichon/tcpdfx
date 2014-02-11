@@ -2,6 +2,8 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Controller;
 
+use Dzangocart\Bundle\CoreBundle\Model\StoreQuery;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class BaseController extends Controller
@@ -10,6 +12,6 @@ class BaseController extends Controller
     
     public function getStore()
     {
-        return $this->container->get('dzangocart.store_listener')->getStore();
+        return StoreQuery::create()->findPk(5);
     }
 }
