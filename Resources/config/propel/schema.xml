@@ -185,6 +185,28 @@
         <column name="id"   type="integer" primaryKey="true" autoIncrement="true" required="true"/>
         <column name="name" type="varchar" size="100" required="true"/>
     </table>
+    <table name="gateway_service" idMethod="native">
+        <column name="id"        type="integer" primaryKey="true" autoIncrement="true" required="true" />
+        <column name="name"      type="varchar" size="32" required="true" />
+        <column name="country"   type="varchar" size="2" required="false" />
+        <column name="engine_id" type="integer" size="4" required="true" />
+        <column name="bank"      type="varchar" size="128" required="false" />
+        <column name="url"       type="longvarchar" required="false" />
+        <column name="code"      type="varchar" size="12" required="true" />
+        <column name="supported" type="boolean" size="1" required="true" defaultValue="false" />
+        <foreign-key foreignTable="gateway_engine" name="FI_gateway_service_gateway_engine" onDelete="cascade" onUpdate="restrict">
+            <reference local="engine_id" foreign="id" />
+        </foreign-key>
+        <unique name="name">
+            <unique-column name="name" />
+        </unique>
+        <unique name="code">
+            <unique-column name="code" />
+        </unique>
+        <index name="engine_id">
+            <index-column name="engine_id" />
+        </index>
+    </table>
     <table name="item" idMethod="native">
         <column name="id"                   type="integer" primaryKey="true" autoIncrement="true" required="true" />
         <column name="parent_id"            type="integer" required="false" />
