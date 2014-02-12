@@ -101,6 +101,57 @@
             <index-column name="tax_rate_id" />
         </index>
     </table>
+	<table name="customer"  idMethod="native">
+        <column name="id"                      type="integer" primaryKey="true" autoIncrement="true" required="true" />
+        <column name="realm"                   type="varchar" size="32" required="true" />
+        <column name="code"                    type="varchar" size="100" required="false" />
+        <column name="affiliate_id"            type="integer" required="false" />
+        <column name="user_profile_id"         type="integer" required="true" />
+        <column name="corporate"               type="boolean" size="1" required="true" defaultValue="false" />
+        <column name="company_profile_id"  	   type="integer" required="false" />
+        <column name="billing_address_id"  	   type="integer" required="false" />
+        <column name="ship_to_billing_address" type="boolean" size="1" required="true" defaultValue="true" />
+        <column name="shipping_address_id"     type="integer" required="false" />
+        <column name="banned"                  type="boolean" size="1" required="true" defaultValue="false" />
+        <column name="created_at"              type="timestamp" required="true" />
+        <column name="updated_at"              type="timestamp" required="true" />
+        <column name="deleted_at"              type="timestamp" required="false" />
+        <column name="referral_code"           type="varchar" size="20" required="false" />
+        <column name="referred_by"             type="integer" required="false" />
+        <column name="closed_at"               type="timestamp" required="false" />
+        <column name="closed_by"               type="tinyint" required="false" />
+        <column name="closed_why"              type="longvarchar" required="false" />
+        <column name="credit_balance"          type="float" size="8" scale="2" required="true" defaultValue="0.00" />
+        <foreign-key foreignTable="address" name="FI_customer_address" onDelete="restrict" onUpdate="restrict">
+            <reference local="billing_address_id" foreign="id" />
+        </foreign-key>
+        <unique name="customer_id">
+            <unique-column name="code" />
+            <unique-column name="realm" />
+        </unique>
+        <unique name="referral">
+            <unique-column name="referral_code" />
+            <unique-column name="realm" />
+        </unique>
+        <index name="affiliate_id">
+            <index-column name="affiliate_id" />
+        </index>
+        <index name="billing_address_id">
+            <index-column name="billing_address_id" />
+        </index>
+        <index name="shipping_address_id">
+            <index-column name="shipping_address_id" />
+        </index>
+        <index name="company_profile_id">
+            <index-column name="company_profile_id" />
+        </index>
+        <index name="user_profile_id">
+            <index-column name="user_profile_id" />
+        </index>
+        <index name="referred_by">
+            <index-column name="referred_by" />
+        </index>
+    </table>
     <table name="currency" idMethod="native">
         <column name="id"       type="varchar" size="3" primaryKey="true" required="true" />
         <column name="code"     type="varchar" size="3" required="true" />
@@ -320,58 +371,7 @@
             <index-column name="store_id" />
         </index>
     </table>
-	<table name="customer"  idMethod="native">
-        <column name="id"                      type="integer" primaryKey="true" autoIncrement="true" required="true" />
-        <column name="realm"                   type="varchar" size="32" required="true" />
-        <column name="code"                    type="varchar" size="100" required="false" />
-        <column name="affiliate_id"            type="integer" required="false" />
-        <column name="user_profile_id"         type="integer" required="true" />
-        <column name="corporate"               type="boolean" size="1" required="true" defaultValue="false" />
-        <column name="company_profile_id"  	   type="integer" required="false" />
-        <column name="billing_address_id"  	   type="integer" required="false" />
-        <column name="ship_to_billing_address" type="boolean" size="1" required="true" defaultValue="true" />
-        <column name="shipping_address_id"     type="integer" required="false" />
-        <column name="banned"                  type="boolean" size="1" required="true" defaultValue="false" />
-        <column name="created_at"              type="timestamp" required="true" />
-        <column name="updated_at"              type="timestamp" required="true" />
-        <column name="deleted_at"              type="timestamp" required="false" />
-        <column name="referral_code"           type="varchar" size="20" required="false" />
-        <column name="referred_by"             type="integer" required="false" />
-        <column name="closed_at"               type="timestamp" required="false" />
-        <column name="closed_by"               type="tinyint" required="false" />
-        <column name="closed_why"              type="longvarchar" required="false" />
-        <column name="credit_balance"          type="float" size="8" scale="2" required="true" defaultValue="0.00" />
-        <foreign-key foreignTable="address" name="FI_customer_address" onDelete="restrict" onUpdate="restrict">
-            <reference local="billing_address_id" foreign="id" />
-        </foreign-key>
-        <unique name="customer_id">
-            <unique-column name="code" />
-            <unique-column name="realm" />
-        </unique>
-        <unique name="referral">
-            <unique-column name="referral_code" />
-            <unique-column name="realm" />
-        </unique>
-        <index name="affiliate_id">
-            <index-column name="affiliate_id" />
-        </index>
-        <index name="billing_address_id">
-            <index-column name="billing_address_id" />
-        </index>
-        <index name="shipping_address_id">
-            <index-column name="shipping_address_id" />
-        </index>
-        <index name="company_profile_id">
-            <index-column name="company_profile_id" />
-        </index>
-        <index name="user_profile_id">
-            <index-column name="user_profile_id" />
-        </index>
-        <index name="referred_by">
-            <index-column name="referred_by" />
-        </index>
-    </table>
-    <table name="tax" idMethod="native">
+	<table name="tax" idMethod="native">
         <column name="id"         type="integer" primaryKey="true" autoIncrement="true" required="true" />
         <column name="country"    type="varchar" size="2" required="true" defaultValue="FR" />
         <column name="name"       type="varchar" size="30" required="true" />
