@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database name="default" namespace="Dzangocart\Bundle\CoreBundle\Model" defaultIdMethod="native">
+    <table name="dzango_user" phpName="User" idMethod="native">
+        <column name="id"             type="integer" primaryKey="true" autoIncrement="true" required="true" />
+        <column name="realm"          type="varchar" size="32" required="false" />
+        <column name="code"           type="varchar" size="100" required="false" />
+        <column name="username"       type="varchar" size="128" required="false" />
+        <column name="algorithm"      type="varchar" size="128" required="true" defaultValue="sha1" />
+        <column name="salt"           type="varchar" size="128" required="false" />
+        <column name="password"       type="varchar" size="128" required="false" />
+        <column name="created_at"     type="timestamp" required="false" />
+        <column name="last_login"     type="timestamp" required="false" />
+        <column name="is_active"      type="tinyint" required="true" defaultValue="1" />
+        <column name="is_super_admin" type="tinyint" required="true" defaultValue="0" />
+        <unique name="user_id">
+            <unique-column name="username" />
+            <unique-column name="realm" />
+            <unique-column name="is_active" />
+        </unique>
+    </table>
+</database>
