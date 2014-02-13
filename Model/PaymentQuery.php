@@ -2,6 +2,8 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Model;
 
+use \Criteria;
+
 use Dzangocart\Bundle\CoreBundle\Model\om\BasePaymentQuery;
 
 use Symfony\Component\HttpFoundation\ParameterBag;
