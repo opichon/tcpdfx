@@ -1,0 +1,8 @@
+footer {
+	height: 76px;
+	margin-top: -76px;
+}
+
+.copyright, .version {
+	font-size: 75%;
+}

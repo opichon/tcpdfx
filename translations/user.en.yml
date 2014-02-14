@@ -1,0 +1,12 @@
+user:
+    users:
+        page_title:         Users
+
+        actions:
+            title:          Actions
+        id:                 ID
+        realm:              Realm
+        code:               Code
+        username:           Username
+        createdAt:          Created At
+        lastLogin:          Last Login
