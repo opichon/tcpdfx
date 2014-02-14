@@ -316,6 +316,9 @@
         <column name="created_at"     type="timestamp" required="false" />
         <column name="updated_at"     type="timestamp" required="false" />
         <column name="deleted_at"     type="timestamp" required="false" />
+        <foreign-key foreignTable="gateway" name="FI_payment_gateway">
+            <reference local="gateway_id" foreign="id" />
+        </foreign-key>
         <index name="gateway_id">
             <index-column name="gateway_id" />
         </index>
@@ -411,7 +414,7 @@
         <column name="profile_url"       type="longvarchar" required="false" />
         <column name="password_url"      type="longvarchar" required="false" />
         <column name="email_as_login"    type="boolean" size="1" required="true" defaultValue="true" />
-        <column name="open_id"           type="boolean" size="1" required="true" defaultValue="false" />     
+        <column name="open_id"           type="boolean" size="1" required="true" defaultValue="false" />
         <foreign-key foreignTable="store" name="FI_user_settings_store" onDelete="restrict" onUpdate="restrict">
             <reference local="store_id" foreign="id"/>
         </foreign-key>
