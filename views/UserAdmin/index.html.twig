@@ -1,0 +1,55 @@
+{% extends "::base.html.twig" %}
+
+{% trans_default_domain "user" %}
+
+{% block page_title %}{% trans %}user.users.page_title{% endtrans %}{% endblock %}
+
+{% block bodyclass %}useradmin{% endblock %}
+
+{% block content %}
+<table class="table table-condensed">
+    <thead>
+        <th class="selectall"></th>
+        <th class="domain">{% trans %}user.users.id{% endtrans %}</th>
+        <th class="name">{% trans %}user.users.realm{% endtrans %}</th>
+        <th class="rcs">{% trans %}user.users.code{% endtrans %}</th>
+        <th class="siren">{% trans %}user.users.username{% endtrans %}</th>
+        <th class="telephone">{% trans %}user.users.createdAt{% endtrans %}</th>
+        <th class="telephone">{% trans %}user.users.lastLogin{% endtrans %}</th>
+        <th class="actions">{% trans %}user.users.actions.title{% endtrans %}</th>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+{% endblock %}
+
+{% block head_style %}
+    {{ parent() }}
+    {% stylesheets filter="cssrewrite" output="css/*.css"
+        'bundles/uamdatatables/css/jquery.dataTables_bootstrap.css'
+    %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
+    {% endstylesheets %}
+{% endblock head_style %}
+
+{% block foot_script %}
+    {{ parent() }}
+    {% javascripts
+        'bundles/uamdatatables/js/jquery.dataTables.min.js'
+        'bundles/uamdatatables/js/jquery.dataTables_bootstrap.js'
+        'bundles/dzangocartcore/js/scripts/useradmin/useradmin.js'
+    %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block head_script %}
+    {{ parent() }}
+    <script>
+    dzangocart.useradmin = {
+        dataTables: {
+            sAjaxSource: "{{ path('users', { _format: 'json' }) }}"
+        }
+    };
+    </script>
+{% endblock head_script %}
