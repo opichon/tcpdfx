@@ -1,13 +1,14 @@
 purchase:
     purchases:
-        page_title:         Purchases
-
         actions:
             title:          Actions
-        order_id:           ID
-        order_date:         Date
-        name:               Name
+        category:           Category
         code:               Code
-        category_name:      Category Name
-        currency:           Currency
-        quantity:           Quantity
+        currency:           Ccy
+        date:               Date
+        name:               Name
+        order_id:           '#'
+        order_date:         Date
+        page_title:         Purchases
+        quantity:           Qty
+        store:              Store

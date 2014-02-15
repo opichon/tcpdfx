@@ -31,9 +31,10 @@
     $.fn.purchases.defaults = {
         dataTables: {
             aoColumnDefs: [
-                { bSortable: false, aTargets: [ 0, 8 ] },
+                { bSortable: false, aTargets: [ 0, 9 ] },
                 { bVisible: false, aTargets: [ 0 ] },
-                { sClass: "actions", aTargets: [ 6 ] }
+                { sClass: "number", aTargets: [ 8 ] },
+                { sClass: "actions", aTargets: [ 9 ] }
             ],
             asStripeClasses: [],
             bAutoWidth: true,

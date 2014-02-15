@@ -10,3 +10,8 @@ table.table th.date {
 table.table th.datetime {
 	width: 9em;
 }
+
+table.table td.number {
+	text-align: right;
+	padding-right: 5px;
+}
