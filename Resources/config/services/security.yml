@@ -1,0 +1,4 @@
+services:
+    dzangocarts.user_provider:
+        class: Dzangocart\Bundle\CoreBundle\Security\UserProvider
+        arguments: [@dzangocart.user_manager]
