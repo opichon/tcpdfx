@@ -1,0 +1,14 @@
+{% javascripts
+	'bundles/uamdatatables/js/jquery.dataTables.min.js'
+	'bundles/uamdatatables/js/jquery.dataTables_bootstrap.js'
+	'bundles/dzangocartcore/js/scripts/user/users.js'
+%}
+	<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+<script>
+dzangocart.users = {
+	dataTables: {
+		sAjaxSource: "{{ path('users', { _format: 'json' }) }}"
+	}
+};
+</script>

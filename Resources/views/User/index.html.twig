@@ -1,0 +1,21 @@
+{% extends template %}
+
+{% trans_default_domain "user" %}
+
+{% block _core_page_title %}{% trans %}user.users.page_title{% endtrans %}{% endblock %}
+
+{% block bodyclass %}users{% endblock %}
+
+{% block _core_content %}
+    {% include "DzangocartCoreBundle:User:users.html.twig" %}
+{% endblock %}
+
+{% block _core_head_style %}
+    {{ parent() }}
+    {% include "DzangocartCoreBundle:User:users_head_style.html.twig" %}
+{% endblock %}
+
+{% block _core_foot_script %}
+    {{ parent() }}
+    {% include "DzangocartCoreBundle:User:users_foot_script.html.twig" %}
+{% endblock %}

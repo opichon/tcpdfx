@@ -1,0 +1,11 @@
+.purchases table.table th.currency {
+	width: 4em;
+}
+
+.purchases table.table th.quantity {
+	width: 4em;
+}
+
+.purchases table.table th.actions {
+	width: 5em;
+}

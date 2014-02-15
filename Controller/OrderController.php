@@ -3,7 +3,7 @@
 namespace Dzangocart\Bundle\CoreBundle\Controller;
 
 use Dzangocart\Bundle\CoreBundle\Model\CartQuery;
-use Dzangocart\StoreAdminBundle\Form\Type\OrderFiltersType;
+use Dzangocart\Bundle\CoreBundle\Form\Type\OrderFiltersType;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -22,8 +22,13 @@ class OrderController extends BaseController
         if ($request->isXmlHttpRequest() || 'json' == $request->getRequestFormat()) {
 
             $query = CartQuery::create('Cart')
-                ->filterByStore($this->getStore())
                 ->filterByStatus(array('min' => 3));
+
+            if ($store = $this->getStore()) {
+                $query->filterByStore($store);
+            } elseif ($store_id = $request->query->get('store_id')) {
+                $query->filterByStoreId($store_id);
+            }
 
             $total_count = $query->count();
 
@@ -66,7 +71,6 @@ class OrderController extends BaseController
             'form' => $form->createView(),
             'template' => $this->getBaseTemplate()
         );
-
     }
 
     /**
@@ -94,9 +98,9 @@ class OrderController extends BaseController
     protected function getDatatablesSortColumns()
     {
         return array(
-            1 => 'cart.id',
-            2 => 'cart.storeId',
-            3 => 'cart.date',
+            1 => 'cart.date',
+            2 => 'cart.id',
+            3 => 'store.Name',
             4 => 'cart.status'
         );
     }
@@ -104,13 +108,8 @@ class OrderController extends BaseController
     protected function getDataTablesSearchColumns()
     {
         return array(
-            'id' => 'cart.id LIKE "%%%s%%"',
+            'id' => 'cart.id LIKE "%s%%"',
             'store_name' => 'store.name LIKE "%%%s%%"',
         );
-    }
-
-    protected function getBaseTemplate()
-    {
-        return 'DzangocartCoreBundle::layout.html.twig';
     }
 }

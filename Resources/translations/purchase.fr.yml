@@ -1,0 +1,13 @@
+purchase:
+    purchases:
+        page_title:         Purchases
+
+        actions:
+            title:          Actions
+        order_id:           ID
+        order_date:         Date
+        name:               Name
+        code:               Code
+        category_name:      Category Name
+        currency:           Currency
+        quantity:           Quantity

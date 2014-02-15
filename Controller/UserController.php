@@ -7,21 +7,28 @@ use Dzangocart\Bundle\CoreBundle\Model\UserQuery;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class UserAdminController extends Controller
+class UserController extends BaseController
 {
-
+    /**
+     * @Route("/user", name="users")
+     * @Template("DzangocartCoreBundle:User:index.html.twig")
+     */
     public function indexAction(Request $request)
     {
        if ($request->isXmlHttpRequest() || 'json' == $request->getRequestFormat()) {
 
-            $limit = min(100, $request->query->get('iDisplayLength'));
-            $offset = max(0, $request->query->get('iDisplayStart'));
-
             $query = UserQuery::create();
+
+            if ($store = $this->getStore()) {
+                $query
+                    ->filterByRealm($store->getRealm());
+            } elseif ($realm = $request->query->get('realm')) {
+                $query
+                    ->filterByRealm($realm);
+            }
 
             $total_count = $query->count();
 
@@ -31,6 +38,9 @@ class UserAdminController extends Controller
             );
 
             $filtered_count = $query->count();
+
+            $limit = min(100, $request->query->get('iDisplayLength'));
+            $offset = max(0, $request->query->get('iDisplayStart'));
 
             $users = $query
                 ->dataTablesSort($request->query, $this->getDataTablesSortColumns())
@@ -46,12 +56,14 @@ class UserAdminController extends Controller
                 'users' => $users
             );
 
-            $view = $this->renderView('DzangocartCoreBundle:UserAdmin:index.json.twig', $data);
+            $view = $this->renderView('DzangocartCoreBundle:User:index.json.twig', $data);
 
             return new Response($view, 200, array('Content-Type' => 'application/json'));
         }
 
-       return new Response( $this->renderView('DzangocartCoreBundle:UserAdmin:index.html.twig'));
+        return array(
+            'template' => $this->getBaseTemplate()
+        );
     }
 
     protected function getDatatablesSortColumns()
@@ -67,5 +79,10 @@ class UserAdminController extends Controller
         return array(
             'dzango_user.id'
         );
+    }
+
+    protected function getBaseTemplate()
+    {
+        return 'DzangocartCoreBundle::layout.html.twig';
     }
 }

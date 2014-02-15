@@ -15,7 +15,7 @@ order:
 
         actions:
             title:          Actions
-        id:                 ID
-        store_name:         Store Name
+        id:                 '#'
+        store_name:         Store
         date:               Date
         status:             Status

@@ -8,7 +8,7 @@ use Propel\PropelBundle\Form\BaseAbstractType;
 
 use Symfony\Component\Form\FormBuilderInterface;
 
-class UserSettingsType extends BaseAbstractType
+class StoreUserSettingsType extends BaseAbstractType
 {
     protected $options = array(
         'data_class' => 'Dzangocart\Bundle\CoreBundle\Model\StoreUserSettings',
@@ -24,46 +24,46 @@ class UserSettingsType extends BaseAbstractType
             'label'=>'Store Name',
             'choices' => $this->getStores(),
             'required' => true));
-        
+
         $builder->add( 'userHandling' , 'checkbox' , array(
             'label' => 'User Handle',
-            'required' => true)); 
-        
+            'required' => true));
+
         $builder->add( 'loginUrl' , 'text'  , array(
             'label' => 'Login Url',
             'required' => false));
-        
+
         $builder->add( 'registerUrl' , 'text' , array(
             'label' => 'Register Url',
             'required' => false));
-        
+
         $builder->add('autoRegister' , 'choice' , array(
             'label' => 'Auto Register',
              'choices' => array(0=>"No",1=>"Yes"),
-            
+
             'required' => true));
-        
+
         $builder->add( 'autoRegisterUrl' , 'text' , array(
             'label' => '',
             'required' => false));
-        
+
         $builder->add( 'profileUrl', 'text' , array(
             'label' => 'Auto Register Url',
             'required' => false));
-        
+
         $builder->add( 'passwordUrl', 'text' , array(
             'label' => 'Password Url',
             'required' => false));
-        
+
         $builder->add( 'emailAsLogin', 'checkbox' , array(
             'label' => 'Email As Login',
             'required' => true));
-        
+
         $builder->add( 'openId', 'checkbox' , array(
             'label' => 'Is Open',
             'required' => true));
     }
-    
+
     protected function getStores()
     {
         $choices = array();
@@ -75,5 +75,5 @@ class UserSettingsType extends BaseAbstractType
         }
 
         return $choices;
-    }        
+    }
 }

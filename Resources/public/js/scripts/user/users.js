@@ -1,5 +1,5 @@
 !function( $ ) {
-    $.fn.useradmin = function( method ) {
+    $.fn.users = function( method ) {
 
         var settings,
             table;
@@ -7,7 +7,7 @@
         // Public methods
         var methods = {
             init: function( options ) {
-                settings = $.extend( true, {}, $.fn.useradmin.defaults, options );
+                settings = $.extend( true, {}, $.fn.users.defaults, options );
 
                 return this.each(function() {
                     var $this = $( this );
@@ -24,27 +24,32 @@
             return methods.init.apply( this, arguments );
         }
         else {
-            $.error( "Method " +  method + " does not exist in $.useradmin." );
+            $.error( "Method " +  method + " does not exist in $.users." );
         }
     };
 
-    $.fn.useradmin.defaults = {
+    $.fn.users.defaults = {
         dataTables: {
             aoColumnDefs: [
-                { bSortable: false, aTargets: [ 0, 7 ] }, // First column and last column ("actions") are not sortable
-                { bVisible: false, aTargets: [ 0 ] }, // Hide the first column
-                { sClass: 'actions', aTargets: [ 7 ] } // Set special "actions" class on cells in the last column
+                { bSortable: false, aTargets: [ 0, 7 ] },
+                { bVisible: false, aTargets: [ 0 ] },
+                { sClass: 'actions', aTargets: [ 7 ] }
             ],
             asStripeClasses: [],
             bAutoWidth: false,
+            bDestroy: true,
             bPaginate: true,
             bProcessing: true,
-            bServerSide: true, // set datatables to use ajax to display content
-            bSortable: true
+            bServerSide: true,
+            bSortable: true,
+            bSortCellsTop: true,
+            oLanguage: {
+                sUrl: "/bundles/uamdatatables/lang/" + dzangocart.locale + ".txt"
+            }
         }
     };
 } ( window.jQuery );
 
 $( document ).ready(function() {
-    $( ".useradmin" ).useradmin( dzangocart.useradmin );
+    $( ".users" ).users( dzangocart.users );
 });

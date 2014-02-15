@@ -27,31 +27,32 @@ class PaymentQuery extends BasePaymentQuery
                 $control++;
             }
         }
+
         return $control ? $this : $this->defaultSort();
     }
-    
+
     public function dataTablesSearch($search, array $columns = array())
     {
         $search = trim($search);
- 
+
         if (empty($search)) { return $this; }
- 
+
         $conditions = array();
- 
+
         foreach ($columns as $i => $column) {
             $this->condition(
                 'search_' . $i,
                 sprintf('%s LIKE ?', $column),
                 sprintf('%%%s%%', $search)
             );
- 
+
             $conditions [] = 'search_' . $i;
         }
- 
+
         return $this->where($conditions, 'or');
     }
-    
-    protected function defaultSort() 
+
+    protected function defaultSort()
     {
         return $this->orderBy('payment.orderId');
     }
