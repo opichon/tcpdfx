@@ -1,0 +1,21 @@
+order:
+    show:
+        page_title:         Order: %id%
+        name:               Name
+        quantity:           Quantity
+        price_excl:         Price Excl
+        amount_excl:        Amount Excl
+        amount_tax:         Tax
+        amount_incl:        Amount Incl
+        actions:
+            title:          Actions
+
+    orders:
+        page_title:         Orders
+
+        actions:
+            title:          Actions
+        id:                 ID
+        store_name:         Store Name
+        date:               Date
+        status:             Status

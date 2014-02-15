@@ -8,14 +8,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class BaseController extends Controller
 {
-    protected $store;
-
-    public function getStore()
-    {
-        if (!$this->store) {
-            $this->store = $this->container->get('dzangocart.store_finder')->getStore();
-        }
-
-        return $this->store;
-    }
+	public function getStore()
+	{
+		if ($this->container->has('dzangocart.store_finder')) {
+			return $this->container->get('dzangocart.store_finder')->getStore();
+		}
+	}
 }

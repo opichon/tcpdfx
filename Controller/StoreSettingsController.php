@@ -2,19 +2,15 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Controller;
 
-use Dzangocart\Bundle\CoreBundle\Model\StoreQuery;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 abstract class StoreSettingsController extends BaseController
 {
     /**
-     * @Route("/settings/identity", name="store_settings_identity")
+     * @Route("/settings", name="store_settings_identity")
      * @Template("DzangocartCoreBundle:StoreSettings:identity.html.twig")
      */
     public function identityAction(Request $request)

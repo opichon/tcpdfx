@@ -1,0 +1,24 @@
+{% trans_default_domain "order" %}
+
+{% spaceless %}
+{
+    "sEcho": "{{ sEcho }}",
+    "iTotalRecords": {{ iTotalRecords }},
+    "iTotalDisplayRecords": {{ iTotalDisplayRecords }},
+    "aaData" : [
+        {% for order in orders %}
+            {
+                "DT_RowId": "{{ '_' ~ order.id }}",
+                "DT_RowClass": "{{ 'order' }}",
+                "id": "{{ order.id }}",
+                "0": "",
+                "1": "{{ order.date|date('d.m.y H:i') }}",
+                "2": "{{ order.store.name }}",
+                "3": "<a href='{{ path('order', { id: order.id }) }}'>{{ order.id  }}</a>",
+                "4": "{{ order.status }}",
+                "5": ""
+            }{% if not loop.last %},{% endif %}
+        {% endfor %}
+    ]
+}
+{% endspaceless %}
