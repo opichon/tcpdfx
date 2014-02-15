@@ -29,8 +29,7 @@ class PurchaseController extends BaseController
                         ->filterByStore($store)
                         ->filterByStatus(array('min' => 3))
                     ->endUse();
-            }
-            elseif ($store_id = $request->query->get('store_id')) {
+            } elseif ($store_id = $request->query->get('store_id')) {
                 $query
                     ->useCartQuery()
                         ->filterByStoreId($store_id)

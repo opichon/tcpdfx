@@ -7,13 +7,11 @@ use Dzangocart\Bundle\CoreBundle\Model\UserQuery;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class UserController extends Controller
+class UserController extends BaseController
 {
-
     /**
      * @Route("/user", name="users")
      * @Template("DzangocartCoreBundle:User:index.html.twig")
@@ -23,6 +21,14 @@ class UserController extends Controller
        if ($request->isXmlHttpRequest() || 'json' == $request->getRequestFormat()) {
 
             $query = UserQuery::create();
+
+            if ($store = $this->getStore()) {
+                $query
+                    ->filterByRealm($store->getRealm());
+            } elseif ($realm = $request->query->get('realm')) {
+                $query
+                    ->filterByRealm($realm);
+            }
 
             $total_count = $query->count();
 

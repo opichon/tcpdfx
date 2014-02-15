@@ -12,9 +12,9 @@
                 "DT_RowClass": "{{ 'order' }}",
                 "id": "{{ order.id }}",
                 "0": "",
-                "1": "{% include 'DzangocartCoreBundle:Order:store.html.twig' with { store: order.store } %}",
-                "2": "{{ order.date|date('d.m.y H:i') }}",
-                "3": "<a href='{{ path('order', { id: order.id }) }}'>{{ order.id  }}</a>",
+                "1": "{{ order.date|date('d.m.y H:i') }}",
+                "2": "<a href='{{ path('order', { id: order.id }) }}'>{{ order.id  }}</a>",
+                "3": "{% include 'DzangocartCoreBundle:Order:store.html.twig' with { store: order.store } %}",
                 "4": "{{ order.status }}",
                 "5": ""
             }{% if not loop.last %},{% endif %}

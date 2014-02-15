@@ -3,7 +3,6 @@
 namespace Dzangocart\Bundle\CoreBundle\Twig\Extension;
 
 use \Twig_Extension;
-use \Twig_Filter_Method;
 use \Twig_Function_Method;
 
 class DzangocartExtension extends Twig_Extension
