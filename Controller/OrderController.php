@@ -100,9 +100,9 @@ class OrderController extends BaseController
     protected function getDatatablesSortColumns()
     {
         return array(
-            1 => 'cart.id',
-            2 => 'cart.storeId',
-            3 => 'cart.date',
+            1 => 'cart.date',
+            2 => 'store.Name',
+            3 => 'cart.id',
             4 => 'cart.status'
         );
     }
@@ -110,7 +110,7 @@ class OrderController extends BaseController
     protected function getDataTablesSearchColumns()
     {
         return array(
-            'id' => 'cart.id LIKE "%%%s%%"',
+            'id' => 'cart.id LIKE "%s%%"',
             'store_name' => 'store.name LIKE "%%%s%%"',
         );
     }
