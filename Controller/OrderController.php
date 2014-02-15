@@ -72,7 +72,6 @@ class OrderController extends BaseController
             'form' => $form->createView(),
             'template' => $this->getBaseTemplate()
         );
-
     }
 
     /**

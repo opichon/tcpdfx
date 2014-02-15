@@ -55,7 +55,9 @@ class UserController extends Controller
             return new Response($view, 200, array('Content-Type' => 'application/json'));
         }
 
-       return new Response( $this->renderView('DzangocartCoreBundle:User:index.html.twig'));
+        return array(
+            'template' => $this->getBaseTemplate()
+        );
     }
 
     protected function getDatatablesSortColumns()
@@ -71,5 +73,10 @@ class UserController extends Controller
         return array(
             'dzango_user.id'
         );
+    }
+
+    protected function getBaseTemplate()
+    {
+        return 'DzangocartCoreBundle::layout.html.twig';
     }
 }

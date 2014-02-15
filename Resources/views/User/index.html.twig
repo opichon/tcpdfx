@@ -1,12 +1,12 @@
-{% extends "::base.html.twig" %}
+{% extends template %}
 
 {% trans_default_domain "user" %}
 
-{% block page_title %}{% trans %}user.users.page_title{% endtrans %}{% endblock %}
+{% block _core_page_title %}{% trans %}user.users.page_title{% endtrans %}{% endblock %}
 
 {% block bodyclass %}users{% endblock %}
 
-{% block content %}
+{% block _core_content %}
 <table class="table table-condensed">
     <thead>
         <th class="selectall"></th>
@@ -23,35 +23,12 @@
 </table>
 {% endblock %}
 
-{% block head_style %}
+{% block _core_head_style %}
     {{ parent() }}
-    {% stylesheets filter="cssrewrite" output="css/*.css"
-        'bundles/uamdatatables/css/jquery.dataTables_bootstrap.css'
-        'bundles/dzangocartcore/css/table.css'
-        'bundles/dzangocartcore/css/order/orders.css'
-    %}
-        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
-    {% endstylesheets %}
-{% endblock head_style %}
-
-{% block foot_script %}
-    {{ parent() }}
-    {% javascripts
-        'bundles/uamdatatables/js/jquery.dataTables.min.js'
-        'bundles/uamdatatables/js/jquery.dataTables_bootstrap.js'
-        'bundles/dzangocartcore/js/scripts/user/users.js'
-    %}
-        <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
+    {% include "DzangocartCoreBundle:User:users_head_style.html.twig" %}
 {% endblock %}
 
-{% block head_script %}
+{% block _core_foot_script %}
     {{ parent() }}
-    <script>
-    dzangocart.users = {
-        dataTables: {
-            sAjaxSource: "{{ path('users', { _format: 'json' }) }}"
-        }
-    };
-    </script>
-{% endblock head_script %}
+    {% include "DzangocartCoreBundle:User:users_foot_script.html.twig" %}
+{% endblock %}
