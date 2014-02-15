@@ -1,0 +1,3 @@
+_dzangocart_core_store_settings:
+    resource: "@DzangocartCoreBundle/Controller/StoreSettingsController.php"
+    type: annotation

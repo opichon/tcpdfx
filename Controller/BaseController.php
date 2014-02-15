@@ -9,9 +9,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class BaseController extends Controller
 {
     protected $store;
-    
+
     public function getStore()
     {
-        return StoreQuery::create()->findPk(5);
+        if (!$this->store) {
+            $this->store = $this->container->get('dzangocart.store_finder')->getStore();
+        }
+
+        return $this->store;
     }
 }

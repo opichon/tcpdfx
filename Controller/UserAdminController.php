@@ -13,8 +13,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserAdminController extends Controller
 {
-    
-    public function indexAction(Request $request) 
+
+    public function indexAction(Request $request)
     {
        if ($request->isXmlHttpRequest() || 'json' == $request->getRequestFormat()) {
 
@@ -29,7 +29,7 @@ class UserAdminController extends Controller
                 $request->query->get('sSearch'),
                 $this->getDataTablesSearchColumns()
             );
-            
+
             $filtered_count = $query->count();
 
             $users = $query
@@ -37,7 +37,7 @@ class UserAdminController extends Controller
                 ->setLimit($limit)
                 ->setOffset($offset)
                 ->find();
-       
+
             $data = array(
                 'sEcho' => $request->query->get('sEcho'),
                 'iStart' => 0,
@@ -53,7 +53,7 @@ class UserAdminController extends Controller
 
        return new Response( $this->renderView('DzangocartCoreBundle:UserAdmin:index.html.twig'));
     }
-    
+
     protected function getDatatablesSortColumns()
     {
         return array(
