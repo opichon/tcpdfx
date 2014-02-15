@@ -1,0 +1,27 @@
+{% trans_default_domain "purchase" %}
+
+{% spaceless %}
+{
+    "sEcho": "{{ sEcho }}",
+    "iTotalRecords": {{ iTotalRecords }},
+    "iTotalDisplayRecords": {{ iTotalDisplayRecords }},
+    "aaData" : [
+        {% for purchase in purchases %}
+            {
+                "DT_RowId": "{{ '_' ~ purchase.id }}",
+                "DT_RowClass": "{{ 'purchase' }}",
+                "id": "{{ purchase.id }}",
+                "0": "",
+                "1": "{{ purchase.orderId }}",
+                "2": "{{ purchase.cart.date|date }}",
+                "3": "{{ purchase.name }}",
+                "4": "{{ purchase.code }}",
+                "5": "{{ purchase.category.name }}",
+                "6": "{{ purchase.currencyId }}",
+                "7": "{{ purchase.quantity }}",
+                "8": ""
+            }{% if not loop.last %},{% endif %}
+        {% endfor %}
+    ]
+}
+{% endspaceless %}

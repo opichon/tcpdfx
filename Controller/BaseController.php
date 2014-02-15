@@ -14,4 +14,9 @@ class BaseController extends Controller
 			return $this->container->get('dzangocart.store_finder')->getStore();
 		}
 	}
+
+    protected function getBaseTemplate()
+    {
+        return 'DzangocartCoreBundle::layout.html.twig';
+    }
 }

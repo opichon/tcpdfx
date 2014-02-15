@@ -113,9 +113,4 @@ class OrderController extends BaseController
             'store_name' => 'store.name LIKE "%%%s%%"',
         );
     }
-
-    protected function getBaseTemplate()
-    {
-        return 'DzangocartCoreBundle::layout.html.twig';
-    }
 }
