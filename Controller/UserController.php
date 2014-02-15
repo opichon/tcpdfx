@@ -11,15 +11,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class UserAdminController extends Controller
+class UserController extends Controller
 {
 
+    /**
+     * @Route("/user", name="users")
+     * @Template("DzangocartCoreBundle:User:index.html.twig")
+     */
     public function indexAction(Request $request)
     {
        if ($request->isXmlHttpRequest() || 'json' == $request->getRequestFormat()) {
-
-            $limit = min(100, $request->query->get('iDisplayLength'));
-            $offset = max(0, $request->query->get('iDisplayStart'));
 
             $query = UserQuery::create();
 
@@ -31,6 +32,9 @@ class UserAdminController extends Controller
             );
 
             $filtered_count = $query->count();
+
+            $limit = min(100, $request->query->get('iDisplayLength'));
+            $offset = max(0, $request->query->get('iDisplayStart'));
 
             $users = $query
                 ->dataTablesSort($request->query, $this->getDataTablesSortColumns())
@@ -46,12 +50,12 @@ class UserAdminController extends Controller
                 'users' => $users
             );
 
-            $view = $this->renderView('DzangocartCoreBundle:UserAdmin:index.json.twig', $data);
+            $view = $this->renderView('DzangocartCoreBundle:User:index.json.twig', $data);
 
             return new Response($view, 200, array('Content-Type' => 'application/json'));
         }
 
-       return new Response( $this->renderView('DzangocartCoreBundle:UserAdmin:index.html.twig'));
+       return new Response( $this->renderView('DzangocartCoreBundle:User:index.html.twig'));
     }
 
     protected function getDatatablesSortColumns()
