@@ -100,8 +100,8 @@ class OrderController extends BaseController
     {
         return array(
             1 => 'cart.date',
-            2 => 'store.Name',
-            3 => 'cart.id',
+            2 => 'cart.id',
+            3 => 'store.Name',
             4 => 'cart.status'
         );
     }

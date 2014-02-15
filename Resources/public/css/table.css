@@ -15,3 +15,15 @@ table.table td.number {
 	text-align: right;
 	padding-right: 5px;
 }
+
+.dataTables_processing {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 250px;
+	height: auto;
+	margin-left: -125px;
+	margin-top: -15px;
+	padding: 14px 0 2px 0;
+	text-align: center;
+}

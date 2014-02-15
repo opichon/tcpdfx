@@ -77,11 +77,13 @@ class PurchaseController extends BaseController
     protected function getDatatablesSortColumns()
     {
         return array(
-            1 => 'item.orderId',
-            2 => 'item.name',
-            3 => 'item.code',
-            4 => 'item.currencyId',
-            5 => 'item.quantity'
+            1 => 'Cart.Date',
+            2 => 'item.orderId',
+            3 => 'store.Name',
+            4 => 'item.name',
+            5 => 'item.code',
+            6 => 'item.currencyId',
+            7 => 'item.quantity'
         );
 
     }

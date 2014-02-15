@@ -43,6 +43,9 @@
             bProcessing: true,
             bServerSide: true,
             bSortable: true,
+            oClasses: {
+                sProcessing: "alert alert-warning"
+            },
             oLanguage: {
                 sUrl: "/bundles/uamdatatables/lang/" + dzangocart.locale + ".txt"
             }
