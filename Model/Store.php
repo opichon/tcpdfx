@@ -15,4 +15,9 @@ class Store extends BaseStore
     {
         return $this->getDomain() . '.' . $host;
     }
+
+    public function isOwner(User $user)
+    {
+    	return $this->getOwnerId() == $user->getId();
+    }
 }

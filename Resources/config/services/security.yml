@@ -1,4 +1,30 @@
 services:
-    dzangocarts.user_provider:
+    dzangocart.password_encoder:
+        class: Dzangocart\Bundle\CoreBundle\Security\MessageDigestPasswordEncoder
+
+    dzangocart.user_manager:
+        class: Dzangocart\Bundle\CoreBundle\Security\UserManager
+        arguments:
+            - @security.encoder_factory
+            - @fos_user.util.username_canonicalizer
+            - @fos_user.util.email_canonicalizer
+            - %fos_user.model.user.class%
+            - @service_container
+
+    dzangocart.user_provider:
         class: Dzangocart\Bundle\CoreBundle\Security\UserProvider
         arguments: [@dzangocart.user_manager]
+
+    dzangocart.admin_voter:
+        class: Dzangocart\Bundle\CoreBundle\Security\Authorization\Voter\AdminVoter
+        arguments: [@service_container]
+        public: false
+        tags:
+            - { name: security.voter }
+
+    dzangocart.store_admin_voter:
+        class: Dzangocart\Bundle\CoreBundle\Security\Authorization\Voter\StoreAdminVoter
+        arguments: [@service_container]
+        public: false
+        tags:
+            - { name: security.voter }

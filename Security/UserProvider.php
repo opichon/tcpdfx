@@ -11,8 +11,8 @@ use Symfony\Component\Security\Core\User\UserInterface as SecurityUserInterface;
 class UserProvider extends BaseUserProvider
 {
     const ROLE_USER                 = 'ROLE_USER';
-    const ROLE_CUSTOMER_ADMIN       = 'ROLE_STORE_ADMIN';
-    const ROLE_CUSTOMER_SUPERADMIN  = 'ROLE_SOTRE_ADMIN';
+    const ROLE_STORE_ADMIN          = 'ROLE_STORE_ADMIN';
+    const ROLE_STORE_SUPER_ADMIN    = 'ROLE_STORE_SUPER_ADMIN';
     const ROLE_ADMIN                = 'ROLE_ADMIN';
 
     /**

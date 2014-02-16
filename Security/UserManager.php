@@ -27,9 +27,16 @@ class UserManager extends BaseUserManager
         $this->container = $container;
     }
 
+    public function findUserByUsername($username)
+    {
+        return $this->findUserBy(array('username' => $username));
+    }
+
     public function getStore()
     {
-        return $this->container->get('dzangocart.store_finder')->getStore();
+        return $this->container->has('dzangocart.store_finder')
+            ? $this->container->get('dzangocart.store_finder')->getStore()
+            : null;
     }
 
     /**
@@ -37,7 +44,16 @@ class UserManager extends BaseUserManager
      */
     protected function createQuery()
     {
-        return PropelQuery::from($this->class)
-            ->filterByRealm($this->getStore()->getRealm());
+        $store = $this->getStore();
+
+        if ($store) {
+            return PropelQuery::from($this->class)
+                ->filterByRealm($store->getRealm())
+                ->_or()
+                ->filterByRealm(null);
+        } else {
+            return PropelQuery::from($this->class)
+                ->filterByRealm(null);
+        }
     }
 }

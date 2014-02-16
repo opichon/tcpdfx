@@ -15,6 +15,8 @@ class User extends BaseUser implements UserInterface
      */
     protected $plainPassword;
 
+    protected $roles = array();
+
     public function __construct()
     {
         parent::__construct();
@@ -32,6 +34,7 @@ class User extends BaseUser implements UserInterface
     public function setUsernameCanonical($username)
     {
     	// TODO
+        return $this;
     }
 
     public function getEmail()
@@ -41,17 +44,17 @@ class User extends BaseUser implements UserInterface
 
     public function setEmail($email)
     {
-
+        return $this;
     }
 
-    public function gerEmailCanonical()
+    public function getEmailCanonical()
     {
     	return $this->getEmail();
     }
 
     public function setEmailCanonical($email)
     {
-
+        return $this;
     }
 
     public function getPlainPassword()
@@ -64,6 +67,11 @@ class User extends BaseUser implements UserInterface
         $this->plainPassword = $plainPassword;
 
         return $this;
+    }
+
+    public function isEnabled()
+    {
+        return $this->getIsActive();
     }
 
     public function isSuperAdmin()
@@ -89,7 +97,7 @@ class User extends BaseUser implements UserInterface
 		return $this->setIsActive(!$boolean);
 	}
 
-	public function seSuperAdin($boolean)
+	public function setSuperAdmin($boolean)
 	{
 		return $this->setIsSuperAdmin($boolean);
 	}
@@ -103,9 +111,15 @@ class User extends BaseUser implements UserInterface
     	// TODO
     }
 
+    public function setPasswordRequestedAt(\DateTime $date = null)
+    {
+        return $this;
+    }
+
 	public function isPasswordRequestNonExpired($ttl)
 	{
 		// TODO
+        return false;
 	}
 
     public function serialize()
@@ -123,7 +137,8 @@ class User extends BaseUser implements UserInterface
                 $this->last_login,
                 $this->is_active,
                 $this->is_super_admin,
-                $this->_new
+                $this->_new,
+                $this->roles
             )
         );
     }
@@ -147,7 +162,8 @@ class User extends BaseUser implements UserInterface
             $this->last_login,
             $this->is_active,
             $this->is_super_admin,
-            $this->_new
+            $this->_new,
+            $this->roles
         ) = $data;
     }
 
@@ -159,7 +175,6 @@ class User extends BaseUser implements UserInterface
         $this->plainPassword = null;
     }
 
-
     /**
      * Returns the user roles
      *
@@ -169,8 +184,12 @@ class User extends BaseUser implements UserInterface
      */
     public function getRoles()
     {
-    	// FIXME
-        return array();
+        $roles = $this->roles;
+
+        // we need to make sure to have at least one role
+        $roles[] = static::ROLE_DEFAULT;
+
+        return array_unique($roles);
     }
 
     /**
@@ -182,24 +201,30 @@ class User extends BaseUser implements UserInterface
      */
     public function addRole($role)
     {
-    	// FIXME
+    	$this->roles[] = $role;
+
         return $this;
     }
 
-    public function hasRole($value)
+    public function hasRole($role)
     {
-    	// FIXME
-        return false;
+        return array_key_exists($role, $this->roles);
     }
 
     public function removeRole($value)
     {
-    	// FIXME
+    	if ($this->hasRole($role)) {
+            unset($this->roles[$role]);
+        }
+
+        return $this;
     }
 
-    public function setRoles(array $v)
+    public function setRoles(array $roles)
     {
-    	// FIXME
+        $this->roles = $roles;
+
+        return $this;
     }
 
     /**
@@ -215,7 +240,7 @@ class User extends BaseUser implements UserInterface
      */
     public function isAccountNonLocked()
     {
-        return !$this->getIsActive();
+        return $this->getIsActive();
     }
 
     /**
@@ -223,14 +248,7 @@ class User extends BaseUser implements UserInterface
      */
     public function isCredentialsNonExpired()
     {
-        if (true === $this->getCredentialsExpired()) {
-            return false;
-        }
-
-        if (null !== $this->getCredentialsExpireAt() && $this->getCredentialsExpireAt()->getTimestamp() < time()) {
-            return false;
-        }
-
+        // FIXME
         return true;
     }
 }
