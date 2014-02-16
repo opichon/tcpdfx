@@ -1,0 +1,9 @@
+payment:
+    payments:
+        actions:
+            title:          Actions
+        order_id:           Commande
+        date:               Date
+        page_title:         Paiements
+        store:				Boutique
+        status:				Etat

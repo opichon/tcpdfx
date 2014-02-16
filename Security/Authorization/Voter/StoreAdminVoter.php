@@ -31,7 +31,6 @@ class StoreAdminVoter extends ContainerAware implements VoterInterface
         $result = VoterInterface::ACCESS_ABSTAIN;
 
         if (!$this->supportsClass(get_class($token))) {
-
             return $result;
         }
 

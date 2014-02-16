@@ -18,6 +18,6 @@ class Store extends BaseStore
 
     public function isOwner(User $user)
     {
-    	return $this->getOwnerId() == $user->getId();
+        return $this->getOwnerId() == $user->getId();
     }
 }

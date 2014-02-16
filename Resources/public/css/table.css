@@ -11,6 +11,10 @@ table.table th.datetime {
 	width: 9em;
 }
 
+table .table th.id {
+	width: 6em;
+}
+
 table.table td.number {
 	text-align: right;
 	padding-right: 5px;

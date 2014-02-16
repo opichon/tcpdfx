@@ -31,4 +31,3 @@ class UserProvider extends BaseUserProvider
         return $reloadedUser;
     }
 }
-

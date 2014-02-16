@@ -1,0 +1,23 @@
+payment:
+    payments:
+        actions:
+            title:          Actions
+        date:               Date
+        order_id:           Order
+        page_title:         Payments
+        status:				Status
+        store:				Store
+
+    status:
+        class:
+            0:                  default
+            2:                  info
+            4:                  danger
+            8:                  warning
+            16:					success
+        label:
+            0:                  OPEN
+            2:                  CANCELLED
+            4:                  ERROR
+            8:                  APPROVED
+            16:					PAID

@@ -1,0 +1,6 @@
+{% spaceless %}
+
+{% trans_default_domain "payment" %}
+
+<div class='label label-{{ ("payment.status.class." ~ payment.status)|trans }}'>{{ ("payment.status.label." ~ payment.status)|trans }}</div>
+{% endspaceless %}

@@ -28,12 +28,12 @@ class User extends BaseUser implements UserInterface
 
     public function getUsernameCanonical()
     {
-    	return $this->getUsername();
+        return $this->getUsername();
     }
 
     public function setUsernameCanonical($username)
     {
-    	// TODO
+        // TODO
         return $this;
     }
 
@@ -49,7 +49,7 @@ class User extends BaseUser implements UserInterface
 
     public function getEmailCanonical()
     {
-    	return $this->getEmail();
+        return $this->getEmail();
     }
 
     public function setEmailCanonical($email)
@@ -76,7 +76,7 @@ class User extends BaseUser implements UserInterface
 
     public function isSuperAdmin()
     {
-    	return $this->getIsSuperAdmin();
+        return $this->getIsSuperAdmin();
     }
 
     /**
@@ -87,28 +87,29 @@ class User extends BaseUser implements UserInterface
         return null !== $user && $this->getId() === $user->getId();
     }
 
-	public function setEnabled($boolean)
-	{
-		return $this->setIsActive($boolean);
-	}
+    public function setEnabled($boolean)
+    {
+        return $this->setIsActive($boolean);
+    }
 
-	public function setLocked($boolean)
-	{
-		return $this->setIsActive(!$boolean);
-	}
+    public function setLocked($boolean)
+    {
+        return $this->setIsActive(!$boolean);
+    }
 
-	public function setSuperAdmin($boolean)
-	{
-		return $this->setIsSuperAdmin($boolean);
-	}
+    public function setSuperAdmin($boolean)
+    {
+        return $this->setIsSuperAdmin($boolean);
+    }
 
-    public function getConfirmationToken(){
-    	// TODO
+    public function getConfirmationToken()
+    {
+        // TODO
     }
 
     public function setConfirmationToken($confirmationToken)
     {
-    	// TODO
+        // TODO
     }
 
     public function setPasswordRequestedAt(\DateTime $date = null)
@@ -116,11 +117,11 @@ class User extends BaseUser implements UserInterface
         return $this;
     }
 
-	public function isPasswordRequestNonExpired($ttl)
-	{
-		// TODO
+    public function isPasswordRequestNonExpired($ttl)
+    {
+        // TODO
         return false;
-	}
+    }
 
     public function serialize()
     {
@@ -201,7 +202,7 @@ class User extends BaseUser implements UserInterface
      */
     public function addRole($role)
     {
-    	$this->roles[] = $role;
+        $this->roles[] = $role;
 
         return $this;
     }
@@ -213,7 +214,7 @@ class User extends BaseUser implements UserInterface
 
     public function removeRole($value)
     {
-    	if ($this->hasRole($role)) {
+        if ($this->hasRole($role)) {
             unset($this->roles[$role]);
         }
 

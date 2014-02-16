@@ -1,435 +1,439 @@
 <?xml version="1.0" encoding="utf-8"?>
 <database name="default" namespace="Dzangocart\Bundle\CoreBundle\Model" defaultIdMethod="native">
-    <table name="cart" idMethod="native">
-        <column name="id"                  type="integer" primaryKey="true" autoIncrement="true" required="true" />
-        <column name="store_id"            type="integer" required="true" />
-        <column name="affiliate_id"        type="integer" required="false" />
-        <column name="customer_id"         type="integer" required="false" />
-        <column name="shipping_address_id" type="integer" required="false" />
-        <column name="currency_id"         type="varchar" size="3" required="true" />
-        <column name="voucher"             type="varchar" size="128" required="false" />
-        <column name="status"              type="integer" required="true" defaultValue="0" />
-        <column name="checkout"            type="tinyint" required="true" defaultValue="0" />
-        <column name="test"                type="varchar" size="32" required="false" />
-        <column name="ref"                 type="varchar" size="128" required="false" />
-        <column name="paid_at"             type="timestamp" required="false" />
-        <column name="created_at"          type="timestamp" required="true" />
-        <column name="updated_at"          type="timestamp" required="true" />
-        <column name="deleted_at"          type="timestamp" required="false" />
-        <column name="date"                type="timestamp" required="false" />
-        <column name="token"               type="varchar" size="46" required="false" />
-        <column name="type"                type="boolean" size="1" required="true" defaultValue="true" />
-        <column name="amount_excl"         type="float" size="8" scale="2" required="false" />
-        <column name="tax_amount"          type="float" size="8" scale="2" required="false" />
-        <column name="amount_incl"         type="float" size="8" scale="2" required="false" />
-        <column name="vat_id"              type="varchar" size="20" required="false" />
-        <column name="vat_id_valid"        type="boolean" size="1" required="true" defaultValue="false" />
-        <column name="credit_amount"       type="float" size="8" scale="2" required="true" defaultValue="0.00" />
-        <foreign-key foreignTable="currency" name="FI_cart_currency" onDelete="restrict" onUpdate="restrict">
-            <reference local="currency_id" foreign="id" />
-        </foreign-key>
-        <foreign-key foreignTable="store" name="FI_cart_store" onDelete="restrict" onUpdate="restrict">
-            <reference local="store_id" foreign="id" />
-        </foreign-key>
-        <foreign-key foreignTable="address" name="FI_cart_address" onDelete="restrict" onUpdate="restrict">
-            <reference local="shipping_address_id" foreign="id" />
-        </foreign-key>
-        <unique name="token">
-            <unique-column name="token" />
-        </unique>
-        <index name="store_id">
-            <index-column name="store_id" />
-        </index>
-            <index name="affiliate_id">
-        <index-column name="affiliate_id" />
-        </index>
-            <index name="shipping_address_id">
-        <index-column name="shipping_address_id" />
-        </index>
-            <index name="currency_id">
-        <index-column name="currency_id" />
-        </index>
-        <index name="customer_id">
-            <index-column name="customer_id" />
-        </index>
-    </table>
-    <table name="category" idMethod="native">
-        <column name="id"                    type="integer" primaryKey="true" autoIncrement="true" required="true" />
-        <column name="code"                  type="varchar" size="128" required="false" />
-        <column name="pcode"                 type="varchar" size="32" required="false" />
-        <column name="name"                  type="varchar" size="128" required="true" />
-        <column name="price"                 type="float" size="8" scale="2" required="true" defaultValue="0.00" />
-        <column name="tax_rate_id"           type="integer" required="false" />
-        <column name="tax_included"          type="tinyint" required="true" defaultValue="0" />
-        <column name="export"                type="tinyint" required="true" defaultValue="0" />
-        <column name="shipping"              type="tinyint" required="false" defaultValue="0" />
-        <column name="download"              type="tinyint" required="false" defaultValue="0" />
-        <column name="pack"                  type="boolean" size="1" required="true" defaultValue="false" />
-        <column name="subscription"          type="boolean" size="1" required="true" defaultValue="false" />
-        <column name="min_quantity"          type="integer" required="true" defaultValue="1" />
-        <column name="max_quantity"          type="integer" required="true" defaultValue="0" />
-        <column name="max_per_code"          type="tinyint" required="true" defaultValue="0" />
-        <column name="created_at"            type="timestamp" required="false" />
-        <column name="updated_at"            type="timestamp" required="false" />
-        <column name="deleted_at"            type="timestamp" required="false" />
-        <column name="item_factory_class"    type="varchar" size="128" required="false" />
-        <column name="pack_only"             type="tinyint" required="false" defaultValue="0" />
-        <column name="not_for_sale"          type="boolean" size="1" required="true" defaultValue="false" />
-        <column name="fixed_price"           type="tinyint" required="false" defaultValue="0" />
-        <column name="requires_registration" type="boolean" size="1" required="true" defaultValue="false" />
-        <column name="restriction"           type="boolean" size="1" required="true" defaultValue="false" />
-        <column name="inventory"             type="boolean" size="1" required="true" defaultValue="false" />
-        <behavior name="nested_set">
-            <parameter name="use_scope" value="true" />
-            <parameter name="scope_column" value="store_id" />
-        </behavior>
-        <foreign-key foreignTable="store" name="FI_category_store" onDelete="cascade" onUpdate="restrict">
-            <reference local="store_id" foreign="id" />
-        </foreign-key>
-        <foreign-key foreignTable="tax" name="FI_category_tax" onDelete="restrict" onUpdate="restrict">
-            <reference local="tax_rate_id" foreign="id" />
-        </foreign-key>
-        <unique name="code">
-            <unique-column name="code" />
-            <unique-column name="pcode" />
-            <unique-column name="store_id" />
-        </unique>
-        <index name="store_id">
-            <index-column name="store_id" />
-        </index>
-        <index name="tax_rate_id">
-            <index-column name="tax_rate_id" />
-        </index>
-    </table>
+	<table name="store"  idMethod="native">
+		<column name="id"                                           type="integer" primaryKey="true" autoIncrement="true" required="true" />
+		<column name="owner_id"                                     type="integer" required="true" />
+		<column name="name"                                         type="varchar" size="100" required="false" />
+		<column name="type_id"                                      type="integer" required="false" />
+		<column name="rcs"                                          type="varchar" size="128" required="false" />
+		<column name="siren"                                        type="varchar" size="9" required="false" />
+		<column name="naf"                                          type="varchar" size="5" required="false" />
+		<column name="vat_id"                                       type="varchar" size="14" required="false" />
+		<column name="address_id"         phpName="Address"         type="integer" required="false" />
+		<column name="bill_reg_address"                             type="tinyint" required="false" defaultValue="1" />
+		<column name="billing_address_id" phpName="BillingAddress"  type="integer" required="false" />
+		<column name="telephone"                                    type="varchar" size="20" required="false" />
+		<column name="fax"                                          type="varchar" size="20" required="false" />
+		<column name="email"                                        type="varchar" size="100" required="false" />
+		<column name="domain"                                       type="varchar" size="32" required="true" />
+		<column name="realm"                                        type="varchar" size="32" required="true" />
+		<column name="host"                                         type="varchar" size="128" required="false" />
+		<column name="hostname"                                     type="varchar" size="132" required="false" />
+		<column name="website"                                      type="varchar" size="128" required="false" />
+		<column name="logo"                                         type="varchar" size="256" required="false" />
+		<column name="currency_id"                                  type="varchar" size="3" required="true" defaultValue="EUR" />
+		<column name="tax_included"                                 type="tinyint" required="true" defaultValue="0" />
+		<column name="default_category_id"                          type="integer" required="false" />
+		<column name="loading"                                      type="varchar" size="50" required="false"/>
+		<column name="template_minified"                            type="longvarchar" required="false" />
+		<column name="key"                                          type="varchar" size="40" required="false" />
+		<column name="testcode"                                     type="varchar" size="32" required="false" />
+		<column name="active"                                       type="boolean" size="1" required="true" defaultValue="false" />
+		<column name="suspended"                                    type="boolean" size="1" required="true" defaultValue="false" />
+		<column name="status"                                       type="integer" required="true" defaultValue="0"/>
+		<column name="created_at"                                   type="timestamp" required="true" />
+		<column name="updated_at"                                   type="timestamp" required="true" />
+		<column name="deleted_at"                                   type="timestamp" required="false" />
+		<column name="plan_id"                                      type="integer" required="false" />
+		<column name="expires_at"                                   type="timestamp" required="false" />
+		<column name="affiliate_id"                                 type="integer" required="false" />
+		<column name="oauth_token"                                  type="varchar" size="64" required="false" />
+		<column name="year_end"                                     type="boolean" size="1" required="true" defaultValue="12" />
+		<column name="country_id"                                   type="varchar" size="2" required="true" defaultValue="FR" />
+		<foreign-key foreignTable="address" name="FI_store_address"  onDelete="restrict" onUpdate="restrict">
+			<reference local="address_id"  foreign="id" />
+		</foreign-key>
+		<foreign-key foreignTable="address" name="FI_store_address" onDelete="restrict" onUpdate="restrict">
+			<reference local="billing_address_id" foreign="id" />
+		</foreign-key>
+		<unique name="domain">
+			<unique-column name="domain" />
+		</unique>
+		<index name="rcs">
+			<index-column name="rcs" />
+		</index>
+		<index name="owner_id">
+			<index-column name="owner_id" />
+		</index>
+		<index name="type_id">
+			<index-column name="type_id" />
+		</index>
+		<index name="address_id">
+			<index-column name="address_id" />
+		</index>
+		<index name="billing_address_id">
+			<index-column name="billing_address_id" />
+		</index>
+		<index name="currency_id">
+			<index-column name="currency_id" />
+		</index>
+		<index name="default_category_id">
+			<index-column name="default_category_id" />
+		</index>
+		<index name="plan_id">
+			<index-column name="plan_id" />
+		</index>
+		<index name="affiliate_id">
+			<index-column name="affiliate_id" />
+		</index>
+	</table>
 	<table name="customer"  idMethod="native">
-        <column name="id"                      type="integer" primaryKey="true" autoIncrement="true" required="true" />
-        <column name="realm"                   type="varchar" size="32" required="true" />
-        <column name="code"                    type="varchar" size="100" required="false" />
-        <column name="affiliate_id"            type="integer" required="false" />
-        <column name="user_profile_id"         type="integer" required="true" />
-        <column name="corporate"               type="boolean" size="1" required="true" defaultValue="false" />
-        <column name="company_profile_id"  	   type="integer" required="false" />
-        <column name="billing_address_id"  	   type="integer" required="false" />
-        <column name="ship_to_billing_address" type="boolean" size="1" required="true" defaultValue="true" />
-        <column name="shipping_address_id"     type="integer" required="false" />
-        <column name="banned"                  type="boolean" size="1" required="true" defaultValue="false" />
-        <column name="created_at"              type="timestamp" required="true" />
-        <column name="updated_at"              type="timestamp" required="true" />
-        <column name="deleted_at"              type="timestamp" required="false" />
-        <column name="referral_code"           type="varchar" size="20" required="false" />
-        <column name="referred_by"             type="integer" required="false" />
-        <column name="closed_at"               type="timestamp" required="false" />
-        <column name="closed_by"               type="tinyint" required="false" />
-        <column name="closed_why"              type="longvarchar" required="false" />
-        <column name="credit_balance"          type="float" size="8" scale="2" required="true" defaultValue="0.00" />
-        <foreign-key foreignTable="address" name="FI_customer_address" onDelete="restrict" onUpdate="restrict">
-            <reference local="billing_address_id" foreign="id" />
-        </foreign-key>
-        <unique name="customer_id">
-            <unique-column name="code" />
-            <unique-column name="realm" />
-        </unique>
-        <unique name="referral">
-            <unique-column name="referral_code" />
-            <unique-column name="realm" />
-        </unique>
-        <index name="affiliate_id">
-            <index-column name="affiliate_id" />
-        </index>
-        <index name="billing_address_id">
-            <index-column name="billing_address_id" />
-        </index>
-        <index name="shipping_address_id">
-            <index-column name="shipping_address_id" />
-        </index>
-        <index name="company_profile_id">
-            <index-column name="company_profile_id" />
-        </index>
-        <index name="user_profile_id">
-            <index-column name="user_profile_id" />
-        </index>
-        <index name="referred_by">
-            <index-column name="referred_by" />
-        </index>
-    </table>
-    <table name="currency" idMethod="native">
-        <column name="id"       type="varchar" size="3" primaryKey="true" required="true" />
-        <column name="code"     type="varchar" size="3" required="true" />
-        <column name="decimals" type="integer" required="true" defaultValue="2" />
-        <column name="symbol"   type="varchar" size="12" required="false" />
-        <unique name="code">
-            <unique-column name="code" />
-        </unique>
-    </table>
-    <table name="country" idMethod="native">
-        <column name="id"          type="varchar" size="2" primaryKey="true" required="true" />
-        <column name="name"        type="varchar" size="200" required="true" />
-        <column name="eu"          type="boolean" size="1" required="true" defaultValue="false" />
-        <column name="currency_id" type="varchar" size="3" required="false" />
-        <column name="zone_id"     type="integer" required="false" />
-        <foreign-key foreignTable="currency" name="FI_country_currency" onDelete="set null" onUpdate="restrict">
-        <reference local="currency_id" foreign="id"/>
-        </foreign-key>
-        <index name="currency_id">
-            <index-column name="currency_id"/>
-        </index>
-        <index name="zone_id">
-            <index-column name="zone_id"/>
-        </index>
-        <behavior name="i18n">
-            <parameter name="i18n_columns" value="name" />
-            <parameter name="locale_column" value="culture" />
-        </behavior>
-    </table>
-    <table name="gateway" idMethod="native">
-        <column name="id"          type="integer" primaryKey="true" autoIncrement="true" required="true" />
-        <column name="store_id"    type="integer" required="true"/>
-        <column name="provider_id" type="integer" phpName="ServiceId" required="true" />
-        <column name="settings_id" type="integer" required="false" />
-        <column name="status"      type="tinyint" required="true" defaultValue="0" />
-        <column name="testing"     type="boolean" size="1" required="true" defaultValue="false" />
-        <column name="restriction" type="boolean" size="1" required="true" defaultValue="false" />
-        <column name="created_at"  type="timestamp" required="true" />
-        <column name="updated_at"  type="timestamp" required="true" />
-        <column name="deleted_at"  type="timestamp" required="false" />
-        <foreign-key foreignTable="store" name="FI_gateway_store" onDelete="cascade" onUpdate="restrict">
-            <reference local="store_id" foreign="id" />
-        </foreign-key>
-        <foreign-key foreignTable="gateway_service" name="FI_gateway_gateway_service" onDelete="cascade" onUpdate="restrict">
-            <reference local="provider_id" foreign="id" />
-        </foreign-key>
-        <unique name="store_id">
-            <unique-column name="store_id" />
-            <unique-column name="provider_id" />
-            <unique-column name="testing" />
-        </unique>
-        <index name="provider_id">
-            <index-column name="provider_id" />
-        </index>
-    </table>
-    <table name="gateway_engine" phpName="GatewayEngine" idMethod="native">
-        <column name="id"   type="integer" primaryKey="true" autoIncrement="true" required="true"/>
-        <column name="name" type="varchar" size="100" required="true"/>
-    </table>
-    <table name="gateway_service" idMethod="native">
-        <column name="id"        type="integer" primaryKey="true" autoIncrement="true" required="true" />
-        <column name="name"      type="varchar" size="32" required="true" />
-        <column name="country"   type="varchar" size="2" required="false" />
-        <column name="engine_id" type="integer" size="4" required="true" />
-        <column name="bank"      type="varchar" size="128" required="false" />
-        <column name="url"       type="longvarchar" required="false" />
-        <column name="code"      type="varchar" size="12" required="true" />
-        <column name="supported" type="boolean" size="1" required="true" defaultValue="false" />
-        <foreign-key foreignTable="gateway_engine" name="FI_gateway_service_gateway_engine" onDelete="cascade" onUpdate="restrict">
-            <reference local="engine_id" foreign="id" />
-        </foreign-key>
-        <unique name="name">
-            <unique-column name="name" />
-        </unique>
-        <unique name="code">
-            <unique-column name="code" />
-        </unique>
-        <index name="engine_id">
-            <index-column name="engine_id" />
-        </index>
-    </table>
-    <table name="item" idMethod="native">
-        <column name="id"                   type="integer" primaryKey="true" autoIncrement="true" required="true" />
-        <column name="parent_id"            type="integer" required="false" />
-        <column name="rank"                 type="integer" required="true" defaultValue="0" />
-        <column name="order_id"             type="integer" required="false" />
-        <column name="code"                 type="varchar" size="128" required="false" />
-        <column name="name"                 type="varchar" size="128" required="true" />
-        <column name="category_id"          type="integer" required="false" />
-        <column name="currency_id"          type="varchar" size="3" required="true"/>
-        <column name="quantity"             type="integer" required="true" defaultValue="1" />
-        <column name="export"               type="tinyint" required="false" defaultValue="0" />
-        <column name="tax_included"         type="tinyint" required="false" defaultValue="0" />
-        <column name="price_excl"           type="float" size="8" scale="2" required="false" />
-        <column name="price_incl"           type="float" size="8" scale="2" required="false" />
-        <column name="tax_rate_id"          type="integer" required="false" />
-        <column name="status"               type="integer" required="true" defaultValue="0" />
-        <column name="promotion_id"         type="integer" required="false" />
-        <column name="credit"               type="boolean" size="1" required="true" defaultValue="false" />
-        <column name="created_at"           type="timestamp" required="true" />
-        <column name="updated_at"           type="timestamp" required="true" />
-        <column name="deleted_at"           type="timestamp" required="false" />
-        <column name="type"                 type="boolean" size="1" required="true" defaultValue="true" />
-        <column name="cancellation_item_id" type="integer" required="false" />
-        <column name="cancelled_at"         type="timestamp" required="false" />
-        <column name="cancelled_item_id"    type="integer" required="false" />
-        <column name="amount_excl"          type="float" size="8" scale="2" required="false" />
-        <column name="tax_amount"           type="float" size="8" scale="2" required="false" />
-        <column name="amount_incl"          type="float" size="8" scale="2" required="false" />
-        <column name="packed_at"            type="timestamp" required="false" />
-        <column name="shipment_id"          type="integer" required="false" />
-        <foreign-key foreignTable="item" name="FI_item_item" onDelete="cascade" onUpdate="restrict">
-            <reference local="parent_id" foreign="id" />
-        </foreign-key>
-        <foreign-key foreignTable="category" name="FI_item_category" onDelete="restrict" onUpdate="restrict">
-            <reference local="category_id" foreign="id" />
-        </foreign-key>
-        <foreign-key foreignTable="currency" name="FI_item_currency" onDelete="restrict" onUpdate="restrict">
-        <reference local="currency_id" foreign="id" />
-        </foreign-key>
-            <foreign-key foreignTable="tax" name="FI_item_tax" onDelete="restrict" onUpdate="restrict">
-        <reference local="tax_rate_id" foreign="id" />
-        </foreign-key>
-            <foreign-key foreignTable="cart" name="FI_item_cart" onDelete="cascade" onUpdate="restrict">
-        <reference local="order_id" foreign="id" />
-        </foreign-key>
-        <index name="parent_id">
-            <index-column name="parent_id" />
-        </index>
-        <index name="order_id">
-            <index-column name="order_id" />
-        </index>
-        <index name="category_id">
-            <index-column name="category_id" />
-        </index>
-        <index name="currency_id">
-            <index-column name="currency_id" />
-        </index>
-        <index name="promotion_id">
-            <index-column name="promotion_id" />
-        </index>
-        <index name="tax_rate_id">
-            <index-column name="tax_rate_id" />
-        </index>
-        <index name="cancellation_item_id">
-            <index-column name="cancellation_item_id" />
-        </index>
-        <index name="cancelled_item_id">
-            <index-column name="cancelled_item_id" />
-        </index>
-        <index name="shipment_id">
-            <index-column name="shipment_id" />
-        </index>
-    </table>
-    <table name="payment" idMethod="native">
-        <column name="id"             type="integer" primaryKey="true" autoIncrement="true" required="true" />
-        <column name="gateway_id"     type="integer" required="true" />
-        <column name="order_id"       type="integer" required="true" />
-        <column name="type_id"        type="integer" required="true" />
-        <column name="transaction_id" type="integer" required="true" />
-        <column name="status"         type="integer" size="4" required="true" defaultValue="0" />
-        <column name="created_at"     type="timestamp" required="false" />
-        <column name="updated_at"     type="timestamp" required="false" />
-        <column name="deleted_at"     type="timestamp" required="false" />
-        <foreign-key foreignTable="gateway" name="FI_payment_gateway">
-            <reference local="gateway_id" foreign="id" />
-        </foreign-key>
-        <foreign-key foreignTable="cart" name="FI_payment_order" phpName="Order">
-            <reference local="order_id" foreign="id" />
-        </foreign-key>
-        <index name="gateway_id">
-            <index-column name="gateway_id" />
-        </index>
-        <index name="order_id">
-            <index-column name="order_id" />
-        </index>
-    </table>
-    <table name="store"  idMethod="native">
-        <column name="id"                                           type="integer" primaryKey="true" autoIncrement="true" required="true" />
-        <column name="owner_id"                                     type="integer" required="true" />
-        <column name="name"                                         type="varchar" size="100" required="false" />
-        <column name="type_id"                                      type="integer" required="false" />
-        <column name="rcs"                                          type="varchar" size="128" required="false" />
-        <column name="siren"                                        type="varchar" size="9" required="false" />
-        <column name="naf"                                          type="varchar" size="5" required="false" />
-        <column name="vat_id"                                       type="varchar" size="14" required="false" />
-        <column name="address_id"         phpName="Address"         type="integer" required="false" />
-        <column name="bill_reg_address"                             type="tinyint" required="false" defaultValue="1" />
-        <column name="billing_address_id" phpName="BillingAddress"  type="integer" required="false" />
-        <column name="telephone"                                    type="varchar" size="20" required="false" />
-        <column name="fax"                                          type="varchar" size="20" required="false" />
-        <column name="email"                                        type="varchar" size="100" required="false" />
-        <column name="domain"                                       type="varchar" size="32" required="true" />
-        <column name="realm"                                        type="varchar" size="32" required="true" />
-        <column name="host"                                         type="varchar" size="128" required="false" />
-        <column name="hostname"                                     type="varchar" size="132" required="false" />
-        <column name="website"                                      type="varchar" size="128" required="false" />
-        <column name="logo"                                         type="varchar" size="256" required="false" />
-        <column name="currency_id"                                  type="varchar" size="3" required="true" defaultValue="EUR" />
-        <column name="tax_included"                                 type="tinyint" required="true" defaultValue="0" />
-        <column name="default_category_id"                          type="integer" required="false" />
-        <column name="loading"                                      type="varchar" size="50" required="false"/>
-        <column name="template_minified"                            type="longvarchar" required="false" />
-        <column name="key"                                          type="varchar" size="40" required="false" />
-        <column name="testcode"                                     type="varchar" size="32" required="false" />
-        <column name="active"                                       type="boolean" size="1" required="true" defaultValue="false" />
-        <column name="suspended"                                    type="boolean" size="1" required="true" defaultValue="false" />
-        <column name="status"                                       type="integer" required="true" defaultValue="0"/>
-        <column name="created_at"                                   type="timestamp" required="true" />
-        <column name="updated_at"                                   type="timestamp" required="true" />
-        <column name="deleted_at"                                   type="timestamp" required="false" />
-        <column name="plan_id"                                      type="integer" required="false" />
-        <column name="expires_at"                                   type="timestamp" required="false" />
-        <column name="affiliate_id"                                 type="integer" required="false" />
-        <column name="oauth_token"                                  type="varchar" size="64" required="false" />
-        <column name="year_end"                                     type="boolean" size="1" required="true" defaultValue="12" />
-        <column name="country_id"                                   type="varchar" size="2" required="true" defaultValue="FR" />
-        <foreign-key foreignTable="address" name="FI_store_address"  onDelete="restrict" onUpdate="restrict">
-            <reference local="address_id"  foreign="id" />
-        </foreign-key>
-        <foreign-key foreignTable="address" name="FI_store_address" onDelete="restrict" onUpdate="restrict">
-            <reference local="billing_address_id" foreign="id" />
-        </foreign-key>
-        <unique name="domain">
-            <unique-column name="domain" />
-        </unique>
-        <index name="rcs">
-            <index-column name="rcs" />
-        </index>
-        <index name="owner_id">
-            <index-column name="owner_id" />
-        </index>
-        <index name="type_id">
-            <index-column name="type_id" />
-        </index>
-        <index name="address_id">
-            <index-column name="address_id" />
-        </index>
-        <index name="billing_address_id">
-            <index-column name="billing_address_id" />
-        </index>
-        <index name="currency_id">
-            <index-column name="currency_id" />
-        </index>
-        <index name="default_category_id">
-            <index-column name="default_category_id" />
-        </index>
-        <index name="plan_id">
-            <index-column name="plan_id" />
-        </index>
-        <index name="affiliate_id">
-            <index-column name="affiliate_id" />
-        </index>
-    </table>
-    <table name="store_user_settings" phpName="StoreUserSettings" idMethod="native">
-        <column name="id"                type="integer" primaryKey="true" autoIncrement="true" required="true" />
-        <column name="store_id"          type="integer" required="true" />
-        <column name="user_handling"     type="boolean" size="1" required="true" defaultValue="false" />
-        <column name="login_url"         type="longvarchar" required="false" />
-        <column name="register_url"      type="longvarchar" required="false" />
-        <column name="auto_register"     type="tinyint" required="true" defaultValue="0" />
-        <column name="auto_register_url" type="longvarchar" required="false" />
-        <column name="profile_url"       type="longvarchar" required="false" />
-        <column name="password_url"      type="longvarchar" required="false" />
-        <column name="email_as_login"    type="boolean" size="1" required="true" defaultValue="true" />
-        <column name="open_id"           type="boolean" size="1" required="true" defaultValue="false" />
-        <foreign-key foreignTable="store" name="FI_user_settings_store" onDelete="restrict" onUpdate="restrict">
-            <reference local="store_id" foreign="id"/>
-        </foreign-key>
-        <index name="store_id">
-            <index-column name="store_id" />
-        </index>
-    </table>
+		<column name="id"                      type="integer" primaryKey="true" autoIncrement="true" required="true" />
+		<column name="realm"                   type="varchar" size="32" required="true" />
+		<column name="code"                    type="varchar" size="100" required="false" />
+		<column name="affiliate_id"            type="integer" required="false" />
+		<column name="user_profile_id"         type="integer" required="true" />
+		<column name="corporate"               type="boolean" size="1" required="true" defaultValue="false" />
+		<column name="company_profile_id"      type="integer" required="false" />
+		<column name="billing_address_id"      type="integer" required="false" />
+		<column name="ship_to_billing_address" type="boolean" size="1" required="true" defaultValue="true" />
+		<column name="shipping_address_id"     type="integer" required="false" />
+		<column name="banned"                  type="boolean" size="1" required="true" defaultValue="false" />
+		<column name="created_at"              type="timestamp" required="true" />
+		<column name="updated_at"              type="timestamp" required="true" />
+		<column name="deleted_at"              type="timestamp" required="false" />
+		<column name="referral_code"           type="varchar" size="20" required="false" />
+		<column name="referred_by"             type="integer" required="false" />
+		<column name="closed_at"               type="timestamp" required="false" />
+		<column name="closed_by"               type="tinyint" required="false" />
+		<column name="closed_why"              type="longvarchar" required="false" />
+		<column name="credit_balance"          type="float" size="8" scale="2" required="true" defaultValue="0.00" />
+		<foreign-key foreignTable="address" name="FI_customer_address" onDelete="restrict" onUpdate="restrict">
+			<reference local="billing_address_id" foreign="id" />
+		</foreign-key>
+		<unique name="customer_id">
+			<unique-column name="code" />
+			<unique-column name="realm" />
+		</unique>
+		<unique name="referral">
+			<unique-column name="referral_code" />
+			<unique-column name="realm" />
+		</unique>
+		<index name="affiliate_id">
+			<index-column name="affiliate_id" />
+		</index>
+		<index name="billing_address_id">
+			<index-column name="billing_address_id" />
+		</index>
+		<index name="shipping_address_id">
+			<index-column name="shipping_address_id" />
+		</index>
+		<index name="company_profile_id">
+			<index-column name="company_profile_id" />
+		</index>
+		<index name="user_profile_id">
+			<index-column name="user_profile_id" />
+		</index>
+		<index name="referred_by">
+			<index-column name="referred_by" />
+		</index>
+	</table>
+	<table name="category" idMethod="native">
+		<column name="id"                    type="integer" primaryKey="true" autoIncrement="true" required="true" />
+		<column name="code"                  type="varchar" size="128" required="false" />
+		<column name="pcode"                 type="varchar" size="32" required="false" />
+		<column name="name"                  type="varchar" size="128" required="true" />
+		<column name="price"                 type="float" size="8" scale="2" required="true" defaultValue="0.00" />
+		<column name="tax_rate_id"           type="integer" required="false" />
+		<column name="tax_included"          type="tinyint" required="true" defaultValue="0" />
+		<column name="export"                type="tinyint" required="true" defaultValue="0" />
+		<column name="shipping"              type="tinyint" required="false" defaultValue="0" />
+		<column name="download"              type="tinyint" required="false" defaultValue="0" />
+		<column name="pack"                  type="boolean" size="1" required="true" defaultValue="false" />
+		<column name="subscription"          type="boolean" size="1" required="true" defaultValue="false" />
+		<column name="min_quantity"          type="integer" required="true" defaultValue="1" />
+		<column name="max_quantity"          type="integer" required="true" defaultValue="0" />
+		<column name="max_per_code"          type="tinyint" required="true" defaultValue="0" />
+		<column name="created_at"            type="timestamp" required="false" />
+		<column name="updated_at"            type="timestamp" required="false" />
+		<column name="deleted_at"            type="timestamp" required="false" />
+		<column name="item_factory_class"    type="varchar" size="128" required="false" />
+		<column name="pack_only"             type="tinyint" required="false" defaultValue="0" />
+		<column name="not_for_sale"          type="boolean" size="1" required="true" defaultValue="false" />
+		<column name="fixed_price"           type="tinyint" required="false" defaultValue="0" />
+		<column name="requires_registration" type="boolean" size="1" required="true" defaultValue="false" />
+		<column name="restriction"           type="boolean" size="1" required="true" defaultValue="false" />
+		<column name="inventory"             type="boolean" size="1" required="true" defaultValue="false" />
+		<behavior name="nested_set">
+			<parameter name="use_scope" value="true" />
+			<parameter name="scope_column" value="store_id" />
+		</behavior>
+		<foreign-key foreignTable="store" name="FI_category_store" onDelete="cascade" onUpdate="restrict">
+			<reference local="store_id" foreign="id" />
+		</foreign-key>
+		<foreign-key foreignTable="tax" name="FI_category_tax" onDelete="restrict" onUpdate="restrict">
+			<reference local="tax_rate_id" foreign="id" />
+		</foreign-key>
+		<unique name="code">
+			<unique-column name="code" />
+			<unique-column name="pcode" />
+			<unique-column name="store_id" />
+		</unique>
+		<index name="store_id">
+			<index-column name="store_id" />
+		</index>
+		<index name="tax_rate_id">
+			<index-column name="tax_rate_id" />
+		</index>
+	</table>
+	<table name="cart" idMethod="native">
+		<column name="id"                  type="integer" primaryKey="true" autoIncrement="true" required="true" />
+		<column name="store_id"            type="integer" required="true" />
+		<column name="affiliate_id"        type="integer" required="false" />
+		<column name="customer_id"         type="integer" required="false" />
+		<column name="shipping_address_id" type="integer" required="false" />
+		<column name="currency_id"         type="varchar" size="3" required="true" />
+		<column name="voucher"             type="varchar" size="128" required="false" />
+		<column name="status"              type="integer" required="true" defaultValue="0" />
+		<column name="checkout"            type="tinyint" required="true" defaultValue="0" />
+		<column name="test"                type="varchar" size="32" required="false" />
+		<column name="ref"                 type="varchar" size="128" required="false" />
+		<column name="paid_at"             type="timestamp" required="false" />
+		<column name="created_at"          type="timestamp" required="true" />
+		<column name="updated_at"          type="timestamp" required="true" />
+		<column name="deleted_at"          type="timestamp" required="false" />
+		<column name="date"                type="timestamp" required="false" />
+		<column name="token"               type="varchar" size="46" required="false" />
+		<column name="type"                type="boolean" size="1" required="true" defaultValue="true" />
+		<column name="amount_excl"         type="float" size="8" scale="2" required="false" />
+		<column name="tax_amount"          type="float" size="8" scale="2" required="false" />
+		<column name="amount_incl"         type="float" size="8" scale="2" required="false" />
+		<column name="vat_id"              type="varchar" size="20" required="false" />
+		<column name="vat_id_valid"        type="boolean" size="1" required="true" defaultValue="false" />
+		<column name="credit_amount"       type="float" size="8" scale="2" required="true" defaultValue="0.00" />
+		<foreign-key foreignTable="currency" name="FI_cart_currency" onDelete="restrict" onUpdate="restrict">
+			<reference local="currency_id" foreign="id" />
+		</foreign-key>
+		<foreign-key foreignTable="store" name="FI_cart_store" onDelete="restrict" onUpdate="restrict">
+			<reference local="store_id" foreign="id" />
+		</foreign-key>
+		<foreign-key foreignTable="address" name="FI_cart_address" onDelete="restrict" onUpdate="restrict">
+			<reference local="shipping_address_id" foreign="id" />
+		</foreign-key>
+		<unique name="token">
+			<unique-column name="token" />
+		</unique>
+		<index name="store_id">
+			<index-column name="store_id" />
+		</index>
+			<index name="affiliate_id">
+		<index-column name="affiliate_id" />
+		</index>
+			<index name="shipping_address_id">
+		<index-column name="shipping_address_id" />
+		</index>
+			<index name="currency_id">
+		<index-column name="currency_id" />
+		</index>
+		<index name="customer_id">
+			<index-column name="customer_id" />
+		</index>
+	</table>
+
+	<table name="item" idMethod="native">
+		<column name="id"                   type="integer" primaryKey="true" autoIncrement="true" required="true" />
+		<column name="parent_id"            type="integer" required="false" />
+		<column name="rank"                 type="integer" required="true" defaultValue="0" />
+		<column name="order_id"             type="integer" required="false" />
+		<column name="code"                 type="varchar" size="128" required="false" />
+		<column name="name"                 type="varchar" size="128" required="true" />
+		<column name="category_id"          type="integer" required="false" />
+		<column name="currency_id"          type="varchar" size="3" required="true"/>
+		<column name="quantity"             type="integer" required="true" defaultValue="1" />
+		<column name="export"               type="tinyint" required="false" defaultValue="0" />
+		<column name="tax_included"         type="tinyint" required="false" defaultValue="0" />
+		<column name="price_excl"           type="float" size="8" scale="2" required="false" />
+		<column name="price_incl"           type="float" size="8" scale="2" required="false" />
+		<column name="tax_rate_id"          type="integer" required="false" />
+		<column name="status"               type="integer" required="true" defaultValue="0" />
+		<column name="promotion_id"         type="integer" required="false" />
+		<column name="credit"               type="boolean" size="1" required="true" defaultValue="false" />
+		<column name="created_at"           type="timestamp" required="true" />
+		<column name="updated_at"           type="timestamp" required="true" />
+		<column name="deleted_at"           type="timestamp" required="false" />
+		<column name="type"                 type="boolean" size="1" required="true" defaultValue="true" />
+		<column name="cancellation_item_id" type="integer" required="false" />
+		<column name="cancelled_at"         type="timestamp" required="false" />
+		<column name="cancelled_item_id"    type="integer" required="false" />
+		<column name="amount_excl"          type="float" size="8" scale="2" required="false" />
+		<column name="tax_amount"           type="float" size="8" scale="2" required="false" />
+		<column name="amount_incl"          type="float" size="8" scale="2" required="false" />
+		<column name="packed_at"            type="timestamp" required="false" />
+		<column name="shipment_id"          type="integer" required="false" />
+		<foreign-key foreignTable="item" name="FI_item_item" onDelete="cascade" onUpdate="restrict">
+			<reference local="parent_id" foreign="id" />
+		</foreign-key>
+		<foreign-key foreignTable="category" name="FI_item_category" onDelete="restrict" onUpdate="restrict">
+			<reference local="category_id" foreign="id" />
+		</foreign-key>
+		<foreign-key foreignTable="currency" name="FI_item_currency" onDelete="restrict" onUpdate="restrict">
+		<reference local="currency_id" foreign="id" />
+		</foreign-key>
+			<foreign-key foreignTable="tax" name="FI_item_tax" onDelete="restrict" onUpdate="restrict">
+		<reference local="tax_rate_id" foreign="id" />
+		</foreign-key>
+			<foreign-key foreignTable="cart" name="FI_item_cart" onDelete="cascade" onUpdate="restrict">
+		<reference local="order_id" foreign="id" />
+		</foreign-key>
+		<index name="parent_id">
+			<index-column name="parent_id" />
+		</index>
+		<index name="order_id">
+			<index-column name="order_id" />
+		</index>
+		<index name="category_id">
+			<index-column name="category_id" />
+		</index>
+		<index name="currency_id">
+			<index-column name="currency_id" />
+		</index>
+		<index name="promotion_id">
+			<index-column name="promotion_id" />
+		</index>
+		<index name="tax_rate_id">
+			<index-column name="tax_rate_id" />
+		</index>
+		<index name="cancellation_item_id">
+			<index-column name="cancellation_item_id" />
+		</index>
+		<index name="cancelled_item_id">
+			<index-column name="cancelled_item_id" />
+		</index>
+		<index name="shipment_id">
+			<index-column name="shipment_id" />
+		</index>
+	</table>
+
+	<table name="payment" idMethod="native">
+		<column name="id"             type="integer" primaryKey="true" autoIncrement="true" required="true" />
+		<column name="gateway_id"     type="integer" required="true" />
+		<column name="order_id"       type="integer" required="true" />
+		<column name="type_id"        type="integer" required="true" />
+		<column name="transaction_id" type="integer" required="true" />
+		<column name="status"         type="integer" size="4" required="true" defaultValue="0" />
+		<column name="created_at"     type="timestamp" required="false" />
+		<column name="updated_at"     type="timestamp" required="false" />
+		<column name="deleted_at"     type="timestamp" required="false" />
+		<foreign-key foreignTable="gateway" name="FI_payment_gateway">
+			<reference local="gateway_id" foreign="id" />
+		</foreign-key>
+		<foreign-key foreignTable="cart" name="FI_payment_order" phpName="Order">
+			<reference local="order_id" foreign="id" />
+		</foreign-key>
+		<index name="gateway_id">
+			<index-column name="gateway_id" />
+		</index>
+		<index name="order_id">
+			<index-column name="order_id" />
+		</index>
+	</table>
+
+	<table name="store_user_settings" phpName="StoreUserSettings" idMethod="native">
+		<column name="id"                type="integer" primaryKey="true" autoIncrement="true" required="true" />
+		<column name="store_id"          type="integer" required="true" />
+		<column name="user_handling"     type="boolean" size="1" required="true" defaultValue="false" />
+		<column name="login_url"         type="longvarchar" required="false" />
+		<column name="register_url"      type="longvarchar" required="false" />
+		<column name="auto_register"     type="tinyint" required="true" defaultValue="0" />
+		<column name="auto_register_url" type="longvarchar" required="false" />
+		<column name="profile_url"       type="longvarchar" required="false" />
+		<column name="password_url"      type="longvarchar" required="false" />
+		<column name="email_as_login"    type="boolean" size="1" required="true" defaultValue="true" />
+		<column name="open_id"           type="boolean" size="1" required="true" defaultValue="false" />
+		<foreign-key foreignTable="store" name="FI_user_settings_store" onDelete="restrict" onUpdate="restrict">
+			<reference local="store_id" foreign="id"/>
+		</foreign-key>
+		<index name="store_id">
+			<index-column name="store_id" />
+		</index>
+	</table>
+
+	<table name="gateway" idMethod="native">
+		<column name="id"          type="integer" primaryKey="true" autoIncrement="true" required="true" />
+		<column name="store_id"    type="integer" required="true"/>
+		<column name="provider_id" type="integer" phpName="ServiceId" required="true" />
+		<column name="settings_id" type="integer" required="false" />
+		<column name="status"      type="tinyint" required="true" defaultValue="0" />
+		<column name="testing"     type="boolean" size="1" required="true" defaultValue="false" />
+		<column name="restriction" type="boolean" size="1" required="true" defaultValue="false" />
+		<column name="created_at"  type="timestamp" required="true" />
+		<column name="updated_at"  type="timestamp" required="true" />
+		<column name="deleted_at"  type="timestamp" required="false" />
+		<foreign-key foreignTable="store" name="FI_gateway_store" onDelete="cascade" onUpdate="restrict">
+			<reference local="store_id" foreign="id" />
+		</foreign-key>
+		<foreign-key foreignTable="gateway_service" name="FI_gateway_gateway_service" onDelete="cascade" onUpdate="restrict">
+			<reference local="provider_id" foreign="id" />
+		</foreign-key>
+		<unique name="store_id">
+			<unique-column name="store_id" />
+			<unique-column name="provider_id" />
+			<unique-column name="testing" />
+		</unique>
+		<index name="provider_id">
+			<index-column name="provider_id" />
+		</index>
+	</table>
+	<table name="gateway_engine" phpName="GatewayEngine" idMethod="native">
+		<column name="id"   type="integer" primaryKey="true" autoIncrement="true" required="true"/>
+		<column name="name" type="varchar" size="100" required="true"/>
+	</table>
+	<table name="gateway_service" idMethod="native">
+		<column name="id"        type="integer" primaryKey="true" autoIncrement="true" required="true" />
+		<column name="name"      type="varchar" size="32" required="true" />
+		<column name="country"   type="varchar" size="2" required="false" />
+		<column name="engine_id" type="integer" size="4" required="true" />
+		<column name="bank"      type="varchar" size="128" required="false" />
+		<column name="url"       type="longvarchar" required="false" />
+		<column name="code"      type="varchar" size="12" required="true" />
+		<column name="supported" type="boolean" size="1" required="true" defaultValue="false" />
+		<foreign-key foreignTable="gateway_engine" name="FI_gateway_service_gateway_engine" onDelete="cascade" onUpdate="restrict">
+			<reference local="engine_id" foreign="id" />
+		</foreign-key>
+		<unique name="name">
+			<unique-column name="name" />
+		</unique>
+		<unique name="code">
+			<unique-column name="code" />
+		</unique>
+		<index name="engine_id">
+			<index-column name="engine_id" />
+		</index>
+	</table>
 	<table name="tax" idMethod="native">
-        <column name="id"         type="integer" primaryKey="true" autoIncrement="true" required="true" />
-        <column name="country"    type="varchar" size="2" required="true" defaultValue="FR" />
-        <column name="name"       type="varchar" size="30" required="true" />
-        <column name="rate"       type="float" size="5" scale="2" required="false" />
-        <column name="is_default" type="tinyint" required="false" defaultValue="0" />
-    </table>
+		<column name="id"         type="integer" primaryKey="true" autoIncrement="true" required="true" />
+		<column name="country"    type="varchar" size="2" required="true" defaultValue="FR" />
+		<column name="name"       type="varchar" size="30" required="true" />
+		<column name="rate"       type="float" size="5" scale="2" required="false" />
+		<column name="is_default" type="tinyint" required="false" defaultValue="0" />
+	</table>
+	<table name="currency" idMethod="native">
+		<column name="id"       type="varchar" size="3" primaryKey="true" required="true" />
+		<column name="code"     type="varchar" size="3" required="true" />
+		<column name="decimals" type="integer" required="true" defaultValue="2" />
+		<column name="symbol"   type="varchar" size="12" required="false" />
+		<unique name="code">
+			<unique-column name="code" />
+		</unique>
+	</table>
+	<table name="country" idMethod="native">
+		<column name="id"          type="varchar" size="2" primaryKey="true" required="true" />
+		<column name="name"        type="varchar" size="200" required="true" />
+		<column name="eu"          type="boolean" size="1" required="true" defaultValue="false" />
+		<column name="currency_id" type="varchar" size="3" required="false" />
+		<column name="zone_id"     type="integer" required="false" />
+		<foreign-key foreignTable="currency" name="FI_country_currency" onDelete="set null" onUpdate="restrict">
+		<reference local="currency_id" foreign="id"/>
+		</foreign-key>
+		<index name="currency_id">
+			<index-column name="currency_id"/>
+		</index>
+		<index name="zone_id">
+			<index-column name="zone_id"/>
+		</index>
+		<behavior name="i18n">
+			<parameter name="i18n_columns" value="name" />
+			<parameter name="locale_column" value="culture" />
+		</behavior>
+	</table>
 </database>
