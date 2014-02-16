@@ -17,5 +17,9 @@
             <unique-column name="realm" />
             <unique-column name="is_active" />
         </unique>
+        <behavior name="typehintable">
+            <parameter name="last_login" value="DateTime" />
+            <parameter name="nullable_columns" value="last_login" />
+        </behavior>
     </table>
 </database>
