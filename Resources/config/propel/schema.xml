@@ -40,6 +40,8 @@
 		<column name="oauth_token"                                  type="varchar" size="64" required="false" />
 		<column name="year_end"                                     type="boolean" size="1" required="true" defaultValue="12" />
 		<column name="country_id"                                   type="varchar" size="2" required="true" defaultValue="FR" />
+		<behavior name="timestampable" />
+		<behavior name="soft_delete" />
 		<foreign-key foreignTable="dzango_user" name="FI_store_owner"  onDelete="restrict" onUpdate="restrict" phpName="Owner">
 			<reference local="owner_id"  foreign="id" />
 		</foreign-key>
@@ -80,7 +82,7 @@
 			<index-column name="affiliate_id" />
 		</index>
 	</table>
-	<table name="customer"  idMethod="native">
+	<table name="customer" idMethod="native">
 		<column name="id"                      type="integer" primaryKey="true" autoIncrement="true" required="true" />
 		<column name="realm"                   type="varchar" size="32" required="true" />
 		<column name="code"                    type="varchar" size="100" required="false" />
@@ -101,8 +103,13 @@
 		<column name="closed_by"               type="tinyint" required="false" />
 		<column name="closed_why"              type="longvarchar" required="false" />
 		<column name="credit_balance"          type="float" size="8" scale="2" required="true" defaultValue="0.00" />
-		<foreign-key foreignTable="address" name="FI_customer_address" onDelete="restrict" onUpdate="restrict">
+		<behavior name="timestampable" />
+		<behavior name="soft_delete" />
+		<foreign-key foreignTable="address" name="FI_customer_address" onDelete="cascade" phpName="BillingAddress">
 			<reference local="billing_address_id" foreign="id" />
+		</foreign-key>
+		<foreign-key foreignTable="address" name="FI_customer_address" onDelete="cascade" phpName="ShippingAddress">
+			<reference local="shipping_address_id" foreign="id" />
 		</foreign-key>
 		<unique name="customer_id">
 			<unique-column name="code" />
@@ -161,10 +168,12 @@
 			<parameter name="use_scope" value="true" />
 			<parameter name="scope_column" value="store_id" />
 		</behavior>
-		<foreign-key foreignTable="store" name="FI_category_store" onDelete="cascade" onUpdate="restrict">
+		<behavior name="timestampable" />
+		<behavior name="soft_delete" />
+		<foreign-key foreignTable="store" name="FI_category_store" onDelete="cascade">
 			<reference local="store_id" foreign="id" />
 		</foreign-key>
-		<foreign-key foreignTable="tax" name="FI_category_tax" onDelete="restrict" onUpdate="restrict">
+		<foreign-key foreignTable="tax" name="FI_category_tax" onDelete="restrict">
 			<reference local="tax_rate_id" foreign="id" />
 		</foreign-key>
 		<unique name="code">
@@ -204,6 +213,8 @@
 		<column name="vat_id"              type="varchar" size="20" required="false" />
 		<column name="vat_id_valid"        type="boolean" size="1" required="true" defaultValue="false" />
 		<column name="credit_amount"       type="float" size="8" scale="2" required="true" defaultValue="0.00" />
+		<behavior name="timestampable" />
+		<behavior name="soft_delete" />
 		<foreign-key foreignTable="currency" name="FI_cart_currency" onDelete="restrict" onUpdate="restrict">
 			<reference local="currency_id" foreign="id" />
 		</foreign-key>
@@ -263,6 +274,8 @@
 		<column name="amount_incl"          type="float" size="8" scale="2" required="false" />
 		<column name="packed_at"            type="timestamp" required="false" />
 		<column name="shipment_id"          type="integer" required="false" />
+		<behavior name="timestampable" />
+		<behavior name="soft_delete" />
 		<foreign-key foreignTable="item" name="FI_item_item" onDelete="cascade" onUpdate="restrict">
 			<reference local="parent_id" foreign="id" />
 		</foreign-key>
@@ -317,6 +330,8 @@
 		<column name="created_at"     type="timestamp" required="false" />
 		<column name="updated_at"     type="timestamp" required="false" />
 		<column name="deleted_at"     type="timestamp" required="false" />
+		<behavior name="timestampable" />
+		<behavior name="soft_delete" />
 		<foreign-key foreignTable="gateway" name="FI_payment_gateway">
 			<reference local="gateway_id" foreign="id" />
 		</foreign-key>
@@ -362,6 +377,8 @@
 		<column name="created_at"  type="timestamp" required="true" />
 		<column name="updated_at"  type="timestamp" required="true" />
 		<column name="deleted_at"  type="timestamp" required="false" />
+		<behavior name="timestampable" />
+		<behavior name="soft_delete" />
 		<foreign-key foreignTable="store" name="FI_gateway_store" onDelete="cascade" onUpdate="restrict">
 			<reference local="store_id" foreign="id" />
 		</foreign-key>
