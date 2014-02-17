@@ -25,7 +25,10 @@ class PaymentController extends BaseController
             if ($store = $this->getStore()) {
                 $query->filterByStore($store);
             } elseif ($store_id = $request->query->get('store_id')) {
-                $query->filterByStoreId($store_id);
+                $query
+                    ->useGatewayQuery()
+                        ->filterByStoreId($store_id)
+                    ->endUse();
             }
 
             $total_count = $query->count();
