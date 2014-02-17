@@ -2,5 +2,17 @@
 
 {% trans_default_domain "payment" %}
 
-<div class='label label-{{ ("payment.status.class." ~ payment.status)|trans }}'>{{ ("payment.status.label." ~ payment.status)|trans }}</div>
+{% if payment.error %}
+	{% set status = 'error' %}
+{% elseif payment.paid %}
+	{% set status = 'paid' %}
+{% elseif payment.cancelled %}
+	{% set status = 'cancelled' %}
+{% elseif payment.approved %}
+	{% set status = 'approved' %}
+{% else %}
+	{% set status = 'open' %}
+{% endif %}
+
+	<div class='label label-{{ ("payment.status.class." ~ status)|trans }}'>{{ ("payment.status.label." ~ status)|trans }}</div>
 {% endspaceless %}

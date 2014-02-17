@@ -10,14 +10,14 @@ payment:
 
     status:
         class:
-            0:                  default
-            2:                  info
-            4:                  danger
-            8:                  warning
-            16:					success
+            approved:        warning
+            cancelled:       info
+            error:           danger
+            open:            default
+            paid:			 success
         label:
-            0:                  OPEN
-            2:                  CANCELLED
-            4:                  ERROR
-            8:                  APPROVED
-            16:					PAID
+            approved:        APPROVED
+            cancelled:       CANCELLED
+            error:           ERROR
+            open:            OPEN
+            paid:		     PAID

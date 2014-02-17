@@ -1,3 +1,11 @@
+.payments table.table th.id {
+	width: 6em;
+}
+
+.payments table.table th.status {
+	width: 6em;
+}
+
 .payments table.table th.actions {
 	width: 5em;
 }

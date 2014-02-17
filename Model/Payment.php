@@ -11,4 +11,62 @@ class Payment extends BasePayment
     const STATUS_ERROR     = 4;
     const STATUS_APPROVED  = 8;
     const STATUS_PAID      = 16;
+
+    public function isOpen()
+    {
+        return $this->getStatus() == self::STATUS_OPEN;
+    }
+
+    public function isPaid() {
+    	return $this->getStatus() & self::STATUS_PAID;
+    }
+
+  	public function setPaid()
+  	{
+    	if ($this->isOpen() || $this->isApproved()) {
+     	 	$this->setStatus($this->getStatus() | (self::STATUS_PAID | self::STATUS_APPROVED));
+    	}
+  	}
+
+  	public function isApproved()
+  	{
+  		return $this->getStatus() & self::STATUS_APPROVED;
+  	}
+
+  	public function approve()
+  	{
+    	if (!$this->isOpen()) {
+    		return;
+    	}
+
+    	$this->setStatus($this->getStatus() | self::STATUS_APPROVED);
+ 	}
+
+  	public function isCancelled()
+  	{
+  		return $this->getStatus() & self::STATUS_CANCELLED;
+  	}
+
+  	public function cancel()
+  	{
+    	if (!$this->isOpen()) {
+    		return;
+    	}
+
+    	$this->setStatus($this->getStatus() | self::STATUS_CANCELLED);
+  	}
+
+  	public function isError() {
+  		return $this->getStatus() & self::STATUS_ERROR;
+  	}
+
+  	// [TODO OP 2009-08-11] revisit: an approved payment may be set to error
+  	public function setError()
+  	{
+    	if (!$this->isOpen()) {
+    		return;
+    	}
+
+	    $this->setStatus($this->getStatus() | self::STATUS_ERROR);
+  	}
 }
