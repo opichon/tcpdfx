@@ -8,6 +8,12 @@ use FOS\UserBundle\Model\UserInterface;
 
 class User extends BaseUser implements UserInterface
 {
+    const STATUS_STORE_USER = 0;
+
+    const STATUS_STORE_OWNER = 1;
+
+    const STATUS_ADMIN = 9;
+
     /**
      * Plain password. Used when changing the password. Must not be persisted.
      *
@@ -251,5 +257,19 @@ class User extends BaseUser implements UserInterface
     {
         // FIXME
         return true;
+    }
+
+
+    public function isAdmin()
+    {
+        return null === $this->getRealm();
+    }
+
+    public function isOwner()
+    {
+        $query = StoreQuery::create()
+            ->filterByOwner($this);
+
+        return $query->count() > 0;
     }
 }

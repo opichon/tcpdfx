@@ -4,7 +4,7 @@ user:
 
         actions:
             title:          Actions
-        id:                 ID
+        id:                 Id
         realm:              Realm
         code:               Code
         username:           Username

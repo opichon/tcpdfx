@@ -7,16 +7,15 @@
         {% for user in users %}
             {
                 "DT_RowId": "{{ '_' ~ user.id }}",
-                "DT_RowClass": "{{ 'users' }}",
+                "DT_RowClass": "user{{ user.enabled ? '' : ' disabled' }}{{ user.admin ? ' admin' :'' }}{{ user.owner ? ' owner' : '' }}",
                 "id": "{{ user.id }}",
                 "0": "",
-                "1": "{{ user.id }}",
+                "1": "{{ user.username }}",
                 "2": "{{ user.realm }}",
                 "3": "{{ user.code }}",
-                "4": "{{ user.username }}",
-                "5": "{{ user.createdAt|date('d.m.Y h:i') }}",
-                "6": "{{ user.lastLogin|date('d.m.Y h:i') }}",
-                "7": ""
+                "4": "{{ user.createdAt|date('d.m.Y h:i') }}",
+                "5": "{{ user.lastLogin|date('d.m.Y h:i') }}",
+                "6": ""
             }{% if not loop.last %},{% endif %}
         {% endfor %}
     ]

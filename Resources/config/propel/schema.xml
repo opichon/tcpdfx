@@ -40,6 +40,9 @@
 		<column name="oauth_token"                                  type="varchar" size="64" required="false" />
 		<column name="year_end"                                     type="boolean" size="1" required="true" defaultValue="12" />
 		<column name="country_id"                                   type="varchar" size="2" required="true" defaultValue="FR" />
+		<foreign-key foreignTable="dzango_user" name="FI_store_owner"  onDelete="restrict" onUpdate="restrict" phpName="Owner">
+			<reference local="owner_id"  foreign="id" />
+		</foreign-key>
 		<foreign-key foreignTable="address" name="FI_store_address"  onDelete="restrict" onUpdate="restrict">
 			<reference local="address_id"  foreign="id" />
 		</foreign-key>
