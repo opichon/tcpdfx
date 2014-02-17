@@ -1,3 +1,11 @@
+.users table.table tr.admin td {
+	background-color: #f2dede;
+}
+
+.users table.table tr.owner td {
+	background-color: #dff0d8;
+}
+
 .users th.actions {
 	width: 5em;
 }
