@@ -111,6 +111,9 @@
 		<foreign-key foreignTable="address" name="FI_customer_address" onDelete="cascade" phpName="ShippingAddress">
 			<reference local="shipping_address_id" foreign="id" />
 		</foreign-key>
+        <foreign-key foreignTable="user_profile" name="FI_customer_user_profile" onDelete="restrict" onUpdate="restrict">
+            <reference local="user_profile_id" foreign="id"/>
+        </foreign-key>
 		<unique name="customer_id">
 			<unique-column name="code" />
 			<unique-column name="realm" />

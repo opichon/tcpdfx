@@ -22,4 +22,35 @@
             <parameter name="nullable_columns" value="last_login" />
         </behavior>
     </table>
+    <table name="user_profile" phpName="Profile" idMethod="native">
+        <column name="id"          type="integer" primaryKey="true" autoIncrement="true" required="true" />
+        <column name="user_id"     type="integer" required="false" />
+        <column name="surname"     type="varchar" size="30" required="false" />
+        <column name="given_names" type="varchar" size="30" required="false" />
+        <column name="salutation"  type="varchar" size="5" required="false" />
+        <column name="gender"      type="varchar" size="1" required="false" />
+        <column name="company"     type="varchar" size="30" required="false" />
+        <column name="email"       type="varchar" size="100" required="false" />
+        <column name="telephone"   type="varchar" size="20" required="false" />
+        <column name="fax"         type="varchar" size="20" required="false" />
+        <column name="mobile"      type="varchar" size="20" required="false" />
+        <column name="dob"         type="date" required="false"/>
+        <column name="address_id"  type="integer" required="false" />
+        <column name="token"       type="varchar" size="32" required="true" />
+        <column name="created_at"  type="timestamp" required="false" />
+        <column name="updated_at"  type="timestamp" required="false" />
+        <column name="deleted_at"  type="timestamp" required="false" />
+        <foreign-key foreignTable="dzango_user" name="FI_user_profile_dzango_user" onDelete="cascade" onUpdate="restrict">
+            <reference local="user_id" foreign="id" />
+        </foreign-key>
+        <foreign-key foreignTable="address" name="FI_user_profile_address" onDelete="restrict" onUpdate="restrict">
+            <reference local="address_id" foreign="id" />
+        </foreign-key>
+        <index name="user_id">
+            <index-column name="user_id" />
+        </index>
+        <index name="address_id">
+            <index-column name="address_id" />
+        </index>
+    </table>
 </database>
