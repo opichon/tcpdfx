@@ -52,5 +52,8 @@
         <index name="address_id">
             <index-column name="address_id" />
         </index>
+        <behavior name="typehintable">
+            <parameter name="dzango_user" value="FOS\UserBundle\Model\UserInterface" />
+        </behavior>
     </table>
 </database>
