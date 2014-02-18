@@ -10,12 +10,15 @@
                 "DT_RowClass": "user{{ user.enabled ? '' : ' disabled' }}{{ user.admin ? ' admin' :'' }}{{ user.owner ? ' owner' : '' }}",
                 "id": "{{ user.id }}",
                 "0": "",
-                "1": "{{ user.username }}",
-                "2": "{{ user.realm }}",
-                "3": "{{ user.code }}",
-                "4": "{{ user.createdAt|date('d.m.Y h:i') }}",
-                "5": "{{ user.lastLogin|date('d.m.Y h:i') }}",
-                "6": ""
+                "1": "{{ user.profile.surname }}",
+                "2": "{{ user.profile.givenNames }}",
+                "3": "{%if(user.profile.gender == '1')%} m {% elseif(user.profile.gender == '0') %} f {% else %} {% endif %}",
+                "4": "{{ user.username }}",
+                "5": "{{ user.realm }}",
+                "6": "{{ user.code }}",
+                "7": "{{ user.createdAt|date('d.m.Y h:i') }}",
+                "8": "{{ user.lastLogin|date('d.m.Y h:i') }}",
+                "9": ""
             }{% if not loop.last %},{% endif %}
         {% endfor %}
     ]

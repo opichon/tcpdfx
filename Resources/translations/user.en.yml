@@ -7,6 +7,9 @@ user:
         id:                 Id
         realm:              Realm
         code:               Code
+        surname:            Surname
+        given_names:        Given Name
+        gender:             Gender
         username:           Username
         createdAt:          Created At
         lastLogin:          Last Login
