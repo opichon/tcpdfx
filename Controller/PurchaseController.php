@@ -69,6 +69,7 @@ class PurchaseController extends BaseController
         }
 
         return array(
+            'store' => $this->getStore(),
             'template' => $this->getBaseTemplate()
         );
     }
