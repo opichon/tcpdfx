@@ -23,7 +23,10 @@ class PaymentController extends BaseController
             $query = PaymentQuery::create('Cart');
 
             if ($store = $this->getStore()) {
-                $query->filterByStore($store);
+                $query
+                    ->useGatewayQuery()
+                        ->filterByStore($store)
+                    ->endUse();
             } elseif ($store_id = $request->query->get('store_id')) {
                 $query
                     ->useGatewayQuery()
