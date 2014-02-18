@@ -272,4 +272,16 @@ class User extends BaseUser implements UserInterface
 
         return $query->count() > 0;
     }
+        
+    public function getProfile()
+    {
+        $profile = $this->getProfiles()->getFirst();
+        
+        if(!$profile) {
+            $profile = new Profile();
+            $profile->setUser($this);
+        }
+        
+        return $profile;
+    }
 }
