@@ -294,6 +294,9 @@
 			<foreign-key foreignTable="cart" name="FI_item_cart" onDelete="cascade" onUpdate="restrict">
 		<reference local="order_id" foreign="id" />
 		</foreign-key>
+        <foreign-key foreignTable="promotion" name="FI_item_promotion" onDelete="restrict" onUpdate="restrict">
+            <reference local="promotion_id" foreign="id"/>
+        </foreign-key>
 		<index name="parent_id">
 			<index-column name="parent_id" />
 		</index>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database name="default" namespace="Dzangocart\Bundle\CoreBundle\Model\Promotion" defaultIdMethod="native">
+    <table name="promotion" idMethod="native">
+        <column name="id"           type="integer" primaryKey="true" autoIncrement="true" required="true" />
+        <column name="store_id"     type="integer" required="true" />
+        <column name="category_id"  type="integer" required="false" />
+        <column name="date_from"    type="timestamp" required="false" />
+        <column name="date_to"      type="timestamp" required="false" />
+        <column name="rule_id"      type="integer" required="true" />
+        <column name="rule_param"   type="varchar" size="128" required="false" />
+        <column name="action_id"    type="integer" required="true"/>
+        <column name="action_param" type="varchar" size="128" required="false" />
+        <column name="rank"         type="integer" required="true" defaultValue="0" />
+        <column name="code"         type="varchar" size="128" required="false" />
+        <index name="store_id">
+            <index-column name="store_id" />
+            <index-column name="category_id" />
+        </index>
+        <index name="category_id">
+            <index-column name="category_id" />
+        </index>
+        <index name="rule_id">
+            <index-column name="rule_id" />
+        </index>
+        <index name="action_id">
+            <index-column name="action_id" />
+        </index>
+    </table>
+</database>
