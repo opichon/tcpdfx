@@ -28,9 +28,9 @@
             <index-column name="action_id" />
         </index>
         <behavior name="i18n">
-			<parameter name="i18n_columns" value="name, description" />
-			<parameter name="locale_column" value="culture" />
-		</behavior>
+            <parameter name="i18n_columns" value="name, description" />
+            <parameter name="locale_column" value="culture" />
+        </behavior>
     </table>
     <table name="promotion_action" phpName="Action" idMethod="native">
         <column name="id"        type="integer" primaryKey="true" autoIncrement="true" required="true" />
@@ -38,9 +38,9 @@
         <column name="name"         type="varchar" size="32" required="true"/>
         <column name="description"  type="longvarchar" required="true"/>
         <behavior name="i18n">
-			<parameter name="i18n_columns" value="name, description" />
-			<parameter name="locale_column" value="culture" />
-		</behavior>
+            <parameter name="i18n_columns" value="name, description" />
+            <parameter name="locale_column" value="culture" />
+        </behavior>
     </table>
     <table name="promotion_rule" phpName="Rule" idMethod="native">
         <column name="id"        type="integer" primaryKey="true" autoIncrement="true" required="true" />
@@ -48,8 +48,8 @@
         <column name="name"         type="varchar" size="32" required="true"/>
         <column name="description"  type="longvarchar" required="true"/>
         <behavior name="i18n">
-			<parameter name="i18n_columns" value="name, description" />
-			<parameter name="locale_column" value="culture" />
-		</behavior>
+            <parameter name="i18n_columns" value="name, description" />
+            <parameter name="locale_column" value="culture" />
+        </behavior>
     </table>
 </database>
