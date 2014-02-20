@@ -228,7 +228,7 @@
             <reference local="shipping_address_id" foreign="id" />
         </foreign-key>
         <unique name="token">
-        <   unique-column name="token" />
+            <unique-column name="token" />
         </unique>
         <index name="store_id">
             <index-column name="store_id" />
