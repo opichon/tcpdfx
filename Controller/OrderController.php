@@ -29,7 +29,6 @@ class OrderController extends BaseController
             } elseif ($store_id = $request->query->get('store_id')) {
                 $query->filterByStoreId($store_id);
             }
-
             $total_count = $query->count();
 
             $query->datatablesSearch(
@@ -80,7 +79,6 @@ class OrderController extends BaseController
     public function showAction(Request $request, $id)
     {
         $order = CartQuery::create()
-            ->filterByStore($this->getStore())
             ->findPk($id);
 
         if (!$order) {
