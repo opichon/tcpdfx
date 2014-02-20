@@ -371,18 +371,21 @@
 			<index-column name="store_id" />
 		</index>
 	</table>
-
-	<table name="gateway" idMethod="native">
-		<column name="id"          type="integer" primaryKey="true" autoIncrement="true" required="true" />
-		<column name="store_id"    type="integer" required="true"/>
-		<column name="provider_id" type="integer" phpName="ServiceId" required="true" />
-		<column name="settings_id" type="integer" required="false" />
-		<column name="status"      type="tinyint" required="true" defaultValue="0" />
-		<column name="testing"     type="boolean" size="1" required="true" defaultValue="false" />
-		<column name="restriction" type="boolean" size="1" required="true" defaultValue="false" />
-		<column name="created_at"  type="timestamp" required="true" />
-		<column name="updated_at"  type="timestamp" required="true" />
-		<column name="deleted_at"  type="timestamp" required="false" />
+    <table name="gateway" idMethod="native">
+		<column name="id"                    type="integer" primaryKey="true" autoIncrement="true" required="true" />
+		<column name="store_id"              type="integer" required="true"/>
+		<column name="provider_id"           type="integer" phpName="ServiceId" required="true" />
+		<column name="settings_id"           type="integer" required="false" />
+		<column name="status"                type="tinyint" required="true" defaultValue="0" />
+		<column name="testing"               type="boolean" size="1" required="true" defaultValue="false" />
+		<column name="restriction"           type="boolean" size="1" required="true" defaultValue="false" />
+		<column name="created_at"            type="timestamp" required="true" />
+		<column name="updated_at"            type="timestamp" required="true" />
+		<column name="deleted_at"            type="timestamp" required="false" />
+        <column name="msg_payment_methods"   type="longvarchar" required="false" />
+        <column name="msg_payment_ok"        type="longvarchar" required="false" />
+        <column name="msg_payment_cancelled" type="longvarchar" required="false" />
+        <column name="msg_payment_error"     type="longvarchar" required="false" />
 		<behavior name="timestampable" />
 		<behavior name="soft_delete" />
 		<foreign-key foreignTable="store" name="FI_gateway_store" onDelete="cascade" onUpdate="restrict">
@@ -399,10 +402,22 @@
 		<index name="provider_id">
 			<index-column name="provider_id" />
 		</index>
+        <behavior name="i18n">
+			<parameter name="i18n_columns" value="msg_payment_methods, msg_payment_ok, msg_payment_cancelled, msg_payment_error" />
+			<parameter name="locale_column" value="culture" />
+		</behavior>
 	</table>
 	<table name="gateway_engine" phpName="GatewayEngine" idMethod="native">
-		<column name="id"   type="integer" primaryKey="true" autoIncrement="true" required="true"/>
-		<column name="name" type="varchar" size="100" required="true"/>
+		<column name="id"                    type="integer" primaryKey="true" autoIncrement="true" required="true" />
+		<column name="name"                  type="varchar" size="100" required="true" />
+        <column name="msg_payment_methods"   type="longvarchar" required="false" />
+        <column name="msg_payment_ok"        type="longvarchar" required="false" />
+        <column name="msg_payment_cancelled" type="longvarchar" required="false" />
+        <column name="msg_payment_error"     type="longvarchar" required="false" />
+        <behavior name="i18n">
+			<parameter name="i18n_columns" value="msg_payment_methods, msg_payment_ok, msg_payment_cancelled, msg_payment_error" />
+			<parameter name="locale_column" value="culture" />
+		</behavior>
 	</table>
 	<table name="gateway_service" idMethod="native">
 		<column name="id"        type="integer" primaryKey="true" autoIncrement="true" required="true" />
