@@ -1,0 +1,10 @@
+promotion:
+    promotions:
+        page_title:         Promotion
+        actions:
+            title:          Actions
+        name:               Name
+        code:               Code
+        date_from:          Date From
+        date_to:		    Date To
+        store:				Store

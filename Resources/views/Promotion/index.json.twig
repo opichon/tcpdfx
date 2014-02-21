@@ -1,0 +1,23 @@
+{% trans_default_domain "promotion" %}
+
+{% spaceless %}
+{
+    "sEcho": "{{ sEcho }}",
+    "iTotalRecords": {{ iTotalRecords }},
+    "iTotalDisplayRecords": {{ iTotalDisplayRecords }},
+    "aaData" : [
+        {% for promotion in promotions %}
+            {
+                "DT_RowId": "{{ '_promotion_' ~ promotion.id }}",
+                "DT_RowClass": "{{ 'promotion' }}",
+                "0": "",
+                "1": "{{ promotion.name }}",
+                "2": "{{ promotion.code }}",
+                "3": "{{ promotion.dateFrom|date('d.m.y H:i') }}",
+                "4": "{{ promotion.dateTo|date('d.m.y H:i') }}",
+                "5": "{% include 'DzangocartCoreBundle:Promotion:actions.html.twig' %}"
+            }{% if not loop.last %},{% endif %}
+        {% endfor %}
+    ]
+}
+{% endspaceless %}

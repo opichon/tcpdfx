@@ -1,0 +1,21 @@
+{% extends "DzangocartCoreBundle::layout.html.twig" %}
+
+{% trans_default_domain "promotion" %}
+
+{% block page_title %}{% trans %}promotion.promotions.page_title{% endtrans %}{% endblock %}
+
+{% block bodyclass %}promotions{% endblock %}
+
+{% block content %}
+    {% include "DzangocartCoreBundle:Promotion:promotion.html.twig" %}
+{% endblock %}
+
+{% block head_style %}
+    {{ parent() }}
+    {% include "DzangocartCoreBundle:Promotion:promotions_head_style.html.twig" %}
+{% endblock %}
+
+{% block foot_script %}
+    {{ parent() }}
+	{% include "DzangocartCoreBundle:Promotion:promotions_foot_script.html.twig" %}
+{% endblock %}
