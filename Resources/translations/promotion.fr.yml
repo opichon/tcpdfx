@@ -1,4 +1,17 @@
 promotion:
+    edit:
+        success:            The promotion was successfully edited.
+    form:
+        code:
+            label:          Code
+        date_from:
+            label:          Date From
+        date_to:
+            label:          Date To
+        name:
+            label:          Name
+        description:
+            label:          Description
     promotions:
         page_title:         Promotion
         actions:

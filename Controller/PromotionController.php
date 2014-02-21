@@ -81,4 +81,44 @@ class PromotionController extends BaseController
             'promotion.id'
         );
     }
+    
+    /**
+     * @Route("/promotion/{id}/edit", name="promotion_edit")
+     * @Template("DzangocartCoreBundle:Promotion:edit.html.twig")
+     */
+    public function editAction(Request $request, $id)
+    {
+        $promotion = PromotionQuery::create()
+            ->joinWithI18n($request->getLocale())
+            ->findPk($id);
+
+        if (!$promotion) {
+            throw $this->createNotFoundException(
+                $this->get('translator')->trans('promotion.show.error.not_found', array(), 'promotion', $request->getLocale())
+            );
+        }
+
+        $form = $this->createForm(
+            new PromotionEditType(), $promotion, array( 'action' => $this->generateUrl('promotion_edit', array('id' => $id)))
+        );
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $promotion->save();
+            $this->get('session')->getFlashBag()->add(
+            'promotion.edit.success',
+            $this->get('translator')->trans(
+                'promotion.edit.success',
+                array(),
+                'promotion',
+                $request->getLocale()
+            ));
+            return $this->redirect($this->generateUrl('promotions'));
+        }
+        return array(
+            'store' => $this->getStore(),
+            'form' => $form->createView()
+        );
+    }
 }
