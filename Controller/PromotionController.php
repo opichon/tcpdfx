@@ -2,6 +2,7 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Controller;
 
+use Dzangocart\Bundle\CoreBundle\Form\Type\PromotionEditType;
 use Dzangocart\Bundle\CoreBundle\Model\Promotion\PromotionQuery;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
