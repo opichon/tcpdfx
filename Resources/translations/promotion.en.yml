@@ -1,6 +1,8 @@
 promotion:
     edit:
         success:            The promotion was successfully edited.
+    delete:
+        success:            The promotion was successfully deleted.
     form:
         code:
             label:          Code

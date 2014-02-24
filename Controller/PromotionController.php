@@ -5,6 +5,7 @@ namespace Dzangocart\Bundle\CoreBundle\Controller;
 use Dzangocart\Bundle\CoreBundle\Form\Type\PromotionEditType;
 use Dzangocart\Bundle\CoreBundle\Model\Promotion\PromotionI18nQuery;
 use Dzangocart\Bundle\CoreBundle\Model\Promotion\PromotionQuery;
+use Dzangocart\Bundle\CoreBundle\Model\ItemQuery;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
