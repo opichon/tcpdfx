@@ -122,4 +122,44 @@ class PromotionController extends BaseController
             'form' => $form->createView()
         );
     }
+
+    /**
+     * @Route("/promotion/{id}/delete", name="promotion_delete")
+     * @Template("DzangocartCoreBundle:Promotion:index.html.twig")
+     */
+    public function deleteAction(Request $request, $id)
+    {
+        $promotion = PromotionQuery::create()
+            ->findPk($id);
+
+        $promotion_i18n = PromotionI18nQuery::create()->findById($id);
+
+        if (!$promotion) {
+            throw $this->createNotFoundException(
+                $this->get('translator')->trans('promotion.delete.error.not_found', array(), 'promotion', $request->getLocale())
+            );
+        }
+
+        $items = ItemQuery::create()->filterByPromotionId($id)->find();
+
+        foreach ($items as $item){
+            $item->setPromotionId(NULL);
+            $item->save();
+        }
+
+       $promotion->delete();
+
+       $promotion_i18n->delete();
+
+        $this->get('session')->getFlashBag()->add(
+            'success',
+            $this->get('translator')->trans(
+                'promotion.delete.success',
+                array(),
+                'promotion',
+                $request->getLocale()
+        ));
+
+        return $this->redirect($this->generateUrl('promotions'));
+    }
 }
