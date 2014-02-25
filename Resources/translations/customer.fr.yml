@@ -1,0 +1,10 @@
+customer:
+    customers:
+        page_title:         Customers
+
+        actions:
+            title:          Actions
+        code:               Code
+        id:                 ID
+        realm:              Realm
+        eu:                 EU
