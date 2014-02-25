@@ -26,11 +26,11 @@ class CustomerController extends BaseController
 
             $query = CustomerQuery::create();
                 
-            if ($store = $this->getStore()) {
-                $query->filterByStore($store);
-            } elseif ($store_id = $request->query->get('store_id')) {
-                $query->filterByStoreId($store_id);
-            }
+//            if ($store = $this->getStore()) {
+//                $query->filterByStore($store);
+//            } elseif ($store_id = $request->query->get('store_id')) {
+//                $query->filterByStoreId($store_id);
+//            }
 
             $total_count = $query->count();
             
@@ -74,6 +74,8 @@ class CustomerController extends BaseController
 
             return new Response($view, 200, array('Content-Type' => 'application/json'));
         }
+         $form = $this->createForm(
+            new CustomerFiltersType());
         
         return array(
             'store' => $this->getStore(),
@@ -93,17 +95,17 @@ class CustomerController extends BaseController
      protected function getDataTablesSortColumns()
     {
         return array(
-            1 => 'customer.ID',
-            2 => 'customer.Realm',
-            3 => 'customer.Code',
-            4 => 'customer.Actions'
+            1 => 'customer.id',
+            2 => 'customer.realm',
+            3 => 'customer.code',
+
         );
     }
     protected function getDataTablesSearchColumns()
     {
         return array(
-            'id' => 'cart.id LIKE "%s%%"',
-            'store_name' => 'store.name LIKE "%%%s%%"',
+            'id' => 'customer.id LIKE "%s%%"',
+            'customer_name' => 'customer.realm LIKE "%%%s%%"',
         );
     }
 }
