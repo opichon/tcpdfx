@@ -1,0 +1,25 @@
+promotion:
+    edit:
+        success:            The promotion was successfully edited.
+    delete:
+        success:            The promotion was successfully deleted.
+    form:
+        code:
+            label:          Code
+        date_from:
+            label:          Date From
+        date_to:
+            label:          Date To
+        name:
+            label:          Name
+        description:
+            label:          Description
+    promotions:
+        page_title:         Promotion
+        actions:
+            title:          Actions
+        name:               Name
+        code:               Code
+        date_from:          Date From
+        date_to:            Date To
+        store:              Store
