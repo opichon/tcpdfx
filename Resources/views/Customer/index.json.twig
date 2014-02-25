@@ -1,0 +1,23 @@
+{% trans_default_domain "customer" %}
+
+{% spaceless %}
+{
+    "sEcho": "{{ sEcho }}",
+    "iTotalRecords": {{ iTotalRecords }},
+    "iTotalDisplayRecords": {{ iTotalDisplayRecords }},
+    "aaData" : [
+        {% for customer in customers %}
+            {
+                "DT_RowId": "{{ '_' ~ customer.id }}",
+                "DT_RowClass": "{{ 'customer' }}",
+                "id": "{{ customer.id }}",
+                "0": "",
+                "1": "<a href='{{ path('customer_edit', { id: customer.id }) }}'>{{customer.id}}</a>",
+                "2": "{{ customer.realm }}",
+                "3": "{{ customer.code }}",
+                "4": ""
+            }{% if not loop.last %},{% endif %}
+        {% endfor %}
+    ]
+}
+{% endspaceless %}

@@ -1,0 +1,23 @@
+{% trans_default_domain "customer" %}
+
+<table class="table table-condensed">
+    <thead>
+        <tr>
+            <th class="selectall"></th>
+            <th class="id">{% trans %}customer.customers.id{% endtrans %}</th>
+            <th class="realm">{% trans %}customer.customers.realm{% endtrans %}</th>
+            <th class="code">{% trans %}customer.customers.code{% endtrans %}</th>
+            <th class="actions">{% trans %}customer.customers.actions.title{% endtrans %}</th>
+        </tr>
+        <tr class="filters">
+            <th></th>
+            <th></th>
+            <th>{{ form_widget(form.realm) }}</th>
+            <th>{{ form_widget(form.id) }}</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
