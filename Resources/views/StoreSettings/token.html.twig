@@ -1,0 +1,31 @@
+{% extends "DzangocartCoreBundle::layout.html.twig" %}
+
+{% trans_default_domain "settings" %}
+
+{% block dzangocart_core_page_title %}
+	{% trans %}settings.token.page_title{% endtrans %}
+{% endblock %}
+
+{% block _core_content %}
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+            <th class="selectall"></th>
+            <th class="token">{% trans %}settings.token.token{% endtrans %}</th>
+            <th class="actions">{% trans %}settings.token.actions.title{% endtrans %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for token in tokens %}
+            <tr>
+                <td></td>
+                <td>{{ token.token }}</td>
+                <td><a href='{{ path('api_token_delete', { id: token.id }) }}'>delete</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="pull-left">
+        {{ form(form) }}
+    </div>
+{% endblock %}

@@ -20,4 +20,14 @@ class Store extends BaseStore
     {
         return $this->getOwnerId() == $user->getId();
     }
+
+    public function generateApiToken()
+    {
+        return rtrim(strtr(base64_encode($this->getRandomNumber()), '+/', '-_'), '=');
+    }
+
+    protected function getRandomNumber()
+    {
+        return hash('sha256', uniqid(mt_rand(), true), true);
+    }
 }
