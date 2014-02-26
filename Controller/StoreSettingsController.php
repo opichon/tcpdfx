@@ -2,6 +2,7 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Controller;
 
+use Dzangocart\Bundle\CoreBundle\Form\Type\TokenGenerateType;
 use Dzangocart\Bundle\CoreBundle\Model\ApiToken;
 use Dzangocart\Bundle\CoreBundle\Model\ApiTokenQuery;
 
@@ -73,7 +74,7 @@ abstract class StoreSettingsController extends BaseController
        $apiToken->setToken($this->getStore()->generateApiToken());
 
        $form = $this->createForm(
-            new \Dzangocart\Bundle\CoreBundle\Form\Type\TokenGenerateType(),
+            new TokenGenerateType(),
             $apiToken,
             array(
                 'action' => $this->generateUrl('api_token')
