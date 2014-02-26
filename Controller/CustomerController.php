@@ -24,26 +24,22 @@ class CustomerController extends BaseController
     {
         if ($request->isXmlHttpRequest() || 'json' == $request->getRequestFormat()) {
 
-            $query = CustomerQuery::create();
-                
-//            if ($store = $this->getStore()) {
-//                $query->filterByStore($store);
-//            } elseif ($store_id = $request->query->get('store_id')) {
-//                $query->filterByStoreId($store_id);
-//            }
-
+            $query = CustomerQuery::create()
+                    ->filterByRealm($this->getStore()->getRealm());
+            
             $total_count = $query->count();
             
             $query->datatablesSearch(
                 $request->query->get('customer_filters'),
                 $this->getDataTablesSearchColumns()
             );
+            
 
             $filtered_count = $query->count();
 
             $limit = min(100, $request->query->get('iDisplayLength'));
             $offset = max(0, $request->query->get('iDisplayStart'));
-            // TODO Get 10 customers instances -- temporary code
+            
             $customers = CustomerQuery::create('Customer');
 
             $customers = $query
@@ -56,8 +52,6 @@ class CustomerController extends BaseController
 	        $total_count = CustomerQuery::create()
 	 
                 ->count();
-	 
-           // TODO Number of Customer instances after filters are applied
 	 
             $filtered_count = $total_count;
 	
@@ -105,7 +99,7 @@ class CustomerController extends BaseController
     {
         return array(
             'id' => 'customer.id LIKE "%s%%"',
-            'customer_name' => 'customer.realm LIKE "%%%s%%"',
+            'customer_realm' => 'customer.realm LIKE "%%%s%%"',
         );
     }
 }
