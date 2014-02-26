@@ -99,7 +99,7 @@ class CustomerController extends BaseController
     {
         return array(
             'id' => 'customer.id LIKE "%s%%"',
-            'customer_realm' => 'customer.realm LIKE "%%%s%%"',
+            'realm' => 'customer.realm LIKE "%%%s%%"',
         );
     }
 }
