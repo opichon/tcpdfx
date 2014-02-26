@@ -1,4 +1,6 @@
 promotion:
+    create:
+        success:            The promotion was successfully created.
     edit:
         success:            The promotion was successfully edited.
     delete:
@@ -23,3 +25,4 @@ promotion:
         date_from:          Date From
         date_to:            Date To
         store:              Store
+        create:             Create new promotion

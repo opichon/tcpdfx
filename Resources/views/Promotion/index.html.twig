@@ -6,6 +6,14 @@
 
 {% block bodyclass %}promotions{% endblock %}
 
+{% block page_nav %}
+    <div class="pull-right">
+        <a href="{{ path('promotion_create') }}">
+            {% trans %}promotion.promotions.create{% endtrans %}
+        </a>
+    </div>
+{% endblock %}
+
 {% block content %}
     {% for flashMessage in app.session.flashbag.get('promotion.edit.success') %}
     <div class="alert alert-success">

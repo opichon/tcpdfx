@@ -4,6 +4,7 @@ namespace Dzangocart\Bundle\CoreBundle\Controller;
 
 use Dzangocart\Bundle\CoreBundle\Form\Type\PromotionEditType;
 use Dzangocart\Bundle\CoreBundle\Model\ItemQuery;
+use Dzangocart\Bundle\CoreBundle\Model\Promotion\Promotion;
 use Dzangocart\Bundle\CoreBundle\Model\Promotion\PromotionI18nQuery;
 use Dzangocart\Bundle\CoreBundle\Model\Promotion\PromotionQuery;
 
@@ -163,5 +164,51 @@ class PromotionController extends BaseController
         ));
 
         return $this->redirect($this->generateUrl('promotions'));
+    }
+
+    /**
+     *@Route("/promotion/create", name="promotion_create")
+     * @Template("DzangocartCoreBundle:Promotion:create.html.twig")
+     */
+    public function createAction(Request $request)
+    {
+        $promotion = new Promotion();
+
+        $promotion->setLocale($request->getLocale());
+
+        $promotion->setStoreId($this->getStore()->getId());
+
+
+        $form = $this->createForm(
+            new PromotionEditType(),
+            $promotion,
+            array(
+                'action' => $this->generateUrl('promotion_create')
+            )
+        );
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $promotion->save();
+
+            $this->get('session')->getFlashBag()->add(
+                'success',
+                $this->get('translator')->trans(
+                    'promotion.create.success',
+                    array(),
+                    'promotion',
+                    $request->getLocale()
+                )
+            );
+
+            return $this->redirect($this->generateUrl('promotions'));
+        }
+
+        return array(
+            'store' => $this->getStore(),
+            'promotion' => $promotion,
+            'form' => $form->createView()
+        );
     }
 }
