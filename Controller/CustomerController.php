@@ -25,7 +25,7 @@ class CustomerController extends BaseController
         if ($request->isXmlHttpRequest() || 'json' == $request->getRequestFormat()) {
 
             $query = CustomerQuery::create()
-                    ->filterByRealm($this->getStore()->getRealm());
+                ->filterByRealm($this->getStore()->getRealm());
             
             $total_count = $query->count();
             
@@ -40,22 +40,13 @@ class CustomerController extends BaseController
             $limit = min(100, $request->query->get('iDisplayLength'));
             $offset = max(0, $request->query->get('iDisplayStart'));
             
-            $customers = CustomerQuery::create('Customer');
-
             $customers = $query
                 ->datatablesSort($request->query, $this->getDataTablesSortColumns())
                 ->setLimit($limit)
                 ->setOffset($offset)
                 ->find();
-              
-            // Total number of Customer instances
-	        $total_count = CustomerQuery::create()
-	 
-                ->count();
-	 
-            $filtered_count = $total_count;
-	
-            $data = array(
+
+	    $data = array(
 	        'sEcho' => $request->query->get('sEcho'),
                 'iStart' => 0,
                 'iTotalRecords' => $total_count,
@@ -68,13 +59,13 @@ class CustomerController extends BaseController
 
             return new Response($view, 200, array('Content-Type' => 'application/json'));
         }
-         $form = $this->createForm(
-            new CustomerFiltersType());
+            $form = $this->createForm(
+                new CustomerFiltersType());
         
-        return array(
-            'store' => $this->getStore(),
-            'form' => $form->createView(),
-            'template' => $this->getBaseTemplate());
+            return array(
+                'store' => $this->getStore(),
+                'form' => $form->createView(),
+                'template' => $this->getBaseTemplate());
     }
 
     /**
@@ -86,7 +77,7 @@ class CustomerController extends BaseController
 
     }
     
-     protected function getDataTablesSortColumns()
+    protected function getDataTablesSortColumns()
     {
         return array(
             1 => 'customer.id',
