@@ -2,6 +2,8 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Security;
 
+use Dzangocart\Bundle\CoreBundle\Model\ApiTokenQuery;
+
 use FOS\UserBundle\Security\UserProvider as BaseUserProvider;
 
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -29,5 +31,18 @@ class UserProvider extends BaseUserProvider
         }
 
         return $reloadedUser;
+    }
+
+    public function isMatchedApiKey($apiKey)
+    {
+        $tokens = ApiTokenQuery::create()
+            ->filterByToken($apiKey)
+            ->find();
+
+        if($tokens->count() > 0) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
     }
 }
