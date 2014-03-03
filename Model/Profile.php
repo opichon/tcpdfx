@@ -10,7 +10,13 @@ class Profile extends BaseProfile implements ProfileInterface
 {
     public function getEmail()
     {
-        return $this->getUser()->getEmail();
+        if (!parent::getEmail()){
+            $email = $this->getUser()->getEmail();
+        } else {
+            $email = parent::getEmail();
+        }
+        
+        return $email;
     }
 
     public function init(array $options)

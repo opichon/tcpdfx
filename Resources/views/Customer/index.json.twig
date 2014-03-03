@@ -15,7 +15,11 @@
                 "1": "<a href='{{ path('customer_edit', { id: customer.id }) }}'>{{customer.id}}</a>",
                 "2": "{{ customer.realm }}",
                 "3": "{{ customer.code }}",
-                "4": ""
+                "4": "{{ customer.profile.surname }}",
+                "5": "{{ customer.profile.GivenNames }}",
+                "6": "{%if(customer.profile.gender == '1')%} m {% elseif(customer.profile.gender == '0') %} f {% else %} {% endif %}",
+                "7": "{{ customer.profile.email }}",
+                "8": ""
             }{% if not loop.last %},{% endif %}
         {% endfor %}
     ]

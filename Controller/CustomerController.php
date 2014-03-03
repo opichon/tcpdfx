@@ -83,6 +83,9 @@ class CustomerController extends BaseController
             1 => 'customer.id',
             2 => 'customer.realm',
             3 => 'customer.code',
+            4 => 'customer.surname',
+            5 => 'customer.given_names',
+            6 => 'customer.email',
 
         );
     }
