@@ -16,9 +16,9 @@
                 "2": "{{ customer.code }}",
                 "3": "{{ customer.profile.surname }}",
                 "4": "{{ customer.profile.GivenNames }}",
-                "5": "{%if(customer.profile.gender == '1')%} m {% elseif(customer.profile.gender == '0') %} f {% else %} {% endif %}",
+                "5": "{{ customer.profile.gender == 1 ? 'm' : 'f' }}",
                 "6": "{{ customer.profile.email }}",
-                "7": ""
+                "7": "&nbsp;"
             }{% if not loop.last %},{% endif %}
         {% endfor %}
     ]

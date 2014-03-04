@@ -12,10 +12,10 @@
 				return this.each(function() {
 					var $this = $( this );
 
-						$( ".filters input" ).keyup(function(event) {
-							event.stopPropagation();
-							table.fnDraw();
-						});
+					$( ".filters input" ).keyup(function(event) {
+						event.stopPropagation();
+						table.fnDraw();
+					});
 
 					table = $( "table.table", this ).dataTable( $.extend( true, {}, settings.dataTables, {
 						fnInitComplete: function( oSettings, json ) {
@@ -52,7 +52,7 @@
 			bAutoWidth: false,
 			bPaginate: true,
 			bProcessing: true,
-			bServerSide: true, // set datatables to use ajax to display content
+			bServerSide: true,
 			bSortable: true,
 			bSortCellsTop: true,
 			oLanguage: {
