@@ -3,3 +3,7 @@
 {% block dzangocart_core_page_title %}
 	{% trans %}settings.user.page_title{% endtrans %}
 {% endblock %}
+
+{% block _core_content %}
+    {{ form(form) }}
+{% endblock %}
