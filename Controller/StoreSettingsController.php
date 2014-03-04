@@ -2,9 +2,11 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Controller;
 
+use Dzangocart\Bundle\CoreBundle\Form\Type\StoreUserSettingsType;
 use Dzangocart\Bundle\CoreBundle\Form\Type\TokenGenerateType;
 use Dzangocart\Bundle\CoreBundle\Model\ApiToken;
 use Dzangocart\Bundle\CoreBundle\Model\ApiTokenQuery;
+use Dzangocart\Bundle\CoreBundle\Model\StoreUserSettingsQuery;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -52,7 +54,45 @@ abstract class StoreSettingsController extends BaseController
      */
     public function userAction(Request $request)
     {
+       $user_settings = StoreUserSettingsQuery::create()
+           ->findOneByStoreId($this->getStore()->getId());
+
+
+        if (!$user_settings) {
+            throw $this->createNotFoundException(
+                $this->get('translator')->trans('settings.user.edit.error.not_found', array(), 'settings', $request->getLocale())
+            );
+        }
+
+       $form = $this->createForm(
+            new StoreUserSettingsType(),
+            $user_settings,
+            array(
+                'action' => $this->generateUrl('store_settings_user')
+            )
+        );
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+
+            $user_settings->save();
+
+            $this->get('session')->getFlashBag()->add(
+                'success',
+                $this->get('translator')->trans(
+                    'settings.user.edit.success',
+                    array(),
+                    'settings',
+                    $request->getLocale()
+                )
+            );
+
+            return $this->redirect($this->generateUrl('store_settings_user'));
+        }
+
         return array(
+            'form' => $form->createView(),
             'store' => $this->getStore()
         );
     }

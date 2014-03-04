@@ -13,3 +13,21 @@ settings:
         actions:
             title:          Actions
 
+    user:
+        edit:
+            success:        The user settings was successfully modified.
+            error:
+                not_found:  No settings found for this store.
+        handlings:
+            label:          User Handling
+
+        authenticate:
+            none:
+                label:      None
+            store:
+                label:      Store
+            site:
+                label:      Site
+        form:
+            button:
+                label:      Save
