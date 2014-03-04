@@ -9,6 +9,6 @@ customer:
         realm:              Realm
         surname:            Surname
         given_names:        Given Name
-        gender:             m/f
+        gender:             Gender
         email:              Email
         eu:                 EU
