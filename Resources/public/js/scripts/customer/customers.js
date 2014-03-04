@@ -12,10 +12,10 @@
 				return this.each(function() {
 					var $this = $( this );
 
-						$( ".filters input" ).keyup(function(event) {
-							event.stopPropagation();
-							table.fnDraw();
-						});
+					$( ".filters input" ).keyup(function(event) {
+						event.stopPropagation();
+						table.fnDraw();
+					});
 
 					table = $( "table.table", this ).dataTable( $.extend( true, {}, settings.dataTables, {
 						fnInitComplete: function( oSettings, json ) {
@@ -49,15 +49,15 @@
 	$.fn.customers.defaults = {
 		dataTables: {
 			aoColumnDefs: [
-				{ bSortable: false, aTargets: [ 0, 7 ] }, // First column and last column ("actions") are not sortable
-				{ bVisible: false, aTargets: [ 0 ] }, // Hide the first column
-				{ sClass: "actions", aTargets: [ 7 ] } // Set special "actions" class on cells in the last column
+				{ bSortable: false, aTargets: [ 0, 7 ] },
+				{ bVisible: false, aTargets: [ 0 ] },
+				{ sClass: "actions", aTargets: [ 7 ] }
 			],
 			asStripeClasses: [],
 			bAutoWidth: false,
 			bPaginate: true,
 			bProcessing: true,
-			bServerSide: true, // set datatables to use ajax to display content
+			bServerSide: true,
 			bSortable: true,
 			bSortCellsTop: true,
 			oLanguage: {
