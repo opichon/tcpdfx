@@ -48,11 +48,6 @@
 
 	$.fn.customers.defaults = {
 		dataTables: {
-			aoColumnDefs: [
-				{ bSortable: false, aTargets: [ 0, 7 ] }, // First column and last column ("actions") are not sortable
-				{ bVisible: false, aTargets: [ 0 ] }, // Hide the first column
-				{ sClass: "actions", aTargets: [ 7 ] } // Set special "actions" class on cells in the last column
-			],
 			asStripeClasses: [],
 			bAutoWidth: false,
 			bPaginate: true,
