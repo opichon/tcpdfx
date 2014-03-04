@@ -369,7 +369,7 @@
     <table name="store_user_settings" phpName="StoreUserSettings" idMethod="native">
         <column name="id"                type="integer" primaryKey="true" autoIncrement="true" required="true" />
         <column name="store_id"          type="integer" required="true" />
-        <column name="user_handling"     type="boolean" size="1" required="true" defaultValue="false" />
+        <column name="user_handling"     type="tinyint" size="1" required="true" defaultValue="0" />
         <column name="login_url"         type="longvarchar" required="false" />
         <column name="register_url"      type="longvarchar" required="false" />
         <column name="auto_register"     type="tinyint" required="true" defaultValue="0" />
