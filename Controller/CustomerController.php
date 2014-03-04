@@ -80,19 +80,14 @@ class CustomerController extends BaseController
     protected function getDataTablesSortColumns()
     {
         return array(
-            1 => 'customer.id',
-            2 => 'customer.realm',
-            3 => 'customer.code',
-            4 => 'customer.surname',
-            5 => 'customer.given_names',
-            6 => 'customer.email',
-
+            1 => 'customer.realm',
+            2 => 'customer.code',
+                        
         );
     }
     protected function getDataTablesSearchColumns()
     {
         return array(
-            'id' => 'customer.id LIKE "%s%%"',
             'realm' => 'customer.realm LIKE "%%%s%%"',
         );
     }
