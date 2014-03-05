@@ -11,7 +11,7 @@
                 "DT_RowId": "{{ '_payment_' ~ payment.id }}",
                 "DT_RowClass": "{{ 'payment' }}",
                 "0": "",
-                "1": "{{ payment.createdAt|date('d.m.y H:i') }}",
+                "1": "{{ payment.createdAt|datetime('d.M.y', 'H:m', time_zone, app.request.locale) }}",
                 "2": "{% include 'DzangocartCoreBundle:Payment:store.html.twig' with { store: payment.gateway.store } %}",
                 "3": "{% include 'DzangocartCoreBundle:Payment:order.html.twig' with { order: payment.order } %}",
                 "4": "{% include 'DzangocartCoreBundle:Payment:status.html.twig' %}",

@@ -24,11 +24,11 @@
             <tr>
                 <td></td>
                 <td>{{ item.name }}</td>
-                <td>{{ item.quantity }}</td>
-                <td>{{ item.priceExcl }}</td>
-                <td>{{ item.amountExcl }}</td>
-                <td>{{ item.taxAmount }}</td>
-                <td>{{ item.amountIncl }}</td>
+                <td>{{ item.quantity|integer(app.request.locale) }}</td>
+                <td>{{ item.priceExcl|currency(item.currencyId, app.request.locale) }}</td>
+                <td>{{ item.amountExcl|currency(item.currencyId, app.request.locale) }}</td>
+                <td>{{ item.taxAmount|currency(item.currencyId, app.request.locale) }}</td>
+                <td>{{ item.amountIncl|currency(item.currencyId, app.request.locale) }}</td>
                 <td></td>
             </tr>
         {% endfor %}
