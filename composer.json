@@ -1,0 +1,25 @@
+{
+    "name": "dzangocart/po-bundle",
+    "type": "symfony-bundle",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Olivier Pichon",
+            "email": "op@united-asian.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/symfony": "~2.4",
+        "propel/propel-bundle": "1.4.*"
+    },
+    "autoload": {
+        "psr-0": { "Dzangocart\\Bundle\\POBundle": "" }
+    },
+    "target-dir": "Dzangocart/Bundle/POBundle",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        }
+    }
+}
