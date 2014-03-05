@@ -12,7 +12,7 @@
                 "DT_RowClass": "{{ 'order' }}",
                 "id": "{{ order.id }}",
                 "0": "",
-                "1": "{{ order.date|date('d.m.y H:i') }}",
+                "1": "{{ order.date|datetime('d.M.y', 'H:m', time_zone, app.request.locale) }}",
                 "2": "<a href='{{ path('order', { id: order.id }) }}'>{{ order.id  }}</a>",
                 "3": "{% include 'DzangocartCoreBundle:Order:store.html.twig' with { store: order.store } %}",
                 "4": "{{ order.status }}",
