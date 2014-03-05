@@ -11,14 +11,14 @@
                 "DT_RowId": "{{ '_' ~ purchase.id }}",
                 "DT_RowClass": "{{ 'purchase' }}",
                 "0": "",
-                "1": "{{ purchase.cart.date|date('d.m.y H:i') }}",
+                "1": "{{ purchase.cart.date|datetime('d.M.y', 'H:m', time_zone, app.request.locale) }}",
                 "2": "{{ purchase.orderId }}",
                 "3": "{% include 'DzangocartCoreBundle:Order:store.html.twig' with { store: purchase.order.store } %}",
                 "4": "{{ purchase.name }}",
                 "5": "{{ purchase.code }}",
                 "6": "{{ purchase.category.name }}",
                 "7": "{{ purchase.currencyId }}",
-                "8": "{{ purchase.quantity }}",
+                "8": "{{ purchase.quantity|integer(app.request.locale) }}",
                 "9": ""
             }{% if not loop.last %},{% endif %}
         {% endfor %}

@@ -24,9 +24,16 @@ class CustomerController extends BaseController
     {
         if ($request->isXmlHttpRequest() || 'json' == $request->getRequestFormat()) {
 
-            $query = CustomerQuery::create()
-                ->filterByRealm($this->getStore()->getRealm());
-            
+            $query = CustomerQuery::create();
+                 
+            if ($store = $this->getStore()) {
+                $query
+                    ->filterByRealm($store->getRealm());
+            } elseif ($realm = $request->query->get('realm')) {
+                $query
+                    ->filterByRealm($realm);
+            }
+
             $total_count = $query->count();
             
             $query->datatablesSearch(

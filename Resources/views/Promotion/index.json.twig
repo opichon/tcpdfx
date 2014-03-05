@@ -13,8 +13,8 @@
                 "0": "",
                 "1": "{{ promotion.name }}",
                 "2": "{{ promotion.code }}",
-                "3": "{% if promotion.dateFrom %}{{ promotion.dateFrom|date('d.m.y H:i') }}{% endif %}",
-                "4": "{% if promotion.dateTo %}{{ promotion.dateTo|date('d.m.y H:i') }}{% endif %}",
+                "3": "{% if promotion.dateFrom %}{{ promotion.dateFrom|datetime('d.M.y', 'H:m', time_zone, app.request.locale) }}{% endif %}",
+                "4": "{% if promotion.dateTo %}{{ promotion.dateTo|datetime('d.M.y', 'H:m', time_zone, app.request.locale) }}{% endif %}",
                 "5": "{% include 'DzangocartCoreBundle:Promotion:actions.html.twig' %}"
             }{% if not loop.last %},{% endif %}
         {% endfor %}

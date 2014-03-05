@@ -13,12 +13,11 @@
                 "id": "{{ customer.id }}",
                 "0": "",
                 "1": "{{ customer.realm }}",
-                "2": "{{ customer.code }}",
-                "3": "{{ customer.profile.surname }}",
-                "4": "{{ customer.profile.GivenNames }}",
-                "5": "{%if(customer.profile.gender == '1')%} m {% elseif(customer.profile.gender == '0') %} f {% else %} {% endif %}",
-                "6": "{{ customer.profile.email }}",
-                "7": ""
+                "2": "{{ customer.profile.surname }}",
+                "3": "{{ customer.profile.GivenNames }}",
+                "4": "{%if(customer.profile.gender == '1')%} m {% elseif(customer.profile.gender == '0') %} f {% else %} {% endif %}",
+                "5": "{{ customer.profile.email }}",
+                "6": ""
             }{% if not loop.last %},{% endif %}
         {% endfor %}
     ]

@@ -5,12 +5,20 @@
         <tr>
             <th class="selectall"></th>
             <th class="realm">{% trans %}customer.customers.realm{% endtrans %}</th>
-            <th class="code">{% trans %}customer.customers.code{% endtrans %}</th>
             <th class="surname">{% trans %}customer.customers.surname{% endtrans %}</th>
             <th class="given_names">{% trans %}customer.customers.given_names{% endtrans %}</th>
             <th class="gender">{% trans %}customer.customers.gender{% endtrans %}</th>
             <th class="email">{% trans %}customer.customers.email{% endtrans %}</th>
             <th class="actions">{% trans %}customer.customers.actions.title{% endtrans %}</th>
+        </tr>
+        <tr class="filters">
+            <th></th>
+            <th>{{ form_widget(form.realm) }}</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
