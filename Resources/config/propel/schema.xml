@@ -345,12 +345,7 @@
         <column name="id"             type="integer" primaryKey="true" autoIncrement="true" required="true" />
         <column name="gateway_id"     type="integer" required="true" />
         <column name="order_id"       type="integer" required="true" />
-        <column name="type_id"        type="integer" required="true" inheritance="single">
-            <inheritance key="1"  class="PaypalDirectPayment"  extends="Payment" />
-            <inheritance key="2"  class="SipsPayment"          extends="Payment" />
-            <inheritance key="4"  class="POPayment"            extends="Payment" />
-            <inheritance key="5"  class="PaypalExpressPayment" extends="Payment" />
-        </column>
+        <column name="type_id"        type="integer" required="true" inheritance="single" />
         <column name="transaction_id" type="integer" required="true" />
         <column name="status"         type="integer" size="4" required="true" defaultValue="0" />
         <column name="created_at"     type="timestamp" required="false" />
