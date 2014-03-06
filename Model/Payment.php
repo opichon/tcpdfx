@@ -6,6 +6,11 @@ use Dzangocart\Bundle\CoreBundle\Model\om\BasePayment;
 
 class Payment extends BasePayment
 {
+    const TYPE_PP_DIRECT     = 1;
+    const TYPE_SIPS          = 2;
+    const TYPE_PO            = 4;
+    const TYPE_PP_EXPRESS    = 5;
+
     const STATUS_OPEN      = 0;
     const STATUS_CANCELLED = 2;
     const STATUS_ERROR     = 4;
