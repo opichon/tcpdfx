@@ -19,3 +19,6 @@ order:
         store_name:         Store Name
         date:               Date
         status:             Status
+        gross:              Gross   
+        tax:                Tax
+        net:                Net
