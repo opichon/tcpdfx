@@ -15,15 +15,15 @@ namespace Dzangocart\Bundle\CoreBundle\Model;
  *
  * @package    propel.generator.vendor.dzangocart.core-bundle.Dzangocart.Bundle.CoreBundle.Model
  */
-class PaypalDirectPayment extends payment {
+class PaypalDirectPayment extends Payment {
 
     /**
-     * Constructs a new PaypalDirectPayment class, setting the type_id column to PaymentPeer::CLASSKEY_TYPE_PP_DIRECT.
+     * Constructs a new PaypalDirectPayment class, setting the type_id column to PaymentPeer::CLASSKEY_1.
      */
     public function __construct()
     {
         parent::__construct();
-        $this->setTypeId(PaymentPeer::CLASSKEY_TYPE_PP_DIRECT);
+        $this->setTypeId(PaymentPeer::CLASSKEY_1);
     }
 
 } // PaypalDirectPayment

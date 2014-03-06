@@ -15,15 +15,15 @@ namespace Dzangocart\Bundle\CoreBundle\Model;
  *
  * @package    propel.generator.vendor.dzangocart.core-bundle.Dzangocart.Bundle.CoreBundle.Model
  */
-class SipsPayment extends payment {
+class SipsPayment extends Payment {
 
     /**
-     * Constructs a new SipsPayment class, setting the type_id column to PaymentPeer::CLASSKEY_TYPE_SIPS.
+     * Constructs a new SipsPayment class, setting the type_id column to PaymentPeer::CLASSKEY_2.
      */
     public function __construct()
     {
         parent::__construct();
-        $this->setTypeId(PaymentPeer::CLASSKEY_TYPE_SIPS);
+        $this->setTypeId(PaymentPeer::CLASSKEY_2);
     }
 
 } // SipsPayment

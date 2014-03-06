@@ -15,15 +15,15 @@ namespace Dzangocart\Bundle\CoreBundle\Model;
  *
  * @package    propel.generator.vendor.dzangocart.core-bundle.Dzangocart.Bundle.CoreBundle.Model
  */
-class POPayment extends payment {
+class POPayment extends Payment {
 
     /**
-     * Constructs a new POPayment class, setting the type_id column to PaymentPeer::CLASSKEY_TYPE_PO.
+     * Constructs a new POPayment class, setting the type_id column to PaymentPeer::CLASSKEY_4.
      */
     public function __construct()
     {
         parent::__construct();
-        $this->setTypeId(PaymentPeer::CLASSKEY_TYPE_PO);
+        $this->setTypeId(PaymentPeer::CLASSKEY_4);
     }
 
 } // POPayment
