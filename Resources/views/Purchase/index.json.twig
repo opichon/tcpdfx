@@ -11,7 +11,7 @@
                 "DT_RowId": "{{ '_' ~ purchase.id }}",
                 "DT_RowClass": "{{ 'purchase' }}",
                 "0": "",
-                "1": "{{ purchase.cart.date|datetime('d.M.y', 'H:m', time_zone, app.request.locale) }}",
+                "1": "{{ purchase.cart.date|datetime('dd.MM.yy', 'HH:mm', time_zone, app.request.locale) }}",
                 "2": "{{ purchase.orderId }}",
                 "3": "{% include 'DzangocartCoreBundle:Order:store.html.twig' with { store: purchase.order.store } %}",
                 "4": "{{ purchase.name }}",

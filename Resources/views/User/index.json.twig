@@ -16,8 +16,8 @@
                 "4": "{{ user.username }}",
                 "5": "{{ user.realm }}",
                 "6": "{{ user.code }}",
-                "7": "{{ user.createdAt|datetime('d.M.y', 'H:m', time_zone, app.request.locale) }}",
-                "8": "{{ user.lastLogin|datetime('d.M.y', 'H:m', time_zone, app.request.locale) }}",
+                "7": "{{ user.createdAt|datetime('dd.MM.yy', 'HH:mm', time_zone, app.request.locale) }}",
+                "8": "{{ user.lastLogin|datetime('dd.MM.yy', 'HH:mm', time_zone, app.request.locale) }}",
                 "9": ""
             }{% if not loop.last %},{% endif %}
         {% endfor %}
