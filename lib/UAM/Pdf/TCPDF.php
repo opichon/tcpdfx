@@ -25,9 +25,7 @@ class TCPDF extends FPDI
     protected $pagination_x;
     protected $pagination_y;
 
-    protected $document_title_font = 'Georgia';
-    protected $document_title_size = 16;
-    protected $document_title_style = 'B';
+    protected $document_title_font = array('Georgia', 'B', 16);
     protected $document_title_border = 'B';
     protected $document_title_align = 'C';
     protected $document_title_cell_height = 12;
@@ -165,6 +163,45 @@ class TCPDF extends FPDI
         $this->pagination_font = $font;
     }
 
+    public function getDocumentTitleFont()
+    {
+        return $this->document_title_font;
+    }
+
+    public function setDocumentTitleFont(array $font)
+    {
+        $this->document_title_font = $font;
+    }
+
+    public function getDocumentTitleBorder()
+    {
+        return $this->document_title_border;
+    }
+
+    public function setDocumentTitleBorder($border)
+    {
+        $this->document_title_border = $border;
+    }
+
+    public function getDocumentTitleAlign()
+    {
+        return $this->document_title_align;
+    }
+
+    public function setDocumentTitleAlign($align)
+    {
+        $this->document_title_align = $align;
+    }
+
+    public function getDocumentTitleCellHeight()
+    {
+        return $this->document_title_cell_height;
+    }
+
+    public function setDocumentTitleCellHeight($height)
+    {
+        $this->document_title_cell_height = $height;
+    }
     /**
      * Do not override. Override 'generate' method instead.
      *
@@ -386,13 +423,31 @@ class TCPDF extends FPDI
 
     public function printDocumentTitle()
     {
-        if (empty($this->title)) { return; }
-        $font = $this->getFontFamily();
-        $style = $this->getFontStyle();
-        $size = $this->getFontSize();
-        $this->SetFont($this->document_title_font, $this->document_title_style, $this->document_title_size);
-        $this->MultiCell(0, $this->document_title_cell_height, $this->title, $this->document_title_border, $this->document_title_align, 0, 1);
-        $this->SetFont($font, $style, $size);
+        $title = $this->getDocumentTitle();
+
+        if (empty($title)) {
+            return;
+        }
+
+        // save current graphic settings
+        $gvars = $this->getGraphicVars();
+
+        $font = $this->getDocumentTitleFont();
+
+        $this->SetFont($font[0], $font[1], $font[2]);
+
+        $this->MultiCell(
+            0,
+            $this->getDocumentTitleCellHeight(),
+            $title,
+            $this->getDocumentTitleBorder(),
+            $this->getDocumentTitleAlign(),
+            0,
+            1
+        );
+
+        // restore graphic settings
+        $this->setGraphicVars($gvars);
     }
 
     public function printTitle($title)
