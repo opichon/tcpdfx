@@ -6,7 +6,7 @@ use Dzangocart\Bundle\CoreBundle\Model\om\BasePaymentPeer;
 
 class PaymentPeer extends BasePaymentPeer
 {
-    public static $registry = array();
+    protected static $registry = array();
     
     public static function registerClass($class_key, $classname)
     {
