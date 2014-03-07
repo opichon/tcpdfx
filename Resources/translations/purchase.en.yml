@@ -11,4 +11,7 @@ purchase:
         order_date:         Date
         page_title:         Purchases
         quantity:           Qty
+        gross:              Gross
+        tax:                Tax
+        net:                Net
         store:              Store

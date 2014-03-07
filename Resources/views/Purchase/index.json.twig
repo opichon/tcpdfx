@@ -19,7 +19,10 @@
                 "6": "{{ purchase.category.name }}",
                 "7": "{{ purchase.currencyId }}",
                 "8": "{{ purchase.quantity|integer(app.request.locale) }}",
-                "9": ""
+                "9": "{{ purchase.getAmountExcl|currency(purchase.currencyId, app.request.locale) }}",
+                "10": "{{ purchase.getTaxAmount|currency(purchase.currencyId, app.request.locale)}}",
+                "11": "{{ purchase.getAmountIncl|currency(purchase.currencyId, app.request.locale)}}",
+                "12": ""
             }{% if not loop.last %},{% endif %}
         {% endfor %}
     ]
