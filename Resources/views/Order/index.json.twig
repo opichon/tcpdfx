@@ -16,10 +16,11 @@
                 "2": "<a href='{{ path('order', { id: order.id }) }}'>{{ order.id  }}</a>",
                 "3": "{% include 'DzangocartCoreBundle:Order:store.html.twig' with { store: order.store } %}",
                 "4": "{{ order.status }}",
-                "5": "{{ order.getAmountExcl|currency(order.currencyId, app.request.locale) }}",
-                "6": "{{ order.getTaxAmount|currency(order.currencyId, app.request.locale)}}",
-                "7": "{{ order.getAmountIncl|currency(order.currencyId, app.request.locale)}}",
-                "8": ""
+                "5": "{{ order.currencyId  }}",
+                "6": "{{ order.getAmountExcl|currency(order.currencyId, app.request.locale) }}",
+                "7": "{{ order.getTaxAmount|currency(order.currencyId, app.request.locale)}}",
+                "8": "{{ order.getAmountIncl|currency(order.currencyId, app.request.locale)}}",
+                "9": ""
             }{% if not loop.last %},{% endif %}
         {% endfor %}
     ]
