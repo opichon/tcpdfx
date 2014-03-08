@@ -1,0 +1,17 @@
+sale:
+    sales:
+        actions:
+            title:          Actions
+        category:           Category
+        code:               Code
+        currency:           Ccy
+        date:               Date
+        name:               Name
+        order_id:           '#'
+        order_date:         Date
+        page_title:         Sales
+        quantity:           Qty
+        gross:              Gross
+        tax:                Tax
+        net:                Net
+        store:              Store

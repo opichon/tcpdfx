@@ -1,0 +1,28 @@
+{% spaceless %}
+{
+    "sEcho": "{{ sEcho }}",
+    "iTotalRecords": {{ iTotalRecords }},
+    "iTotalDisplayRecords": {{ iTotalDisplayRecords }},
+    "aaData" : [
+        {% for purchase in purchases %}
+            {
+                "DT_RowId": "{{ '_' ~ purchase.id }}",
+                "DT_RowClass": "{{ 'purchase' }}",
+                "0": "",
+                "1": "{{ purchase.cart.date|datetime('dd.MM.yy', 'HH:mm', time_zone, app.request.locale) }}",
+                "2": "{{ purchase.orderId }}",
+                "3": "{% include 'DzangocartCoreBundle:Order:store.html.twig' with { store: purchase.order.store } %}",
+                "4": "{{ purchase.name }}",
+                "5": "{{ purchase.code }}",
+                "6": "{{ purchase.category.name }}",
+                "7": "{{ purchase.currencyId }}",
+                "8": "{{ purchase.quantity|integer(app.request.locale) }}",
+                "9": "{{ purchase.getAmountExcl|currency(purchase.currencyId, app.request.locale) }}",
+                "10": "{{ purchase.getTaxAmount|currency(purchase.currencyId, app.request.locale)}}",
+                "11": "{{ purchase.getAmountIncl|currency(purchase.currencyId, app.request.locale)}}",
+                "12": ""
+            }{% if not loop.last %},{% endif %}
+        {% endfor %}
+    ]
+}
+{% endspaceless %}
