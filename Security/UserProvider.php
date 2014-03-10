@@ -39,7 +39,7 @@ class UserProvider extends BaseUserProvider
             ->filterByToken($apiKey)
             ->find();
 
-        if($tokens->count() > 0) {
+        if ($tokens->count() > 0) {
             return TRUE;
         } else {
             return FALSE;

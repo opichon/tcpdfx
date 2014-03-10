@@ -27,13 +27,13 @@ class PromotionController extends BaseController
             $store_id = $request->query->get('store_id');
             $query = PromotionQuery::create()
                 ->joinWithI18n($request->getLocale());
-            
+
             if ($store = $this->getStore()) {
                 $query->filterByStoreId($store->getId());
             } elseif ($store_id = $request->query->get('store_id')) {
                 $query->filterByStoreId($store_id);
             }
-               
+
             $total_count = $query->count();
 
             $query->datatablesSearch(
@@ -85,7 +85,7 @@ class PromotionController extends BaseController
             'promotion.id'
         );
     }
-    
+
     /**
      * @Route("/promotion/{id}/edit", name="promotion_edit")
      * @Template("DzangocartCoreBundle:Promotion:edit.html.twig")
@@ -118,8 +118,10 @@ class PromotionController extends BaseController
                 'promotion',
                 $request->getLocale()
             ));
+
             return $this->redirect($this->generateUrl('promotions'));
         }
+
         return array(
             'store' => $this->getStore(),
             'form' => $form->createView()
@@ -145,7 +147,7 @@ class PromotionController extends BaseController
 
         $items = ItemQuery::create()->filterByPromotionId($id)->find();
 
-        foreach ($items as $item){
+        foreach ($items as $item) {
             $item->setPromotionId(NULL);
             $item->save();
         }
@@ -177,7 +179,6 @@ class PromotionController extends BaseController
         $promotion->setLocale($request->getLocale());
 
         $promotion->setStoreId($this->getStore()->getId());
-
 
         $form = $this->createForm(
             new PromotionEditType(),

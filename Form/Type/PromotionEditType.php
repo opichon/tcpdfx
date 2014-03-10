@@ -2,8 +2,6 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Form\Type;
 
-use Dzangocart\Bundle\CoreBundle\Model\Promotion\PromotionQuery;
-
 use Propel\PropelBundle\Form\BaseAbstractType;
 
 use Symfony\Component\Form\FormBuilderInterface;
@@ -19,7 +17,7 @@ class PromotionEditType extends BaseAbstractType
             'show_legend' => false
         ));
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -51,10 +49,10 @@ class PromotionEditType extends BaseAbstractType
             'label' => 'promotion.form.description.label',
             'required' => TRUE
         ));
-        
+
         $builder->add('Save', 'submit');
     }
-    
+
     public function getName()
     {
         return "promotion_edit";

@@ -7,21 +7,21 @@ use Dzangocart\Bundle\CoreBundle\Model\om\BasePaymentPeer;
 class PaymentPeer extends BasePaymentPeer
 {
     protected static $registry = array();
-    
+
     public static function registerClass($class_key, $classname)
     {
-        if(!in_array($class_key, self::$registry)) {
-            
+        if (!in_array($class_key, self::$registry)) {
+
             self::$registry[$class_key] = $classname;
-            
+
         } else {
-            
+
             throw  new \PropelException('already exists!!');
-            
+
         }
-        
+
     }
-    
+
     public static function getOMClass($row = 0, $colnum = 0)
     {
         try {
