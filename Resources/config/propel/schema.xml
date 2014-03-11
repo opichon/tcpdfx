@@ -241,6 +241,9 @@
         <foreign-key foreignTable="store" name="FI_cart_store" onDelete="restrict" onUpdate="restrict">
             <reference local="store_id" foreign="id" />
         </foreign-key>
+        <foreign-key foreignTable="customer" name="FI_cart_customer" onDelete="restrict" onUpdate="restrict">
+            <reference local="customer_id" foreign="id"/>
+        </foreign-key>
         <foreign-key foreignTable="address" name="FI_cart_address" onDelete="restrict" onUpdate="restrict">
             <reference local="shipping_address_id" foreign="id" />
         </foreign-key>

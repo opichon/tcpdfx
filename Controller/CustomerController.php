@@ -45,17 +45,19 @@ class CustomerController extends BaseController
 
             $limit = min(100, $request->query->get('iDisplayLength'));
             $offset = max(0, $request->query->get('iDisplayStart'));
+            
+            $query->innerJoinCart('cart');
 
             $customers = $query
-                //->withColumn('SUM(customer.id)', 'sales')
-                //->groupBy('customer.id')
+                ->withColumn('SUM(cart.amount_excl)', 'sales')
+                ->groupBy('customer.id')
                 ->datatablesSort($request->query, $this->getDataTablesSortColumns())
                 ->setLimit($limit)
                 ->setOffset($offset)
                 ->find();
 
-        $data = array(
-            'sEcho' => $request->query->get('sEcho'),
+            $data = array(
+                'sEcho' => $request->query->get('sEcho'),
                 'iStart' => 0,
                 'iTotalRecords' => $total_count,
                 'iTotalDisplayRecords' => $filtered_count,
