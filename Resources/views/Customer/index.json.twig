@@ -17,7 +17,7 @@
                 "3": "{{ customer.profile.GivenNames }}",
                 "4": "{%if(customer.profile.gender == '1')%} m {% elseif(customer.profile.gender == '0') %} f {% else %} {% endif %}",
                 "5": "{{ customer.profile.email }}",
-                "6": "{{ customer.getSales }}",
+                "6": "",
                 "7": ""
             }{% if not loop.last %},{% endif %}
         {% endfor %}
