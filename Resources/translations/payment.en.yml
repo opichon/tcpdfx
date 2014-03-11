@@ -8,6 +8,8 @@ payment:
         status:             Status
         store:              Store
         class_key:          Class Key
+        transaction:
+            id:             Transaction ID
 
     status:
         class:
