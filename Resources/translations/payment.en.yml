@@ -5,8 +5,8 @@ payment:
         date:               Date
         order_id:           Order
         page_title:         Payments
-        status:				Status
-        store:				Store
+        status:             Status
+        store:              Store
         class_key:          Class Key
 
     status:
@@ -15,10 +15,10 @@ payment:
             cancelled:       info
             error:           danger
             open:            default
-            paid:			 success
+            paid:            success
         label:
             approved:        APPROVED
             cancelled:       CANCELLED
             error:           ERROR
             open:            OPEN
-            paid:		     PAID
+            paid:            PAID
