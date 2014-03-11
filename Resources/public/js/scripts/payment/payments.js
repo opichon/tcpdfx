@@ -31,9 +31,9 @@
 	$.fn.payments.defaults = {
 		dataTables: {
 			aoColumnDefs: [
-				{ bSortable: false, aTargets: [ 0, 6 ] },
+				{ bSortable: false, aTargets: [ 0, 7 ] },
 				{ bVisible: false, aTargets: [ 0 ] },
-				{ sClass: "actions", aTargets: [ 6 ] }
+				{ sClass: "actions", aTargets: [ 7 ] }
 			],
 			asStripeClasses: [],
 			bAutoWidth: false,
