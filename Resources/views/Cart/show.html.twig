@@ -1,0 +1,64 @@
+{% extends "::admin.html.twig" %}
+
+{% trans_default_domain "order" %}
+
+{% block page_title %}{% trans with { '%id%': order.id } %}order.show.page_title{% endtrans %}{% endblock %}
+
+{% block bodyclass %}order{% endblock %}
+
+{% block content %}
+<div class="items">
+    <table class="table table-condensed">
+        <thead>
+            <th class="selectall"></th>
+            <th class="name">{% trans %}order.show.name{% endtrans %}</th>
+            <th class="quantity">{% trans %}order.show.quantity{% endtrans %}</th>
+            <th class="price_excl">{% trans %}order.show.price_excl{% endtrans %}</th>
+            <th class="amount_excl">{% trans %}order.show.amount_excl{% endtrans %}</th>
+            <th class="amount_tax">{% trans %}order.show.amount_tax{% endtrans %}</th>
+            <th class="amount_incl">{% trans %}order.show.amount_incl{% endtrans %}</th>
+            <th class="actions">{% trans %}order.show.actions.title{% endtrans %}</th>
+        </thead>
+        <tbody>
+        {% for item in order.items %}
+            <tr>
+                <td></td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.quantity|integer(app.request.locale) }}</td>
+                <td>{{ item.priceExcl|currency(item.currencyId, app.request.locale) }}</td>
+                <td>{{ item.amountExcl|currency(item.currencyId, app.request.locale) }}</td>
+                <td>{{ item.taxAmount|currency(item.currencyId, app.request.locale) }}</td>
+                <td>{{ item.amountIncl|currency(item.currencyId, app.request.locale) }}</td>
+                <td></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block head_style %}
+	{{ parent() }}
+	{% stylesheets filter="cssrewrite" output="css/*.css"
+        'bundles/uamdatatables/css/jquery.dataTables_bootstrap.css'
+        'bundles/dzangocartcore/css/order/order.css'
+	%}
+		<link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
+	{% endstylesheets %}
+{% endblock head_style %}
+
+{% block foot_script %}
+	{{ parent() }}
+	{% javascripts
+        'bundles/uamdatatables/js/jquery.dataTables.min.js'
+        'bundles/uamdatatables/js/jquery.dataTables_bootstrap.js'
+        'bundles/dzangocartcore/js/scripts/order/order.js'
+	%}
+		<script src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+	<script>
+	store.order = {
+
+	}
+	</script>
+{% endblock %}

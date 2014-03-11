@@ -1,0 +1,11 @@
+.sales table.table th.currency {
+	width: 4em;
+}
+
+.sales table.table th.quantity {
+	width: 4em;
+}
+
+.sales table.table th.actions {
+	width: 5em;
+}

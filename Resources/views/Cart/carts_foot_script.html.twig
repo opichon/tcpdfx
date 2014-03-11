@@ -1,14 +1,14 @@
 {% javascripts
 	'bundles/uamdatatables/js/jquery.dataTables.min.js'
 	'bundles/uamdatatables/js/jquery.dataTables_bootstrap.js'
-	'bundles/dzangocartcore/js/scripts/customer/customers.js'
+	'bundles/dzangocartcore/js/scripts/order/orders.js'
 %}
 	<script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 <script>
-dzangocart.customers = {
+dzangocart.orders = {
 	dataTables: {
-		sAjaxSource: "{{ path('customers', { _format: 'json' }) }}"
+		sAjaxSource: "{{ path('orders', { _format: 'json' }) }}"
 	}
 };
 </script>

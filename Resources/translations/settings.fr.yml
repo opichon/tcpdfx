@@ -6,10 +6,10 @@ settings:
             success:        The token was successfully deleted.
         button:
             label:          Generate Token
-            
+
         page_title:         Api Token
         token:              Token
-        
+
         actions:
             title:          Actions
 

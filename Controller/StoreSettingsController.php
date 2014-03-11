@@ -57,7 +57,6 @@ abstract class StoreSettingsController extends BaseController
        $user_settings = StoreUserSettingsQuery::create()
            ->findOneByStoreId($this->getStore()->getId());
 
-
         if (!$user_settings) {
             throw $this->createNotFoundException(
                 $this->get('translator')->trans('settings.user.edit.error.not_found', array(), 'settings', $request->getLocale())

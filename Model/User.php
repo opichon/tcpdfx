@@ -259,7 +259,6 @@ class User extends BaseUser implements UserInterface
         return true;
     }
 
-
     public function isAdmin()
     {
         return null === $this->getRealm();
@@ -272,16 +271,16 @@ class User extends BaseUser implements UserInterface
 
         return $query->count() > 0;
     }
-        
+
     public function getProfile()
     {
         $profile = $this->getProfiles()->getFirst();
-        
-        if(!$profile) {
+
+        if (!$profile) {
             $profile = new Profile();
             $profile->setUser($this);
         }
-        
+
         return $profile;
     }
 }

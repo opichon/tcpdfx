@@ -2,8 +2,6 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Form\Type;
 
-use Dzangocart\Bundle\CoreBundle\Model\StoreQuery;
-
 use Propel\PropelBundle\Form\BaseAbstractType;
 
 use Symfony\Component\Form\FormBuilderInterface;

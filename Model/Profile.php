@@ -10,12 +10,12 @@ class Profile extends BaseProfile implements ProfileInterface
 {
     public function getEmail()
     {
-        if (!parent::getEmail() and $this->getUser()){
+        if (!parent::getEmail() and $this->getUser()) {
               $email = $this->getUser()->getEmail();
         } else {
               $email = parent::getEmail();
         }
-        
+
         return $email;
     }
 

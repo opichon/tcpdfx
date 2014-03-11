@@ -77,4 +77,3 @@ class CustomerQuery extends BaseCustomerQuery
         }
     }
 }
-

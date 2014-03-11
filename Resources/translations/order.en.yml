@@ -20,6 +20,6 @@ order:
         date:               Date
         status:             Status
         currency:           Ccy
-        gross:              Gross   
+        gross:              Gross
         tax:                Tax
         net:                Net

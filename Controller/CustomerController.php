@@ -19,13 +19,13 @@ class CustomerController extends BaseController
      * @Route("/customer", name="customers")
      * @Template("DzangocartCoreBundle:Customer:index.html.twig")
      */
-   
+
     public function indexAction(Request $request)
     {
         if ($request->isXmlHttpRequest() || 'json' == $request->getRequestFormat()) {
 
             $query = CustomerQuery::create();
-                 
+
             if ($store = $this->getStore()) {
                 $query
                     ->filterByRealm($store->getRealm());
@@ -35,18 +35,17 @@ class CustomerController extends BaseController
             }
 
             $total_count = $query->count();
-            
+
             $query->datatablesSearch(
                 $request->query->get('customer_filters'),
                 $this->getDataTablesSearchColumns()
             );
-            
 
             $filtered_count = $query->count();
 
             $limit = min(100, $request->query->get('iDisplayLength'));
             $offset = max(0, $request->query->get('iDisplayStart'));
-            
+
             $customers = $query
                 ->withColumn('SUM(customer.id)', 'sales')
                 ->groupBy('customer.id')
@@ -55,22 +54,21 @@ class CustomerController extends BaseController
                 ->setOffset($offset)
                 ->find();
 
-	    $data = array(
-	        'sEcho' => $request->query->get('sEcho'),
+        $data = array(
+            'sEcho' => $request->query->get('sEcho'),
                 'iStart' => 0,
                 'iTotalRecords' => $total_count,
                 'iTotalDisplayRecords' => $filtered_count,
                 'customers' => $customers
             );
-            
-            
+
             $view = $this->renderView('DzangocartCoreBundle:Customer:index.json.twig', $data);
 
             return new Response($view, 200, array('Content-Type' => 'application/json'));
         }
             $form = $this->createForm(
                 new CustomerFiltersType());
-        
+
             return array(
                 'store' => $this->getStore(),
                 'form' => $form->createView(),
@@ -85,13 +83,13 @@ class CustomerController extends BaseController
     {
 
     }
-    
+
     protected function getDataTablesSortColumns()
     {
         return array(
             1 => 'customer.realm',
             2 => 'customer.code',
-                        
+
         );
     }
     protected function getDataTablesSearchColumns()
@@ -101,5 +99,3 @@ class CustomerController extends BaseController
         );
     }
 }
-
-
