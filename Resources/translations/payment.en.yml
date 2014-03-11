@@ -7,6 +7,7 @@ payment:
         page_title:         Payments
         status:				Status
         store:				Store
+        class_key:          Class Key
 
     status:
         class:

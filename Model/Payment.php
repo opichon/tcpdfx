@@ -6,6 +6,8 @@ use Dzangocart\Bundle\CoreBundle\Model\om\BasePayment;
 
 class Payment extends BasePayment
 {
+    const PAYMENT_TYPE_ID = 0;
+        
     const TYPE_PP_DIRECT     = 1;
     const TYPE_SIPS          = 2;
     const TYPE_PO            = 4;
@@ -75,5 +77,9 @@ class Payment extends BasePayment
         }
 
         $this->setStatus($this->getStatus() | self::STATUS_ERROR);
+    }
+    public function getClassKey()
+    {
+        return static::PAYMENT_TYPE_ID;
     }
 }

@@ -15,7 +15,8 @@
                 "2": "{% include 'DzangocartCoreBundle:Payment:store.html.twig' with { store: payment.gateway.store } %}",
                 "3": "{% include 'DzangocartCoreBundle:Payment:order.html.twig' with { order: payment.order } %}",
                 "4": "{% include 'DzangocartCoreBundle:Payment:status.html.twig' %}",
-                "5": "{% include 'DzangocartCoreBundle:Payment:actions.html.twig' %}"
+                "5": "{{ payment.classKey }}",
+                "6": "{% include 'DzangocartCoreBundle:Payment:actions.html.twig' %}"
             }{% if not loop.last %},{% endif %}
         {% endfor %}
     ]
