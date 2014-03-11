@@ -47,8 +47,8 @@ class CustomerController extends BaseController
             $offset = max(0, $request->query->get('iDisplayStart'));
 
             $customers = $query
-                ->withColumn('SUM(customer.id)', 'sales')
-                ->groupBy('customer.id')
+                //->withColumn('SUM(customer.id)', 'sales')
+                //->groupBy('customer.id')
                 ->datatablesSort($request->query, $this->getDataTablesSortColumns())
                 ->setLimit($limit)
                 ->setOffset($offset)

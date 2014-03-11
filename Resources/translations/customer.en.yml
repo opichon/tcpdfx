@@ -11,4 +11,6 @@ customer:
         given_names:        Given Name
         gender:             Gender
         email:              Email
+        sales:
+            ytd:            YTD Sales
         eu:                 EU
