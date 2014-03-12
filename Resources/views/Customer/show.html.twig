@@ -1,0 +1,29 @@
+{% extends "::admin.html.twig" %}
+
+{% trans_default_domain "customer" %}
+
+{% block page_title %}{% trans with { '%id%': customer.id } %}customer.show.page_title{% endtrans %}{% endblock %}
+
+{% block bodyclass %}customer{% endblock %}
+
+{% block content %}
+
+{% endblock %}
+
+{% block head_style %}
+	{{ parent() }}
+	{% stylesheets filter="cssrewrite" output="css/*.css"
+
+	%}
+	<link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
+	{% endstylesheets %}
+{% endblock head_style %}
+
+{% block foot_script %}
+	{{ parent() }}
+	{% javascripts
+
+	%}
+	<script src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+ {% endblock %}

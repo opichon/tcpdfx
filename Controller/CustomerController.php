@@ -76,8 +76,29 @@ class CustomerController extends BaseController
                 'form' => $form->createView(),
                 'template' => $this->getBaseTemplate());
     }
-
+    
     /**
+     * @Route("/customer/{id}", name="customer_show")
+     * @Template("DzangocartCoreBundle:Customer:show.html.twig")
+     */
+    public function showAction(Request $request, $id)
+    {
+        $customer = CustomerQuery::create()
+            ->findPk($id);
+
+        if (!$customer) {
+            throw $this->createNotFoundException(
+                $this->get('translator')->trans('customer.show.error.not_found', array(), 'customer', $request->getLocale())
+            );
+        }
+
+        return array(
+            'store' => $this->getStore(),
+            'customer' => $customer,
+        );
+    }
+
+     /**
      * @Route("/customer/{id}", name="customer_edit")
      * @Template()
      */
