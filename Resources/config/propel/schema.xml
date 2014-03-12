@@ -341,7 +341,7 @@
             <index-column name="shipment_id" />
         </index>
     </table>
-    <table name="payment" idMethod="native">
+    <table name="payment" idMethod="native" abstract = "true">
         <column name="id"             type="integer" primaryKey="true" autoIncrement="true" required="true" />
         <column name="gateway_id"     type="integer" required="true" />
         <column name="order_id"       type="integer" required="true" />
