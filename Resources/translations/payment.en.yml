@@ -9,7 +9,7 @@ payment:
         store:              Store
         class_key:          Class Key
         transaction:
-            id:             Transaction ID
+            amount:         Amount
 
     status:
         class:

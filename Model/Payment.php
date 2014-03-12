@@ -82,4 +82,20 @@ class Payment extends BasePayment
     {
         return static::PAYMENT_TYPE_ID;
     }
+
+    public function getAmount()
+    {
+        return $this->getTransaction()->getAmount();
+    }
+
+    public function getCurrency()
+    {
+        return $this->getTransaction()->getCurrency();
+    }
+
+    public function getCurrencyId()
+    {
+        return $this->getCurrency()->getId();
+    }
 }
+
