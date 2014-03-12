@@ -12,18 +12,16 @@
 
 {% block head_style %}
 	{{ parent() }}
-	{% stylesheets filter="cssrewrite" output="css/*.css"
-
-	%}
-	<link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
+	{% stylesheets filter="cssrewrite" output="css/*.css" %}
+	
+            <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
 	{% endstylesheets %}
 {% endblock head_style %}
 
 {% block foot_script %}
 	{{ parent() }}
-	{% javascripts
-
-	%}
-	<script src="{{ asset_url }}"></script>
+	{% javascripts %}
+	
+            <script src="{{ asset_url }}"></script>
 	{% endjavascripts %}
  {% endblock %}
