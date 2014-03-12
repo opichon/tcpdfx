@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <database name="default" namespace="Dzangocart\Bundle\CoreBundle\Model" defaultIdMethod="native">
-    <table name="api_token" phpName="ApiToken" idMethod="native">
+    <table name="api_token" phpName="ApiToken" idMethod="native" abstract="true">
         <column name="id"          type="integer" primaryKey="true" autoIncrement="true" required="true" />
         <column name="store_id"    type="integer" required="true" />
         <column name="entity_id"   type="integer" required="true" />
-        <column name="entity_type" type="boolean" size="1" required="true" />
+        <column name="entity_type" type="tinyint" size="1" required="true" inheritance="single">
+            <inheritance key="1" class="StoreApiToken" extends="ApiToken" />
+            <inheritance key="2" class="AfiiliateApiToken" extends="ApiToken" />
+            <inheritance key="3" class="CustomerApiToken" extends="ApiToken" />
+        </column>
         <column name="token"       type="varchar" size="40" required="true" />
         <column name="last_login"  type="timestamp" required="false" />
         <foreign-key foreignTable="store" name="FI_api_token_store" onDelete="cascade" onUpdate="restrict">
