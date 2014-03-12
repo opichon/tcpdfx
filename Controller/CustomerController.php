@@ -4,6 +4,7 @@ namespace Dzangocart\Bundle\CoreBundle\Controller;
 
 use Dzangocart\Bundle\CoreBundle\Model\CustomerQuery;
 use Dzangocart\Bundle\CoreBundle\Form\Type\CustomerFiltersType;
+use Dzangocart\Bundle\CoreBundle\Form\Type\OrderFiltersType;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -105,6 +106,24 @@ class CustomerController extends BaseController
     public function editAction(Request $request, $id)
     {
 
+    }
+
+     /**
+     * @Route("/customer/{id}/orders",name="customer_orders")
+     * @Template("DzangocartCoreBundle:Order:orders.html.twig")
+     */
+    public function ordersAction(Request $request, $id)
+    {
+     
+        $store = $this->getStore($id);
+
+        $form = $this->createForm(
+            new OrderFiltersType());
+
+        return array(
+            'store' => $store,
+            'form' => $form->createView()
+        );
     }
 
     protected function getDataTablesSortColumns()
