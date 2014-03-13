@@ -46,7 +46,7 @@ class CustomerController extends BaseController
 
             $limit = min(100, $request->query->get('iDisplayLength'));
             $offset = max(0, $request->query->get('iDisplayStart'));
-            
+
             $query->innerJoinCart('cart');
 
             $customers = $query
@@ -77,7 +77,7 @@ class CustomerController extends BaseController
                 'form' => $form->createView(),
                 'template' => $this->getBaseTemplate());
     }
-    
+
     /**
      * @Route("/customer/{id}", name="customer_show")
      * @Template("DzangocartCoreBundle:Customer:show.html.twig")
@@ -110,11 +110,11 @@ class CustomerController extends BaseController
 
      /**
      * @Route("/customer/{id}/orders",name="customer_orders")
-     * @Template("DzangocartCoreBundle:Order:orders.html.twig")
+     * @Template("DzangocartCoreBundle:Customer:orders.html.twig")
      */
     public function ordersAction(Request $request, $id)
     {
-     
+
         $store = $this->getStore($id);
 
         $form = $this->createForm(
