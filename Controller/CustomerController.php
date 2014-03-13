@@ -114,7 +114,13 @@ class CustomerController extends BaseController
      */
     public function ordersAction(Request $request, $id)
     {
-
+         $customer = CustomerQuery::create()
+            ->findPk($id);
+        
+        $orders = \Dzangocart\Bundle\CoreBundle\Model\CartQuery::create()
+            ->filterByStatus(array('min' => 3))
+            ->filterByCustomerId($customer);
+         
         $store = $this->getStore($id);
 
         $form = $this->createForm(
