@@ -122,7 +122,9 @@ class CustomerController extends BaseController
 
         return array(
             'store' => $store,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'template' => $this->getBaseTemplate()
+       
         );
     }
 
