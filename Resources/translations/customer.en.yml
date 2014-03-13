@@ -1,4 +1,7 @@
 customer:
+    show:
+        page_title:         Customer: %id%
+
     customers:
         page_title:         Customers
 
