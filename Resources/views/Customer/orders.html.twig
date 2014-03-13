@@ -20,6 +20,19 @@
 
 {% block _core_foot_script %}
 	{{ parent() }}
-	{% include "DzangocartCoreBundle:Order:orders_foot_script.html.twig" %}
+	{% javascripts
+                'bundles/uamdatatables/js/jquery.dataTables.min.js'
+                'bundles/uamdatatables/js/jquery.dataTables_bootstrap.js'
+                'bundles/dzangocartcore/js/scripts/order/orders.js'
+        %}
+                <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+        <script>
+        dzangocart.orders = {
+                dataTables: {
+                        sAjaxSource: "{{ path('orders', { _format: 'json', customer_id: customer.id })|raw }}"
+                }
+        };
+        </script>
 {% endblock %}
 
