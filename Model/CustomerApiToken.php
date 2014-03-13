@@ -10,5 +10,18 @@ class CustomerApiToken extends ApiToken
         $this->setEntityType(ApiTokenPeer::CLASSKEY_3);
     }
 
+    public function getEntity()
+    {
+        return CustomerQuery::create()
+            ->findPk($this->getEntityId());
+    }
+
+    public function getUser()
+    {
+        return $this->getEntity()
+            ->getProfile()
+            ->getUser();
+    }
+
 }
 

@@ -33,16 +33,16 @@ class UserProvider extends BaseUserProvider
         return $reloadedUser;
     }
 
-    public function isMatchedApiKey($apiKey)
+    public function getUserForApiKey($api_key)
     {
-        $tokens = ApiTokenQuery::create()
-            ->filterByToken($apiKey)
-            ->find();
+        $token = ApiTokenQuery::create()
+            ->filterByToken($api_key)
+            ->findOne();
 
-        if ($tokens->count() > 0) {
-            return TRUE;
-        } else {
-            return FALSE;
+        if (!$token) {
+            return NULL;
         }
+
+        return $token->getUser();
     }
 }
