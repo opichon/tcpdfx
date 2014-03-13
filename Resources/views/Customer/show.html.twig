@@ -8,5 +8,37 @@
 
 {% block content %}
 
+<table class="table table-condensed">
+        <thead>
+            <tr>
+                 <th class="selectall"></th>
+                 <th class="surname">{% trans %}customer.customers.surname{% endtrans %}</th>
+                 <th class="given_names">{% trans %}customer.customers.given_names{% endtrans %}</th>
+                 <th class="gender">{% trans %}customer.customers.gender{% endtrans %}</th>
+                 <th class="email">{% trans %}customer.customers.email{% endtrans %}</th>
+                 <th class="actions">{% trans %}customer.customers.actions.title{% endtrans %}</th>
+            </tr>
+            
+            <tr class="filters">
+                 <th></th>
+                 <th></th>
+                 <th></th>
+                 <th></th>
+                 <th></th>
+                 <th></th>
+            </tr>
+        </thead>
+         <tbody>
+    </tbody>
+</table>
+{% block head_style %}
+	{{ parent() }}
+	{% stylesheets filter="cssrewrite" output="css/*.css"
+        'bundles/uamdatatables/css/jquery.dataTables_bootstrap.css'
+        'bundles/dzangocartcore/css/customer/customers.css'
+	%}
+		<link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
+	{% endstylesheets %}
+{% endblock head_style %}
+                
 {% endblock %}
-
