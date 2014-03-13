@@ -10,5 +10,17 @@ class StoreApiToken extends ApiToken
         $this->setEntityType(ApiTokenPeer::CLASSKEY_1);
     }
 
+    public function getEntity()
+    {
+        return StoreQuery::create()
+            ->findPk($this->getEntityId());
+    }
+
+    public function getUser()
+    {
+        return $this->getEntity()
+            ->getOwner();
+    }
+
 }
 

@@ -11,5 +11,17 @@ class AfiiliateApiToken extends ApiToken
         $this->setEntityType(ApiTokenPeer::CLASSKEY_2);
     }
 
+    public function getEntity()
+    {
+        //TODO
+        return NULL;
+    }
+
+    public function getUser()
+    {
+        //TODO
+        return NULL;
+    }
+
 }
 
