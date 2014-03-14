@@ -75,7 +75,9 @@ class CustomerController extends BaseController
             return array(
                 'store' => $this->getStore(),
                 'form' => $form->createView(),
-                'template' => $this->getBaseTemplate());
+                'template' => $this->getBaseTemplate()
+                    
+         );
     }
 
     /**
@@ -96,6 +98,7 @@ class CustomerController extends BaseController
         return array(
             'store' => $this->getStore(),
             'customer' => $customer,
+            'template' => $this->getBaseTemplate()
         );
     }
 
@@ -114,7 +117,13 @@ class CustomerController extends BaseController
      */
     public function ordersAction(Request $request, $id)
     {
-
+        $customer = CustomerQuery::create()
+            ->findPk($id);
+        
+        $orders = \Dzangocart\Bundle\CoreBundle\Model\CartQuery::create()
+            ->filterByStatus(array('min' => 3))
+            ->filterByCustomerId($customer);
+         
         $store = $this->getStore($id);
 
         $form = $this->createForm(
@@ -122,8 +131,10 @@ class CustomerController extends BaseController
 
         return array(
             'store' => $store,
+            'customer' => $customer,
             'form' => $form->createView(),
             'template' => $this->getBaseTemplate()
+            
        
         );
     }

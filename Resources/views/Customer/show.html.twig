@@ -1,12 +1,19 @@
-{% extends "::admin.html.twig" %}
+{% extends template %}
 
 {% trans_default_domain "customer" %}
 
-{% block page_title %}{% trans with { '%id%': customer.id } %}customer.show.page_title{% endtrans %}{% endblock %}
+{% block _core_page_title %}{% trans with { '%id%': customer.id } %}customer.show.page_title{% endtrans %}{% endblock %}
 
 {% block bodyclass %}customer{% endblock %}
 
-{% block content %}
-
+{% block _core_content %}
 {% endblock %}
 
+{% block _core_head_style %}
+    {{ parent() }}
+{% endblock %}
+
+{% block _core_foot_script %}
+    {{ parent() }}
+{% endblock %}
+                

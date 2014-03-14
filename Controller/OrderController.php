@@ -19,16 +19,21 @@ class OrderController extends BaseController
     */
     public function indexAction(Request $request)
     {
+        
         if ($request->isXmlHttpRequest() || 'json' == $request->getRequestFormat()) {
-
             $query = CartQuery::create('Cart')
                 ->filterByStatus(array('min' => 3));
+            
+            if ($customer_id = $request->query->get('customer_id')){
+                $query->filterByCustomerId($customer_id);
+            }
 
             if ($store = $this->getStore()) {
                 $query->filterByStore($store);
             } elseif ($store_id = $request->query->get('store_id')) {
                 $query->filterByStoreId($store_id);
             }
+            
             $total_count = $query->count();
 
             $query->datatablesSearch(
