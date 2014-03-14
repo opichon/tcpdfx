@@ -60,6 +60,8 @@
 			bServerSide: true, // set datatables to use ajax to display content
 			bSortable: true,
 			bSortCellsTop: true,
+            bDestroy: true,
+            bRetrieve: true,
 			oLanguage: {
 				sUrl: "/bundles/uamdatatables/lang/" + dzangocart.locale + ".txt"
 			}
