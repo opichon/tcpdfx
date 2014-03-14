@@ -34,8 +34,6 @@ class OrderController extends BaseController
                 $query->filterByStoreId($store_id);
             }
             
-           
-            
             $total_count = $query->count();
 
             $query->datatablesSearch(

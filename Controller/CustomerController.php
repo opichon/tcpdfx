@@ -117,7 +117,7 @@ class CustomerController extends BaseController
      */
     public function ordersAction(Request $request, $id)
     {
-         $customer = CustomerQuery::create()
+        $customer = CustomerQuery::create()
             ->findPk($id);
         
         $orders = \Dzangocart\Bundle\CoreBundle\Model\CartQuery::create()
@@ -131,9 +131,10 @@ class CustomerController extends BaseController
 
         return array(
             'store' => $store,
+            'customer' => $customer,
             'form' => $form->createView(),
-            'template' => $this->getBaseTemplate(),
-            'customer' => $customer
+            'template' => $this->getBaseTemplate()
+            
        
         );
     }
