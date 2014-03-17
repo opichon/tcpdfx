@@ -19,7 +19,6 @@ class OrderController extends BaseController
     */
     public function indexAction(Request $request)
     {
-        
         if ($request->isXmlHttpRequest() || 'json' == $request->getRequestFormat()) {
             $query = CartQuery::create('Cart')
                 ->filterByStatus(array('min' => 3));
