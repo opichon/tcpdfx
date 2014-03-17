@@ -1,0 +1,42 @@
+{% extends "DzangocartCoreBundle:Customer:base.html.twig" %}
+
+{% trans_default_domain "customer" %}
+
+{% block page_title %}{% trans with { '%name%': customer.profile.givenNames} %}customer.show.payments{% endtrans %}{% endblock %}
+
+{% block content %}
+<div class="payments">
+	{% include "DzangocartCoreBundle:Payment:payments.html.twig" %}
+</div>
+{% endblock %}
+
+{% block head_style %}
+	{{ parent() }}
+	{% include "DzangocartCoreBundle:Payment:payments_head_style.html.twig" %}
+	{% stylesheets filter="cssrewrite" output="css/*.css"
+		'bundles/dzangocartcore/css/payment/payments.css'
+	%}
+		<link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
+	{% endstylesheets %}
+{% endblock head_style %}
+
+{% block foot_script %}
+	{{ parent() }}
+	{% javascripts
+		'bundles/uamdatatables/js/jquery.dataTables.min.js'
+		'bundles/uamdatatables/js/jquery.dataTables_bootstrap.js'
+		'bundles/dzangocartcore/js/scripts/payment/payments.js'
+	%}
+	<script src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+	<script>
+	dzangocart.payments = {
+        dataTables: {
+            aoColumnDefs: [
+                { bVisible: false, aTargets: [ 0, 2 ] }
+            ],
+            sAjaxSource: "{{ path('payments', { _format: 'json', customer_id: customer.id })|raw}}"
+        }
+	};
+	</script>
+{% endblock %}

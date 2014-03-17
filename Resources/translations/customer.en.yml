@@ -2,6 +2,7 @@ customer:
     show:
         page_title:         Customer: %name%
         orders:             %name%: Orders
+        payments:           %name%: Payments
 
     customers:
         page_title:         Customers
