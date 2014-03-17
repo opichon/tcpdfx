@@ -7,8 +7,10 @@
 {% block page_class %}customer{% endblock %}
 
 {% block sidebar %}
-	{% set menu = knp_menu_get("DzangocartStoreAdminBundle:AdminMenuBuilder:mainMenu", [], { customer: customer }) %}
-	{{ knp_menu_render(menu, { style: 'stacked-pills' }) }}
+    {% if store %}
+        {% set menu = knp_menu_get("DzangocartStoreAdminBundle:AdminMenuBuilder:mainMenu", [], { customer: customer }) %}
+        {{ knp_menu_render(menu, { style: 'stacked-pills' }) }}
+     {% else %} {{ knp_menu_render("DzangocartAdminBundle:AdminMenuBuilder:mainMenu", { style: 'stacked-pills' }) }} {% endif %}
 {% endblock %}
 
 {% block _core_content  %}
