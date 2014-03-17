@@ -29,5 +29,5 @@ interface TransactionInterface
      *
      *@return string
      */
-    public function getCurrency();
+    public function getCurrency(\PropelPDO $con = null, $doQuery = true);
 }
