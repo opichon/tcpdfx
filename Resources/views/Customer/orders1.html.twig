@@ -1,0 +1,41 @@
+{% extends template %}
+
+{% trans_default_domain "order" %}
+
+{% block _core_page_title %}{% trans %}order.orders.page_title{% endtrans %}{% endblock %}
+
+{% block bodyclass %}orders{% endblock %}
+
+{% block _core_content %}
+    
+<div class="orders">
+    {% include "DzangocartCoreBundle:Order:orders.html.twig" %}
+</div>
+{% endblock %}
+
+{% block _core_head_style %}
+    {{ parent() }}
+    {% include "DzangocartCoreBundle:Order:orders_head_style.html.twig" %}
+{% endblock %}
+
+{% block _core_foot_script %}
+    {{ parent() }}
+    {% javascripts
+                'bundles/uamdatatables/js/jquery.dataTables.min.js'
+                'bundles/uamdatatables/js/jquery.dataTables_bootstrap.js'
+                'bundles/dzangocartcore/js/scripts/order/orders.js'
+        %}
+                <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+        <script>
+        dzangocart.orders = {
+                dataTables: {
+                        aoColumnDefs: [
+			                { bVisible: false, aTargets: [ 0, 3 ] }
+		],
+                        sAjaxSource: "{{ path('orders', { _format: 'json', customer_id: customer.id })|raw }}"
+                }
+        };
+        </script>
+{% endblock %}
+

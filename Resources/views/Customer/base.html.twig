@@ -1,0 +1,15 @@
+{% extends "::admin.html.twig" %}
+
+{% trans_default_domain "customer" %}
+
+{% block page_title %}{% trans with { '%name%': customer.profile.givenNames } %}customer.show.page_title{% endtrans %}{% endblock %}
+
+{% block page_class %}customer{% endblock %}
+
+{% block sidebar %}
+	{% set menu = knp_menu_get("DzangocartStoreAdminBundle:AdminMenuBuilder:mainMenu", [], { customer: customer }) %}
+	{{ knp_menu_render(menu, { style: 'stacked-pills' }) }}
+{% endblock %}
+
+{% block content %}
+{% endblock %}

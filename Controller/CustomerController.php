@@ -2,6 +2,7 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Controller;
 
+use Dzangocart\Bundle\CoreBundle\Model\CartQuery;
 use Dzangocart\Bundle\CoreBundle\Model\CustomerQuery;
 use Dzangocart\Bundle\CoreBundle\Form\Type\CustomerFiltersType;
 use Dzangocart\Bundle\CoreBundle\Form\Type\OrderFiltersType;
@@ -86,14 +87,7 @@ class CustomerController extends BaseController
      */
     public function showAction(Request $request, $id)
     {
-        $customer = CustomerQuery::create()
-            ->findPk($id);
-
-        if (!$customer) {
-            throw $this->createNotFoundException(
-                $this->get('translator')->trans('customer.show.error.not_found', array(), 'customer', $request->getLocale())
-            );
-        }
+        $customer = $this->getCustomer($id);
 
         return array(
             'store' => $this->getStore(),
@@ -117,21 +111,12 @@ class CustomerController extends BaseController
      */
     public function ordersAction(Request $request, $id)
     {
-        $customer = CustomerQuery::create()
-            ->findPk($id);
-        
-        $orders = \Dzangocart\Bundle\CoreBundle\Model\CartQuery::create()
-            ->filterByStatus(array('min' => 3))
-            ->filterByCustomerId($customer);
-         
-        $store = $this->getStore($id);
-
         $form = $this->createForm(
             new OrderFiltersType());
 
         return array(
-            'store' => $store,
-            'customer' => $customer,
+            'store' => $this->getStore(),
+            'customer' => $this->getCustomer($id),
             'form' => $form->createView(),
             'template' => $this->getBaseTemplate()
             
@@ -152,5 +137,31 @@ class CustomerController extends BaseController
         return array(
             'realm' => 'customer.realm LIKE "%%%s%%"',
         );
+    }
+
+    /**
+     * @Route("/customer/{id}/show", name="customer_details")
+     * @Template("DzangocartCoreBundle:Customer:details.html.twig")
+     */
+    public function detailsAction(Request $request, $id)
+    {
+        return array(
+            'store' => $this->getStore(),
+            'customer' => $this->getCustomer($id)
+        );
+    }
+
+    protected function getCustomer($id)
+    {
+        $customer = CustomerQuery::create()
+            ->findPk($id);
+
+        if (!$customer) {
+            throw $this->createNotFoundException(
+                $this->get('translator')->trans('customer.error.notfound', array(), 'customer', $request->getLocale())
+            );
+        }
+
+        return $customer;
     }
 }

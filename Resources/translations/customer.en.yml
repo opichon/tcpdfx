@@ -1,6 +1,7 @@
 customer:
     show:
-        page_title:         Customer: %id%
+        page_title:         Customer: %name%
+        orders:             %name%: Orders
 
     customers:
         page_title:         Customers

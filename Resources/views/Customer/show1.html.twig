@@ -1,8 +1,8 @@
-{% extends "DzangocartCoreBundle:Customer:base.html.twig" %}
+{% extends template %}
 
 {% trans_default_domain "customer" %}
 
-{% block _core_page_title %}{% trans with { '%name%': customer.profile.givenNames } %}customer.show.page_title{% endtrans %}{% endblock %}
+{% block _core_page_title %}{% trans with { '%id%': customer.id } %}customer.show.page_title{% endtrans %}{% endblock %}
 
 {% block bodyclass %}customer{% endblock %}
 
