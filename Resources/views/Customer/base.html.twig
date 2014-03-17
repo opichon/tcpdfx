@@ -1,8 +1,8 @@
-{% extends "::admin.html.twig" %}
+{% extends template %}
 
 {% trans_default_domain "customer" %}
 
-{% block page_title %}{% trans with { '%name%': customer.profile.givenNames } %}customer.show.page_title{% endtrans %}{% endblock %}
+{% block _core_page_title %}{% trans with { '%name%': customer.profile.givenNames } %}customer.show.page_title{% endtrans %}{% endblock %}
 
 {% block page_class %}customer{% endblock %}
 
@@ -11,5 +11,5 @@
 	{{ knp_menu_render(menu, { style: 'stacked-pills' }) }}
 {% endblock %}
 
-{% block content %}
+{% block _core_content  %}
 {% endblock %}

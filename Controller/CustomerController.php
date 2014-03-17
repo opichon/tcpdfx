@@ -2,7 +2,6 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Controller;
 
-use Dzangocart\Bundle\CoreBundle\Model\CartQuery;
 use Dzangocart\Bundle\CoreBundle\Model\CustomerQuery;
 use Dzangocart\Bundle\CoreBundle\Form\Type\CustomerFiltersType;
 use Dzangocart\Bundle\CoreBundle\Form\Type\OrderFiltersType;
@@ -149,18 +148,6 @@ class CustomerController extends BaseController
     {
         return array(
             'realm' => 'customer.realm LIKE "%%%s%%"',
-        );
-    }
-
-    /**
-     * @Route("/customer/{id}/show", name="customer_details")
-     * @Template("DzangocartCoreBundle:Customer:details.html.twig")
-     */
-    public function detailsAction(Request $request, $id)
-    {
-        return array(
-            'store' => $this->getStore(),
-            'customer' => $this->getCustomer($id)
         );
     }
 

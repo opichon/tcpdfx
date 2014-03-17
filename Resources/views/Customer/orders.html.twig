@@ -1,27 +1,20 @@
 {% extends "DzangocartCoreBundle:Customer:base.html.twig" %}
 
-{% trans_default_domain "customer" %}
+{% trans_default_domain "order" %}
 
-{% block page_title %}{% trans with { '%name%': customer.profile.givenNames } %}customer.show.orders{% endtrans %}{% endblock %}
-
-{% block content %}
-<div class="orders">
-	{% include "DzangocartCoreBundle:Order:orders.html.twig" %}
-</div>
+{% block _core_content %}
+    <div class="orders">
+        {% include "DzangocartCoreBundle:Order:orders.html.twig" %}
+    </div>
 {% endblock %}
 
-{% block head_style %}
-	{{ parent() }}
-	{% include "DzangocartCoreBundle:Order:orders_head_style.html.twig" %}
-	{% stylesheets filter="cssrewrite" output="css/*.css"
-		'bundles/dzangocartcore/css/order/orders.css'
-	%}
-		<link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
-	{% endstylesheets %}
-{% endblock head_style %}
+{% block _core_head_style %}
+    {{ parent() }}
+    {% include "DzangocartCoreBundle:Order:orders_head_style.html.twig" %}
+{% endblock %}
 
-{% block foot_script %}
-	{{ parent() }}
+{% block _core_foot_script %}
+    {{ parent() }}
 	{% javascripts
 		'bundles/uamdatatables/js/jquery.dataTables.min.js'
 		'bundles/uamdatatables/js/jquery.dataTables_bootstrap.js'
@@ -40,3 +33,4 @@
 	};
 	</script>
 {% endblock %}
+
