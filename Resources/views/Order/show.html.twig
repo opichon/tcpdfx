@@ -17,7 +17,6 @@
             <th class="amount_excl">{% trans %}order.show.amount_excl{% endtrans %}</th>
             <th class="amount_tax">{% trans %}order.show.amount_tax{% endtrans %}</th>
             <th class="amount_incl">{% trans %}order.show.amount_incl{% endtrans %}</th>
-            <th class="actions">{% trans %}order.show.actions.title{% endtrans %}</th>
         </thead>
         <tbody>
         {% for item in order.items %}
@@ -29,7 +28,6 @@
                 <td>{{ item.amountExcl|currency(item.currencyId, app.request.locale) }}</td>
                 <td>{{ item.taxAmount|currency(item.currencyId, app.request.locale) }}</td>
                 <td>{{ item.amountIncl|currency(item.currencyId, app.request.locale) }}</td>
-                <td></td>
             </tr>
         {% endfor %}
         </tbody>
