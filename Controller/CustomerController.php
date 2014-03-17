@@ -123,6 +123,18 @@ class CustomerController extends BaseController
        
         );
     }
+    
+     /**
+     * @Route("/customer/{id}/payments", name="customer_payments")
+     * @Template("DzangocartCoreBundle:Customer:payments.html.twig")
+     */
+    public function paymentsAction(Request $request, $id)
+    {
+        return array(
+            'store' => $this->getStore(),
+            'customer' => $this->getCustomer($id)
+        );
+    }
 
     protected function getDataTablesSortColumns()
     {
@@ -132,6 +144,7 @@ class CustomerController extends BaseController
 
         );
     }
+    
     protected function getDataTablesSearchColumns()
     {
         return array(
