@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database name="default" namespace="Dzangocart\Bundle\CoreBundle\Model" defaultIdMethod="native">
+    <table name="store_oauth_settings" phpName="StoreOAuthSettings" idMethod="native">
+        <column name="id"               type="integer" primaryKey="true" required="true" />
+        <column name="client_id"        type="varchar" size="255" required="true" />
+        <column name="secret_key"       type="varchar" size="255" required="true" />
+        <column name="auth_code_url"    type="varchar" size="255" required="true" />
+        <column name="access_token_url" type="varchar" size="255" required="true" />
+        <foreign-key foreignTable="store" name="FI_store_oauth_settings_store" onDelete="restrict" onUpdate="restrict">
+            <reference local="id" foreign="id"/>
+        </foreign-key>
+    </table>
+</database>
