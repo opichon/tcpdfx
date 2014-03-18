@@ -1,26 +1,19 @@
 {% extends "DzangocartCoreBundle:Customer:base.html.twig" %}
 
-{% trans_default_domain "customer" %}
+{% trans_default_domain "payment" %}
 
-{% block page_title %}{% trans with { '%name%': customer.profile.givenNames} %}customer.show.payments{% endtrans %}{% endblock %}
-
-{% block content %}
-<div class="payments">
-	{% include "DzangocartCoreBundle:Payment:payments.html.twig" %}
-</div>
+{% block _core_content %}
+    <div class="payments">
+	    {% include "DzangocartCoreBundle:Payment:payments.html.twig" %}
+    </div>
 {% endblock %}
 
-{% block head_style %}
+{% block _core_head_style %}
 	{{ parent() }}
 	{% include "DzangocartCoreBundle:Payment:payments_head_style.html.twig" %}
-	{% stylesheets filter="cssrewrite" output="css/*.css"
-		'bundles/dzangocartcore/css/payment/payments.css'
-	%}
-		<link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
-	{% endstylesheets %}
-{% endblock head_style %}
+	{% endblock %}
 
-{% block foot_script %}
+{% block _core_foot_script %}
 	{{ parent() }}
 	{% javascripts
 		'bundles/uamdatatables/js/jquery.dataTables.min.js'

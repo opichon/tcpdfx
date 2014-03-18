@@ -131,7 +131,8 @@ class CustomerController extends BaseController
     {
         return array(
             'store' => $this->getStore(),
-            'customer' => $this->getCustomer($id)
+            'customer' => $this->getCustomer($id),
+            'template' => $this->getBaseTemplate()
         );
     }
 
