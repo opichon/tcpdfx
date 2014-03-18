@@ -86,7 +86,7 @@ class CustomerController extends BaseController
      */
     public function showAction(Request $request, $id)
     {
-        $customer = $this->getCustomer($id);
+        $customer = $this->getCustomer($request, $id);
 
         return array(
             'store' => $this->getStore(),
@@ -115,7 +115,7 @@ class CustomerController extends BaseController
 
         return array(
             'store' => $this->getStore(),
-            'customer' => $this->getCustomer($id),
+            'customer' => $this->getCustomer($request, $id),
             'form' => $form->createView(),
             'template' => $this->getBaseTemplate()
             
@@ -131,7 +131,7 @@ class CustomerController extends BaseController
     {
         return array(
             'store' => $this->getStore(),
-            'customer' => $this->getCustomer($id),
+            'customer' => $this->getCustomer($request, $id),
             'template' => $this->getBaseTemplate()
         );
     }
@@ -152,7 +152,7 @@ class CustomerController extends BaseController
         );
     }
 
-    protected function getCustomer($id)
+    protected function getCustomer(Request $request, $id)
     {
         $customer = CustomerQuery::create()
             ->findPk($id);
