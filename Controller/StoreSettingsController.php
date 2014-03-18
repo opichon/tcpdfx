@@ -8,6 +8,7 @@ use Dzangocart\Bundle\CoreBundle\Form\Type\TokenGenerateType;
 use Dzangocart\Bundle\CoreBundle\Model\ApiToken;
 use Dzangocart\Bundle\CoreBundle\Model\ApiTokenQuery;
 use Dzangocart\Bundle\CoreBundle\Model\StoreOAuthSettings;
+use Dzangocart\Bundle\CoreBundle\Model\StoreOAuthSettingsQuery;
 use Dzangocart\Bundle\CoreBundle\Model\StoreUserSettingsQuery;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -184,9 +185,15 @@ abstract class StoreSettingsController extends BaseController
     public function oauthAction(Request $request)
     {
 
-       $oauthh_settings = new StoreOAuthSettings();
+        $oauthh_settings = StoreOAuthSettingsQuery::create()
+            ->filterByStore($this->getStore())
+            ->findOne();
 
-       $oauthh_settings->setId($this->getStore()->getId());
+        if (!$oauthh_settings) {
+            $oauthh_settings = new StoreOAuthSettings();
+
+            $oauthh_settings->setId($this->getStore()->getId());
+        }
 
        $form = $this->createForm(
             new StoreOAuthSttingsType(),
@@ -205,7 +212,7 @@ abstract class StoreSettingsController extends BaseController
             $this->get('session')->getFlashBag()->add(
                 'success',
                 $this->get('translator')->trans(
-                    'settings.ouath.create.success',
+                    'settings.oauth.create.success',
                     array(),
                     'settings',
                     $request->getLocale()
