@@ -22,4 +22,11 @@ class Profile extends BaseProfile implements ProfileInterface
     public function init(array $options)
     {
     }
+
+    public function getFullName($reverse = false)
+    {
+        $pattern = $reverse ? '%2$s, %1$s' : '%1$s %2$s';
+
+        return sprintf($pattern, $this->getGivenNames(), $this->getSurname());
+    }
 }
