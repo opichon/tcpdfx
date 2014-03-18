@@ -8,6 +8,11 @@ order:
         amount_tax:         Tax
         amount_incl:        Amount Incl
 
+        payment:
+            date:           Date
+            description:    Description
+            amount:         Amount
+
     orders:
         page_title:         Orders
 
