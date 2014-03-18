@@ -2,10 +2,12 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Controller;
 
+use Dzangocart\Bundle\CoreBundle\Form\Type\StoreOAuthSttingsType;
 use Dzangocart\Bundle\CoreBundle\Form\Type\StoreUserSettingsType;
 use Dzangocart\Bundle\CoreBundle\Form\Type\TokenGenerateType;
 use Dzangocart\Bundle\CoreBundle\Model\ApiToken;
 use Dzangocart\Bundle\CoreBundle\Model\ApiTokenQuery;
+use Dzangocart\Bundle\CoreBundle\Model\StoreOAuthSettings;
 use Dzangocart\Bundle\CoreBundle\Model\StoreUserSettingsQuery;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -173,5 +175,49 @@ abstract class StoreSettingsController extends BaseController
         ));
 
         return $this->redirect($this->generateUrl('api_token'));
+    }
+
+    /**
+     * @Route("/settings/oauth", name="store_settings_oauth")
+     * @Template("DzangocartCoreBundle:StoreSettings:oauth.html.twig")
+     */
+    public function oauthAction(Request $request)
+    {
+
+       $oauthh_settings = new StoreOAuthSettings();
+
+       $oauthh_settings->setId($this->getStore()->getId());
+
+       $form = $this->createForm(
+            new StoreOAuthSttingsType(),
+            $oauthh_settings,
+            array(
+                'action' => $this->generateUrl('store_settings_oauth')
+            )
+        );
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+
+            $oauthh_settings->save();
+
+            $this->get('session')->getFlashBag()->add(
+                'success',
+                $this->get('translator')->trans(
+                    'settings.ouath.create.success',
+                    array(),
+                    'settings',
+                    $request->getLocale()
+                )
+            );
+
+            return $this->redirect($this->generateUrl('store_settings_oauth'));
+        }
+
+        return array(
+            'form' => $form->createView(),
+            'store' => $this->getStore()
+        );
     }
 }
