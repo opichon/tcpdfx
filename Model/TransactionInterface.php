@@ -30,4 +30,11 @@ interface TransactionInterface
      *@return string
      */
     public function getCurrency(\PropelPDO $con = null, $doQuery = true);
+
+    /**
+     * return the description of transaction
+     *
+     * @return string
+     */
+    public function getDescription();
 }
