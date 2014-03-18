@@ -27,7 +27,27 @@
                 <td>{{ item.priceExcl|currency(item.currencyId, app.request.locale) }}</td>
                 <td>{{ item.amountExcl|currency(item.currencyId, app.request.locale) }}</td>
                 <td>{{ item.taxAmount|currency(item.currencyId, app.request.locale) }}</td>
-                <td>{{ item.amountIncl|currency(item.currencyId, app.request.locale) }}</td>
+                <td class="pull-right">{{ item.amountIncl|currency(item.currencyId, app.request.locale) }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="payments">
+    <table class="table table-condensed">
+        <thead>
+            <th class="selectall"></th>
+            <th class="date">{% trans %}order.show.payment.date{% endtrans %}</th>
+            <th class="description">{% trans %}order.show.payment.description{% endtrans %}</th>
+            <th class="amount pull-right">{% trans %}order.show.payment.amount{% endtrans %}</th>
+        </thead>
+        <tbody>
+        {% for payment in order.payments %}
+            <tr>
+                <td></td>
+                <td>{{ order.date|date('dd.MM.yyyy', time_zone, app.request.locale) }}</td>
+                <td>{{ payment.description }}</td>
+                <td class="pull-right">{{ payment.amount|currency(payment.currencyId, app.request.locale) }}</td>
             </tr>
         {% endfor %}
         </tbody>

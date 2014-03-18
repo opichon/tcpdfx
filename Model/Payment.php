@@ -97,5 +97,10 @@ class Payment extends BasePayment
     {
         return $this->getCurrency()->getId();
     }
+    
+    public function getDescription()
+    {
+         return $this->getTransaction()->getDescription();
+    }
 }
 

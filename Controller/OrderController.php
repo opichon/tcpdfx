@@ -83,6 +83,7 @@ class OrderController extends BaseController
     public function showAction(Request $request, $id)
     {
         $order = CartQuery::create()
+            ->orderByDate(\Criteria::ASC)
             ->findPk($id);
 
         if (!$order) {
