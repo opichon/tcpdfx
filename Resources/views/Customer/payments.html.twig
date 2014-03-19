@@ -25,9 +25,6 @@
 	<script>
 	dzangocart.payments = {
         dataTables: {
-            aoColumnDefs: [
-                { bVisible: false, aTargets: [ 0, 2 ] }
-            ],
             sAjaxSource: "{{ path('payments', { _format: 'json', customer_id: customer.id })|raw}}"
         }
 	};

@@ -20,7 +20,7 @@
                 "6": "{{ order.getAmountExcl|currency(order.currencyId, app.request.locale) }}",
                 "7": "{{ order.getTaxAmount|currency(order.currencyId, app.request.locale)}}",
                 "8": "{{ order.getAmountIncl|currency(order.currencyId, app.request.locale)}}",
-                "9": ""
+                "9": "{% include 'DzangocartCoreBundle:Order:actions.html.twig' %}"
             }{% if not loop.last %},{% endif %}
         {% endfor %}
     ]
