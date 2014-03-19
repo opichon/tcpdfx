@@ -14,6 +14,7 @@ settings:
             title:          Actions
 
     user:
+        page_title:         User Settings
         edit:
             success:        The user settings was successfully modified.
             error:
@@ -31,3 +32,17 @@ settings:
         form:
             button:
                 label:      Save
+
+    oauth:
+        page_title:         OAuth Settings
+        create:
+            success:        The OAuth Settings was successfully created.
+
+        secret_key:
+            label:          Secret Key
+        auth_code_url:
+            label:          Authentication Code Url
+        access_token_url:
+            label:          Access Token Url
+        client_id:
+            label:          Client ID
