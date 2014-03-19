@@ -18,6 +18,7 @@
 	{{ parent() }}
 	{% stylesheets filter="cssrewrite" output="css/*.css"
 		'bundles/dzangocartcore/js/vendor/jqTree/jqtree.css'
+        'bundles/dzangocartcore/css/catalogue/catalogue.css'
 	%}
 		<link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
 	{% endstylesheets %}
