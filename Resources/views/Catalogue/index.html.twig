@@ -1,4 +1,4 @@
-{% extends template%}
+{% extends template %}
 
 {% trans_default_domain "catalogue" %}
 
@@ -17,7 +17,7 @@
 {% block head_style %}
 	{{ parent() }}
 	{% stylesheets filter="cssrewrite" output="css/*.css"
-		'bundles/dzangocartstoreadmin/js/vendor/jqTree/jqtree.css'
+		'bundles/dzangocartcore/js/vendor/jqTree/jqtree.css'
 	%}
 		<link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
 	{% endstylesheets %}
@@ -26,8 +26,8 @@
 {% block foot_script %}
 	{{ parent() }}
 	{% javascripts
-		'bundles/dzangocartstoreadmin/js/vendor/jqTree/tree.jquery.js'
-		'bundles/dzangocartstoreadmin/js/scripts/catalogue/catalogue.js'
+		'bundles/dzangocartcore/js/vendor/jqTree/tree.jquery.js'
+		'bundles/dzangocartcore/js/scripts/catalogue/catalogue.js'
 	%}
 		<script src="{{ asset_url }}"></script>
 	{% endjavascripts %}
