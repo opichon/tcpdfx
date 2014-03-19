@@ -1,0 +1,39 @@
+{% extends template%}
+
+{% trans_default_domain "catalogue" %}
+
+{% block page_title %}{% trans with { '%store%': store.name } %}catalogue.page_title{% endtrans %}{% endblock %}
+
+{% block page_class %}catalogue{% endblock %}
+
+{% block content %}
+<div class="_catalogue">
+    <div class="jqtree">
+
+    </div>
+</div>
+{% endblock %}
+
+{% block head_style %}
+	{{ parent() }}
+	{% stylesheets filter="cssrewrite" output="css/*.css"
+		'bundles/dzangocartstoreadmin/js/vendor/jqTree/jqtree.css'
+	%}
+		<link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
+	{% endstylesheets %}
+{% endblock head_style %}
+
+{% block foot_script %}
+	{{ parent() }}
+	{% javascripts
+		'bundles/dzangocartstoreadmin/js/vendor/jqTree/tree.jquery.js'
+		'bundles/dzangocartstoreadmin/js/scripts/catalogue/catalogue.js'
+	%}
+		<script src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+	<script>
+	dzangocart.catalogue = {
+        url: "{{ path('store_catalogue', { id: store.id, _format: 'json' }) }}"
+	}
+	</script>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% spaceless %}
+{
+    "data": [
+        {
+            "label": "{{ catalogue.name }}"
+            {{ _self.category(catalogue) }}
+        }
+    ]
+
+    {% macro category(catalogue) %}
+        {% if (catalogue.hasChildren) %}
+        ,
+        "children": [
+            {% for child in catalogue.getChildren %}
+            {
+                "label": "{{ child.name }}"
+                {{ _self.category(child) }}
+            }{% if not loop.last %},{% endif %}
+            {% endfor %}
+        ]
+        {% endif %}
+    {% endmacro %}
+}
+{% endspaceless %}
