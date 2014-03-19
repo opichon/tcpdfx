@@ -17,6 +17,7 @@
             <th class="amount_excl">{% trans %}order.show.amount_excl{% endtrans %}</th>
             <th class="amount_tax">{% trans %}order.show.amount_tax{% endtrans %}</th>
             <th class="amount_incl">{% trans %}order.show.amount_incl{% endtrans %}</th>
+            <th class ="action">{% trans %}order.show.action{% endtrans %}</th>
         </thead>
         <tbody>
         {% for item in order.items %}
@@ -28,9 +29,14 @@
                 <td>{{ item.amountExcl|currency(item.currencyId, app.request.locale) }}</td>
                 <td>{{ item.taxAmount|currency(item.currencyId, app.request.locale) }}</td>
                 <td class="pull-right">{{ item.amountIncl|currency(item.currencyId, app.request.locale) }}</td>
+                <td><a href='{{ path('order', { id: order.id }) }}'> <i class="fa fa-edit"></i></td>
             </tr>
         {% endfor %}
         </tbody>
+        
+        
+        
+        
     </table>
 </div>
 <div class="payments">
