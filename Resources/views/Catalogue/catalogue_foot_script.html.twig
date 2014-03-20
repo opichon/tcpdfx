@@ -1,0 +1,12 @@
+{% javascripts
+    'bundles/dzangocartcore/js/vendor/jqTree/tree.jquery.js'
+    'bundles/dzangocartcore/js/scripts/catalogue/catalogue.js'
+%}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+    
+<script>
+dzangocart.catalogue = {
+    url: "{{ path('store_catalogue', { id: store.id, _format: 'json' }) }}"
+}
+</script>

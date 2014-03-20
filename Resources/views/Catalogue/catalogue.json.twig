@@ -3,7 +3,8 @@
     "data": [
         {
             "label": "{{ catalogue.name }}",
-            "id": "{{ catalogue.id }}"
+            "id": "{{ catalogue.id }}",
+            "link": "{{ path('category', {id: catalogue.id }) }}"
             {{ _self.category(catalogue) }}
         }
     ]
@@ -15,7 +16,8 @@
             {% for child in catalogue.getChildren %}
             {
                 "label": "{{ child.name }}",
-                "id": "{{ child.id }}"
+                "id": "{{ child.id }}",
+                "link": "{{ path('category', {id: child.id }) }}"
                 {{ _self.category(child) }}
             }{% if not loop.last %},{% endif %}
             {% endfor %}

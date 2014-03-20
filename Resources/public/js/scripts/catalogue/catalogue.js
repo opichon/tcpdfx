@@ -15,7 +15,11 @@
                           var $tree = $( '.jqtree' );
                             $tree.tree({
                                 data: result.data,
-                                onCreateLi:settings.add_edit_link
+                                onCreateLi: function( node, $li ) {
+                                    $li.find('.jqtree-element').append(
+                                    '<a  href="'+ node.link +'" class="edit"><i class="fa fa-pencil-square-o"></i></a>'
+                                    );
+                                }
                             }); 
                         }
                     );
