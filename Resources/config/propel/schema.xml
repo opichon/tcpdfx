@@ -21,6 +21,36 @@
             <index-column name="store_id" />
         </index>
     </table>
+    <table name="affiliate"  idMethod="native">
+        <column name="id"         type="integer" primaryKey="true" autoIncrement="true" required="true" />
+        <column name="store_id"   type="integer" required="false" />
+        <column name="realm"      type="varchar" size="32" required="false" />
+        <column name="owner_id"   type="integer" required="true" />
+        <column name="name"       type="varchar" size="100" required="false" />
+        <column name="website"    type="varchar" size="128" required="false" />
+        <column name="activated"  type="boolean" size="1" required="true" defaultValue="false" />
+        <column name="suspended"  type="boolean" size="1" required="true" defaultValue="false" />
+        <column name="key"        type="varchar" size="40" required="false" />
+        <column name="created_at" type="timestamp" required="true" />
+        <column name="updated_at" type="timestamp" required="true" />
+        <column name="deleted_at" type="timestamp" required="false" />
+        <foreign-key foreignTable="store" name="FI_affiliate_store" onDelete="cascade" onUpdate="restrict">
+            <reference local="store_id" foreign="id" />
+        </foreign-key>
+        <foreign-key foreignTable="dzango_user" name="FI_affiliate_dzango_user" onDelete="restrict" onUpdate="restrict">
+            <reference local="owner_id" foreign="id" />
+        </foreign-key>
+        <unique name="store_id">
+            <unique-column name="store_id" />
+            <unique-column name="owner_id" />
+        </unique>
+        <index name="affiliate_store_id">
+            <index-column name="store_id" />
+        </index>
+        <index name="affiliate_owner_id">
+            <index-column name="owner_id" />
+        </index>
+    </table>
     <table name="store"  idMethod="native">
         <column name="id"                                           type="integer" primaryKey="true" autoIncrement="true" required="true" />
         <column name="owner_id"                                     type="integer" required="true" />
