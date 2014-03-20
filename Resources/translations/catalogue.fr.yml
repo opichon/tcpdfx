@@ -2,3 +2,28 @@ catalogue:
     page_title:          %store% Catalogue
     category:
         page_title:      Category: %category%
+        edit:
+            success:     The category was successfully modified.
+        form:
+            name:
+                label:   Name
+            code:
+                label:   Code
+            pcode:
+                label:   PCode
+            price:
+                label:   Price
+            tax_rate_id:
+                label:   Tax Rate
+            tax_included:
+                label:   Tax Included 
+            export:
+                label:   Export
+            shipping:
+                label:   Shipping 
+            download:
+                label:   Download 
+            min_quantity:
+                label:   Min. Quantity 
+            max_quantity:
+                label:   Max. Quantity 

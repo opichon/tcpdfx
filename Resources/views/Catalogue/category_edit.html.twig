@@ -2,17 +2,17 @@
 
 {% trans_default_domain "catalogue" %}
 
-{% block page_title %}{% trans with { '%category%': category.name } %}catalogue.category.page_title{% endtrans %}{% endblock %}
-
 {% block page_class %}category{% endblock %}
 
-{% block page_nav %}
-    <div class="nav pull-right">
-        <a href="{{ path("category_edit", { id: category.id }) }}"><i class="fa fa-pencil-square-o fa-lg"></i></a>
-    </div>
-{% endblock %}
-
 {% block content %}
+
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="alert alert-success">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+
+    {{ form(form) }}
 {% endblock %}
 
 {% block head_style %}
