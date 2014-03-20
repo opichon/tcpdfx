@@ -45,7 +45,7 @@ class CatalogueController extends BaseController
     }
 
     /**
-     * @Route("catalogue/category/{id}", name="category")
+     * @Route("category/{id}", name="category")
      * @Template("DzangocartCoreBundle:Catalogue:category.html.twig")
      */
     public function categoryAction(Request $request, $id)
