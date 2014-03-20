@@ -34,7 +34,14 @@
 	{% endjavascripts %}
 	<script>
 	dzangocart.catalogue = {
-        url: "{{ path('store_catalogue', { id: store.id, _format: 'json' }) }}"
+        url: "{{ path('store_catalogue', { id: store.id, _format: 'json' }) }}",
+        
+        add_edit_link: function( node, $li ) {
+            $li.find('.jqtree-element').append(
+            '<a  href="catalogue/category/'+ node.id +'" class="edit" data-node-id="'+
+            node.id +'"><i class="fa fa-pencil-square-o"></i></a>'
+            );
+        }
 	}
 	</script>
 {% endblock %}

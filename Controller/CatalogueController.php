@@ -44,5 +44,21 @@ class CatalogueController extends BaseController
         return new Response($view, 200, array('Content-Type' => 'application/json'));
     }
 
+    /**
+     * @Route("catalogue/category/{id}", name="category")
+     * @Template("DzangocartCoreBundle:Catalogue:category.html.twig")
+     */
+    public function categoryAction(Request $request, $id)
+    {
+        $category = CategoryQuery::create()
+            ->findPk($id);
+
+        return array(
+            'store' => $this->getStore(),
+            'category' => $category,
+            'template' => $this->getBaseTemplate()
+        );
+    }
 }
+
 
