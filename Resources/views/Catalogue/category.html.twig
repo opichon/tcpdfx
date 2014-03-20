@@ -1,0 +1,32 @@
+{% extends template %}
+
+{% trans_default_domain "catalogue" %}
+
+{% block page_title %}{% trans with { '%category%': category.name } %}catalogue.category.page_title{% endtrans %}{% endblock %}
+
+{% block page_class %}category{% endblock %}
+
+{% block content %}
+    {{ category.name }}
+{% endblock %}
+
+{% block head_style %}
+	{{ parent() }}
+	{% stylesheets filter="cssrewrite" output="css/*.css"
+	%}
+		<link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
+	{% endstylesheets %}
+{% endblock head_style %}
+
+{% block foot_script %}
+	{{ parent() }}
+	{% javascripts
+	%}
+		<script src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+	<script>
+	dzangocart.category = {
+
+	}
+	</script>
+{% endblock %}

@@ -11,9 +11,11 @@
                 return this.each(function() {
                     $.getJSON(
                         settings.url,
-                        function( result ) {   
-                            $( '.jqtree' ).tree({
-                                data: result.data
+                        function( result ) {
+                          var $tree = $( '.jqtree' );
+                            $tree.tree({
+                                data: result.data,
+                                onCreateLi:settings.add_edit_link
                             }); 
                         }
                     );
@@ -49,4 +51,3 @@
 $( document ).ready(function() {
     $( '._catalogue' ).catalogue( dzangocart.catalogue );
 });
-

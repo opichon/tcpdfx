@@ -2,7 +2,8 @@
 {
     "data": [
         {
-            "label": "{{ catalogue.name }}"
+            "label": "{{ catalogue.name }}",
+            "id": "{{ catalogue.id }}"
             {{ _self.category(catalogue) }}
         }
     ]
@@ -13,7 +14,8 @@
         "children": [
             {% for child in catalogue.getChildren %}
             {
-                "label": "{{ child.name }}"
+                "label": "{{ child.name }}",
+                "id": "{{ child.id }}"
                 {{ _self.category(child) }}
             }{% if not loop.last %},{% endif %}
             {% endfor %}
