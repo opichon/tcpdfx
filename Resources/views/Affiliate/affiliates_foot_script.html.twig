@@ -1,0 +1,15 @@
+{% javascripts
+    'bundles/uamdatatables/js/jquery.dataTables.min.js'
+    'bundles/uamdatatables/js/jquery.dataTables_bootstrap.js'
+    'bundles/dzangocartcore/js/scripts/affiliate/affiliates.js'
+%}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+<script>
+dzangocart.affiliates = {
+    dataTables: {
+        sAjaxSource: "{{ path('affiliates', { _format: 'json' }) }}"
+    }
+};
+</script>
+
