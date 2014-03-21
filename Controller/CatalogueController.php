@@ -4,6 +4,7 @@ namespace Dzangocart\Bundle\CoreBundle\Controller;
 
 use Dzangocart\Bundle\CoreBundle\Form\Type\CategoryEditType;
 use Dzangocart\Bundle\CoreBundle\Model\CategoryQuery;
+use Dzangocart\Bundle\CoreBundle\Model\StoreQuery;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -13,6 +14,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CatalogueController extends BaseController
 {
+    protected $store ;
+
     /**
      * @Route("/catalogue", name="catalogue")
      * @Template("DzangocartCoreBundle:Catalogue:index.html.twig")
@@ -77,8 +80,16 @@ class CatalogueController extends BaseController
             );
         }
 
+        if (!$this->getStore()) {
+            $this->store = StoreQuery::create()
+                ->filterByCategory($category)
+                ->findOne();
+        } else {
+            $this->store = $this->getStore();
+        }
+
         $form = $this->createForm(
-            new CategoryEditType($this->getStore()), $category, array( 'action' => $this->generateUrl('category_edit', array('id' => $id)))
+            new CategoryEditType($this->store), $category, array( 'action' => $this->generateUrl('category_edit', array('id' => $id)))
         );
 
         $form->handleRequest($request);
@@ -104,4 +115,3 @@ class CatalogueController extends BaseController
         );
     }
 }
-
