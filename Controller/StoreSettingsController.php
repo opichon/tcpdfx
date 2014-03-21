@@ -5,8 +5,9 @@ namespace Dzangocart\Bundle\CoreBundle\Controller;
 use Dzangocart\Bundle\CoreBundle\Form\Type\StoreOAuthSttingsType;
 use Dzangocart\Bundle\CoreBundle\Form\Type\StoreUserSettingsType;
 use Dzangocart\Bundle\CoreBundle\Form\Type\TokenGenerateType;
-use Dzangocart\Bundle\CoreBundle\Model\ApiToken;
 use Dzangocart\Bundle\CoreBundle\Model\ApiTokenQuery;
+use Dzangocart\Bundle\CoreBundle\Model\StoreApiToken;
+use Dzangocart\Bundle\CoreBundle\Model\StoreApiTokenQuery;
 use Dzangocart\Bundle\CoreBundle\Model\StoreOAuthSettings;
 use Dzangocart\Bundle\CoreBundle\Model\StoreOAuthSettingsQuery;
 use Dzangocart\Bundle\CoreBundle\Model\StoreUserSettingsQuery;
@@ -113,19 +114,21 @@ abstract class StoreSettingsController extends BaseController
      */
     public function apiAction(Request $request)
     {
-       $tokens = ApiTokenQuery::create()
+       $tokens = StoreApiTokenQuery::create()
            ->filterByStore($this->getStore())
            ->find();
 
-       $apiToken = new ApiToken();
+       $store_api_token = new StoreApiToken();
 
-       $apiToken->setStore($this->getStore());
+       $store_api_token->setStore($this->getStore());
 
-       $apiToken->setToken($this->getStore()->generateApiToken());
+       $store_api_token->setToken($this->getStore()->generateApiToken());
+
+       $store_api_token->setEntityId($this->getStore()->getId());
 
        $form = $this->createForm(
             new TokenGenerateType(),
-            $apiToken,
+            $store_api_token,
             array(
                 'action' => $this->generateUrl('api_token')
             )
@@ -135,7 +138,7 @@ abstract class StoreSettingsController extends BaseController
 
         if ($form->isValid()) {
 
-            $apiToken->save();
+            $store_api_token->save();
 
             $this->get('session')->getFlashBag()->add(
                 'success',
