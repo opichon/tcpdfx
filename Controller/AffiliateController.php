@@ -69,7 +69,8 @@ class AffiliateController extends BaseController
     {
         return array(
             1 => 'affiliate.storeId',
-            2 => 'affiliate.createdAt'
+            2 => 'affiliate.name',
+            3 => 'affiliate.website'
         );
 
     }
@@ -77,7 +78,7 @@ class AffiliateController extends BaseController
     protected function getDataTablesSearchColumns()
     {
         return array(
-            'affiliate.storeId'
+            'affiliate.name'
         );
     }
 
