@@ -61,6 +61,7 @@ class AffiliateController extends BaseController
         }
 
         return array(
+            'store' => $this->getStore(),
             'template' => $this->getBaseTemplate()
         );
     }
