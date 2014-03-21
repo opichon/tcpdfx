@@ -57,8 +57,17 @@ abstract class StoreSettingsController extends BaseController
      */
     public function userAction(Request $request)
     {
-       $user_settings = StoreUserSettingsQuery::create()
-           ->findOneByStoreId($this->getStore()->getId());
+       $user_settings = StoreUserSettingsQuery::create();
+
+        if ($store = $this->getStore()) {
+            $query = $user_settings
+                ->filterByStore($store);
+        } elseif ($store_id = $request->query->get('id')) {
+            $query = $user_settings
+                ->filterByStoreId($store_id);
+        }
+
+        $user_settings = $query->findOne();
 
         if (!$user_settings) {
             throw $this->createNotFoundException(
