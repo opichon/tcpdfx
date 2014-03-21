@@ -1,0 +1,22 @@
+{% extends template %}
+
+{% trans_default_domain "affiliate" %}
+
+{% block _core_page_title %}{% trans %}affiliate.affiliates.page_title{% endtrans %}{% endblock %}
+
+{% block bodyclass %}affiliates{% endblock %}
+
+{% block _core_content %}
+	{% include "DzangocartCoreBundle:Affiliate:affiliates.html.twig" %}
+{% endblock %}
+
+{% block _core_head_style %}
+    {{ parent() }}
+    {% include "DzangocartCoreBundle:Affiliate:affiliates_head_style.html.twig" %}
+{% endblock %}
+
+{% block _core_foot_script %}
+    {{ parent() }}
+    {% include "DzangocartCoreBundle:Affiliate:affiliates_foot_script.html.twig" %}
+{% endblock %}
+

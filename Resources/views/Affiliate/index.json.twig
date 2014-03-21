@@ -1,0 +1,24 @@
+{% trans_default_domain "affiliate" %}
+
+{% spaceless %}
+{
+    "sEcho": "{{ sEcho }}",
+    "iTotalRecords": {{ iTotalRecords }},
+    "iTotalDisplayRecords": {{ iTotalDisplayRecords }},
+    "aaData" : [
+        {% for affiliate in affiliates %}
+            {
+                "DT_RowId": "{{ '_' ~ affiliate.id }}",
+                "DT_RowClass": "{{ 'affiliate' }}",
+                "id": "{{ affiliate.id }}",
+                "0": "",
+                "1": "{% include 'DzangocartCoreBundle:Affiliate:store.html.twig' with { store: affiliate.store } %}",
+                "2": "{{ affiliate.name }}",
+                "3": "{{ affiliate.website }}",
+                "4": ""
+            }{% if not loop.last %},{% endif %}
+        {% endfor %}
+    ]
+}
+{% endspaceless %}
+
