@@ -80,12 +80,10 @@ class CatalogueController extends BaseController
             );
         }
 
-        if (!$this->getStore()) {
+        if (!$this->store = $this->getStore()) {
             $this->store = StoreQuery::create()
                 ->filterByCategory($category)
                 ->findOne();
-        } else {
-            $this->store = $this->getStore();
         }
 
         $form = $this->createForm(
