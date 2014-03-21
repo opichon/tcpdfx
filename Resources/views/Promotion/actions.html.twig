@@ -1,4 +1,5 @@
 {% spaceless %}
-    <a href='{{ path('promotion_edit', { id: promotion.id }) }}'>Edit </a>
-    <a href='{{ path('promotion_delete', { id: promotion.id }) }}'>delete</a>
+    <a href='{{ path('promotion_edit', { id: promotion.id }) }}'><i class='fa fa-pencil-square-o'></i>&nbsp&nbsp</a>
+    <a href='{{ path('promotion_delete', { id: promotion.id }) }}'>  <i class='fa fa-trash-o'></i></a>
 {% endspaceless %}
+

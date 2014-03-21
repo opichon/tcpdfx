@@ -20,7 +20,7 @@
             <tr>
                 <td></td>
                 <td>{{ token.token }}</td>
-                <td><a href='{{ path('api_token_delete', { id: token.id }) }}'>delete</a></td>
+                <td><a href='{{ path('api_token_delete', { id: token.id }) }}'><i class="fa fa-trash-o"></i></a></td>
             </tr>
         {% endfor %}
         </tbody>
