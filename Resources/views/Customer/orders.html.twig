@@ -2,6 +2,8 @@
 
 {% trans_default_domain "order" %}
 
+{% block page_sub_title %}{% trans %}order.orders.page_title{% endtrans %}{% endblock %}
+
 {% block _core_content %}
     <div class="orders">
         {% include "DzangocartCoreBundle:Order:orders.html.twig" %}

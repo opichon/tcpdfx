@@ -2,7 +2,10 @@
 
 {% trans_default_domain "customer" %}
 
-{% block _core_page_title %}{% trans with { '%name%': customer.profile.fullName } %}customer.show.page_title{% endtrans %}{% endblock %}
+{% block page_header %}
+    <h2 class="content_title">{% block _core_page_title %}{% trans with { '%name%': customer.profile.fullName } %}customer.show.page_title{% endtrans %}{% endblock %}</h2>
+    <h3 class="content_title">{% block page_sub_title %}{% endblock %}</h3>
+{% endblock %}
 
 {% block page_class %}customer{% endblock %}
 
