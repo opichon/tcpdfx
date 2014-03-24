@@ -1,0 +1,20 @@
+{% if not catalogue2.root %}
+    <tr data-tt-id="{{ catalogue2.id }}" {% if not catalogue2.parent.root %}data-tt-parent-id="{{ catalogue2.getParent.id }}" {% endif %}>
+        <td>{{ catalogue2.name }}</td>
+        <td class="number">{{ catalogue2.code }}</td>
+        <td>
+            <a href="{{ path('category', { id: catalogue2.id }) }}">
+                <i class="fa fa-edit"></i>
+            </a>
+        </td>
+    </tr>
+    {% if catalogue2.hasChildren %}
+        {% for child in catalogue2.children %}
+            {% include "DzangocartCoreBundle:Catalogue:catalogue2.html.twig" with {'catalogue2': child} %}
+        {% endfor %}
+    {% endif %}
+{% else %}
+	{% for child in catalogue2.children %}
+		{% include "DzangocartCoreBundle:Catalogue:Catalogue2.html.twig" with { catalogue2: child } %}
+	{% endfor %}
+{% endif %}
