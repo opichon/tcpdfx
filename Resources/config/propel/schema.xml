@@ -381,6 +381,37 @@
             <index-column name="shipment_id" />
         </index>
     </table>
+    <table name="pack_component" phpName="PackComponent" idMethod="native">
+        <column name="pack_id"      type="integer" primaryKey="true" required="true" />
+        <column name="code"         type="varchar" size="128" required="false" />
+        <column name="name"         type="varchar" size="128" required="false" />
+        <column name="category_id"  type="integer" primaryKey="true" required="true" />
+        <column name="currency_id"  type="varchar" size="3" required="false" />
+        <column name="quantity"     type="integer" required="true" defaultValue="1" />
+        <column name="price"        type="float" size="8" scale="2" required="true" />
+        <column name="tax_rate"     type="float" size="5" scale="2" required="false" />
+        <column name="tax_included" type="tinyint" required="false" defaultValue="0" />
+        <column name="fixed_price"  type="integer" required="true" defaultValue="0" />
+        <column name="rank"         type="integer" required="false" defaultValue="0" />
+        <column name="created_at"   type="timestamp" required="true" />
+        <column name="updated_at"   type="timestamp" required="true" />
+        <column name="deleted_at"   type="timestamp" required="false" />
+        <foreign-key foreignTable="category" name="pack_component_pack" onDelete="cascade" onUpdate="restrict">
+            <reference local="pack_id" foreign="id"/>
+        </foreign-key>
+        <foreign-key foreignTable="category" name="pack_component_category" onDelete="cascade" onUpdate="restrict">
+            <reference local="category_id" foreign="id"/>
+        </foreign-key>
+        <foreign-key foreignTable="currency" name="FI_pack_component_currency" onDelete="restrict" onUpdate="restrict">
+            <reference local="currency_id" foreign="id"/>
+        </foreign-key>
+        <index name="category_id">
+        <index-column name="category_id" />
+        </index>
+        <index name="currency_id">
+        <index-column name="currency_id" />
+        </index>
+    </table>
     <table name="payment" idMethod="native" abstract = "true">
         <column name="id"             type="integer" primaryKey="true" autoIncrement="true" required="true" />
         <column name="gateway_id"     type="integer" required="true" />
