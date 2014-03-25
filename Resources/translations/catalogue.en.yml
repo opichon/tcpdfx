@@ -1,4 +1,7 @@
 catalogue:
+    name:                Name
+    code:                Code
+    actions:             Action
     page_title:          %store% Catalogue
     category:
         page_title:      Category: %category%
