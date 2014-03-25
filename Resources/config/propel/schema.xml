@@ -102,6 +102,9 @@
         <foreign-key foreignTable="address" name="FI_store_address" onDelete="restrict" onUpdate="restrict">
             <reference local="billing_address_id" foreign="id" />
         </foreign-key>
+        <foreign-key foreignTable="affiliate" name="FI_store_affiliate" onDelete="restrict" onUpdate="restrict">
+            <reference local="affiliate_id" foreign="id" />
+        </foreign-key>
         <unique name="domain">
             <unique-column name="domain" />
         </unique>
