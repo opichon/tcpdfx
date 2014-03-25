@@ -30,6 +30,22 @@ class CatalogueController extends BaseController
     }
 
     /**
+     * @Route("/catalogue2", name="catalogue2")
+     * @Template("DzangocartCoreBundle:Catalogue:index2.html.twig")
+     */
+    public function catalogue2Action(Request $request)
+    {
+        $catalogue = CategoryQuery::create()
+            ->findRoot($this->getStore()->getId());
+
+        return array(
+            'store' => $this->getStore(),
+            'template' => $this->getBaseTemplate(),
+            'catalogue2' => $catalogue
+        );
+    }
+
+    /**
      * @Route("/store/{id}/catalogue", name="store_catalogue")
      * @Template
      */
