@@ -10,11 +10,11 @@
     </tr>
     {% if catalogue2.hasChildren %}
         {% for child in catalogue2.children %}
-            {% include "DzangocartCoreBundle:Catalogue:catalogue2.html.twig" with {'catalogue2': child} %}
+            {% include "DzangocartCoreBundle:Catalogue:catalogue2.html.twig" with { 'catalogue2': child } %}
         {% endfor %}
     {% endif %}
 {% else %}
 	{% for child in catalogue2.children %}
-		{% include "DzangocartCoreBundle:Catalogue:Catalogue2.html.twig" with { catalogue2: child } %}
+		{% include "DzangocartCoreBundle:Catalogue:catalogue2.html.twig" with { catalogue2: child } %}
 	{% endfor %}
 {% endif %}
