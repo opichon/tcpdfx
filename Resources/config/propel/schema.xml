@@ -102,9 +102,6 @@
         <foreign-key foreignTable="address" name="FI_store_address" onDelete="restrict" onUpdate="restrict">
             <reference local="billing_address_id" foreign="id" />
         </foreign-key>
-        <foreign-key foreignTable="affiliate" name="FI_store_affiliate" onDelete="restrict" onUpdate="restrict">
-            <reference local="affiliate_id" foreign="id" />
-        </foreign-key>
         <unique name="domain">
             <unique-column name="domain" />
         </unique>
@@ -167,6 +164,9 @@
         </foreign-key>
         <foreign-key foreignTable="user_profile" name="FI_customer_user_profile" onDelete="restrict" onUpdate="restrict">
             <reference local="user_profile_id" foreign="id"/>
+        </foreign-key>
+        <foreign-key foreignTable="affiliate" name="FI_customer_affiliate" onDelete="restrict" onUpdate="restrict">
+            <reference local="affiliate_id" foreign="id"/>
         </foreign-key>
         <unique name="customer_id">
             <unique-column name="code" />
@@ -283,6 +283,9 @@
         </foreign-key>
         <foreign-key foreignTable="address" name="FI_cart_address" onDelete="restrict" onUpdate="restrict">
             <reference local="shipping_address_id" foreign="id" />
+        </foreign-key>
+        <foreign-key foreignTable="affiliate" name="FI_cart_affiliate" onDelete="restrict" onUpdate="restrict">
+            <reference local="affiliate_id" foreign="id" />
         </foreign-key>
         <unique name="token">
             <unique-column name="token" />
