@@ -36,6 +36,13 @@ class PurchaseController extends BaseController
                         ->filterByStatus(array('min' => 3))
                     ->endUse();
             }
+            
+            if ($customer_id = $request->query->get('customer_id')) {
+                $query
+                    ->useCartQuery()
+                        ->filterByCustomerId($customer_id)
+                    ->endUse();
+            }
 
             $total_count = $query->count();
 

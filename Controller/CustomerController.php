@@ -135,6 +135,19 @@ class CustomerController extends BaseController
             'template' => $this->getBaseTemplate()
         );
     }
+    
+    /**
+     * @Route("/customer/{id}/purchases", name="customer_purchases")
+     * @Template("DzangocartCoreBundle:Customer:purchases.html.twig")
+     */
+    public function purchasesAction(Request $request, $id)
+    {
+        return array(
+            'store' => $this->getStore(),
+            'customer' => $this->getCustomer($request, $id),
+            'template' => $this->getBaseTemplate()
+        );
+    }
 
     protected function getDataTablesSortColumns()
     {
