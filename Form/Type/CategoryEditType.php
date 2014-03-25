@@ -49,7 +49,10 @@ class CategoryEditType extends BaseAbstractType
             'required' => FALSE
         ));
 
-        $builder->add('price', 'number', array(
+        $builder->add('price', 'integer', array(
+            'attr' => array(
+                'min' => 1
+            ),
             'label' => 'catalogue.category.form.price.label',
             'required' => TRUE
         ));
@@ -60,37 +63,39 @@ class CategoryEditType extends BaseAbstractType
             'required' => FALSE
         ));
 
-        $builder->add('taxIncluded', 'choice', array(
+        $builder->add('taxIncluded', 'checkbox', array(
             'label' => 'catalogue.category.form.tax_included.label',
-            'choices'   => array('0' => 'No', '1' => 'Yes'),
-            'required' => TRUE
-        ));
-        
-        $builder->add('export', 'choice', array(
-            'label' => 'catalogue.category.form.export.label',
-            'choices'   => array('0' => 'No', '1' => 'Yes'),
-            'required' => TRUE
-        ));
-        
-        $builder->add('shipping', 'choice', array(
-            'label' => 'catalogue.category.form.shipping.label',
-            'choices'   => array('0' => 'No', '1' => 'Yes'),
             'required' => FALSE
         ));
         
-        $builder->add('download', 'choice', array(
+        $builder->add('export', 'checkbox', array(
+            'label' => 'catalogue.category.form.export.label',
+            'required' => FALSE
+        ));
+        
+        $builder->add('shipping', 'checkbox', array(
+            'label' => 'catalogue.category.form.shipping.label',
+            'required' => FALSE
+        ));
+        
+        $builder->add('download', 'checkbox', array(
             'label' => 'catalogue.category.form.download.label',
-            'choices'   => array('0' => 'No', '1' => 'Yes'),
             'required' => FALSE
         ));
             
         $builder->add('minQuantity', 'integer', array(
             'label' => 'catalogue.category.form.min_quantity.label',
+            'attr' => array(
+                'min' => 1
+            ),
             'required' => TRUE
         ));
         
         $builder->add('maxQuantity', 'integer', array(
             'label' => 'catalogue.category.form.max_quantity.label',
+            'attr' => array(
+                'min' => 1
+            ),
             'required' => TRUE
         ));
         $builder->add('Save', 'submit');

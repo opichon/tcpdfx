@@ -199,10 +199,10 @@
         <column name="name"                  type="varchar" size="128" required="true" />
         <column name="price"                 type="float" size="8" scale="2" required="true" defaultValue="0.00" />
         <column name="tax_rate_id"           type="integer" required="false" />
-        <column name="tax_included"          type="tinyint" required="true" defaultValue="0" />
-        <column name="export"                type="tinyint" required="true" defaultValue="0" />
-        <column name="shipping"              type="tinyint" required="false" defaultValue="0" />
-        <column name="download"              type="tinyint" required="false" defaultValue="0" />
+        <column name="tax_included"          type="boolean" required="true" defaultValue="0" />
+        <column name="export"                type="boolean" required="true" defaultValue="0" />
+        <column name="shipping"              type="boolean" required="false" defaultValue="0" />
+        <column name="download"              type="boolean" required="false" defaultValue="0" />
         <column name="pack"                  type="boolean" size="1" required="true" defaultValue="false" />
         <column name="subscription"          type="boolean" size="1" required="true" defaultValue="false" />
         <column name="min_quantity"          type="integer" required="true" defaultValue="1" />
