@@ -4,6 +4,7 @@ namespace Dzangocart\Bundle\CoreBundle\Controller;
 
 use Dzangocart\Bundle\CoreBundle\Form\Type\CategoryEditType;
 use Dzangocart\Bundle\CoreBundle\Model\CategoryQuery;
+use Dzangocart\Bundle\CoreBundle\Model\PackComponentQuery;
 use Dzangocart\Bundle\CoreBundle\Model\StoreQuery;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -90,6 +91,10 @@ class CatalogueController extends BaseController
             ->findPk($id);
 
 
+        $packs = PackComponentQuery::create()
+            ->filterByCategoryId($id)
+            ->find();
+
         if (!$category) {
             throw $this->createNotFoundException(
                 $this->get('translator')->trans('catalogue.category.show.error.not_found', array(), 'catalogue', $request->getLocale())
@@ -123,6 +128,8 @@ class CatalogueController extends BaseController
         }
         
         return array(
+            'packs' => $packs,
+            'category' =>$category,
             'store' => $this->getStore(),
             'form' => $form->createView(),
             'template' => $this->getBaseTemplate()

@@ -82,7 +82,12 @@ class CategoryEditType extends BaseAbstractType
             'label' => 'catalogue.category.form.download.label',
             'required' => FALSE
         ));
-            
+
+        $builder->add('pack', 'checkbox', array(
+            'label' => 'catalogue.category.form.pack.label',
+            'required' => FALSE
+        ));
+
         $builder->add('minQuantity', 'integer', array(
             'label' => 'catalogue.category.form.min_quantity.label',
             'attr' => array(

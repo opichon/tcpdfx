@@ -4,10 +4,22 @@ catalogue:
     actions:             Action
     page_title:          %store% Catalogue
     category:
-        page_title:      Category: %category%
+        page_title:      Category %category%
+        pack_component:
+            name:          Name
+            code:          Code
+            category_name: Category Name 
+            quantity:      Quantity
+            price:         Price
+            tax_included:  Tax Included
+            fixed_price:   Fixed Price
+            actions:
+                title:     Actions
         edit:
             success:     The category was successfully modified.
         form:
+            pack:
+                label:   Pack
             name:
                 label:   Name
             code:
