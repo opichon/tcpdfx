@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface as SecurityUserInterface;
 
-class UserProvider extends BaseUserProvider
+class UserProvider extends BaseUserProvider implements ApiKeyUserProviderInterface
 {
     const ROLE_USER                 = 'ROLE_USER';
     const ROLE_STORE_ADMIN          = 'ROLE_STORE_ADMIN';
@@ -33,10 +33,10 @@ class UserProvider extends BaseUserProvider
         return $reloadedUser;
     }
 
-    public function getUserForApiKey($api_key)
+    public function getUserForApiKey($key)
     {
         $token = ApiTokenQuery::create()
-            ->filterByToken($api_key)
+            ->filterByToken($key)
             ->findOne();
 
         if (!$token) {
