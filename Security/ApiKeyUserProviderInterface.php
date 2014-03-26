@@ -4,5 +4,5 @@ namespace Dzangocart\Bundle\CoreBundle\Security;
 
 interface ApiKeyUserProviderInterface
 {
-	public getUserForApiKey($key);
+	public function getUserForApiKey($key);
 }
