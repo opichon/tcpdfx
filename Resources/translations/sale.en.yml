@@ -5,6 +5,7 @@ sale:
         category:           Category
         code:               Code
         currency:           Ccy
+        customer:           Customer
         date:               Date
         gross:              Gross
         name:               Name

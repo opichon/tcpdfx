@@ -37,6 +37,13 @@ class SaleController extends BaseController
                     ->endUse();
             }
 
+            if ($customer_id = $request->query->get('customer_id')) {
+                $query
+                    ->useCartQuery()
+                        ->filterByCustomerId($customer_id)
+                    ->endUse();
+            }
+
             $total_count = $query->count();
 
             $limit = min(100, $request->query->get('iDisplayLength'));
