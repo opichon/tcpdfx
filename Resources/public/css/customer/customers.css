@@ -1,7 +1,3 @@
-.customers th.gender {
-	width: 4em;
-}
-
-.customers th.actions {
-	width: 5em;
+table.table th.sales {
+	width: 10em;
 }
