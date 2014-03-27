@@ -8,6 +8,9 @@
 <script>
 dzangocart.sales = {
     dataTables: {
+    	aoColumnDefs: [
+    		{ bVisible: false, aTargets: [ 0, 3, 4 ] }
+    	],
         sAjaxSource: "{{ path('sales', { _format: 'json', customer_id: customer.id })|raw }}"
     }
 };
