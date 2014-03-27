@@ -19,11 +19,20 @@ table.table th.currency {
 	width: 4em;
 }
 
-table.table td.amount,
-table.table td.number {
-	text-align: right;
-	padding-right: 15px;
+table.table th.tax {
+	width: 6em;
+	text-align: center;
 }
+
+table.table th.net {
+	width: 8em;
+	text-align: center;
+}
+
+table.table th.status {
+	width: 4em;
+}
+
 
 table.table th.gender {
 	width: 5em;
@@ -35,6 +44,12 @@ table.table th.realm {
 
 table.table th.actions {
 	width: 5em;
+}
+
+table.table td.amount,
+table.table td.number {
+	text-align: right;
+	padding-right: 15px;
 }
 
 .dataTables_processing {

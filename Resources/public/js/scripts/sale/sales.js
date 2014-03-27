@@ -34,6 +34,7 @@
                 { bSortable: false, aTargets: [ 0, 12 ] },
                 { bVisible: false, aTargets: [ 0 ] },
                 { sClass: "number", aTargets: [ 8 ] },
+                { sClass: "amount", aTargets: [ 9, 10, 11 ] },
                 { sClass: "actions", aTargets: [ 12 ] }
             ],
             asStripeClasses: [],

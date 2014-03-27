@@ -4,23 +4,23 @@
     "iTotalRecords": {{ iTotalRecords }},
     "iTotalDisplayRecords": {{ iTotalDisplayRecords }},
     "aaData" : [
-        {% for purchase in purchases %}
+        {% for sale in sales %}
             {
-                "DT_RowId": "{{ '_' ~ purchase.id }}",
+                "DT_RowId": "{{ '_' ~ sale.id }}",
                 "DT_RowClass": "{{ 'purchase' }}",
                 "0": "",
-                "1": "{{ purchase.cart.date|datetime('dd.MM.yy', 'HH:mm', time_zone, app.request.locale) }}",
-                "2": "{{ purchase.orderId }}",
-                "3": "{% include 'DzangocartCoreBundle:Order:store.html.twig' with { store: purchase.order.store } %}",
-                "4": "{{ purchase.name }}",
-                "5": "{{ purchase.code }}",
-                "6": "{{ purchase.category.name }}",
-                "7": "{{ purchase.currencyId }}",
-                "8": "{{ purchase.quantity|integer(app.request.locale) }}",
-                "9": "{{ purchase.getAmountExcl|currency(purchase.currencyId, app.request.locale) }}",
-                "10": "{{ purchase.getTaxAmount|currency(purchase.currencyId, app.request.locale)}}",
-                "11": "{{ purchase.getAmountIncl|currency(purchase.currencyId, app.request.locale)}}",
-                "12": ""
+                "1": "{{ sale.cart.date|datetime('dd.MM.yy', 'HH:mm', time_zone, app.request.locale) }}",
+                "2": "{{ sale.orderId }}",
+                "3": "{% include 'DzangocartCoreBundle:Order:store.html.twig' with { store: sale.order.store } %}",
+                "4": "{{ sale.name }}",
+                "5": "{{ sale.code }}",
+                "6": "{{ sale.category.name }}",
+                "7": "{{ sale.quantity|integer(app.request.locale) }}",
+                "8": "{{ sale.currencyId }}",
+                "9": "{{ sale.getAmountExcl|currency(sale.currencyId, app.request.locale) }}",
+                "10": "{{ sale.getTaxAmount|currency(sale.currencyId, app.request.locale)}}",
+                "11": "{{ sale.getAmountIncl|currency(sale.currencyId, app.request.locale)}}",
+                "12": "{% include 'DzangocartCoreBundle:Sale:actions.html.twig' %}"
             }{% if not loop.last %},{% endif %}
         {% endfor %}
     ]
