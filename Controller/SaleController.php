@@ -87,10 +87,12 @@ class SaleController extends BaseController
             1 => 'Cart.Date',
             2 => 'item.orderId',
             3 => 'store.Name',
-            4 => 'item.name',
-            5 => 'item.code',
-            6 => 'item.currencyId',
-            7 => 'item.quantity'
+            5 => 'item.name',
+            6 => 'item.quantity',
+            7 => 'item.currencyId',
+            8 => 'item.amount_excl',
+            9 => 'item.tax_amount',
+            10 => 'item.amount_incl'
         );
 
     }
