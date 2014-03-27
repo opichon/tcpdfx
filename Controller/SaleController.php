@@ -41,6 +41,7 @@ class SaleController extends BaseController
                 $query
                     ->useCartQuery()
                         ->filterByCustomerId($customer_id)
+                        ->filterByStatus(array('min' => 3))
                     ->endUse();
             }
 

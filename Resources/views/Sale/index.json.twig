@@ -6,7 +6,7 @@
     "aaData" : [
         {% for sale in sales %}
             {
-                "DT_RowId": "{{ '_' ~ sale.id }}",
+                "DT_RowId": "{{ 'sale_' ~ sale.id }}",
                 "DT_RowClass": "{{ 'sale' }}",
                 "0": "",
                 "1": "{{ sale.cart.date|datetime('dd.MM.yy', 'HH:mm', time_zone, app.request.locale) }}",
