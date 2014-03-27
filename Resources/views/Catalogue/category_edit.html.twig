@@ -37,7 +37,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                  {% for pack in packs %}
+                {% for pack in packs %}
                     <tr>
                         <td></td>
                         <td>{{ pack.code }}</td>
@@ -45,8 +45,8 @@
                         <td>{{ pack.CategoryRelatedByCategoryId.name }}</td>
                         <td>{{ pack.quantity }}</td>
                         <td>{{ pack.price }}</td>
-                        <td></td>
-                        <td></td>
+                        <td><input id="catagory_edit_taxIncluded_1" type="checkbox"  value="{% if (pack.taxIncluded) %}" checked="checked" {% endif %} name="catagory_edit_1[taxIncluded]" /></td>
+                        <td><input id="catagory_edit_fixedPrice" type="checkbox"  value="{% if (pack.fixedPrice) %}" checked="checked" {% endif %} name="catagory_edit_1[fixedPrice]" /></td>
                         <td></td>
                     </tr>
                 {% endfor %}
