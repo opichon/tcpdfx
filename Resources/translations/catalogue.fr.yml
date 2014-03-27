@@ -16,14 +16,14 @@ catalogue:
             tax_rate_id:
                 label:   Tax Rate
             tax_included:
-                label:   Tax Included 
+                label:   Tax Included
             export:
                 label:   Export
             shipping:
-                label:   Shipping 
+                label:   Shipping
             download:
-                label:   Download 
+                label:   Download
             min_quantity:
-                label:   Min. Quantity 
+                label:   Min. Quantity
             max_quantity:
-                label:   Max. Quantity 
+                label:   Max. Quantity

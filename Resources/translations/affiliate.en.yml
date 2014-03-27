@@ -1,11 +1,9 @@
 affiliate:
     affiliates:
         page_title:         Affiliates
-        store:              Store Name 
+        store:              Store Name
         name:               Name
         website:            Website
 
         actions:
             title:          Actions
-            
-        
