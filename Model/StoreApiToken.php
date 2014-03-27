@@ -23,4 +23,3 @@ class StoreApiToken extends ApiToken
     }
 
 }
-

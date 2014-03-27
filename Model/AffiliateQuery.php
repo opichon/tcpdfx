@@ -13,7 +13,7 @@ class AffiliateQuery extends BaseAffiliateQuery
     public function dataTablesSort(ParameterBag $params, array $columns = array())
     {
         $control = 0;
-        
+
         for ($i = 0; $i < $params->get('iSortingCols'); $i++) {
             $index = $params->get('iSortCol_' . $i);
             if (array_key_exists($index, $columns)) {
@@ -22,7 +22,7 @@ class AffiliateQuery extends BaseAffiliateQuery
                 if (!is_array($sort_columns)) {
                     $sort_columns = array($sort_columns);
                 }
-                
+
                 foreach ($sort_columns as $column) {
                     $this->orderBy($column, $dir);
                 }
@@ -32,7 +32,7 @@ class AffiliateQuery extends BaseAffiliateQuery
 
         return $control ? $this : $this->defaultSort();
     }
-    
+
      protected function defaultSort()
     {
         return $this->orderBy('affiliate.id');
@@ -57,6 +57,6 @@ class AffiliateQuery extends BaseAffiliateQuery
         }
 
         return $this->where($conditions, 'or');
-     }      
-     
+     }
+
 }

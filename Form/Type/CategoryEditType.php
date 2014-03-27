@@ -12,14 +12,14 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class CategoryEditType extends BaseAbstractType
 {
-    
+
     protected $store;
 
     public function __construct(Store $store)
     {
         $this->store = $store;
     }
-    
+
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
@@ -67,17 +67,17 @@ class CategoryEditType extends BaseAbstractType
             'label' => 'catalogue.category.form.tax_included.label',
             'required' => FALSE
         ));
-        
+
         $builder->add('export', 'checkbox', array(
             'label' => 'catalogue.category.form.export.label',
             'required' => FALSE
         ));
-        
+
         $builder->add('shipping', 'checkbox', array(
             'label' => 'catalogue.category.form.shipping.label',
             'required' => FALSE
         ));
-        
+
         $builder->add('download', 'checkbox', array(
             'label' => 'catalogue.category.form.download.label',
             'required' => FALSE
@@ -95,7 +95,7 @@ class CategoryEditType extends BaseAbstractType
             ),
             'required' => TRUE
         ));
-        
+
         $builder->add('maxQuantity', 'integer', array(
             'label' => 'catalogue.category.form.max_quantity.label',
             'attr' => array(
@@ -110,11 +110,11 @@ class CategoryEditType extends BaseAbstractType
     {
         return "catagory_edit";
     }
-    
+
     protected function getTaxRate()
     {
         $tax_rates = array();
-        
+
         $taxes = TaxQuery::create()
             ->filterByCountry($this->store->getCountryId())
             ->find();
@@ -122,7 +122,7 @@ class CategoryEditType extends BaseAbstractType
         foreach ($taxes as $tax) {
             $tax_rates[$tax->getId()] = $tax->getName();
         }
-        
+
         return $tax_rates;
     }
 

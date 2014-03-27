@@ -7,4 +7,3 @@ use Dzangocart\Bundle\CoreBundle\Model\om\BaseAfiiliateApiTokenQuery;
 class AfiiliateApiTokenQuery extends BaseAfiiliateApiTokenQuery
 {
 }
-
