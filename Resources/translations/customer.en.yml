@@ -1,7 +1,8 @@
 customer:
     show:
-        page_title:         Customer: %name%
+        back:               Back to customer list
         orders:             %name%: Orders
+        page_title:         Customer: %name%
         payments:           %name%: Payments
 
     customers:

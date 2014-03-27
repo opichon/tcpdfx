@@ -1,7 +1,15 @@
-.orders th.id {
-	width: 5em;
+table.table th.gross {
+	width: 8em;
 }
 
-.orders th.actions {
-	width: 5em;
+table.table th.tax {
+	width: 6em;
+}
+
+table.table th.net {
+	width: 8em;
+}
+
+table.table th.status {
+	width: 4em;
 }

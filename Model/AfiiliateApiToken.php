@@ -22,6 +22,4 @@ class AfiiliateApiToken extends ApiToken
         //TODO
         return NULL;
     }
-
 }
-

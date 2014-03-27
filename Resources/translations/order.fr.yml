@@ -10,15 +10,15 @@ order:
         action:             Action
 
     orders:
-        page_title:         Orders
-
         actions:
             title:          Actions
-        id:                 ID
-        store_name:         Store Name
+        currency:           Dev.
+        customer:           Client
         date:               Date
+        gross:              HT
+        id:                 No.
+        net:                TTC
+        page_title:         Commandes
+        store_name:         Boutique
         status:             Status
-        currency:           Ccy
-        gross:              Gross
-        tax:                Tax
-        net:                Net
+        tax:                TVA

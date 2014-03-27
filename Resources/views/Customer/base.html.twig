@@ -2,8 +2,12 @@
 
 {% trans_default_domain "customer" %}
 
+{% block page_nav %}
+<a href="{{ path('customers') }}"><i class="fa fa-long-arrow-left"></i> {% trans %}customer.show.back{% endtrans %}</a>
+{% endblock %}
+
 {% block page_header %}
-    <h2 class="content_title">{% block _core_page_title %}{% trans with { '%name%': customer.profile.fullName } %}customer.show.page_title{% endtrans %}{% endblock %}</h2>
+    <h2 class="content_title">{% block _core_page_title %}{% trans with { '%name%': customer.name } %}customer.show.page_title{% endtrans %}{% endblock %}</h2>
     <h3 class="content_title">{% block page_sub_title %}{% endblock %}</h3>
 {% endblock %}
 

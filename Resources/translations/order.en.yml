@@ -15,15 +15,15 @@ order:
             amount:         Amount
 
     orders:
-        page_title:         Orders
-
         actions:
             title:          Actions
-        id:                 '#'
-        store_name:         Store
-        date:               Date
-        status:             Status
         currency:           Ccy
+        customer:           Customer
+        date:               Date
         gross:              Gross
-        tax:                Tax
+        id:                 '#'
         net:                Net
+        page_title:         Orders
+        status:             Status
+        store_name:         Store
+        tax:                Tax

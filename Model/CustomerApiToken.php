@@ -16,12 +16,14 @@ class CustomerApiToken extends ApiToken
             ->findPk($this->getEntityId());
     }
 
-    public function getUser()
+    public function getCustomer()
     {
-        return $this->getEntity()
-            ->getProfile()
-            ->getUser();
+        return $this->getEntity();
     }
 
+    public function getUser()
+    {
+        return $this->getCustomer()
+            ->getUser();
+    }
 }
-

@@ -49,9 +49,10 @@
 	$.fn.orders.defaults = {
 		dataTables: {
 			aoColumnDefs: [
-				{ bSortable: false, aTargets: [ 0, 9 ] }, // First column and last column ("actions") are not sortable
-				{ bVisible: false, aTargets: [ 0 ] }, // Hide the first column
-				{ sClass: "actions", aTargets: [ 9 ] } // Set special "actions" class on cells in the last column
+				{ bSortable: false, aTargets: [ 0, 10 ] },
+				{ bVisible: false, aTargets: [ 0 ] },
+				{ sClass: "amount", aTargets: [ 7, 8, 9 ] },
+				{ sClass: "actions", aTargets: [ 10 ] }
 			],
 			asStripeClasses: [],
 			bAutoWidth: false,

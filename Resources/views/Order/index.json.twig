@@ -15,12 +15,13 @@
                 "1": "{{ order.date|datetime('dd.MM.yy', 'HH:mm', time_zone, app.request.locale) }}",
                 "2": "<a href='{{ path('order', { id: order.id }) }}'>{{ order.id  }}</a>",
                 "3": "{% include 'DzangocartCoreBundle:Order:store.html.twig' with { store: order.store } %}",
-                "4": "{{ order.status }}",
-                "5": "{{ order.currencyId  }}",
-                "6": "{{ order.getAmountExcl|currency(order.currencyId, app.request.locale) }}",
-                "7": "{{ order.getTaxAmount|currency(order.currencyId, app.request.locale)}}",
-                "8": "{{ order.getAmountIncl|currency(order.currencyId, app.request.locale)}}",
-                "9": "{% include 'DzangocartCoreBundle:Order:actions.html.twig' %}"
+                "4": "<a href='{{ path('customer_show', { id: order.customerId }) }}'>{{ order.customer.name }}</a>",
+                "5": "{{ order.status }}",
+                "6": "{{ order.currencyId  }}",
+                "7": "{{ order.getAmountExcl|currency(order.currencyId, app.request.locale) }}",
+                "8": "{{ order.getTaxAmount|currency(order.currencyId, app.request.locale)}}",
+                "9": "{{ order.getAmountIncl|currency(order.currencyId, app.request.locale)}}",
+                "10": "{% include 'DzangocartCoreBundle:Order:actions.html.twig' %}"
             }{% if not loop.last %},{% endif %}
         {% endfor %}
     ]
