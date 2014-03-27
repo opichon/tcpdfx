@@ -19,6 +19,16 @@ table.table th.currency {
 	width: 4em;
 }
 
+table.table th.quantity {
+	width: 4em;
+	text-align: center;
+}
+
+table.table th.gross {
+	width: 8em;
+	text-align: center;
+}
+
 table.table th.tax {
 	width: 6em;
 	text-align: center;
@@ -45,6 +55,7 @@ table.table th.realm {
 table.table th.actions {
 	width: 5em;
 }
+
 
 table.table td.amount,
 table.table td.number {

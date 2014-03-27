@@ -31,14 +31,14 @@
     $.fn.sales.defaults = {
         dataTables: {
             aoColumnDefs: [
-                { bSortable: false, aTargets: [ 0, 12 ] },
+                { bSortable: false, aTargets: [ 0, 10 ] },
                 { bVisible: false, aTargets: [ 0 ] },
-                { sClass: "number", aTargets: [ 8 ] },
-                { sClass: "amount", aTargets: [ 9, 10, 11 ] },
-                { sClass: "actions", aTargets: [ 12 ] }
+                { sClass: "number", aTargets: [ 5 ] },
+                { sClass: "amount", aTargets: [ 7, 8, 9 ] },
+                { sClass: "actions", aTargets: [ 10 ] }
             ],
             asStripeClasses: [],
-            bAutoWidth: true,
+            bAutoWidth: false,
             bDestroy: true,
             bPaginate: true,
             bProcessing: true,

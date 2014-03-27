@@ -6,12 +6,12 @@ sale:
         code:               Code
         currency:           Ccy
         date:               Date
+        gross:              HT
         name:               Name
-        order_id:           '#'
+        net:                TTC
+        order_id:           Comm.
         order_date:         Date
-        page_title:         Sales
-        quantity:           Qty
-        gross:              Gross
-        tax:                Tax
-        net:                Net
-        store:              Store
+        page_title:         Ventes
+        quantity:           Qté
+        store:              Boutique
+        tax:                TVA
