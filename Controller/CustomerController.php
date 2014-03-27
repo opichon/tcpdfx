@@ -76,7 +76,7 @@ class CustomerController extends BaseController
                 'store' => $this->getStore(),
                 'form' => $form->createView(),
                 'template' => $this->getBaseTemplate()
-                    
+
          );
     }
 
@@ -118,11 +118,10 @@ class CustomerController extends BaseController
             'customer' => $this->getCustomer($request, $id),
             'form' => $form->createView(),
             'template' => $this->getBaseTemplate()
-            
-       
+
         );
     }
-    
+
      /**
      * @Route("/customer/{id}/payments", name="customer_payments")
      * @Template("DzangocartCoreBundle:Customer:payments.html.twig")
@@ -135,7 +134,7 @@ class CustomerController extends BaseController
             'template' => $this->getBaseTemplate()
         );
     }
-    
+
     /**
      * @Route("/customer/{id}/purchases", name="customer_purchases")
      * @Template("DzangocartCoreBundle:Customer:purchases.html.twig")
@@ -157,7 +156,7 @@ class CustomerController extends BaseController
 
         );
     }
-    
+
     protected function getDataTablesSearchColumns()
     {
         return array(

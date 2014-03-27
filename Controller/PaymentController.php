@@ -33,13 +33,13 @@ class PaymentController extends BaseController
                         ->filterByStoreId($store_id)
                     ->endUse();
             }
-            
+
             if ($customer_id = $request->query->get('customer_id')) {
                 $query
                     ->useOrderQuery()
                         ->filterByCustomerId($customer_id)
                     ->endUse();
-            }     
+            }
 
             $total_count = $query->count();
 

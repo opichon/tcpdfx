@@ -90,7 +90,6 @@ class CatalogueController extends BaseController
         $category = CategoryQuery::create()
             ->findPk($id);
 
-
         $packs = PackComponentQuery::create()
             ->filterByCategoryId($id)
             ->find();
@@ -126,7 +125,7 @@ class CatalogueController extends BaseController
 
             return $this->redirect($this->generateUrl('category_edit', array('id' => $id)));
         }
-        
+
         return array(
             'packs' => $packs,
             'category' =>$category,

@@ -23,7 +23,7 @@ class OrderController extends BaseController
             $query = CartQuery::create('Cart')
                 ->filterByStatus(array('min' => 3));
 
-            if ($customer_id = $request->query->get('customer_id')){
+            if ($customer_id = $request->query->get('customer_id')) {
                 $query->filterByCustomerId($customer_id);
             }
 

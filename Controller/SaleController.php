@@ -49,7 +49,7 @@ class SaleController extends BaseController
 
             $filtered_count = $query->count();
 
-            $purchases = $query
+            $sales = $query
                 ->dataTablesSort($request->query, $this->getDataTablesSortColumns())
                 ->setLimit($limit)
                 ->setOffset($offset)
@@ -60,7 +60,7 @@ class SaleController extends BaseController
                 'iStart' => 0,
                 'iTotalRecords' => $total_count,
                 'iTotalDisplayRecords' => $filtered_count,
-                'purchases' => $purchases
+                'sales' => $sales
             );
 
             $view = $this->renderView('DzangocartCoreBundle:Sale:index.json.twig', $data);

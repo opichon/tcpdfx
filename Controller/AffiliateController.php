@@ -28,12 +28,12 @@ class AffiliateController extends BaseController
                 $query->filterByStoreId($store_id);
             }
             $total_count = $query->count();
-             
+
             $query->datatablesSearch(
                 $request->query->get('sSearch'),
                 $this->getDataTablesSearchColumns()
             );
-            
+
             $query->innerJoinStore('store');
 
             $filtered_count = $query->count();
@@ -83,4 +83,4 @@ class AffiliateController extends BaseController
         );
     }
 
-}   
+}
