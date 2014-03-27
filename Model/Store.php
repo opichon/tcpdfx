@@ -31,7 +31,7 @@ class Store extends BaseStore
         return hash('sha256', uniqid(mt_rand(), true), true);
     }
 
-    public function getStoreUserSettings()
+    public function getUserSettings()
     {
         return StoreUserSettingsQuery::create()
             ->filterByStoreId($this->getId())
