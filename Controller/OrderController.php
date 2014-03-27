@@ -22,7 +22,7 @@ class OrderController extends BaseController
         if ($request->isXmlHttpRequest() || 'json' == $request->getRequestFormat()) {
             $query = CartQuery::create('Cart')
                 ->filterByStatus(array('min' => 3));
-            
+
             if ($customer_id = $request->query->get('customer_id')){
                 $query->filterByCustomerId($customer_id);
             }
@@ -32,7 +32,7 @@ class OrderController extends BaseController
             } elseif ($store_id = $request->query->get('store_id')) {
                 $query->filterByStoreId($store_id);
             }
-            
+
             $total_count = $query->count();
 
             $query->datatablesSearch(
@@ -104,7 +104,11 @@ class OrderController extends BaseController
             1 => 'cart.date',
             2 => 'cart.id',
             3 => 'store.Name',
-            4 => 'cart.status'
+            5 => 'cart.status',
+            6 => 'cart.currency',
+            7 => 'cart.amount_excl',
+            8 => 'cart.tax_amount',
+            9 => 'cart.amount_incl'
         );
     }
 

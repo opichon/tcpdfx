@@ -12,7 +12,7 @@ table.table th.datetime {
 }
 
 table.table th.id {
-	width: 6em;
+	width: 4em;
 }
 
 table.table th.currency {

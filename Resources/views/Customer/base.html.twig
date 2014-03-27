@@ -2,6 +2,11 @@
 
 {% trans_default_domain "customer" %}
 
+{% block _core_head_style %}
+    {{ parent() }}
+    {% include "DzangocartCoreBundle:Customer:customer_head_style.html.twig" %}
+{% endblock %}
+
 {% block page_nav %}
 <a href="{{ path('customers') }}"><i class="fa fa-long-arrow-left"></i> {% trans %}customer.show.back{% endtrans %}</a>
 {% endblock %}
