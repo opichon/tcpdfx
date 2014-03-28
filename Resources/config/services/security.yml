@@ -28,3 +28,10 @@ services:
         public: false
         tags:
             - { name: security.voter }
+
+    dzangocart.user_handling_none_voter:
+        class: Dzangocart\Bundle\CoreBundle\Security\Authorization\Voter\UserHandlingNoneVoter
+        arguments: [@service_container]
+        public: false
+        tags:
+            - { name: security.voter }
