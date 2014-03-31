@@ -8,6 +8,7 @@ use Dzangocart\Bundle\CoreBundle\Security\UserProvider;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 
 class UserHandlingNoneVoter extends ContainerAware implements VoterInterface
@@ -19,7 +20,7 @@ class UserHandlingNoneVoter extends ContainerAware implements VoterInterface
 
     public function supportsAttribute($attribute)
     {
-        return null !== $attribute && UserProvider::ROLE_STORE_ADMIN === $attribute;
+        return null !== $attribute && UserProvider::ROLE_USER === $attribute;
     }
 
     public function supportsClass($class)
@@ -58,6 +59,17 @@ class UserHandlingNoneVoter extends ContainerAware implements VoterInterface
             $user = $token->getUser();
 
             if ($store->isOwner($user)) {
+
+                $security_context = $this->container->get('security.context');
+
+                $user->setRoles(
+                    array(UserProvider::ROLE_STORE_ADMIN
+                ));
+
+                $new_token = new UsernamePasswordToken($user, $token->getCredentials(), 'main', $user->getRoles());
+
+                $security_context->setToken($new_token);
+
                 $result = VoterInterface::ACCESS_GRANTED;
             }
         }
