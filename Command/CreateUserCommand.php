@@ -81,7 +81,7 @@ class CreateUserCommand extends ContainerAwareCommand
         if (!$input->getArgument('realm')) {
             $realm = $this->getHelper('dialog')->askAndValidate(
                 $output,
-                'Please indicate the realm ',
+                'Please indicate the realm: ',
                 function ($realm) {
                     return $realm;
                 }
@@ -93,7 +93,7 @@ class CreateUserCommand extends ContainerAwareCommand
         if (!$input->getArgument('username')) {
             $username = $this->getHelper('dialog')->askAndValidate(
                 $output,
-                'Please give the username:',
+                'Please give the username: ',
                 function ($username) {
                     if (empty($username)) {
                         throw new \Exception('Username can not be empty');
@@ -109,7 +109,7 @@ class CreateUserCommand extends ContainerAwareCommand
         if (!$input->getArgument('password')) {
             $password = $this->getHelper('dialog')->askAndValidate(
                 $output,
-                'Please enter the new password:',
+                'Please enter the new password: ',
                 function ($password) {
                     if (empty($password)) {
                         throw new \Exception('Password can not be empty');
@@ -125,7 +125,7 @@ class CreateUserCommand extends ContainerAwareCommand
         if (!$input->getArgument('email')) {
             $email = $this->getHelper('dialog')->askAndValidate(
                 $output,
-                'Please enter the email',
+                'Please enter the email: ',
                 function ($email) {
                     if (empty($email)) {
                         throw new \Exception('email can not be empty');
