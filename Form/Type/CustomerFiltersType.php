@@ -40,7 +40,7 @@ class CustomerFiltersType extends BaseAbstractType
         ));
         
         $builder->add('gender', 'choice', array(
-            'choices' => array(0=>'male', 1=>'female', 'null'=>'empty' ),
+            'choices' => array(1=>'Male', 0=>'Female'),
             'required' => false
         ));
         
