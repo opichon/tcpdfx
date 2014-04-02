@@ -25,7 +25,8 @@ class CustomerController extends BaseController
     {
         if ($request->isXmlHttpRequest() || 'json' == $request->getRequestFormat()) {
 
-            $query = CustomerQuery::create();
+            $query = CustomerQuery::create()
+                ->innerJoinUserProfile();
 
             if ($store = $this->getStore()) {
                 $query
@@ -161,6 +162,9 @@ class CustomerController extends BaseController
     {
         return array(
             'realm' => 'customer.realm LIKE "%%%s%%"',
+            'surname' => 'user_profile.surname LIKE "%%%s%%"',
+            'given_names' => 'user_profile.given_names LIKE "%%%s%%"',
+            'email' => 'user_profile.email LIKE "%%%s%%"',
         );
     }
 

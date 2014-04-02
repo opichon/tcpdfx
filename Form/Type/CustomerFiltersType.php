@@ -30,6 +30,23 @@ class CustomerFiltersType extends BaseAbstractType
         $builder->add('realm', 'text', array(
             'required' => false
         ));
+        
+        $builder->add('surname', 'text', array(
+            'required' => false
+        ));
+        
+        $builder->add('given_names', 'text', array(
+            'required' => false
+        ));
+        
+        $builder->add('gender', 'choice', array(
+            'choices' => array(0=>'male', 1=>'female', 'null'=>'empty' ),
+            'required' => false
+        ));
+        
+        $builder->add('email', 'text', array(
+            'required' => false
+        ));
     }
 
     public function getName()
