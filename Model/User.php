@@ -3,8 +3,12 @@
 namespace Dzangocart\Bundle\CoreBundle\Model;
 
 use Dzangocart\Bundle\CoreBundle\Model\om\BaseUser;
+use Dzangocart\Bundle\CoreBundle\Security\UserProvider;
 
 use FOS\UserBundle\Model\UserInterface;
+
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+
 
 class User extends BaseUser implements UserInterface
 {
@@ -282,5 +286,20 @@ class User extends BaseUser implements UserInterface
         }
 
         return $profile;
+    }
+
+    public function addRoleToStoreOwner(UsernamePasswordToken $token, $container)
+    {
+
+        $security_context = $container->get('security.context');
+
+        $this->setRoles(
+            array(UserProvider::ROLE_STORE_ADMIN
+        ));
+
+        $new_token = new UsernamePasswordToken($this, $token->getCredentials(), 'main', $this->getRoles());
+
+        $security_context->setToken($new_token);
+
     }
 }
