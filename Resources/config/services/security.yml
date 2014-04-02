@@ -15,20 +15,6 @@ services:
         class: Dzangocart\Bundle\CoreBundle\Security\UserProvider
         arguments: [@dzangocart.user_manager]
 
-    dzangocart.admin_voter:
-        class: Dzangocart\Bundle\CoreBundle\Security\Authorization\Voter\AdminVoter
-        arguments: [@service_container]
-        public: false
-        tags:
-            - { name: security.voter }
-
-    dzangocart.store_admin_voter:
-        class: Dzangocart\Bundle\CoreBundle\Security\Authorization\Voter\StoreAdminVoter
-        arguments: [@service_container]
-        public: false
-        tags:
-            - { name: security.voter }
-
     dzangocart.user_handling_none_voter:
         class: Dzangocart\Bundle\CoreBundle\Security\Authorization\Voter\UserHandlingNoneVoter
         arguments: [@service_container]
