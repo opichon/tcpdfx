@@ -165,6 +165,7 @@ class CustomerController extends BaseController
             'surname' => 'user_profile.surname LIKE "%%%s%%"',
             'given_names' => 'user_profile.given_names LIKE "%%%s%%"',
             'email' => 'user_profile.email LIKE "%%%s%%"',
+            'gender' => 'user_profile.gender LIKE "%s"',
         );
     }
 
