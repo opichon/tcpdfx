@@ -58,7 +58,6 @@ class UserHandlingNoneVoter extends ContainerAware implements VoterInterface
             $user = $token->getUser();
 
             if ($store->isOwner($user)) {
-                $user->addRoleToStoreOwner($token, $this->container);
                 $result = VoterInterface::ACCESS_GRANTED;
             }
         }

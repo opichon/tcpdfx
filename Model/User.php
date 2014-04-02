@@ -200,6 +200,10 @@ class User extends BaseUser implements UserInterface
         // we need to make sure to have at least one role
         $roles[] = static::ROLE_DEFAULT;
 
+        if ($this->isOwner()) {
+            $roles[] = UserProvider::ROLE_STORE_ADMIN;
+        }
+
         return array_unique($roles);
     }
 
@@ -286,20 +290,5 @@ class User extends BaseUser implements UserInterface
         }
 
         return $profile;
-    }
-
-    public function addRoleToStoreOwner(UsernamePasswordToken $token, $container)
-    {
-
-        $security_context = $container->get('security.context');
-
-        $this->setRoles(
-            array(UserProvider::ROLE_STORE_ADMIN
-        ));
-
-        $new_token = new UsernamePasswordToken($this, $token->getCredentials(), 'main', $this->getRoles());
-
-        $security_context->setToken($new_token);
-
     }
 }
