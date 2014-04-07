@@ -10,4 +10,14 @@
             <reference local="id" foreign="id"/>
         </foreign-key>
     </table>
+    <table name="user_oauth_token" phpName="UserOauthToken" idMethod="native">
+        <column name="user_id"       type="integer" primaryKey="true" required="true" />
+        <column name="token"         type="varchar" size="256" required="false" />
+        <column name="expires_at"    type="timestamp" required="false" />
+        <column name="scope"         type="varchar" size="256" required="false" />
+        <column name="refresh_token" type="varchar" size="256" required="false" />
+        <foreign-key foreignTable="dzango_user" name="FI_user_oauth_token_dzango_user" onDelete="restrict" onUpdate="restrict">
+            <reference local="user_id" foreign="id" />
+        </foreign-key>
+    </table>
 </database>
