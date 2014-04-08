@@ -441,17 +441,22 @@
         </index>
     </table>
     <table name="store_user_settings" phpName="StoreUserSettings" idMethod="native">
-        <column name="id"                type="integer" primaryKey="true" autoIncrement="true" required="true" />
-        <column name="store_id"          type="integer" required="true" />
-        <column name="user_handling"     type="tinyint" size="1" required="true" defaultValue="0" />
-        <column name="login_url"         type="longvarchar" required="false" />
-        <column name="register_url"      type="longvarchar" required="false" />
-        <column name="auto_register"     type="tinyint" required="true" defaultValue="0" />
-        <column name="auto_register_url" type="longvarchar" required="false" />
-        <column name="profile_url"       type="longvarchar" required="false" />
-        <column name="password_url"      type="longvarchar" required="false" />
-        <column name="email_as_login"    type="boolean" size="1" required="true" defaultValue="true" />
-        <column name="open_id"           type="boolean" size="1" required="true" defaultValue="false" />
+        <column name="id"                          type="integer" primaryKey="true" autoIncrement="true" required="true" />
+        <column name="store_id"                    type="integer" required="true" />
+        <column name="user_handling"               type="tinyint" size="1" required="true" defaultValue="0" />
+        <column name="login_url"                   type="longvarchar" required="false" />
+        <column name="register_url"                type="longvarchar" required="false" />
+        <column name="auto_register"               type="tinyint" required="true" defaultValue="0" />
+        <column name="auto_register_url"           type="longvarchar" required="false" />
+        <column name="profile_url"                 type="longvarchar" required="false" />
+        <column name="password_url"                type="longvarchar" required="false" />
+        <column name="email_as_login"              type="boolean" size="1" required="true" defaultValue="true" />
+        <column name="open_id"                     type="boolean" size="1" required="true" defaultValue="false" />
+        <column name="oauth_client_id"             type="varchar" size="256" required="false" />
+        <column name="oauth_secret_key"            type="varchar" size="256" required="false" />
+        <column name="oauth_auth_code_endpoint"    type="varchar" size="256" required="false" />
+        <column name="oauth_access_token_endpoint" type="varchar" size="256" required="false" />
+        <column name="oauth_login_endpoint"        type="varchar" size="256" required="false" />
         <foreign-key foreignTable="store" name="FI_user_settings_store" onDelete="restrict" onUpdate="restrict">
             <reference local="store_id" foreign="id"/>
         </foreign-key>
