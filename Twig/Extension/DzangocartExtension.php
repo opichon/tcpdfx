@@ -28,7 +28,8 @@ class DzangocartExtension extends Twig_Extension
     {
         return array(
             'app_version' => new Twig_Function_Method($this, 'getVersion', array('is_safe' => array('html'))),
-            'oauth_auth_code_url' => new Twig_Function_method($this, 'getOAuthAuthCodeUrl', array('is_safe' => array('html')))
+            'oauth_auth_code_url' => new Twig_Function_method($this, 'getOAuthAuthCodeUrl', array('is_safe' => array('html'))),
+            'oauth_access_token_url' => new Twig_Function_method($this, 'getOAuthAcessTokenUrl', array('is_safe' => array('html')))
         );
     }
 
@@ -63,11 +64,11 @@ class DzangocartExtension extends Twig_Extension
             $this->getRedirectUrl()
         );
 
-        $raw_oauth_auth_code_url =  $this->getStore()
+        $endpoint =  $this->getStore()
             ->getUserSettings()
             ->getOauthAuthCodeEndpoint();
 
-        return str_replace($search_value, $replace_value, $raw_oauth_auth_code_url);
+        return str_replace($search_value, $replace_value, $endpoint);
     }
 
     protected function getStore()
@@ -87,5 +88,28 @@ class DzangocartExtension extends Twig_Extension
         $hostname = $request->server->get('HTTP_HOST');
         
         return 'http://' . $hostname . $this->generateUrl('oauth');
+    }
+
+    protected function getOAuthAcessTokenUrl($code)
+    {
+        if (!$this->getStore()) {
+            return NULL;
+        }
+
+        $user_settings = $this->getStore()
+            ->getUserSettings();
+
+        $search_value = array("%client_id%", "%client_secret%", "%code", "%redirect_uri%");
+
+        $replace_value = array(
+            $user_settings->getOauthClientId(),
+            $user_settings->getOauthSecretKey(),
+            $code,
+            $this->getRedirectUrl()
+        );
+
+        $endpoint = $user_settings->getOauthAccessTokenEndpoint();
+
+        return str_replace($search_value, $replace_value, $endpoint);
     }
 }
