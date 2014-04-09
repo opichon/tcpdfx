@@ -19,6 +19,7 @@ class DzangocartExtension extends Twig_Extension
     {
         return array(
             'app_version' => new Twig_Function_Method($this, 'getVersion', array('is_safe' => array('html'))),
+            'oauth_auth_code_url' => new Twig_Function_method($this, 'getOAuthAthCodeUrl', array('is_safe' => array('html')))
         );
     }
 
@@ -31,5 +32,13 @@ class DzangocartExtension extends Twig_Extension
         return file_get_contents(
             dirname(__FILE__) . "/../../../../../../../../bin/version.txt"
         );
+    }
+
+    /**
+     * Returns the url to the Oauth autho code endpoint for the store.
+     */
+    public function getOAuthAuthCodeUrl()
+    {
+        return '';
     }
 }
