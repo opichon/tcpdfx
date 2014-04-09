@@ -90,7 +90,7 @@ class DzangocartExtension extends Twig_Extension
         return 'http://' . $hostname . $this->generateUrl('oauth');
     }
 
-    protected function getOAuthAcessTokenUrl($code)
+    public function getOAuthAcessTokenUrl($code)
     {
         if (!$this->getStore()) {
             return NULL;
