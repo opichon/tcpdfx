@@ -5,8 +5,17 @@ namespace Dzangocart\Bundle\CoreBundle\Twig\Extension;
 use \Twig_Extension;
 use \Twig_Function_Method;
 
-class DzangocartExtension extends Twig_Extension
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
+class DzangocartExtension extends Twig_Extension 
 {
+    protected $container;
+
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
+
     public function getName()
     {
         return 'dzangoacart';
@@ -19,7 +28,7 @@ class DzangocartExtension extends Twig_Extension
     {
         return array(
             'app_version' => new Twig_Function_Method($this, 'getVersion', array('is_safe' => array('html'))),
-            'oauth_auth_code_url' => new Twig_Function_method($this, 'getOAuthAthCodeUrl', array('is_safe' => array('html')))
+            'oauth_auth_code_url' => new Twig_Function_method($this, 'getOAuthAuthCodeUrl', array('is_safe' => array('html')))
         );
     }
 
@@ -39,6 +48,35 @@ class DzangocartExtension extends Twig_Extension
      */
     public function getOAuthAuthCodeUrl()
     {
-        return '';
+        if (!$this->getStore()) {
+            return NULL;
+        }
+
+        $user_settings = $this->getStore()
+            ->getUserSettings();
+
+        $search_value = array("%client_id%", "%client_secret%", "%redirect_uri%");
+
+        $replace_value = array(
+            $user_settings->getOauthClientId(),
+            $user_settings->getOauthSecretKey(),
+            $this->generateUrl('oauth')
+        );
+
+        $raw_oauth_auth_code_url =  $this->getStore()
+            ->getUserSettings()
+            ->getOauthAuthCodeEndpoint();
+
+        return str_replace($search_value, $replace_value, $raw_oauth_auth_code_url);
+    }
+
+    protected function getStore()
+    {
+        return $this->container->get('dzangocart.store_finder')->getStore();
+    }
+
+    protected function generateUrl($route)
+    {
+        return $this->container->get('router')->generate($route);
     }
 }

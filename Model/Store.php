@@ -37,18 +37,4 @@ class Store extends BaseStore
             ->filterByStoreId($this->getId())
             ->findOne();
     }
-
-    public function getAuthorizationKey()
-    {
-
-        $user_settings = $this->getUserSettings();
-
-        $link = $user_settings->getOauthAuthCodeEndpoint()
-            . "?client_id=" . $user_settings->getOauthClientId()
-            . "&client_secret=" . $user_settings->getOauthSecretKey()
-            . "&response_type=code"
-            . "&redirect_uri=http://porot.dzangocart.net/app_dev.php/oauth";
-
-        return $link;
-    }
 }
