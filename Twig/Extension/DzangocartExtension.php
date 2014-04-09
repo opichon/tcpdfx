@@ -60,7 +60,7 @@ class DzangocartExtension extends Twig_Extension
         $replace_value = array(
             $user_settings->getOauthClientId(),
             $user_settings->getOauthSecretKey(),
-            $this->generateUrl('oauth')
+            $this->getRedirectUrl()
         );
 
         $raw_oauth_auth_code_url =  $this->getStore()
@@ -78,5 +78,14 @@ class DzangocartExtension extends Twig_Extension
     protected function generateUrl($route)
     {
         return $this->container->get('router')->generate($route);
+    }
+    
+    protected function getRedirectUrl()
+    {
+        $request = $this->container->get('request');
+
+        $hostname = $request->server->get('HTTP_HOST');
+        
+        return 'http://' . $hostname . $this->generateUrl('oauth');
     }
 }
