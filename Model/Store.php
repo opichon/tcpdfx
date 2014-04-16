@@ -75,7 +75,7 @@ class Store extends BaseStore
         return str_replace($search_value, $replace_value, $endpoint);
     }
 
-    public function getOAuthUserProfileUrl($token)
+    public function getOauthLoginUrl($token)
     {
         $user_settings = $this->getUserSettings();
 
