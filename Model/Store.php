@@ -37,4 +37,52 @@ class Store extends BaseStore
             ->filterByStoreId($this->getId())
             ->findOne();
     }
+
+    public function getOAuthAuthorizationCodeURl($redirect_uri)
+    {
+
+        $user_settings = $this->getUserSettings();
+
+        $search_value = array('%client_id%', '%client_secret%', '%redirect_uri%');
+
+        $replace_value = array(
+            $user_settings->getOauthClientId(),
+            '',
+            $redirect_uri
+        );
+
+        $endpoint =  $user_settings
+            ->getOauthAuthCodeEndpoint();
+
+        return str_replace($search_value, $replace_value, $endpoint);
+    }
+
+    public function getOAuthAccessTokenUrl($code, $redirect_uri)
+    {
+        $user_settings = $this->getUserSettings();
+
+        $search_value = array('%client_id%', '%client_secret%', '%code', '%redirect_uri%');
+
+        $replace_value = array(
+            $user_settings->getOauthClientId(),
+            $user_settings->getOauthSecretKey(),
+            $code,
+            $redirect_uri
+        );
+
+        $endpoint = $user_settings->getOauthAccessTokenEndpoint();
+
+        return str_replace($search_value, $replace_value, $endpoint);
+    }
+
+    public function getOAuthUserProfileUrl($token)
+    {
+        $search_value = array('%token%');
+
+        $replace_value = array($token);
+
+        $endpoint = '';
+
+        return str_replace($search_value, $replace_value, $endpoint);
+    }
 }

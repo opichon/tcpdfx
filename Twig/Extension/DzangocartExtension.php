@@ -5,19 +5,9 @@ namespace Dzangocart\Bundle\CoreBundle\Twig\Extension;
 use \Twig_Extension;
 use \Twig_Function_Method;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class DzangocartExtension extends Twig_Extension 
 {
-    protected $container;
-
-    const OAUTH_USER_PROFILE_URL = 'http://api.porot.com/user/dzangocart?access_token=%token%';
-
-    public function __construct(ContainerInterface $container)
-    {
-        $this->container = $container;
-    }
-
     public function getName()
     {
         return 'dzangoacart';
@@ -29,9 +19,7 @@ class DzangocartExtension extends Twig_Extension
     public function getFunctions()
     {
         return array(
-            'app_version' => new Twig_Function_Method($this, 'getVersion', array('is_safe' => array('html'))),
-            'oauth_auth_code_url' => new Twig_Function_method($this, 'getOAuthAuthCodeUrl', array('is_safe' => array('html'))),
-            'oauth_access_token_url' => new Twig_Function_method($this, 'getOAuthAcessTokenUrl', array('is_safe' => array('html')))
+            'app_version' => new Twig_Function_Method($this, 'getVersion', array('is_safe' => array('html')))
         );
     }
 
@@ -46,83 +34,4 @@ class DzangocartExtension extends Twig_Extension
         );
     }
 
-    /**
-     * Returns the url to the Oauth autho code endpoint for the store.
-     */
-    public function getOAuthAuthCodeUrl()
-    {
-        if (!$this->getStore()) {
-            return NULL;
-        }
-
-        $user_settings = $this->getStore()
-            ->getUserSettings();
-
-        $search_value = array('%client_id%', '%client_secret%', '%redirect_uri%');
-
-        $replace_value = array(
-            $user_settings->getOauthClientId(),
-            '',
-            $this->getRedirectUrl()
-        );
-
-        $endpoint =  $this->getStore()
-            ->getUserSettings()
-            ->getOauthAuthCodeEndpoint();
-
-        return str_replace($search_value, $replace_value, $endpoint);
-    }
-
-    protected function getStore()
-    {
-        return $this->container->get('dzangocart.store_finder')->getStore();
-    }
-
-    protected function generateUrl($route)
-    {
-        return $this->container->get('router')->generate($route);
-    }
-    
-    protected function getRedirectUrl()
-    {
-        $request = $this->container->get('request');
-
-        $hostname = $request->server->get('HTTP_HOST');
-        
-        return 'http://' . $hostname . $this->generateUrl('oauth');
-    }
-
-    public function getOAuthAcessTokenUrl($code)
-    {
-        if (!$this->getStore()) {
-            return NULL;
-        }
-
-        $user_settings = $this->getStore()
-            ->getUserSettings();
-
-        $search_value = array('%client_id%', '%client_secret%', '%code', '%redirect_uri%');
-
-        $replace_value = array(
-            $user_settings->getOauthClientId(),
-            $user_settings->getOauthSecretKey(),
-            $code,
-            $this->getRedirectUrl()
-        );
-
-        $endpoint = $user_settings->getOauthAccessTokenEndpoint();
-
-        return str_replace($search_value, $replace_value, $endpoint);
-    }
-
-    public function getOAuthUserProfileUrl($token)
-    {
-        $search_value = array('%token%');
-
-        $replace_value = array($token);
-
-        $endpoint = self::OAUTH_USER_PROFILE_URL;
-
-        return str_replace($search_value, $replace_value, $endpoint);
-    }
 }
