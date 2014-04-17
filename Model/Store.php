@@ -38,7 +38,7 @@ class Store extends BaseStore
             ->findOne();
     }
 
-    public function getOAuthAuthorizationCodeURl($redirect_uri)
+    public function getOAuthAuthCodeUrl($redirect_uri)
     {
 
         $user_settings = $this->getUserSettings();
@@ -51,7 +51,7 @@ class Store extends BaseStore
             $redirect_uri
         );
 
-        $endpoint =  $user_settings
+        $endpoint = $user_settings
             ->getOauthAuthCodeEndpoint();
 
         return str_replace($search_value, $replace_value, $endpoint);
