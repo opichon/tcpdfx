@@ -200,7 +200,7 @@ class User extends BaseUser implements UserInterface
         // we need to make sure to have at least one role
         $roles[] = static::ROLE_DEFAULT;
 
-        if ($this->isOwner()) {
+        if ($this->isOwner() or $this->isAdmin()) {
             $roles[] = UserProvider::ROLE_STORE_ADMIN;
         }
 
