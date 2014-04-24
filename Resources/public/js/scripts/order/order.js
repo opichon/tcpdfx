@@ -34,7 +34,7 @@
 
 // Make sure that a parent element of the table has the class ''.orders'' set so that this plugin can be triggered properly when the page is loaded.
 $( document ).ready(function() {
-    $( ".order" ).order( store.order );
+    $( ".order" ).order( dzangocart.order );
 });
 
 

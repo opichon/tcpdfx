@@ -13,7 +13,7 @@
                 "id": "{{ order.id }}",
                 "0": "",
                 "1": "{{ order.date|datetime('dd.MM.yy', 'HH:mm', time_zone, app.request.locale) }}",
-                "2": "<a href='{{ path('order', { id: order.id }) }}'>{{ order.id  }}</a>",
+                "2": "{% if(app.request.get('_template')|split(":")[0] == 'DzangocartCoreBundle')%}<a href='{{ path('order', { id: order.id }) }}'>{{ order.id  }}</a>{% else %}<a href='{{ path('home_order', { id: order.id }) }}'>{{ order.id  }}</a>{% endif %}",
                 "3": "{% include 'DzangocartCoreBundle:Order:store.html.twig' with { store: order.store } %}",
                 "4": "<a href='{{ path('customer_show', { id: order.customerId }) }}'>{{ order.customer.name }}</a>",
                 "5": "{{ order.status }}",
