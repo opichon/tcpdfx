@@ -1,5 +1,5 @@
 {% spaceless %}
 {% if order %}
-<a href='{{ path('order', { id: order.id }) }}'>{{ order.id }}</a>
+    {% if(app.request.get('_template')|split(":")[0] == 'DzangocartCoreBundle')%}<a href='{{ path('order', { id: order.id }) }}'>{{ order.id  }}</a>{% else %}<a href='{{ path('home_order', { id: order.id }) }}'>{{ order.id  }}</a>{% endif %}
 {% endif %}
 {% endspaceless %}
