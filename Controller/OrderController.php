@@ -55,7 +55,8 @@ class OrderController extends BaseController
                 'iStart' => 0,
                 'iTotalRecords' => $total_count,
                 'iTotalDisplayRecords' => $filtered_count,
-                'orders' => $orders
+                'orders' => $orders,
+                'param' => $this->getTemplateParams()
             );
 
             $view = $this->renderView('DzangocartCoreBundle:Order:index.json.twig', $data);
@@ -94,6 +95,7 @@ class OrderController extends BaseController
         return array(
             'store' => $this->getStore(),
             'order' => $order,
+            'template' => $this->getBaseTemplate()
         );
     }
 
