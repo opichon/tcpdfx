@@ -2,6 +2,8 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Controller;
 
+use Criteria;
+
 use Dzangocart\Bundle\CoreBundle\Model\CartQuery;
 use Dzangocart\Bundle\CoreBundle\Form\Type\OrderFiltersType;
 
@@ -83,7 +85,7 @@ class OrderController extends BaseController
     public function showAction(Request $request, $id)
     {
         $order = CartQuery::create()
-            ->orderByDate(\Criteria::ASC)
+            ->orderByDate(Criteria::ASC)
             ->findPk($id);
 
         if (!$order) {
