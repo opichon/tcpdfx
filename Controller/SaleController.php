@@ -20,8 +20,7 @@ class SaleController extends BaseController
     {
         if ($request->isXmlHttpRequest() || 'json' == $request->getRequestFormat()) {
 
-            $query = ItemQuery::create()
-                ->filterByParentId(null);
+            $query = $this->getQuery();
 
             if ($store = $this->getStore()) {
                 $query
@@ -68,7 +67,8 @@ class SaleController extends BaseController
                 'iStart' => 0,
                 'iTotalRecords' => $total_count,
                 'iTotalDisplayRecords' => $filtered_count,
-                'sales' => $sales
+                'sales' => $sales,
+                'param' => $this->getTemplateParams()
             );
 
             $view = $this->renderView('DzangocartCoreBundle:Sale:index.json.twig', $data);
@@ -76,10 +76,14 @@ class SaleController extends BaseController
             return new Response($view, 200, array('Content-Type' => 'application/json'));
         }
 
-        return array(
-            'store' => $this->getStore(),
-            'template' => $this->getBaseTemplate()
+        return array_merge(
+            $this->getTemplateParams(),
+            array(
+                'store' => $this->getStore(),
+                'template' => $this->getBaseTemplate()
+            )
         );
+
     }
 
     protected function getDatatablesSortColumns()
@@ -104,4 +108,16 @@ class SaleController extends BaseController
             'item.orderId'
         );
     }
+
+    protected function getQuery()
+    {
+        return ItemQuery::create()
+            ->filterByParentId(null);
+    }
+
+    protected function getTemplateParams()
+    {
+        return array();
+    }
+
 }
