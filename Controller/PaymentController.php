@@ -20,7 +20,7 @@ class PaymentController extends BaseController
     {
         if ($request->isXmlHttpRequest() || 'json' == $request->getRequestFormat()) {
 
-            $query = PaymentQuery::create('Cart');
+            $query = $this->getQuery();
 
             if ($store = $this->getStore()) {
                 $query
@@ -64,7 +64,8 @@ class PaymentController extends BaseController
                 'iStart' => 0,
                 'iTotalRecords' => $total_count,
                 'iTotalDisplayRecords' => $filtered_count,
-                'payments' => $payments
+                'payments' => $payments,
+                'param' => $this->getTemplateParams()
             );
 
             $view = $this->renderView('DzangocartCoreBundle:Payment:index.json.twig', $data);
@@ -72,9 +73,14 @@ class PaymentController extends BaseController
             return new Response($view, 200, array('Content-Type' => 'application/json'));
         }
 
-        return array(
-            'store' => $this->getStore()
+        return array_merge(
+            $this->getTemplateParams(),
+            array(
+                'store' => $this->getStore(),
+                'template' => $this->getBaseTemplate()
+            )
         );
+
     }
 
     protected function getDatatablesSortColumns()
@@ -92,4 +98,15 @@ class PaymentController extends BaseController
             'payment.orderId'
         );
     }
+
+    protected function getQuery()
+    {
+        return PaymentQuery::create('Cart');
+    }
+
+    protected function getTemplateParams()
+    {
+        return array();
+    }
+
 }
