@@ -26,9 +26,7 @@ class OrderController extends BaseController
                 $query->filterByCustomerId($customer_id);
             }
 
-            if ($store = $this->getStore()) {
-                $query->filterByStore($store);
-            } elseif ($store_id = $request->query->get('store_id')) {
+            if ($store_id = $request->query->get('store_id')) {
                 $query->filterByStoreId($store_id);
             }
 
@@ -68,10 +66,12 @@ class OrderController extends BaseController
         $form = $this->createForm(
             new OrderFiltersType());
 
-        return array(
-            'store' => $this->getStore(),
-            'form' => $form->createView(),
-            'template' => $this->getBaseTemplate()
+        return array_merge(
+            $this->getTemplateParams(),
+            array(
+                'form' => $form->createView(),
+                'template' => $this->getBaseTemplate()
+            )
         );
     }
 
@@ -101,6 +101,11 @@ class OrderController extends BaseController
     {
         return CartQuery::create()
             ->filterByStatus(array('min' => 3));
+    }
+
+    protected function getTemplateParams()
+    {
+        return array();
     }
 
     protected function getDatatablesSortColumns()
