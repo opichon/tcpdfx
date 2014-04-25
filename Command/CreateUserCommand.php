@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace Dzangocart\Bundle\CoreBundle\Command;
 
 use Dzangocart\Bundle\CoreBundle\Model\StoreQuery;
@@ -31,7 +29,7 @@ class CreateUserCommand extends ContainerAwareCommand
 
             ))
             ->addOption('owner', null, InputOption::VALUE_REQUIRED, 'owner');
-            
+
     }
 
     /**

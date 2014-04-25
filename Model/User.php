@@ -9,7 +9,6 @@ use FOS\UserBundle\Model\UserInterface;
 
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
-
 class User extends BaseUser implements UserInterface
 {
     const STATUS_STORE_USER = 0;
@@ -207,6 +206,7 @@ class User extends BaseUser implements UserInterface
         if ($this->isAdmin()) {
            $roles[] = UserProvider::ROLE_ADMIN;
         }
+
         return array_unique($roles);
     }
 
