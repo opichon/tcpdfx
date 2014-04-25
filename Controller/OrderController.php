@@ -20,8 +20,7 @@ class OrderController extends BaseController
     public function indexAction(Request $request)
     {
         if ($request->isXmlHttpRequest() || 'json' == $request->getRequestFormat()) {
-            $query = CartQuery::create('Cart')
-                ->filterByStatus(array('min' => 3));
+            $query = $this->getQuery();
 
             if ($customer_id = $request->query->get('customer_id')) {
                 $query->filterByCustomerId($customer_id);
@@ -96,6 +95,12 @@ class OrderController extends BaseController
             'store' => $this->getStore(),
             'order' => $order,
         );
+    }
+
+    protected function getQuery()
+    {
+        return CartQuery::create()
+            ->filterByStatus(array('min' => 3));
     }
 
     protected function getDatatablesSortColumns()
