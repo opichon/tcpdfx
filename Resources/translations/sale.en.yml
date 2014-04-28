@@ -16,3 +16,7 @@ sale:
         quantity:           Qty
         store:              Store
         tax:                Tax
+
+purchase:
+    purchases:
+        page_title:         Purchases
