@@ -10,7 +10,7 @@
                 "DT_RowClass": "{{ 'sale' }}",
                 "0": "",
                 "1": "{{ sale.cart.date|datetime('dd.MM.yy', 'HH:mm', time_zone, app.request.locale) }}",
-                "2": "{% if param['customer'] is defined %}<a href='{{ path('customer_order', { id: sale.orderId }) }}'>{{ sale.orderId  }}</a>{% else %}<a href='{{ path('order', { id: sale.orderId }) }}'>{{ sale.orderId  }}</a>{% endif %}",
+                "2": "{% if param['customer'] is defined %}<a href='{{ path('user_order', { id: sale.orderId }) }}'>{{ sale.orderId  }}</a>{% else %}<a href='{{ path('order', { id: sale.orderId }) }}'>{{ sale.orderId  }}</a>{% endif %}",
                 "3": "{% include 'DzangocartCoreBundle:Order:store.html.twig' with { store: sale.order.store } %}",
                 "4": "<a href='{{ path('customer_show', { id: sale.order.customerId }) }}'>{{ sale.order.customer.name }}</a>",
                 "5": "{{ sale.name }}",
