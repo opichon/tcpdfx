@@ -2,7 +2,14 @@
 
 {% trans_default_domain "sale" %}
 
-{% block _core_page_title %}{% trans %}sale.sales.page_title{% endtrans %}{% endblock %}
+{% block _core_page_title %}
+    {% if customer is defined %}
+        {% trans %} purchase.purchases.page_title {% endtrans %}
+    {% else %}
+        {% trans %} sale.sales.page_title {% endtrans %}
+    {% endif %}
+{% endblock %}
+
 
 {% block bodyclass %}sales{% endblock %}
 

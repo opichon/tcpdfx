@@ -16,3 +16,7 @@ sale:
         quantity:           Qté
         store:              Boutique
         tax:                TVA
+
+purchase:
+    purchases:
+        page_title:         Purchases
