@@ -83,7 +83,7 @@ class AffiliateController extends BaseController
     }
 
      /**
-     * @Route("/affiliate/{id}/orders",name="affiliate_orders")
+     * @Route("/affiliate/{id}/order",name="affiliate_orders")
      * @Template("DzangocartCoreBundle:Affiliate:orders.html.twig")
      */
     public function ordersAction(Request $request, $id)
@@ -101,7 +101,7 @@ class AffiliateController extends BaseController
     }
 
     /**
-     * @Route("/affiliate/{id}/sales", name="affiliate_sales")
+     * @Route("/affiliate/{id}/sale", name="affiliate_sales")
      * @Template("DzangocartCoreBundle:Affiliate:sales.html.twig")
      */
     public function salesAction(Request $request, $id)
