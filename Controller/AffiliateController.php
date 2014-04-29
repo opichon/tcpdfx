@@ -101,10 +101,10 @@ class AffiliateController extends BaseController
     }
 
     /**
-     * @Route("/affiliate/{id}/purchases", name="affiliate_purchases")
-     * @Template("DzangocartCoreBundle:Affiliate:purchases.html.twig")
+     * @Route("/affiliate/{id}/sales", name="affiliate_sales")
+     * @Template("DzangocartCoreBundle:Affiliate:sales.html.twig")
      */
-    public function purchasesAction(Request $request, $id)
+    public function salesAction(Request $request, $id)
     {
         return array(
             'store' => $this->getStore(),

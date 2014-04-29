@@ -2,7 +2,7 @@
 
 {% trans_default_domain "sale" %}
 
-{% block _core_page_title %}{% trans %} purchase.purchases.page_title {% endtrans %}{% endblock %}
+{% block _core_page_title %}{% trans %} sale.sales.page_title {% endtrans %}{% endblock %}
 
 {% block _core_content %}
     <div class="sales">
@@ -17,5 +17,5 @@
 
 {% block _core_foot_script %}
     {{ parent() }}
-    {% include "DzangocartCoreBundle:Affiliate:affiliates_purchases_foot_script.html.twig" %}
+    {% include "DzangocartCoreBundle:Affiliate:affiliates_sales_foot_script.html.twig" %}
 {% endblock %}
