@@ -100,6 +100,19 @@ class AffiliateController extends BaseController
         );
     }
 
+    /**
+     * @Route("/affiliate/{id}/purchases", name="affiliate_purchases")
+     * @Template("DzangocartCoreBundle:Affiliate:purchases.html.twig")
+     */
+    public function purchasesAction(Request $request, $id)
+    {
+        return array(
+            'store' => $this->getStore(),
+            'affiliate' => $this->getAffiliate($request, $id),
+            'template' => $this->getBaseTemplate()
+        );
+    }
+
     protected function getDatatablesSortColumns()
     {
         return array(

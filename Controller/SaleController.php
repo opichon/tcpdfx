@@ -22,6 +22,13 @@ class SaleController extends BaseController
 
             $query = $this->getQuery();
 
+            if ($affiliate_id = $request->query->get('affiliate_id')) {
+                $query
+                    ->useCartQuery()
+                        ->filterByAffiliateId($affiliate_id)
+                    ->endUse();
+            }
+
             if ($store = $this->getStore()) {
                 $query
                     ->useCartQuery()
