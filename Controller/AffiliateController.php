@@ -2,6 +2,7 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Controller;
 
+use Dzangocart\Bundle\CoreBundle\Form\Type\OrderFiltersType;
 use Dzangocart\Bundle\CoreBundle\Model\AffiliateQuery;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -66,6 +67,39 @@ class AffiliateController extends BaseController
         );
     }
 
+    /**
+     * @Route("/affiliate/{id}", name="affiliate_show")
+     * @Template("DzangocartCoreBundle:Affiliate:show.html.twig")
+     */
+    public function showAction(Request $request, $id)
+    {
+        $affiliate = $this->getAffiliate($request, $id);
+
+        return array(
+            'store' => $this->getStore(),
+            'affiliate' => $affiliate,
+            'template' => $this->getBaseTemplate()
+        );
+    }
+
+     /**
+     * @Route("/affiliate/{id}/orders",name="affiliate_orders")
+     * @Template("DzangocartCoreBundle:Affiliate:orders.html.twig")
+     */
+    public function ordersAction(Request $request, $id)
+    {
+        $form = $this->createForm(
+            new OrderFiltersType());
+
+        return array(
+            'store' => $this->getStore(),
+            'form' => $form->createView(),
+            'affiliate' => $this->getAffiliate($request, $id),
+            'template' => $this->getBaseTemplate()
+
+        );
+    }
+
     protected function getDatatablesSortColumns()
     {
         return array(
@@ -83,4 +117,17 @@ class AffiliateController extends BaseController
         );
     }
 
+    protected function getAffiliate(Request $request, $id)
+    {
+        $affiliate = AffiliateQuery::create()
+            ->findPk($id);
+
+        if (!$affiliate) {
+            throw $this->createNotFoundException(
+                $this->get('translator')->trans('affiliate.error.notfound', array(), 'affiliate', $request->getLocale())
+            );
+        }
+
+        return $affiliate;
+    }
 }
