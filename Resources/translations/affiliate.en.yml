@@ -7,3 +7,5 @@ affiliate:
 
         actions:
             title:          Actions
+    error:
+        not_found:          Page Not Found
