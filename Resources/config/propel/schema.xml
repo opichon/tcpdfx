@@ -256,7 +256,7 @@
         <column name="status"              type="integer" required="true" defaultValue="0" />
         <column name="checkout"            type="tinyint" required="true" defaultValue="0" />
         <column name="test"                type="varchar" size="32" required="false" />
-        <column name="ref"                 type="varchar" size="128" required="false" />
+        <column name="ref"                 type="varchar" size="128" required="false" phpName="Reference" />
         <column name="paid_at"             type="timestamp" required="false" />
         <column name="created_at"          type="timestamp" required="true" />
         <column name="updated_at"          type="timestamp" required="true" />

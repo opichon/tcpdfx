@@ -3,11 +3,11 @@ payment:
         actions:
             title:          Actions
         date:               Date
+        gateway:            Gateway
         order_id:           Order
         page_title:         Payments
         status:             Status
         store:              Store
-        class_key:          Class Key
         transaction:
             amount:         Amount
 
