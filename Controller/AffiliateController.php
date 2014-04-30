@@ -22,13 +22,12 @@ class AffiliateController extends BaseController
      {
        if ($request->isXmlHttpRequest() || 'json' == $request->getRequestFormat()) {
 
-           $query = AffiliateQuery::create();
+           $query = $this->getQuery();
 
-            if ($store = $this->getStore()) {
-                $query->filterByStore($store);
-            } elseif ($store_id = $request->query->get('store_id')) {
+            if ($store_id = $request->query->get('store_id')) {
                 $query->filterByStoreId($store_id);
             }
+
             $total_count = $query->count();
 
             $query->datatablesSearch(
@@ -62,9 +61,11 @@ class AffiliateController extends BaseController
             return new Response($view, 200, array('Content-Type' => 'application/json'));
         }
 
-        return array(
-            'store' => $this->getStore(),
-            'template' => $this->getBaseTemplate()
+        return array_merge(
+            $this->getTemplateParams(),
+            array(
+                'template' => $this->getBaseTemplate()
+            )
         );
     }
 
@@ -136,10 +137,7 @@ class AffiliateController extends BaseController
 
     protected function getAffiliate(Request $request, $id)
     {
-        $affiliate = AffiliateQuery::create()
-            ->_if($this->getStore())
-                ->filterByStore($this->getStore())
-            ->_endif()
+        $affiliate = $this->getQuery()
             ->findPk($id);
 
         if (!$affiliate) {
@@ -150,4 +148,17 @@ class AffiliateController extends BaseController
 
         return $affiliate;
     }
+
+    protected function getQuery()
+    {
+        return AffiliateQuery::create();
+    }
+
+    protected function getTemplateParams()
+    {
+        return array(
+            'store' => $this->getStore()
+        );
+    }
+
 }
