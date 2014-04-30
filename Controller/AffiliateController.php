@@ -76,12 +76,6 @@ class AffiliateController extends BaseController
     {
         $affiliate = $this->getAffiliate($request, $id);
 
-        if ($store = $this->getStore()) {
-            if(!$this->isAffiliateOfCurrentStore($affiliate)) {
-                throw $this->createNotFoundException();
-            }
-        }
-
         return array(
             'store' => $this->getStore(),
             'affiliate' => $affiliate,
@@ -96,13 +90,6 @@ class AffiliateController extends BaseController
     public function ordersAction(Request $request, $id)
     {
         $affiliate = $this->getAffiliate($request, $id);
-
-        if ($store = $this->getStore()) {
-            if(!$this->isAffiliateOfCurrentStore($affiliate)) {
-                throw $this->createNotFoundException();
-            }
-        }
-
         $form = $this->createForm(
             new OrderFiltersType());
 
@@ -122,12 +109,6 @@ class AffiliateController extends BaseController
     public function salesAction(Request $request, $id)
     {
         $affiliate = $this->getAffiliate($request, $id);
-
-        if ($store = $this->getStore()) {
-            if(!$this->isAffiliateOfCurrentStore($affiliate)) {
-                throw $this->createNotFoundException();
-            }
-        }
 
         return array(
             'store' => $this->getStore(),
@@ -156,26 +137,17 @@ class AffiliateController extends BaseController
     protected function getAffiliate(Request $request, $id)
     {
         $affiliate = AffiliateQuery::create()
+            ->_if($this->getStore())
+                ->filterByStore($this->getStore())
+            ->_endif()
             ->findPk($id);
 
         if (!$affiliate) {
             throw $this->createNotFoundException(
-                $this->get('translator')->trans('affiliate.error.notfound', array(), 'affiliate', $request->getLocale())
+                $this->get('translator')->trans('affiliate.error.not_found', array(), 'affiliate', $request->getLocale())
             );
         }
 
         return $affiliate;
-    }
-
-    protected function isAffiliateOfCurrentStore(Affiliate $affiliate)
-    {
-        $store = $this->getStore();
-
-        $affiliate_store_id = $affiliate->getStoreId();
-
-        if ($affiliate_store_id == $store->getId()) {
-            return TRUE;
-        }
-        return FALSE;
     }
 }
