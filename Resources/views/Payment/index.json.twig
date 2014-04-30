@@ -14,7 +14,7 @@
                 "1": "{{ payment.createdAt|datetime('dd.MM.yy', 'HH:mm', time_zone, app.request.locale) }}",
                 "2": "{% include 'DzangocartCoreBundle:Payment:store.html.twig' with { store: payment.gateway.store } %}",
                 "3": "{% include 'DzangocartCoreBundle:Payment:order.html.twig' with { order: payment.order } %}",
-                "4": "{{ payment.classKey }}",
+                "4": "{{ payment.gateway.name }}",
                 "5": "{{ payment.amount|currency(payment.currency.id, app.request.locale) }}",
                 "6": "{% include 'DzangocartCoreBundle:Payment:status.html.twig' %}",
                 "7": "{% include 'DzangocartCoreBundle:Payment:actions.html.twig' %}"

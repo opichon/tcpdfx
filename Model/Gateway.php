@@ -6,4 +6,8 @@ use Dzangocart\Bundle\CoreBundle\Model\om\BaseGateway;
 
 class Gateway extends BaseGateway
 {
+    public function getname()
+    {
+        return $this->getGatewayService()->getName();
+    }
 }

@@ -78,9 +78,15 @@ class Payment extends BasePayment
 
         $this->setStatus($this->getStatus() | self::STATUS_ERROR);
     }
+
     public function getClassKey()
     {
         return static::PAYMENT_TYPE_ID;
+    }
+
+    public function getDate($format = null)
+    {
+        return $this->getTransaction()->getDate($format);
     }
 
     public function getAmount()
@@ -101,5 +107,10 @@ class Payment extends BasePayment
     public function getDescription()
     {
          return $this->getTransaction()->getDescription();
+    }
+
+    public function getPaymentMode()
+    {
+        return $this->getTransaction()->getPaymentMode();
     }
 }
