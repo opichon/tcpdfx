@@ -36,6 +36,10 @@ class CustomerController extends BaseController
                     ->filterByRealm($realm);
             }
 
+            if ($affiliate_id = $request->query->get('affiliate_id')) {
+                $query->filterByAffiliateId($affiliate_id);
+            }
+
             $total_count = $query->count();
 
             $query->datatablesSearch(

@@ -2,7 +2,7 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Controller;
 
-use Dzangocart\Bundle\CoreBundle\Model\Affiliate;
+use Dzangocart\Bundle\CoreBundle\Form\Type\CustomerFiltersType;
 use Dzangocart\Bundle\CoreBundle\Form\Type\OrderFiltersType;
 use Dzangocart\Bundle\CoreBundle\Model\AffiliateQuery;
 
@@ -113,6 +113,25 @@ class AffiliateController extends BaseController
 
         return array(
             'store' => $this->getStore(),
+            'affiliate' => $affiliate,
+            'template' => $this->getBaseTemplate()
+        );
+    }
+
+    /**
+     * @Route("/affiliate/{id}/customer", name="affiliate_customer")
+     * @Template("DzangocartCoreBundle:Affiliate:customers.html.twig")
+     */
+    public function customerAction(Request $request, $id)
+    {
+        $affiliate = $this->getAffiliate($request, $id);
+
+        $form = $this->createForm(
+            new CustomerFiltersType());
+
+        return array(
+            'store' => $this->getStore(),
+            'form' => $form->createView(),
             'affiliate' => $affiliate,
             'template' => $this->getBaseTemplate()
         );
