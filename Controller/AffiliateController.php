@@ -19,10 +19,10 @@ class AffiliateController extends BaseController
      * @Template("DzangocartCoreBundle:Affiliate:index.html.twig")
      */
     public function indexAction(Request $request)
-     {
-       if ($request->isXmlHttpRequest() || 'json' == $request->getRequestFormat()) {
+    {
+        if ($request->isXmlHttpRequest() || 'json' == $request->getRequestFormat()) {
 
-           $query = $this->getQuery();
+            $query = $this->getQuery();
 
             if ($store_id = $request->query->get('store_id')) {
                 $query->filterByStoreId($store_id);
@@ -34,8 +34,6 @@ class AffiliateController extends BaseController
                 $request->query->get('sSearch'),
                 $this->getDataTablesSearchColumns()
             );
-
-            $query->innerJoinStore('store');
 
             $filtered_count = $query->count();
 
@@ -170,14 +168,13 @@ class AffiliateController extends BaseController
 
     protected function getQuery()
     {
-        return AffiliateQuery::create();
+        return AffiliateQuery::create()
+            ->innerJoinStore('store');
     }
 
     protected function getTemplateParams()
     {
-        return array(
-            'store' => $this->getStore()
-        );
+        return array();
     }
 
 }
