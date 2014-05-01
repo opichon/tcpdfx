@@ -15,8 +15,12 @@
 {% block page_class %}affiliates{% endblock %}
 
 {% block sidebar %}
-    {% set menu = knp_menu_get("DzangocartAdminBundle:AdminMenuBuilder:mainMenu", [], { affiliate: affiliate }) %}
-    {{ knp_menu_render(menu, { style: 'stacked-pills' }) }}
+    {% if store %}
+        {{ knp_menu_render("DzangocartStoreAdminBundle:AdminMenuBuilder:mainMenu", { style: 'stacked-pills' }) }}
+    {% else %}
+        {% set menu = knp_menu_get("DzangocartAdminBundle:AdminMenuBuilder:mainMenu", [], { affiliate: affiliate }) %}
+        {{ knp_menu_render(menu, { style: 'stacked-pills' }) }}
+    {% endif %}
 {% endblock %}
 
 {% block _core_content  %}
