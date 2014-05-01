@@ -1,18 +1,25 @@
 order:
     show:
-        page_title:         Order: %id%
-        name:               Name
-        quantity:           Quantity
-        price_excl:         Price Excl
-        amount_excl:        Amount Excl
-        amount_tax:         Tax
-        amount_incl:        Amount Incl
         action:             Action
-
+        amount_excl:        Gross
+        amount_incl:        Net
+        amount_tax:         Tax
+        back:               Back to orders list
+        customer:           Customer
+        date:               Date
+        items:              Items
+        name:               Name
+        number:             'Order #'
+        quantity:           Quantity
+        page_title:         Order: %id%
+        price_excl:         Gross price
         payment:
+            amount:         Amount
             date:           Date
             description:    Description
-            amount:         Amount
+            gateway:        Gateway
+        payments:           Payments
+        store:              Store
 
     orders:
         actions:

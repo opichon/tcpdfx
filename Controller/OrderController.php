@@ -99,9 +99,9 @@ class OrderController extends BaseController
         }
 
         return array(
-            'store' => $this->getStore(),
             'order' => $order,
-            'template' => $this->getBaseTemplate()
+            'template' => $this->getBaseTemplate(),
+            'store' => $order->getStore(),
         );
     }
 
