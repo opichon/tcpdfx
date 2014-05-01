@@ -1,8 +1,8 @@
-{% extends template %}
+{% extends "DzangocartCoreBundle:Affiliate:base.html.twig" %}
 
 {% trans_default_domain "customer" %}
 
-{% block _core_page_title %}{% trans %}customer.customers.page_title{% endtrans %}{% endblock %}
+{% block page_sub_title %}{% trans %}customer.customers.page_title{% endtrans %}{% endblock %}
 
 {% block _core_content %}
     <div class="customers">

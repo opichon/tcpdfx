@@ -1,0 +1,23 @@
+{% extends template %}
+
+{% trans_default_domain "affiliate" %}
+
+{% block _core_head_style %}
+    {{ parent() }}
+    {% include "DzangocartCoreBundle:Affiliate:affiliates_head_style.html.twig" %}
+{% endblock %}
+
+{% block page_header %}
+    <h2 class="content_title">{% block _core_page_title %}{% trans with { '%name%': affiliate.name } %}affiliate.show.page_title{% endtrans %}{% endblock %}</h2>
+    <h3 class="content_title">{% block page_sub_title %}{% endblock %}</h3>
+{% endblock %}
+
+{% block page_class %}affiliates{% endblock %}
+
+{% block sidebar %}
+    {% set menu = knp_menu_get("DzangocartAdminBundle:AdminMenuBuilder:mainMenu", [], { affiliate: affiliate }) %}
+    {{ knp_menu_render(menu, { style: 'stacked-pills' }) }}
+{% endblock %}
+
+{% block _core_content  %}
+{% endblock %}

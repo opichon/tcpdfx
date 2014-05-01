@@ -15,7 +15,7 @@
                 "1": "{% include 'DzangocartCoreBundle:Affiliate:store.html.twig' with { store: affiliate.store } %}",
                 "2": "{{ affiliate.name }}",
                 "3": "{{ affiliate.website }}",
-                "4": ""
+                "4": "<a href='{{ path('affiliate_show', { id: affiliate.id }) }}'><i class='fa fa-edit'></i></a>"
             }{% if not loop.last %},{% endif %}
         {% endfor %}
     ]
