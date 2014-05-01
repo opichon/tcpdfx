@@ -1,4 +1,4 @@
-table.table th, table.table td {
+table.table thead tr th, table.table td {
 	border: 1px solid #ddd;
 	border-width: 0 0 1px 0;
 }
@@ -49,6 +49,14 @@ table.table th.gender {
 }
 
 table.table th.realm {
+	width: 10em;
+}
+
+table.table th.amount {
+	width: 5em;
+}
+
+table.table th.gateway {
 	width: 10em;
 }
 

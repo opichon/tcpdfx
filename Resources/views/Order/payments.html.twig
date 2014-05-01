@@ -1,0 +1,29 @@
+{% trans_default_domain "order" %}
+
+<div class="panel panel-default payments">
+	<div class="panel-heading">
+		<h4 class="panel-title">
+			{% trans %}order.show.payments{% endtrans %}
+		</h4>
+	</div>
+	<div class="panel-body">
+		<table class="table table-condensed">
+			<thead>
+				<th class="datetime">{% trans %}order.show.payment.date{% endtrans %}</th>
+				<th class="gateway">{% trans %}order.show.payment.gateway{% endtrans %}</th>
+				<th class="description">{% trans %}order.show.payment.description{% endtrans %}</th>
+				<th class="amount">{% trans %}order.show.payment.amount{% endtrans %}</th>
+			</thead>
+			<tbody>
+			{% for payment in order.payments %}
+				<tr>
+					<td>{{ payment.date|date('dd.MM.yyyy hh:mm', null, app.request.locale) }}</td>
+					<td>{{ payment.gateway.name }}</td>
+					<td>{{ payment.description }}</td>
+					<td class="amount">{{ payment.amount|currency(payment.currencyId, app.request.locale) }}</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>

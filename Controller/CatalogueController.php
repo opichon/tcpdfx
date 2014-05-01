@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CatalogueController extends BaseController
 {
-    protected $store ;
+    protected $store;
 
     /**
      * @Route("/catalogue", name="catalogue")
