@@ -9,3 +9,5 @@ affiliate:
             title:          Actions
     error:
         not_found:          Not Found
+    show:
+        page_title:         %name%
