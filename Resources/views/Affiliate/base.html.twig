@@ -16,11 +16,11 @@
 
 {% block sidebar %}
     {% if store %}
-        {{ knp_menu_render("DzangocartStoreAdminBundle:AdminMenuBuilder:mainMenu", { style: 'stacked-pills' }) }}
+        {% set menu = knp_menu_get("DzangocartStoreAdminBundle:AdminMenuBuilder:mainMenu", [], { affiliate: affiliate }) %}
     {% else %}
         {% set menu = knp_menu_get("DzangocartAdminBundle:AdminMenuBuilder:mainMenu", [], { affiliate: affiliate }) %}
-        {{ knp_menu_render(menu, { style: 'stacked-pills' }) }}
     {% endif %}
+    {{ knp_menu_render(menu, { style: 'stacked-pills' }) }}
 {% endblock %}
 
 {% block _core_content  %}
