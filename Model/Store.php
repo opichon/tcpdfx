@@ -43,11 +43,10 @@ class Store extends BaseStore
 
         $user_settings = $this->getUserSettings();
 
-        $search_value = array('%client_id%', '%client_secret%', '%redirect_uri%');
+        $search_value = array('%client_id%', '%redirect_uri%');
 
         $replace_value = array(
             $user_settings->getOauthClientId(),
-            '',
             $redirect_uri
         );
 
