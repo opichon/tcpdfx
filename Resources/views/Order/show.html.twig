@@ -9,12 +9,7 @@
 {% endblock %}
 
 {% block sidebar %}
-    {% if (app.request.get('_controller')|split('\\ '|trim)[1]) == 'AdminBundle' %}
-        {% set menu = knp_menu_get("DzangocartAdminBundle:AdminMenuBuilder:mainMenu", [], { store: store }) %}
-        {{ knp_menu_render(menu, { style: 'stacked-pills' }) }}
-    {% else %}
-        {{ knp_menu_render("DzangocartStoreAdminBundle:AdminMenuBuilder:mainMenu", { style: 'stacked-pills' }) }}
-    {% endif %}
+	{% include "DzangocartCoreBundle:Order:store_menu.html.twig" %}
 {% endblock %}
 
 {% block _core_content %}
