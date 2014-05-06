@@ -16,7 +16,7 @@ class UserProvider extends BaseUserProvider implements ApiKeyUserProviderInterfa
     const ROLE_STORE_ADMIN          = 'ROLE_STORE_ADMIN';
     const ROLE_STORE_SUPER_ADMIN    = 'ROLE_STORE_SUPER_ADMIN';
     const ROLE_ADMIN                = 'ROLE_ADMIN';
-
+    const ROLE_AFFILIATE            = 'ROLE_AFFILIATE';
     /**
      * {@inheritDoc}
      */

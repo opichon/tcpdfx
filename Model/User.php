@@ -207,6 +207,10 @@ class User extends BaseUser implements UserInterface
            $roles[] = UserProvider::ROLE_ADMIN;
         }
 
+        if ($this->isAffiliate()) {
+           $roles[] = UserProvider::ROLE_AFFILIATE;
+        }
+
         return array_unique($roles);
     }
 
@@ -300,6 +304,14 @@ class User extends BaseUser implements UserInterface
         $token = new UsernamePasswordToken($this, NULL, "main", $this->getRoles());
 
         return $context->setToken($token);
+    }
+
+    public function isAffiliate()
+    {
+        $query = AffiliateQuery::create()
+            ->filterByOwnerId($this->getId());
+
+        return $query->count() > 0;
     }
 
 }
