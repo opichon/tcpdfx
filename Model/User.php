@@ -199,18 +199,6 @@ class User extends BaseUser implements UserInterface
         // we need to make sure to have at least one role
         $roles[] = static::ROLE_DEFAULT;
 
-        if ($this->isOwner()) {
-            $roles[] = UserProvider::ROLE_STORE_ADMIN;
-        }
-
-        if ($this->isAdmin()) {
-           $roles[] = UserProvider::ROLE_ADMIN;
-        }
-
-        if ($this->isAffiliate()) {
-           $roles[] = UserProvider::ROLE_AFFILIATE;
-        }
-
         return array_unique($roles);
     }
 
@@ -279,10 +267,11 @@ class User extends BaseUser implements UserInterface
         return null === $this->getRealm();
     }
 
-    public function isOwner()
+    public function isOwner(Store $store)
     {
         $query = StoreQuery::create()
-            ->filterByOwner($this);
+            ->filterByOwner($this)
+            ->filterById($store->getId());
 
         return $query->count() > 0;
     }
@@ -306,10 +295,11 @@ class User extends BaseUser implements UserInterface
         return $context->setToken($token);
     }
 
-    public function isAffiliate()
+    public function isAffiliate(Store $store)
     {
         $query = AffiliateQuery::create()
-            ->filterByOwnerId($this->getId());
+            ->filterByOwnerId($this->getId())
+            ->filterByStore($store);
 
         return $query->count() > 0;
     }
