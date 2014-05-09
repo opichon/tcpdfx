@@ -267,11 +267,14 @@ class User extends BaseUser implements UserInterface
         return null === $this->getRealm();
     }
 
-    public function isOwner(Store $store)
+    public function isOwner(Store $store = null)
     {
         $query = StoreQuery::create()
-            ->filterByOwner($this)
-            ->filterById($store->getId());
+            ->filterByOwner($this);
+
+        if ($store) {
+            $query->filterById($store->getId());
+        }
 
         return $query->count() > 0;
     }
