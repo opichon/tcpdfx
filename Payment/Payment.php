@@ -4,13 +4,13 @@ namespace Dzangocart\Bundle\CoreBundle\Payment;
 
 interface Payment
 {
-	public function getClasskey();
+    public function getClasskey();
 
-	public function getTransaction();
+    public function getTransaction();
 
-	public function getDate();
+    public function getDate();
 
-	public function getAmount();
+    public function getAmount();
 
-	public function getCurrency();
+    public function getCurrency();
 }
