@@ -4,14 +4,30 @@ namespace Dzangocart\Bundle\CoreBundle\Payment;
 
 class PaymentClassRegistry
 {
-	/**
+    private static $instance = null;
+
+    //Prevent any oustide instantiation of this class.
+    private function __construct()
+    {
+    }
+
+    //Prevent any copy of this object
+    private function __clone()
+    {
+    }
+
+    /**
 	 * Singleton pattern.
 	 *
 	 * @return PaymentClassRegistry
 	 */
 	public static function getInstance()
 	{
+        if (!is_object(self::$instance)) {
+            self::$instance = new PaymentClassRegistry();
+        }
 
+        return self::$instance;
 	}
 
 	/**
