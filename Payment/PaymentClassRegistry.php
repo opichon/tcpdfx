@@ -67,8 +67,6 @@ class PaymentClassRegistry
             throw  new DuplicateClassKeyException();
 
         }
-
-        
     }
 
     /**
@@ -87,5 +85,7 @@ class PaymentClassRegistry
         } else {
             throw new UnknownClassKeyException();
         }
+
+        return $payment_class;
     }
 }
