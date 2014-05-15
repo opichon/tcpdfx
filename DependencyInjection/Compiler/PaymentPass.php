@@ -19,9 +19,10 @@ class PaymentPass implements CompilerPassInterface
         );
 
         foreach ($container->findTaggedServiceIds('dzangocart.payment') as $id => $attributes) {
+            $payment_definition = $container->get($id);
             $definition->addMethodCall(
                 'register',
-                array(new Reference($id))
+                array($payment_definition)
             );
         }
     }
