@@ -2,9 +2,14 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Payment;
 
+use Dzangocart\Bundle\CoreBundle\Error\Payment\DuplicateClassKeyException;
+use Dzangocart\Bundle\CoreBundle\Error\Payment\UnknownClassKeyException;
+
 class PaymentClassRegistry
 {
     private static $instance = null;
+
+    public static $registry = array();
 
     //Prevent any oustide instantiation of this class.
     private function __construct()
@@ -41,7 +46,21 @@ class PaymentClassRegistry
      */
     public function register(PaymentDefinition $payment_definition)
     {
+        $class_key = $payment_definition->getClassKey();
 
+        $classname = $payment_definition->getClassName();
+
+        if (!in_array($class_key, self::$registry)) {
+
+            self::$registry[$class_key] = $classname;
+
+        } else {
+
+            throw  new DuplicateClassKeyException();
+
+        }
+
+        return self::$registry;
     }
 
     /**
