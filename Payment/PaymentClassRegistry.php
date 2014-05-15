@@ -3,17 +3,20 @@
 namespace Dzangocart\Bundle\CoreBundle\Payment;
 
 use Dzangocart\Bundle\CoreBundle\Error\Payment\DuplicateClassKeyException;
+use Dzangocart\Bundle\CoreBundle\Error\Payment\InvalidClassException;
 use Dzangocart\Bundle\CoreBundle\Error\Payment\UnknownClassKeyException;
+
 
 class PaymentClassRegistry
 {
     private static $instance = null;
 
-    public static $registry = array();
+    private $registry ;
 
     //Prevent any oustide instantiation of this class.
     private function __construct()
     {
+        $this->registry = array();
     }
 
     //Prevent any copy of this object
@@ -52,15 +55,20 @@ class PaymentClassRegistry
 
         if (!in_array($class_key, self::$registry)) {
 
-            self::$registry[$class_key] = $classname;
+            $obj_class = new $classname();
+
+            if (!$obj_class instanceof Payment) {
+                throw new InvalidClassException();
+            }
+
+            $this->registry[$class_key] = $classname;
 
         } else {
-
             throw  new DuplicateClassKeyException();
 
         }
 
-        return self::$registry;
+        
     }
 
     /**
@@ -71,6 +79,13 @@ class PaymentClassRegistry
      */
     public function getPaymentClass($class_key)
     {
+        $payment_class = null;
 
+        if (array_key_exists($class_key, $this->registry)) {
+
+            $payment_class = $this->registry[$class_key];
+        } else {
+            throw new UnknownClassKeyException();
+        }
     }
 }
