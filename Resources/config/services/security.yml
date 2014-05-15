@@ -21,7 +21,3 @@ services:
         public: false
         tags:
             - { name: security.voter }
-
-    dzangocart.payment.registry:
-        class:
-            Dzangocart\Bundle\CoreBundle\Payment\PaymentClassRegistry
