@@ -53,7 +53,7 @@ class PaymentClassRegistry
 
         $classname = $payment_definition->getClassName();
 
-        if (!in_array($class_key, self::$registry)) {
+        if (!in_array($class_key, $this->registry)) {
 
             $obj_class = new $classname();
 
