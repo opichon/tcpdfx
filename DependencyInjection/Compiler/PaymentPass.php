@@ -24,11 +24,6 @@ class PaymentPass implements CompilerPassInterface
                 'register',
                 array(new Reference($id))
             );
-
-            PaymentClassRegistry::getInstance()
-                ->register(
-                    $container->get($id)
-            );
         }
     }
 
