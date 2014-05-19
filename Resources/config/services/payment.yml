@@ -1,3 +1,0 @@
-services:
-    dzangocart.payment.registry:
-        class: Dzangocart\Bundle\CoreBundle\Payment\PaymentClassRegistry
