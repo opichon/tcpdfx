@@ -61,9 +61,9 @@ class PaymentClassRegistry
             throw  new DuplicateClassKeyException();
         }
 
-        $obj = new ReflectionClass(self::PAYMENT_INTERFACE);
+        $obj = new ReflectionClass($classname);
 
-        if (!$obj->implementsInterface(Payment)) {
+        if (!$obj->implementsInterface(self::PAYMENT_INTERFACE)) {
             throw new InvalidClassException();
         }
 
