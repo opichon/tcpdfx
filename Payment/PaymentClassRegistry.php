@@ -11,6 +11,8 @@ use Dzangocart\Bundle\CoreBundle\Payment\Payment;
 
 class PaymentClassRegistry
 {
+    const PAYMENT_INTERFACE = 'Dzangocart\Bundle\CoreBundle\Payment\Payment';
+
     private static $instance = null;
 
     private $registry ;
@@ -59,7 +61,7 @@ class PaymentClassRegistry
             throw  new DuplicateClassKeyException();
         }
 
-        $obj = new ReflectionClass($classname);
+        $obj = new ReflectionClass(self::PAYMENT_INTERFACE);
 
         if (!$obj->implementsInterface(Payment)) {
             throw new InvalidClassException();
