@@ -2,10 +2,12 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Payment;
 
+use ReflectionClass;
+
 use Dzangocart\Bundle\CoreBundle\Error\Payment\DuplicateClassKeyException;
 use Dzangocart\Bundle\CoreBundle\Error\Payment\InvalidClassException;
 use Dzangocart\Bundle\CoreBundle\Error\Payment\UnknownClassKeyException;
-
+use Dzangocart\Bundle\CoreBundle\Payment\Payment;
 
 class PaymentClassRegistry
 {
@@ -53,20 +55,17 @@ class PaymentClassRegistry
 
         $classname = $payment_definition->getClassName();
 
-        if (!in_array($class_key, $this->registry)) {
-
-            $obj_class = new $classname();
-
-            if (!$obj_class instanceof Payment) {
-                throw new InvalidClassException();
-            }
-
-            $this->registry[$class_key] = $classname;
-
-        } else {
+        if (in_array($class_key, $this->registry)) {
             throw  new DuplicateClassKeyException();
-
         }
+
+        $obj = new ReflectionClass($classname);
+
+        if (!$obj->implementsInterface(Payment)) {
+            throw new InvalidClassException();
+        }
+
+        $this->registry[$class_key] = $classname;
     }
 
     /**
