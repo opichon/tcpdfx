@@ -15,7 +15,6 @@ class PaymentPeer extends BasePaymentPeer
         $om_class = PaymentClassRegistry::getInstance()
            ->getPaymentClass($class_key);
 
-
         return $om_class;
     }
 }

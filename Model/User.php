@@ -3,7 +3,6 @@
 namespace Dzangocart\Bundle\CoreBundle\Model;
 
 use Dzangocart\Bundle\CoreBundle\Model\om\BaseUser;
-use Dzangocart\Bundle\CoreBundle\Security\UserProvider;
 
 use FOS\UserBundle\Model\UserInterface;
 
