@@ -26,7 +26,8 @@ abstract class StoreSettingsController extends BaseController
     public function identityAction(Request $request)
     {
         return array(
-            'store' => $this->getStore()
+            'store' => $this->getStore(),
+            'template' => $this->getBaseTemplate()
         );
     }
 
@@ -37,7 +38,8 @@ abstract class StoreSettingsController extends BaseController
     public function gatewaysAction(Request $request)
     {
         return array(
-            'store' => $this->getStore()
+            'store' => $this->getStore(),
+            'template' => $this->getBaseTemplate()
         );
     }
 
@@ -48,7 +50,8 @@ abstract class StoreSettingsController extends BaseController
     public function presentationAction(Request $request)
     {
         return array(
-            'store' => $this->getStore()
+            'store' => $this->getStore(),
+            'template' => $this->getBaseTemplate()
         );
     }
 
@@ -104,7 +107,8 @@ abstract class StoreSettingsController extends BaseController
 
         return array(
             'form' => $form->createView(),
-            'store' => $this->getStore()
+            'store' => $this->getStore(),
+            'template' => $this->getBaseTemplate()
         );
     }
 
@@ -156,7 +160,8 @@ abstract class StoreSettingsController extends BaseController
         return array(
             'form' => $form->createView(),
             'tokens' => $tokens,
-            'store' => $this->getStore()
+            'store' => $this->getStore(),
+            'template' => $this->getBaseTemplate()
         );
     }
 
@@ -235,7 +240,8 @@ abstract class StoreSettingsController extends BaseController
 
         return array(
             'form' => $form->createView(),
-            'store' => $this->getStore()
+            'store' => $this->getStore(),
+            'template' => $this->getBaseTemplate()
         );
     }
 }

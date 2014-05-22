@@ -66,7 +66,8 @@ class PromotionController extends BaseController
         }
 
         return array(
-            'store' => $this->getStore()
+            'store' => $this->getStore(),
+            'template' => $this->getBaseTemplate()
         );
     }
 
@@ -124,7 +125,8 @@ class PromotionController extends BaseController
 
         return array(
             'store' => $this->getStore(),
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'template' => $this->getBaseTemplate()
         );
     }
 
@@ -209,7 +211,8 @@ class PromotionController extends BaseController
         return array(
             'store' => $this->getStore(),
             'promotion' => $promotion,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'template' => $this->getBaseTemplate()
         );
     }
 }
