@@ -1,9 +1,4 @@
-#Dzangocart\Bundle\CoreBundle\Model\Affiliate:
-#    properties:
-#        website:
-#            - Url: ~
-
-#    constraints:
-#            - Symfony\Component\Validator\Constraints\Constraint:
-#                fields: website
-#                message: signup.domain.error.exists
+Dzangocart\Bundle\CoreBundle\Model\Affiliate:
+    properties:
+        website:
+            - Url: ~
