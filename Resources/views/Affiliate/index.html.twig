@@ -6,6 +6,16 @@
 
 {% block bodyclass %}affiliates{% endblock %}
 
+{% block page_nav %}
+    {% if store is defined %}
+        <div class="pull-right">
+            <a href="{{ path('affiliate_create') }}">
+                {% trans %}affiliate.affiliates.create{% endtrans %}
+            </a>
+        </div>
+    {% endif %}
+{% endblock %}
+
 {% block _core_content %}
 	{% include "DzangocartCoreBundle:Affiliate:affiliates.html.twig" %}
 {% endblock %}

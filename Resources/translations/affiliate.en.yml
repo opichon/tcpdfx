@@ -1,4 +1,11 @@
 affiliate:
+    create:
+        success:            The affiliate was successfully created.
+    form:
+        name:
+            label:          Name
+        website:
+            label:          Website
     affiliates:
         page_title:         Affiliates
         store:              Store Name
@@ -7,6 +14,7 @@ affiliate:
 
         actions:
             title:          Actions
+        create:             Create New Affiliate
     error:
         not_found:          Not Found
     show:

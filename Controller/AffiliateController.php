@@ -2,9 +2,14 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Controller;
 
+use DateTime;
+
+use Dzangocart\Bundle\CoreBundle\Form\Type\AffiliateType;
 use Dzangocart\Bundle\CoreBundle\Form\Type\CustomerFiltersType;
 use Dzangocart\Bundle\CoreBundle\Form\Type\OrderFiltersType;
+use Dzangocart\Bundle\CoreBundle\Model\Affiliate;
 use Dzangocart\Bundle\CoreBundle\Model\AffiliateQuery;
+use Dzangocart\Bundle\CoreBundle\Model\User;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -68,7 +73,7 @@ class AffiliateController extends BaseController
     }
 
     /**
-     * @Route("/affiliate/{id}", name="affiliate_show")
+     * @Route("/affiliate/{id}", requirements={"id" = "\d+"}, name="affiliate_show")
      * @Template("DzangocartCoreBundle:Affiliate:show.html.twig")
      */
     public function showAction(Request $request, $id)
@@ -152,6 +157,67 @@ class AffiliateController extends BaseController
         );
     }
 
+    /**
+     *@Route("/affiliate/create", name="affiliate_create")
+     *@Template("DzangocartCoreBundle:Affiliate:create.html.twig")
+     */
+    public function createAction(Request $request)
+    {
+        $affiliate = new Affiliate();
+
+        $affiliate->setStore($this->getStore());
+        $affiliate->setRealm($this->getStore()->getRealm());
+        $affiliate->setCreatedAt(new DateTime());
+
+        $form = $this->createForm(
+            new AffiliateType(),
+            $affiliate,
+            array(
+                'action' => $this->generateUrl('affiliate_create')
+            )
+        );
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+
+            $user = $this->createUser();
+
+            $affiliate->setOwnerId($user->getId());
+            $affiliate->save();
+
+            $this->get('session')->getFlashBag()->add(
+                'success',
+                $this->get('translator')->trans(
+                    'affiliate.create.success',
+                    array(),
+                    'affiliate',
+                    $request->getLocale()
+                )
+            );
+
+            return $this->redirect($this->generateUrl('affiliates'));
+        }
+
+        return array(
+            'store' => $this->getStore(),
+            'affiliate' => $affiliate,
+            'form' => $form->createView(),
+            'template' => $this->getBaseTemplate()
+        );
+    }
+
+    protected function getQuery()
+    {
+        return AffiliateQuery::create()
+            ->innerJoinStore('store');
+    }
+
+    protected function getTemplateParams()
+    {
+        return array();
+    }
+
     protected function getAffiliate(Request $request, $id)
     {
         $affiliate = $this->getQuery()
@@ -166,15 +232,17 @@ class AffiliateController extends BaseController
         return $affiliate;
     }
 
-    protected function getQuery()
+    protected function createUser()
     {
-        return AffiliateQuery::create()
-            ->innerJoinStore('store');
-    }
+        $user = new User();
+        $user->save();
 
-    protected function getTemplateParams()
-    {
-        return array();
-    }
+        $user->setCode($user->getPrimaryKey());
+        $user->setUsername($user->getPrimaryKey().'@dzango.com');
+        $user->setRealm($this->getStore()->getRealm());
+        $user->setIsActive(1);
+        $user->save();
 
+        return $user;
+    }
 }
