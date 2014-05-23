@@ -18,7 +18,7 @@ class UserMenuBuilder extends ContainerAware
 
             $user = $context->getToken()->getUser();
 
-            $user_name = $user->getProfile()->getGivenNames();
+            $user_name = $this->getUserName($user);
 
             if (!$user_name) {
                 $user_name = $user->getUsername();
@@ -36,15 +36,11 @@ class UserMenuBuilder extends ContainerAware
                 '%user%' => $user_name
             ));
 
-            $menu->addChild(
-                'user_menu.user.profile',
-                array('route' => 'fos_user_profile_show')
-            )
-            ->setExtra('translation_domain', 'user_menu');
+            $this->getProfileMenu($menu);
 
             $menu->addChild(
                 'user_menu.user.logout',
-                array('route' => 'fos_user_security_logout')
+                array('route' => $this->getLogoutRoute())
             )
             ->setExtra('translation_domain', 'user_menu');
 
@@ -53,4 +49,23 @@ class UserMenuBuilder extends ContainerAware
         return $menu;
     }
 
+    protected function getLogoutRoute()
+    {
+        return 'fos_user_security_logout';
+    }
+
+    protected function getUserName($user)
+    {
+        return $user->getProfile()
+            ->getGivenNames();
+    }
+
+    protected function getProfileMenu($menu)
+    {
+        return $menu->addChild(
+            'user_menu.user.profile',
+            array('route' => 'fos_user_profile_show')
+        )
+        ->setExtra('translation_domain', 'user_menu');
+    }
 }
