@@ -4,6 +4,7 @@ namespace Dzangocart\Bundle\CoreBundle\Controller;
 
 use Criteria;
 
+use Dzangocart\Bundle\CoreBundle\Model\Cart;
 use Dzangocart\Bundle\CoreBundle\Model\CartQuery;
 use Dzangocart\Bundle\CoreBundle\Form\Type\OrderFiltersType;
 
@@ -108,7 +109,7 @@ class OrderController extends BaseController
     protected function getQuery()
     {
         return CartQuery::create()
-            ->filterByStatus(array('min' => 3));
+            ->filterByStatus(Cart::PROCESSED, Criteria::BINARY_AND);
     }
 
     protected function getTemplateParams()
