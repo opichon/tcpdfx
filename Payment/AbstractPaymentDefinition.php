@@ -15,6 +15,6 @@ class AbstractPaymentDefinition implements PaymentDefinition
 
     public function getClassName()
     {
-        return static CLASS_NAME;
+        return static::CLASS_NAME;
     }
 }
