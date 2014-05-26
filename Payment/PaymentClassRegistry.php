@@ -63,12 +63,13 @@ class PaymentClassRegistry
             throw  new DuplicateClassKeyException();
         }
 
+/*
         $class = new ReflectionClass($classname);
 
         if (!$class->implementsInterface(self::PAYMENT_INTERFACE)) {
             throw new InvalidClassException();
         }
-
+*/
         $this->registry[$class_key] = $classname;
     }
 
