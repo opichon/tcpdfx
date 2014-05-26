@@ -109,7 +109,7 @@ class OrderController extends BaseController
     protected function getQuery()
     {
         return CartQuery::create()
-            ->filterByStatus(Cart::PROCESSED, Criteria::BINARY_AND);
+            ->filterByStatus(Cart::STATUS_PROCESSED, Criteria::BINARY_AND);
     }
 
     protected function getTemplateParams()

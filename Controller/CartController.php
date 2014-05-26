@@ -2,6 +2,7 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Controller;
 
+use Dzangocart\Bundle\CoreBundle\Model\Cart;
 use Dzangocart\Bundle\CoreBundle\Model\CartQuery;
 use Dzangocart\Bundle\CoreBundle\Form\Type\OrderFiltersType;
 
@@ -22,7 +23,7 @@ class CartController extends BaseController
         if ($request->isXmlHttpRequest() || 'json' == $request->getRequestFormat()) {
 
             $query = CartQuery::create('Cart')
-                ->filterByStatus(array('min' => 3));
+                ->filterByStatus(array('min' => Cart::STATUS_APPROVED));
 
             if ($store = $this->getStore()) {
                 $query->filterByStore($store);
