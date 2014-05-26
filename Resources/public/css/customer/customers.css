@@ -1,7 +1,3 @@
-table.table th.sales {
+.customers table.table th.sales {
 	width: 10em;
-}
-
-.form-control {
-    width: 150px !important;
 }

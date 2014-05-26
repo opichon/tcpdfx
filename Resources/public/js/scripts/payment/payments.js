@@ -12,7 +12,11 @@
 				return this.each(function() {
 					var $this = $( this );
 
-					table = $( "table.table", this ).dataTable( $.extend( true, {}, settings.dataTables, {} ) );
+					table = $( "table.table", this ).dataTable( $.extend( true, {}, settings.dataTables, {
+						fnInitComplete: function( oSettings, json ) {
+							$( oSettings.nTable ).show();
+						},
+					} ) );
 				});
 			}
 		};

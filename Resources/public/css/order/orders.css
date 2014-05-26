@@ -1,18 +1,18 @@
-table.table th.gross {
+.orders table.table th.gross {
 	width: 8em;
 	text-align: center;
 }
 
-table.table th.tax {
+.orders table.table th.tax {
 	width: 6em;
 	text-align: center;
 }
 
-table.table th.net {
+.orders table.table th.net {
 	width: 8em;
 	text-align: center;
 }
 
-table.table th.status {
+.orders table.table th.status {
 	width: 4em;
 }
