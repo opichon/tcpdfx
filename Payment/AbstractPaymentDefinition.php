@@ -4,9 +4,9 @@ namespace Dzangocart\Bundle\CoreBundle\Payment;
 
 class AbstractPaymentDefinition implements PaymentDefinition
 {
-	const PAYMENT_TYPE_ID;
+	const PAYMENT_TYPE_ID = 0;
 
-	const CLASS_NAME;
+	const CLASS_NAME = 'Dzangocart\Bundle\CoreBundle\Model\Payment';
 
 	public function getClassKey()
     {
