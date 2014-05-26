@@ -1,5 +1,0 @@
-user_menu:
-    user:
-        logout:         Déconnexion
-        profile:        Profil
-        welcome:        Bienvenue %user%

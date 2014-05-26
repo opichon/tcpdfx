@@ -1,5 +1,0 @@
-user_menu:
-    user:
-        logout:         Logout
-        profile:        Profile
-        welcome:        Welcome %user%
