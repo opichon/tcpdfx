@@ -1,3 +1,7 @@
+.payments table.table {
+	width: auto;
+}
+
 .payments table.table th.id {
 	width: 6em;
 }
