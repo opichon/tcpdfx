@@ -1,0 +1,8 @@
+[
+ {% for customer in customers %}
+ {
+  "id": "{{ customer.id }}",
+  "value": "{{ customer.name }}"
+ }{% if not loop.last %},{% endif %}
+ {% endfor %}
+]
