@@ -64,6 +64,9 @@ class PaymentClassRegistry
         }
 
 /*
+        // FIXME ]OP 2014-05-26] This doesn't work with the current implementation.
+        // The ReflectionClass loads the class supplied to it, and this triggers an error
+        // as the BasePayment class may not be available.
         $class = new ReflectionClass($classname);
 
         if (!$class->implementsInterface(self::PAYMENT_INTERFACE)) {
