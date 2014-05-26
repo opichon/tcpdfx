@@ -6,20 +6,20 @@ use Dzangocart\Bundle\CoreBundle\Model\om\BaseCart;
 
 class Cart extends BaseCart
 {
-    const OPEN = 0;
-    const PROCESSED = 1;
-    const PAID = 2;
+    const STATUS_OPEN = 0;
+    const STATUS_PROCESSED = 1;
+    const STATUS_PAID = 2;
 
-    const APPROVED = 3;
-    const SHIPPED = 4;
-    const CLOSED = 8;
+    const STATUS_APPROVED = 3;
+    const STATUS_SHIPPED = 4;
+    const STATUS_CLOSED = 8;
 
-    const PACKED = 16;
+    const STATUS_PACKED = 16;
 
-    const ERROR = 256;
+    const STATUS_ERROR = 256;
 
-    const RETURNED = 800;
-    const CANCELLED = 801;
+    const STATUS_RETURNED = 800;
+    const STATUS_CANCELLED = 801;
 
     public function getAmountIncl()
     {
