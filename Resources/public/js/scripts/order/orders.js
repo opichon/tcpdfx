@@ -16,8 +16,6 @@
 						event.stopPropagation();
                         table.fnDraw();
 					});
-                    
-                    helpers.initCustomerWidget( );
 
 					table = $( "table.table", this ).dataTable( $.extend( true, {}, settings.dataTables, {
 						fnInitComplete: function( oSettings, json ) {
@@ -33,6 +31,7 @@
 							});
 						}
 					}));
+                    helpers.initCustomerWidget( );
 				});
 			}
 		};
@@ -48,7 +47,7 @@
                         replace: function( url, uriEncodedQuery ) {
                             return url.replace( "__query__", uriEncodedQuery );
                         }
-                    },
+                    }
                 });
                 
                 customers.initialize();
@@ -60,6 +59,7 @@
                     }).on( "typeahead:selected", function( e, datum ) {
                         $( this ).val( datum.id );
                         table.fnDraw();
+                        $( this ).val( datum.value );
                     } );
                 }
         };
