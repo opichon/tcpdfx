@@ -12,10 +12,12 @@
 				return this.each(function() {
 					var $this = $( this );
 
-					$( ".filters input" ).keyup(function(event) {
+					$( ".filters_keyup input" ).keyup(function(event) {
 						event.stopPropagation();
-						table.fnDraw();
+                        table.fnDraw();
 					});
+                    
+                    helpers.initCustomerWidget( );
 
 					table = $( "table.table", this ).dataTable( $.extend( true, {}, settings.dataTables, {
 						fnInitComplete: function( oSettings, json ) {
@@ -34,7 +36,33 @@
 				});
 			}
 		};
+        var helpers = {
+			initCustomerWidget: function() {
+				var widget = $( "[name='order_filters[customer_id]']" );
 
+                var customers = new Bloodhound({
+                    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+                    queryTokenizer: Bloodhound.tokenizers.whitespace,
+                    remote: {
+                        url: settings.typeahead.remote.url,
+                        replace: function( url, uriEncodedQuery ) {
+                            return url.replace( "__query__", uriEncodedQuery );
+                        }
+                    },
+                });
+                
+                customers.initialize();
+
+                widget.typeahead(null, {
+                    name: 'customer_id',
+                    displayKey: 'value',
+                    source: customers.ttAdapter()
+                    }).on( "typeahead:selected", function( e, datum ) {
+                        $( this ).val( datum.id );
+                        table.fnDraw();
+                    } );
+                }
+        };
 		if ( methods[ method ] ) {
 			return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
 		}
@@ -73,7 +101,3 @@
 $( document ).ready(function() {
     $( ".orders" ).orders( dzangocart.orders );
 });
-
-
-
-

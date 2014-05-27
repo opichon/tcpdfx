@@ -136,6 +136,7 @@ class OrderController extends BaseController
         return array(
             'id' => 'cart.id LIKE "%s%%"',
             'store_name' => 'store.name LIKE "%%%s%%"',
+            'customer_id' => 'cart.customer_id = "%s%%"',
         );
     }
 }

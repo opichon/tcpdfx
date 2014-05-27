@@ -31,11 +31,8 @@ class OrderFiltersType extends BaseAbstractType
             'required' => false
         ));
 
-        $builder->add('customer_name', 'text', array(
+        $builder->add('customer_id', 'text', array(
             'required' => false,
-            'attr'=>array(
-                 'placeholder'=>'Customer Name'
-            )
         ));
     }
 
