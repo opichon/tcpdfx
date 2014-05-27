@@ -31,12 +31,15 @@
 							});
 						}
 					}));
+
                     helpers.initCustomerWidget( );
+
 				});
 			}
 		};
         var helpers = {
 			initCustomerWidget: function() {
+
 				var widget = $( "[name='order_filters[customer]']" );
 
                 var customers = new Bloodhound({
@@ -59,8 +62,16 @@
                     }).on( "typeahead:selected", function( e, datum ) {
                         $( "[name='order_filters[customer_id]']" ).val( datum.id );
                             table.fnDraw();
-                    } );
-                }
+                    });
+
+                widget.keyup( function( ) {
+                    if ( $(this).val() === '' ) {
+                        $( "[name='order_filters[customer_id]']" ).val( '' );
+                        table.fnDraw();
+                    }
+
+                })
+            }
         };
 		if ( methods[ method ] ) {
 			return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
