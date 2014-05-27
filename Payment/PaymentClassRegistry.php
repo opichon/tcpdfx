@@ -2,18 +2,12 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Payment;
 
-use ReflectionClass;
-
 use Dzangocart\Bundle\CoreBundle\Error\Payment\DuplicateClassKeyException;
-use Dzangocart\Bundle\CoreBundle\Error\Payment\InvalidClassException;
 use Dzangocart\Bundle\CoreBundle\Error\Payment\UnknownClassKeyException;
 
 class PaymentClassRegistry
 {
-    //[REMOVE ME]
-    const BASE_PAYMENT_CLASS = 'Dzangocart\Bundle\CoreBundle\Model\om\BasePayment';
-
-    const PAYMENT_INTERFACE = 'Dzangocart\Bundle\CoreBundle\Payment\Payment';
+    //const PAYMENT_INTERFACE = 'Dzangocart\Bundle\CoreBundle\Payment\Payment';
 
     private static $instance = null;
 
