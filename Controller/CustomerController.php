@@ -196,6 +196,8 @@ class CustomerController extends BaseController
         $customers = CustomerQuery::create()
             ->useUserProfileQuery()
                 ->filterByGivenNames(sprintf('%%%s%%', $search), Criteria::LIKE)
+                ->_or()
+                ->filterBySurname(sprintf('%%%s%%', $search), Criteria::LIKE)
             ->endUse()
             ->find();
 
