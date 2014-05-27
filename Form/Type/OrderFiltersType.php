@@ -30,6 +30,13 @@ class OrderFiltersType extends BaseAbstractType
         $builder->add('store_name', 'text', array(
             'required' => false
         ));
+
+        $builder->add('customer_name', 'text', array(
+            'required' => false,
+            'attr'=>array(
+                 'placeholder'=>'Customer Name'
+            )
+        ));
     }
 
     public function getName()

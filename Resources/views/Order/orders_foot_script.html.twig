@@ -2,6 +2,7 @@
 	'bundles/uamdatatables/js/jquery.dataTables.min.js'
 	'bundles/uamdatatables/js/jquery.dataTables_bootstrap.js'
 	'bundles/dzangocartcore/js/scripts/order/orders.js'
+    'bundles/uambootstrap/vendor/typeahead.js/dist/typeahead.jquery.min.js'
 %}
 	<script src="{{ asset_url }}"></script>
 {% endjavascripts %}
@@ -10,5 +11,6 @@ dzangocart.orders = {
 	dataTables: {
 		sAjaxSource: "{{ path('orders', { _format: 'json' }) }}"
 	}
+
 };
 </script>

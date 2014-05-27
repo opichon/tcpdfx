@@ -2,6 +2,8 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Controller;
 
+use Criteria;
+
 use Dzangocart\Bundle\CoreBundle\Model\CustomerQuery;
 use Dzangocart\Bundle\CoreBundle\Form\Type\CustomerFiltersType;
 use Dzangocart\Bundle\CoreBundle\Form\Type\OrderFiltersType;
@@ -183,5 +185,22 @@ class CustomerController extends BaseController
         }
 
         return $customer;
+    }
+
+    /**
+     * @Route("/customer/search/{search}", name="customer_search", defaults={ "_format": "json" })
+     * @Template("DzangocartCoreBundle:Order:search.json.twig")
+     */
+    public function searchAction(Request $request, $search = '%QUERY')
+    {
+        $customers = CustomerQuery::create()
+            ->useUserProfileQuery()
+                ->filterByGivenNames(sprintf('%%%s%%', $search), Criteria::LIKE)
+            ->endUse()
+            ->find();
+
+        return array(
+            'customers' => $customers
+        );
     }
 }
