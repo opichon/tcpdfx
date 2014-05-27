@@ -10,7 +10,11 @@
 dzangocart.orders = {
 	dataTables: {
 		sAjaxSource: "{{ path('orders', { _format: 'json' }) }}"
-	}
-
+	},
+    typeahead: {
+        remote: {
+         url:  "{{ path('customer_search', { search: '__query__' }) }}"
+        }
+    }
 };
 </script>
