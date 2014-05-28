@@ -78,8 +78,8 @@
                     .daterangepicker(
                         settings.dateRangePicker,
                         function(start, end) {
-                            $('input[name="activity_filters[date_start]"]').val(start.format('YYYY-MM-DD'));
-                            $('input[name="activity_filters[date_end]"]').val(end.format('YYYY-MM-DD'));
+                            $('input[name="order_filters[date_start]"]"]').val(start.format('YYYY-MM-DD'));
+                            $('input[name="order_filters[date_end]"]').val(end.format('YYYY-MM-DD'));
                         }
                     ).on('cancel.daterangepicker', function(ev, picker) {
                         $(this).val('');
