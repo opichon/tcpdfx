@@ -198,7 +198,16 @@ class CustomerController extends BaseController
                 ->filterByGivenNames(sprintf('%%%s%%', $search), Criteria::LIKE)
                 ->_or()
                 ->filterBySurname(sprintf('%%%s%%', $search), Criteria::LIKE)
+                ->_or()
+                ->where('CONCAT(user_profile.surname, ", ", user_profile.given_names) LIKE ?', sprintf('%%%s%%', $search))
+                ->_or()
+                ->where('CONCAT(user_profile.surname, " ", user_profile.given_names) LIKE ?', sprintf('%%%s%%', $search))
+                ->_or()
+                ->where('CONCAT(user_profile.given_names, ", ", user_profile.surname) LIKE ?', sprintf('%%%s%%', $search))
+                ->_or()
+                ->where('CONCAT(user_profile.given_names, ", ", user_profile.surname) LIKE ?', sprintf('%%%s%%', $search))
             ->endUse()
+            ->distinct()
             ->find();
 
         return array(
