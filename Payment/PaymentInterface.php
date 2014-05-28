@@ -2,7 +2,7 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Payment;
 
-interface Payment
+interface PaymentInterface
 {
     public function getClasskey();
 
