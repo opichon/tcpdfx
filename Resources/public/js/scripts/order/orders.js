@@ -78,7 +78,7 @@
                     .daterangepicker(
                         settings.dateRangePicker,
                         function(start, end) {
-                            $('input[name="order_filters[date_start]"]"]').val(start.format('YYYY-MM-DD'));
+                            $('input[name="order_filters[date_start]"]').val(start.format('YYYY-MM-DD'));
                             $('input[name="order_filters[date_end]"]').val(end.format('YYYY-MM-DD'));
                         }
                     ).on('cancel.daterangepicker', function(ev, picker) {
@@ -104,28 +104,33 @@
 		}
 	};
 
-	$.fn.orders.defaults = {
-		dataTables: {
-			aoColumnDefs: [
-				{ bSortable: false, aTargets: [ 0, 10 ] },
-				{ bVisible: false, aTargets: [ 0 ] },
-				{ sClass: "amount", aTargets: [ 7, 8, 9 ] },
-				{ sClass: "actions", aTargets: [ 10 ] }
-			],
-			asStripeClasses: [],
-			bAutoWidth: false,
-			bPaginate: true,
-			bProcessing: true,
-			bServerSide: true, // set datatables to use ajax to display content
-			bSortable: true,
-			bSortCellsTop: true,
+    $.fn.orders.defaults = {
+        dataTables: {
+            aoColumnDefs: [
+                { bSortable: false, aTargets: [ 0, 10 ] },
+                { bVisible: false, aTargets: [ 0 ] },
+                { sClass: "amount", aTargets: [ 7, 8, 9 ] },
+                { sClass: "actions", aTargets: [ 10 ] }
+            ],
+            asStripeClasses: [],
+            bAutoWidth: false,
+            bPaginate: true,
+            bProcessing: true,
+            bServerSide: true, // set datatables to use ajax to display content
+            bSortable: true,
+            bSortCellsTop: true,
             bDestroy: true,
             bRetrieve: true,
-			oLanguage: {
-				sUrl: "/bundles/uamdatatables/lang/" + dzangocart.locale + ".txt"
-			}
-		}
-	};
+            oLanguage: {
+                sUrl: "/bundles/uamdatatables/lang/" + dzangocart.locale + ".txt"
+            }
+        },
+        dateRangePicker: {
+            startDate: moment(),
+            locale: { cancelLabel: 'Clear' }
+        },
+        date_format: "dd.MM.yy"
+    };
 } ( window.jQuery );
 
 $( document ).ready(function() {
