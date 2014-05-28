@@ -33,7 +33,7 @@
 					}));
 
                     helpers.initCustomerWidget( );
-
+                    helpers.initDateFilterWidget( );
 				});
 			}
 		};
@@ -71,6 +71,26 @@
                     }
 
                 })
+            },
+
+            initDateFilterWidget: function() {
+                $('input[name="order_filters[date_range]"]')
+                    .daterangepicker(
+                        settings.dateRangePicker,
+                        function(start, end) {
+                            $('input[name="activity_filters[date_start]"]').val(start.format('YYYY-MM-DD'));
+                            $('input[name="activity_filters[date_end]"]').val(end.format('YYYY-MM-DD'));
+                        }
+                    ).on('cancel.daterangepicker', function(ev, picker) {
+                        $(this).val('');
+
+                        $('input[name="order_filters[date_start]"]').val('');
+                        $('input[name="order_filters[date_end]"]').val('');
+
+                        table.fnDraw();
+                    }).on('apply.daterangepicker', function(ev, picker){
+                        table.fnDraw();
+                    });
             }
         };
 		if ( methods[ method ] ) {
