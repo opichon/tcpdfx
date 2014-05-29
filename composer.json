@@ -23,8 +23,8 @@
         }
     ],
     "autoload": {
-        "psr-0": {
-            "UAM": "lib/"
+        "psr-4": {
+            "UAM\\pdf\\": "lib/"
         },
         "classmap": [
           "data/fonts",
