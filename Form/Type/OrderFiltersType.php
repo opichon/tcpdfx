@@ -24,15 +24,18 @@ class OrderFiltersType extends BaseAbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('id', 'text', array(
+            'label' => 'order.filter.id.label',
             'required' => false
         ));
 
         $builder->add('store_name', 'text', array(
+            'label' => 'order.filter.store_name.label',
             'required' => false
         ));
 
         $builder->add('customer', 'text', array(
             'required' => false,
+            'label' => 'order.filter.customer.label',
             'mapped' => false
         ));
 
@@ -66,6 +69,7 @@ class OrderFiltersType extends BaseAbstractType
             'mapped' => false,
             'required' => true,
             'data' => $range,
+            'label' => 'order.filter.date_range.label',
             'attr' => array(
                 'class' => 'dates',
                 'autocomplete' => 'off',
