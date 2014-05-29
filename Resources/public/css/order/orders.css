@@ -84,3 +84,7 @@
     margin-top: 1%;
     margin-bottom: 10%;
 }
+
+.twitter-typeahead {
+    display: block !important;
+}
