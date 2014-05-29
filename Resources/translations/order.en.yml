@@ -34,3 +34,7 @@ order:
         status:             Status
         store_name:         Store
         tax:                Tax
+
+cart:
+    carts:
+        page_title:         Carts

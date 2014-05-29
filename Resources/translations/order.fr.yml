@@ -22,3 +22,7 @@ order:
         store_name:         Boutique
         status:             Status
         tax:                TVA
+
+cart:
+    carts:
+        page_title:         Carts

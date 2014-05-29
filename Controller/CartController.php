@@ -23,13 +23,14 @@ class CartController extends BaseController
         if ($request->isXmlHttpRequest() || 'json' == $request->getRequestFormat()) {
 
             $query = CartQuery::create('Cart')
-                ->filterByStatus(array('min' => Cart::STATUS_APPROVED));
+                ->filterByStatus(Cart::STATUS_OPEN);
 
             if ($store = $this->getStore()) {
                 $query->filterByStore($store);
             } elseif ($store_id = $request->query->get('store_id')) {
                 $query->filterByStoreId($store_id);
             }
+
             $total_count = $query->count();
 
             $query->datatablesSearch(
@@ -58,7 +59,7 @@ class CartController extends BaseController
                 'orders' => $orders
             );
 
-            $view = $this->renderView('DzangocartCoreBundle:Order:index.json.twig', $data);
+            $view = $this->renderView('DzangocartCoreBundle:Cart:index.json.twig', $data);
 
             return new Response($view, 200, array('Content-Type' => 'application/json'));
         }
@@ -109,6 +110,9 @@ class CartController extends BaseController
         return array(
             'id' => 'cart.id LIKE "%s%%"',
             'store_name' => 'store.name LIKE "%%%s%%"',
+            'customer_id' => 'cart.customer_id = "%s%%"',
+            'date_start' => 'cart.date BETWEEN CONCAT("%s%%, 00:00:00")',
+            'date_end' => 'CONCAT("%s%%, 23:59:59")'
         );
     }
 }

@@ -2,12 +2,12 @@
 
 {% trans_default_domain "order" %}
 
-{% block _core_page_title %}{% trans %}order.orders.page_title{% endtrans %}{% endblock %}
+{% block _core_page_title %}{% trans %}cart.carts.page_title{% endtrans %}{% endblock %}
 
 {% block bodyclass %}orders{% endblock %}
 
 {% block _core_content %}
-	{% include "DzangocartCoreBundle:Order:orders.html.twig" %}
+	{% include "DzangocartCoreBundle:Cart:carts.html.twig" %}
 {% endblock %}
 
 {% block _core_head_style %}

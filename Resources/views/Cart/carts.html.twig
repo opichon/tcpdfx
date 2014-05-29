@@ -16,9 +16,9 @@
         </tr>
         <tr class="filters">
             <th></th>
-            <th></th>
-            <th>{{ form_widget(form.store_name) }}</th>
-            <th>{{ form_widget(form.id) }}</th>
+            <th>{{ form_widget(form.date_range) }}{{ form_widget(form.date_start) }}{{ form_widget(form.date_end) }}</th>
+            <th class="filters_keyup">{{ form_widget(form.id) }}</th>
+            <th class="filters_keyup">{{ form_widget(form.store_name) }}</th>
             <th></th>
             <th></th>
             <th></th>

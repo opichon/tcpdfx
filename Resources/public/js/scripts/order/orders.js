@@ -107,10 +107,10 @@
     $.fn.orders.defaults = {
         dataTables: {
             aoColumnDefs: [
-                { bSortable: false, aTargets: [ 0, 10 ] },
+                { bSortable: false, aTargets: [ 0 ] },
                 { bVisible: false, aTargets: [ 0 ] },
                 { sClass: "amount", aTargets: [ 7, 8, 9 ] },
-                { sClass: "actions", aTargets: [ 10 ] }
+                { sClass: "actions", aTargets: [  ] }
             ],
             asStripeClasses: [],
             bAutoWidth: false,
