@@ -2,7 +2,7 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Model;
 
-use \Criteria;
+use Criteria;
 
 use Dzangocart\Bundle\CoreBundle\Model\om\BaseItemQuery;
 
@@ -39,10 +39,8 @@ class ItemQuery extends BaseItemQuery
         return $control ? $this : $this->defaultSort();
     }
 
-    public function dataTablesSearch($search, array $columns = array())
+    public function dataTablesSearch(array $search = array(), array $columns = array())
     {
-        $search = trim($search);
-
         if (empty($search)) {
             return $this;
         }
@@ -50,16 +48,17 @@ class ItemQuery extends BaseItemQuery
         $conditions = array();
 
         foreach ($columns as $i => $column) {
+            $value = trim($search[$i]);
             $this->condition(
                 'search_' . $i,
                 sprintf('%s LIKE ?', $column),
-                sprintf('%%%s%%', $search)
+                sprintf('%%%s%%', $value)
             );
 
             $conditions [] = 'search_' . $i;
         }
 
-        return $this->where($conditions, 'or');
+        return $this->where($conditions, 'and');
     }
 
     protected function defaultSort()

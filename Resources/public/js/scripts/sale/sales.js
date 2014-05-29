@@ -11,11 +11,30 @@
 
                 return this.each(function() {
                     var $this = $( this );
+                    
+                    $( ".filters input" ).keyup(function(event) {
+                            event.stopPropagation();
+                            table.fnDraw();
+                    });
+
+                    $( ".filters select" ).change(function(event) {
+                            event.stopPropagation();
+                            table.fnDraw();
+                    });
 
                     table = $( "table.table", this ).dataTable( $.extend( true, {}, settings.dataTables, {
                         fnInitComplete: function( oSettings, json ) {
                             $( oSettings.nTable ).show();
                         },
+                        fnServerParams: function( data ) {
+                            $( ".filters input, .filters select" ).each(function() {
+                                var value = $( this ).val();
+                                data.push( {
+                                    "name": $( this ).attr( "name" ),
+                                    "value": value
+                                } );
+                            } );
+                        }
                     } ) );
                 });
             }
@@ -44,9 +63,11 @@
             asStripeClasses: [],
             bAutoWidth: false,
             bDestroy: true,
+            bFilter: false,
             bPaginate: true,
             bProcessing: true,
             bServerSide: true,
+            bSortCellsTop: true,
             bSortable: true,
             oClasses: {
                 sProcessing: "alert alert-warning"
