@@ -37,18 +37,6 @@ class OrderController extends BaseController
                 $query->filterByStoreId($store_id);
             }
 
-
-            if ($request->query->get('order_filters')['date_start'] and $request->query->get('order_filters')['date_end']) {
-                $dateStart = $request->query->get('order_filters')['date_start'];
-                $dateEnd = $request->query->get('order_filters')['date_end'];
-
-                $query = $query->filterByDate(array(
-                    "min" => $dateStart . ' 00:00:00',
-                    "max" => $dateEnd . ' 23:59:59'
-                ));
-
-                $query->orderByDate();
-            }
             $total_count = $query->count();
 
             $query->datatablesSearch(
@@ -149,6 +137,8 @@ class OrderController extends BaseController
             'id' => 'cart.id LIKE "%s%%"',
             'store_name' => 'store.name LIKE "%%%s%%"',
             'customer_id' => 'cart.customer_id = "%s%%"',
+            'date_start' => 'cart.date BETWEEN CONCAT("%s%%, 00:00:00")',
+            'date_end' => 'CONCAT("%s%%, 23:59:59")'
         );
     }
 }
