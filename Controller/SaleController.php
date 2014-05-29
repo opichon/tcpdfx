@@ -3,6 +3,7 @@
 namespace Dzangocart\Bundle\CoreBundle\Controller;
 
 use Dzangocart\Bundle\CoreBundle\Model\ItemQuery;
+use Dzangocart\Bundle\CoreBundle\Form\Type\SalesFilterType;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -18,6 +19,8 @@ class SaleController extends BaseController
      */
     public function indexAction(Request $request)
     {
+        $form = $this->createForm(new SalesFilterType());
+
         if ($request->isXmlHttpRequest() || 'json' == $request->getRequestFormat()) {
 
             $query = $this->getQuery();
@@ -51,7 +54,7 @@ class SaleController extends BaseController
             $offset = max(0, $request->query->get('iDisplayStart'));
 
             $query->datatablesSearch(
-                $request->query->get('sSearch'),
+                $request->query->get('sales_filters'),
                 $this->getDataTablesSearchColumns()
             );
 
@@ -81,7 +84,8 @@ class SaleController extends BaseController
             $this->getTemplateParams(),
             array(
                 'store' => $this->getStore(),
-                'template' => $this->getBaseTemplate()
+                'template' => $this->getBaseTemplate(),
+                'form' => $form->createView()
             )
         );
 
@@ -106,7 +110,7 @@ class SaleController extends BaseController
     protected function getDataTablesSearchColumns()
     {
         return array(
-            'item.orderId'
+            'order_id' => 'item.orderId'
         );
     }
 
