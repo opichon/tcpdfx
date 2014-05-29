@@ -23,6 +23,15 @@ order:
         status:             Status
         tax:                TVA
 
+    filter:
+        date_range:
+            label:          Filter By Date Range
+        customer:
+            label:          Filter By Customer Name
+        store_name:
+            label:          Filter By Store Name
+        id:
+            label:          Filter By Order ID
 cart:
     carts:
         page_title:         Carts

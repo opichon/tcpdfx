@@ -137,8 +137,8 @@ class OrderController extends BaseController
             'id' => 'cart.id LIKE "%s%%"',
             'store_name' => 'store.name LIKE "%%%s%%"',
             'customer_id' => 'cart.customer_id = "%s%%"',
-            'date_start' => 'cart.date BETWEEN CONCAT("%s%%, 00:00:00")',
-            'date_end' => 'CONCAT("%s%%, 23:59:59")'
+            'date_start' => 'cart.date >= CONCAT("%s%%, 00:00:00")',
+            'date_end' => 'cart.date <= CONCAT("%s%%, 23:59:59")'
         );
     }
 }

@@ -1,5 +1,30 @@
 {% trans_default_domain "order" %}
 
+
+<div class ="row">
+    <div class="filters" >
+        <div class="col-md-3">
+            {{ form_label(form.date_range) }}
+            {{ form_widget(form.date_range) }}
+            {{ form_widget(form.date_start) }}
+            {{ form_widget(form.date_end) }}
+        </div>
+        <div class="col-md-3 filters_keyup">
+            {{ form_label(form.id) }}
+            {{ form_widget(form.id) }}
+        </div>
+        <div class="col-md-3 filters_keyup store_name">
+            {{ form_label(form.store_name) }}
+            {{ form_widget(form.store_name) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_label(form.customer) }}
+            {{ form_widget(form.customer) }}
+            {{ form_widget(form.customer_id) }}
+        </div>
+    </div>
+</div>
+
 <table class="table table-condensed">
     <thead>
         <tr>
@@ -15,19 +40,6 @@
             <th class="net">{% trans %}order.orders.net{% endtrans %}</th>
             <th class="actions">{% trans %}order.orders.actions.title{% endtrans %}</th>
         </tr>
-        <tr class="filters">
-            <th></th>
-            <th>{{ form_widget(form.date_range) }}{{ form_widget(form.date_start) }}{{ form_widget(form.date_end) }}</th>
-            <th class="filters_keyup">{{ form_widget(form.id) }}</th>
-            <th class="filters_keyup">{{ form_widget(form.store_name) }}</th>
-            <th class="customer_filters">{{ form_widget(form.customer) }}{{ form_widget(form.customer_id) }}</th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-       </tr>
     </thead>
     <tbody>
     </tbody>
