@@ -3,9 +3,9 @@ namespace UAM\Pdf;
 
 $error_reporting = error_reporting(E_ALL & ~E_STRICT & ~E_NOTICE);
 
-use \fpdi\FPDI;
+use fpdi\FPDI;
 
-include_once dirname(__FILE__) . '/../../../config/tcpdf_config.php';
+include_once dirname(__FILE__) . '/../config/tcpdf_config.php';
 
 class TCPDF extends FPDI
 {
