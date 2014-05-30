@@ -1,6 +1,3 @@
-table.table {
-	display: none;
-}
 
 table.table thead tr th, table.table td {
 	border: 1px solid #ddd;
