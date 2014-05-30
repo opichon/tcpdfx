@@ -23,6 +23,8 @@ class SalesFilterType extends BaseAbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('order_id', 'text', array());
+
+        $builder->add('name', 'text', array());
     }
 
     public function getName()
