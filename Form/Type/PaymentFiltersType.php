@@ -36,7 +36,13 @@ class PaymentFiltersType extends BaseAbstractType
         ));
 
         $builder->add('status', 'choice', array(
-            'choices'   => array(0 => 'OPEN', 2 => 'CANCELLED', 4 => 'ERROR', 8 => 'APPROVED', 16 => 'PAID'),
+            'choices'   => array(
+                0 => 'payment.status.label.open',
+                2 => 'payment.status.label.cancelled',
+                4 => 'payment.status.label.error',
+                8 => 'payment.status.label.approved',
+                24 => 'payment.status.label.paid'
+            ),
             'required' => false
         ));
 
