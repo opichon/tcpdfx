@@ -25,6 +25,11 @@ class SalesFilterType extends BaseAbstractType
         $builder->add('order_id', 'text', array());
 
         $builder->add('name', 'text', array());
+
+        $builder->add('customer', 'text', array());
+
+        $builder->add('customer_id', 'hidden', array());
+
     }
 
     public function getName()

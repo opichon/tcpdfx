@@ -110,8 +110,9 @@ class SaleController extends BaseController
     protected function getDataTablesSearchColumns()
     {
         return array(
-            'order_id' => 'item.orderId',
-            'name' => 'item.name'
+            'order_id' => 'item.orderId LIKE "%%%s%%"',
+            'name' => 'item.name LIKE "%%%s%%"',
+            'customer_id' => 'Cart.customerId = "%s%%"'
         );
     }
 
