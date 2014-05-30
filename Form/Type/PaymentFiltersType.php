@@ -47,13 +47,13 @@ class PaymentFiltersType extends BaseAbstractType
         ));
 
         $builder->add('date_start', 'date', array(
-                    'required' => true,
-                    'label' => false,
-                    'widget' => 'single_text',
-                    'attr' => array(
-                        'class' => 'date date_start',
-                        'style' => 'display: none;'
-                    )
+            'required' => true,
+            'label' => false,
+            'widget' => 'single_text',
+            'attr' => array(
+                'class' => 'date date_start',
+                'style' => 'display: none;'
+            )
         ));
 
         $builder->add('date_end', 'date', array(
