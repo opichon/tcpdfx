@@ -24,6 +24,10 @@ class PaymentFiltersType extends BaseAbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
+        $builder->add('id', 'text', array(
+            'required' => false
+        ));
+
         $builder->add('date_start', 'date', array(
                     'required' => true,
                     'label' => false,
