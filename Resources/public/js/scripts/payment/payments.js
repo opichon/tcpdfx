@@ -12,25 +12,30 @@
 				return this.each(function() {
 					var $this = $( this );
 
-					$( ".filters input" ).keyup(function(event) {
-						event.stopPropagation();
+                    $( ".filters input" ).keyup(function(event) {
+                        event.stopPropagation();
                         table.fnDraw();
-					});
+                    });
 
-					table = $( "table.table", this ).dataTable( $.extend( true, {}, settings.dataTables, {
-						fnInitComplete: function( oSettings, json ) {
-							$( oSettings.nTable ).show();
-						},
+                    $( ".filters select" ).change(function(event) {
+                        event.stopPropagation();
+                        table.fnDraw();
+                    });
+
+                    table = $( "table.table", this ).dataTable( $.extend( true, {}, settings.dataTables, {
+                        fnInitComplete: function( oSettings, json ) {
+                            $( oSettings.nTable ).show();
+                        },
                         fnServerParams: function( data ) {
-							$( ".filters input" ).each(function() {
-								var value = $( this ).val();
-								data.push( {
-									"name": $( this ).attr( "name" ),
-									"value": value
-								});
-							});
-						}
-					} ) );
+                            $( ".filters input, select" ).each(function() {
+                                var value = $( this ).val();
+                                data.push( {
+                                    "name": $( this ).attr( "name" ),
+                                    "value": value
+                                });
+                            });
+                        }
+                    } ) );
 
                     $('input[name="payment_filters[date_range]"]')
                     .daterangepicker(

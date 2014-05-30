@@ -2,6 +2,8 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Form\Type;
 
+use Dzangocart\Bundle\CoreBundle\Model\GatewayServiceQuery;
+
 use Propel\PropelBundle\Form\BaseAbstractType;
 
 use Symfony\Component\Form\FormBuilderInterface;
@@ -25,6 +27,11 @@ class PaymentFiltersType extends BaseAbstractType
     {
 
         $builder->add('id', 'text', array(
+            'required' => false
+        ));
+
+        $builder->add('provider_id', 'choice', array(
+            'choices'   => $this->getGateway(),
             'required' => false
         ));
 
@@ -61,6 +68,21 @@ class PaymentFiltersType extends BaseAbstractType
                 'readonly' => 'readonly'
             )
         ));
+    }
+
+
+    protected function getGateway()
+    {
+        $gateways = array();
+
+        $gateway_services = GatewayServiceQuery::create()
+            ->find();
+
+        foreach ($gateway_services as $gateway_service) {
+            $gateways[$gateway_service->getId()] = $gateway_service->getName();
+        }
+
+        return gateways;
     }
 
     public function getName()
