@@ -2,6 +2,7 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Controller;
 
+use Dzangocart\Bundle\CoreBundle\Form\Type\PaymentFiltersType;
 use Dzangocart\Bundle\CoreBundle\Model\PaymentQuery;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -41,10 +42,12 @@ class PaymentController extends BaseController
                     ->endUse();
             }
 
+            $query->innerJoinGateway();
+
             $total_count = $query->count();
 
-            $query->datatablesSearch(
-                $request->query->get('sSearch'),
+            $query->dataTablesSearch(
+                $request->query->get('payment_filters'),
                 $this->getDataTablesSearchColumns()
             );
 
@@ -73,11 +76,16 @@ class PaymentController extends BaseController
             return new Response($view, 200, array('Content-Type' => 'application/json'));
         }
 
+        $form = $this->createForm(
+            new PaymentFiltersType()
+        );
+
         return array_merge(
             $this->getTemplateParams(),
             array(
                 'store' => $this->getStore(),
-                'template' => $this->getBaseTemplate()
+                'template' => $this->getBaseTemplate(),
+                'form' => $form->createView()
             )
         );
 
@@ -95,7 +103,11 @@ class PaymentController extends BaseController
     protected function getDataTablesSearchColumns()
     {
         return array(
-            'payment.orderId'
+            'id' => 'payment.orderId LIKE "%s%%"',
+            'date_start' => 'payment.createdAt >= CONCAT("%s%%, 00:00:00")',
+            'date_end' => 'payment.createdAt <= CONCAT("%s%%, 23:59:59")',
+            'provider_id' => 'gateway.provider_id = "%s%%"',
+            'status' => 'payment.status = "%s%%"',
         );
     }
 

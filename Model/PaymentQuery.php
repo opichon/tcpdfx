@@ -31,25 +31,36 @@ class PaymentQuery extends BasePaymentQuery
         return $control ? $this : $this->defaultSort();
     }
 
-    public function dataTablesSearch($search, array $columns = array())
+    public function dataTablesSearch(array $filters = null, array $columns = array())
     {
-        $search = trim($search);
-
-        if (empty($search)) { return $this; }
+        if (empty($filters)) {
+            return $this;
+        }
 
         $conditions = array();
 
-        foreach ($columns as $i => $column) {
+        foreach ($columns as $name => $condition) {
+            if (!array_key_exists($name, $filters)) {
+                continue;
+            }
+
+            $value = trim($filters[$name]);
+
+            if (empty($value) && !is_numeric($value)) {
+                continue;
+            }
+
             $this->condition(
-                'search_' . $i,
-                sprintf('%s LIKE ?', $column),
-                sprintf('%%%s%%', $search)
+                'search_' . $name,
+                sprintf($condition, $value)
             );
 
-            $conditions [] = 'search_' . $i;
+            $conditions[] = 'search_' . $name;
         }
 
-        return $this->where($conditions, 'or');
+        if (!empty($conditions)) {
+            return $this->where($conditions, 'and');
+        }
     }
 
     protected function defaultSort()
