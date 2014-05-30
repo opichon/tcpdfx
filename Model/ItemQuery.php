@@ -39,26 +39,36 @@ class ItemQuery extends BaseItemQuery
         return $control ? $this : $this->defaultSort();
     }
 
-    public function dataTablesSearch(array $search = array(), array $columns = array())
+    public function dataTablesSearch(array $filters = null, array $columns = array())
     {
-        if (empty($search)) {
+        if (empty($filters)) {
             return $this;
         }
 
         $conditions = array();
 
-        foreach ($columns as $i => $column) {
-            $value = trim($search[$i]);
+        foreach ($columns as $name => $condition) {
+            if (!array_key_exists($name, $filters)) {
+                continue;
+            }
+
+            $value = trim($filters[$name]);
+
+            if (empty($value) && !is_numeric($value)) {
+                continue;
+            }
+
             $this->condition(
-                'search_' . $i,
-                sprintf('%s LIKE ?', $column),
-                sprintf('%%%s%%', $value)
+                'search_' . $name,
+                sprintf($condition, $value)
             );
 
-            $conditions [] = 'search_' . $i;
+            $conditions[] = 'search_' . $name;
         }
 
-        return $this->where($conditions, 'and');
+        if (!empty($conditions)) {
+            return $this->where($conditions, 'and');
+        }
     }
 
     protected function defaultSort()
