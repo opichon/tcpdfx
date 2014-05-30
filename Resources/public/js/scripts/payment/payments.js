@@ -12,11 +12,43 @@
 				return this.each(function() {
 					var $this = $( this );
 
+					$( ".filters input" ).keyup(function(event) {
+						event.stopPropagation();
+                        table.fnDraw();
+					});
+
 					table = $( "table.table", this ).dataTable( $.extend( true, {}, settings.dataTables, {
 						fnInitComplete: function( oSettings, json ) {
 							$( oSettings.nTable ).show();
 						},
+                        fnServerParams: function( data ) {
+							$( ".filters input" ).each(function() {
+								var value = $( this ).val();
+								data.push( {
+									"name": $( this ).attr( "name" ),
+									"value": value
+								});
+							});
+						}
 					} ) );
+
+                    $('input[name="payment_filters[date_range]"]')
+                    .daterangepicker(
+                        settings.dateRangePicker,
+                        function(start, end) {
+                            $('input[name="payment_filters[date_start]"]').val(start.format('YYYY-MM-DD'));
+                            $('input[name="payment_filters[date_end]"]').val(end.format('YYYY-MM-DD'));
+                        }
+                    ).on('cancel.daterangepicker', function(ev, picker) {
+                        $(this).val('');
+
+                        $('input[name="payment_filters[date_start]"]').val('');
+                        $('input[name="payment_filters[date_end]"]').val('');
+
+                        table.fnDraw();
+                    }).on('apply.daterangepicker', function(ev, picker){
+                        table.fnDraw();
+                    });
 				});
 			}
 		};
@@ -46,10 +78,16 @@
 			bProcessing: true,
 			bServerSide: true,
 			bSortable: true,
+            bSortCellsTop: true,
 			oLanguage: {
 				sUrl: "/bundles/uamdatatables/lang/" + dzangocart.locale + ".txt"
 			}
-		}
+		},
+        dateRangePicker: {
+            startDate: moment(),
+            locale: { cancelLabel: 'Clear' }
+        },
+        date_format: "dd.MM.yy"
 	};
 } ( window.jQuery );
 
