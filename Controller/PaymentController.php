@@ -42,6 +42,8 @@ class PaymentController extends BaseController
                     ->endUse();
             }
 
+            $query->innerJoinGateway();
+
             $total_count = $query->count();
 
             $query->dataTablesSearch(
