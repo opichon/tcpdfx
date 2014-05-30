@@ -105,6 +105,7 @@ class PaymentController extends BaseController
             'date_start' => 'payment.createdAt >= CONCAT("%s%%, 00:00:00")',
             'date_end' => 'payment.createdAt <= CONCAT("%s%%, 23:59:59")',
             'provider_id' => 'gateway.provider_id = "%s%%"',
+            'status' => 'payment.status = "%s%%"',
         );
     }
 

@@ -35,6 +35,11 @@ class PaymentFiltersType extends BaseAbstractType
             'required' => false
         ));
 
+        $builder->add('status', 'choice', array(
+            'choices'   => array(0 => 'OPEN', 2 => 'CANCELLED', 4 => 'ERROR', 8 => 'APPROVED', 16 => 'PAID'),
+            'required' => false
+        ));
+
         $builder->add('date_start', 'date', array(
                     'required' => true,
                     'label' => false,
@@ -82,7 +87,7 @@ class PaymentFiltersType extends BaseAbstractType
             $gateways[$gateway_service->getId()] = $gateway_service->getName();
         }
 
-        return gateways;
+        return $gateways;
     }
 
     public function getName()
