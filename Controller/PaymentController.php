@@ -77,7 +77,7 @@ class PaymentController extends BaseController
         }
 
         $form = $this->createForm(
-            new PaymentFiltersType()
+            new PaymentFiltersType($this->getStore())
         );
 
         return array_merge(

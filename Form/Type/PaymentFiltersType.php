@@ -2,7 +2,8 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Form\Type;
 
-use Dzangocart\Bundle\CoreBundle\Model\GatewayServiceQuery;
+use Dzangocart\Bundle\CoreBundle\Model\GatewayQuery;
+use Dzangocart\Bundle\CoreBundle\Model\Store;
 
 use Propel\PropelBundle\Form\BaseAbstractType;
 
@@ -11,6 +12,13 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class PaymentFiltersType extends BaseAbstractType
 {
+    protected $store;
+
+    public function __construct(Store $store)
+    {
+        $this->store = $store;
+    }
+
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
@@ -84,16 +92,17 @@ class PaymentFiltersType extends BaseAbstractType
 
     protected function getGateway()
     {
-        $gateways = array();
+        $gateway_services = array();
 
-        $gateway_services = GatewayServiceQuery::create()
+        $gateways = GatewayQuery::create()
+            ->filterByStore($this->store)
             ->find();
 
-        foreach ($gateway_services as $gateway_service) {
-            $gateways[$gateway_service->getId()] = $gateway_service->getName();
+        foreach ($gateways as $gateway) {
+            $gateway_services[$gateway->getServiceId()] = $gateway->getName();
         }
 
-        return $gateways;
+        return $gateway_services;
     }
 
     public function getName()
