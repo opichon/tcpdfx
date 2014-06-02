@@ -14,7 +14,7 @@ class PaymentFiltersType extends BaseAbstractType
 {
     protected $store;
 
-    public function __construct(Store $store)
+    public function __construct($store)
     {
         $this->store = $store;
     }
@@ -94,9 +94,13 @@ class PaymentFiltersType extends BaseAbstractType
     {
         $gateway_services = array();
 
-        $gateways = GatewayQuery::create()
-            ->filterByStore($this->store)
-            ->find();
+        $query = GatewayQuery::create();
+
+        if ($this->store) {
+            $query->filterByStore($this->store);
+        }
+
+        $gateways = $query->find();
 
         foreach ($gateways as $gateway) {
             $gateway_services[$gateway->getServiceId()] = $gateway->getName();
