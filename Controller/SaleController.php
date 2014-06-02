@@ -112,7 +112,9 @@ class SaleController extends BaseController
         return array(
             'order_id' => 'item.orderId LIKE "%%%s%%"',
             'name' => 'item.name LIKE "%%%s%%"',
-            'customer_id' => 'Cart.customerId = "%s%%"'
+            'customer_id' => 'Cart.customerId = "%s%%"',
+            'date_start' => 'Cart.date >= CONCAT("%s%%, 00:00:00")',
+            'date_end' => 'Cart.date <= CONCAT("%s%%, 23:59:59")'
         );
     }
 

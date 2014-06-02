@@ -37,7 +37,8 @@
 						}
 					} ) );
 					helpers.initCustomerWidget( );
-					
+					helpers.initDateFilterWidget();
+
 				});
 			}
 		};
@@ -56,7 +57,7 @@
 						}
 					}
 				});
-				
+
 				customers.initialize();
 
 				widget.typeahead(null, {
@@ -75,6 +76,26 @@
 					}
 
 				})
+			},
+
+			initDateFilterWidget: function() {
+				$('input[name="sales_filters[date_range]"]')
+					.daterangepicker(
+						settings.dateRangePicker,
+						function(start, end) {
+							$('input[name="sales_filters[date_start]"]').val(start.format('YYYY-MM-DD'));
+							$('input[name="sales_filters[date_end]"]').val(end.format('YYYY-MM-DD'));
+						}
+					).on('cancel.daterangepicker', function(ev, picker) {
+						$(this).val('');
+
+						$('input[name="sales_filters[date_start]"]').val('');
+						$('input[name="sales_filters[date_end]"]').val('');
+
+						table.fnDraw();
+					}).on('apply.daterangepicker', function(ev, picker){
+						table.fnDraw();
+					});
 			}
 		};
 		if ( methods[ method ] ) {
@@ -112,7 +133,12 @@
 			oLanguage: {
 				sUrl: "/bundles/uamdatatables/lang/" + dzangocart.locale + ".txt"
 			}
-		}
+		},
+		dateRangePicker: {
+			startDate: moment(),
+			locale: { cancelLabel: 'Clear' }
+		},
+		date_format: "dd.MM.yy"
 	};
 } ( window.jQuery );
 

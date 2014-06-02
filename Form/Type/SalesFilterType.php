@@ -30,6 +30,40 @@ class SalesFilterType extends BaseAbstractType
 
         $builder->add('customer_id', 'hidden', array());
 
+        $builder->add('date_start', 'date', array(
+                    'required' => true,
+                    'label' => false,
+                    'widget' => 'single_text',
+                    'attr' => array(
+                        'class' => 'date date_start',
+                        'style' => 'display: none;'
+                    )
+        ));
+
+        $builder->add('date_end', 'date', array(
+            'required' => true,
+            'label' => false,
+            'widget' => 'single_text',
+            'attr' => array(
+                'class' => 'date date_end',
+                'style' => 'display: none;'
+            )
+        ));
+
+        $range = '';
+
+        $builder->add('date_range', 'text', array(
+            'mapped' => false,
+            'required' => true,
+            'data' => $range,
+            'label' => 'order.filter.date_range.label',
+            'attr' => array(
+                'class' => 'dates',
+                'autocomplete' => 'off',
+                'readonly' => 'readonly'
+            )
+        ));
+
     }
 
     public function getName()
