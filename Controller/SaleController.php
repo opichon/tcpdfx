@@ -48,8 +48,6 @@ class SaleController extends BaseController
                     ->endUse();
             }
 
-            $query->innerJoinCart();
-
             $total_count = $query->count();
 
             $limit = min(100, $request->query->get('iDisplayLength'));
@@ -121,6 +119,7 @@ class SaleController extends BaseController
     protected function getQuery()
     {
         return ItemQuery::create()
+            ->innerJoinCart()
             ->filterByParentId(null);
     }
 
