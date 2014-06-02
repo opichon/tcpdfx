@@ -49,7 +49,7 @@ class PaymentFiltersType extends BaseAbstractType
                 2 => 'payment.status.label.cancelled',
                 4 => 'payment.status.label.error',
                 8 => 'payment.status.label.approved',
-                24 => 'payment.status.label.paid'
+                16 => 'payment.status.label.paid'
             ),
             'required' => false
         ));

@@ -42,8 +42,6 @@ class PaymentController extends BaseController
                     ->endUse();
             }
 
-            $query->innerJoinGateway();
-
             $total_count = $query->count();
 
             $query->dataTablesSearch(
@@ -107,13 +105,27 @@ class PaymentController extends BaseController
             'date_start' => 'payment.createdAt >= CONCAT("%s%%, 00:00:00")',
             'date_end' => 'payment.createdAt <= CONCAT("%s%%, 23:59:59")',
             'provider_id' => 'gateway.provider_id = "%s%%"',
-            'status' => 'payment.status = "%s%%"',
+            'status' => $this->getStatusQueryString(),
         );
+    }
+
+    protected function getStatusQueryString()
+    {
+        $request = $this->container->get('request');
+
+        $status = $request->query->get('payment_filters')['status'];
+        echo $status;die;
+        if ($status == 0) {
+            return 'payment.status = "%s%%"';
+        }
+
+        return 'payment.status & "%s%%"';
     }
 
     protected function getQuery()
     {
-        return PaymentQuery::create('Cart');
+        return PaymentQuery::create('Cart')
+            ->innerJoinGateway();
     }
 
     protected function getTemplateParams()
