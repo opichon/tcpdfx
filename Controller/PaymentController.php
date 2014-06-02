@@ -114,7 +114,7 @@ class PaymentController extends BaseController
         $request = $this->container->get('request');
 
         $status = $request->query->get('payment_filters')['status'];
-        echo $status;die;
+
         if ($status == 0) {
             return 'payment.status = "%s%%"';
         }
