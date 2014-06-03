@@ -7,6 +7,8 @@ use Criteria;
 use Dzangocart\Bundle\CoreBundle\Model\CustomerQuery;
 use Dzangocart\Bundle\CoreBundle\Form\Type\CustomerFiltersType;
 use Dzangocart\Bundle\CoreBundle\Form\Type\OrderFiltersType;
+use Dzangocart\Bundle\CoreBundle\Form\Type\PaymentFiltersType;
+use Dzangocart\Bundle\CoreBundle\Form\Type\SalesFilterType;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -133,10 +135,15 @@ class CustomerController extends BaseController
      */
     public function paymentsAction(Request $request, $id)
     {
+        $form = $this->createForm(
+            new PaymentFiltersType($this->getStore())
+        );
+
         return array(
             'store' => $this->getStore(),
             'customer' => $this->getCustomer($request, $id),
-            'template' => $this->getBaseTemplate()
+            'template' => $this->getBaseTemplate(),
+            'form' => $form->createView()
         );
     }
 
@@ -146,10 +153,15 @@ class CustomerController extends BaseController
      */
     public function purchasesAction(Request $request, $id)
     {
+        $form = $this->createForm(
+            new SalesFilterType()
+        );
+
         return array(
             'store' => $this->getStore(),
             'customer' => $this->getCustomer($request, $id),
-            'template' => $this->getBaseTemplate()
+            'template' => $this->getBaseTemplate(),
+            'form' => $form->createView()
         );
     }
 

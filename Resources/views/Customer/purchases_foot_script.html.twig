@@ -1,6 +1,10 @@
 {% javascripts
     'bundles/uamdatatables/js/jquery.dataTables.min.js'
     'bundles/uamdatatables/js/jquery.dataTables_bootstrap.js'
+    'bundles/uambootstrap/vendor/typeahead.js/dist/typeahead.bundle.min.js'
+    'bundles/uambootstrap/vendor/typeahead.js/dist/typeahead.jquery.min.js'
+    'bundles/uambootstrap/vendor/momentjs/moment.js'
+    'bundles/uambootstrap/vendor/bootstrap-daterangepicker/daterangepicker.js'
     'bundles/dzangocartcore/js/scripts/sale/sales.js'
 %}
 <script src="{{ asset_url }}"></script>
@@ -9,9 +13,15 @@
 dzangocart.sales = {
     dataTables: {
     	aoColumnDefs: [
+            { bSortable: false, aTargets: [ 0, 11 ] },
     		{ bVisible: false, aTargets: [ 0, 3, 4 ] }
     	],
         sAjaxSource: "{{ path('sales', { _format: 'json', customer_id: customer.id })|raw }}"
+    },
+    typeahead: {
+        remote: {
+         url:  "{{ path('customer_search', { search: '__query__' }) }}"
+        }
     }
 };
 </script>
