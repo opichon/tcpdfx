@@ -51,7 +51,7 @@ class Cart extends BaseCart
 
     public function isPaid()
     {
-        return $this->getStatus() & self::PAID;
+        return $this->getStatus() & self::STATUS_PAID;
     }
 
     public function isCredit()
