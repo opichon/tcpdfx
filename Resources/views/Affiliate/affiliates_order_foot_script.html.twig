@@ -1,6 +1,10 @@
 {% javascripts
     'bundles/uamdatatables/js/jquery.dataTables.min.js'
     'bundles/uamdatatables/js/jquery.dataTables_bootstrap.js'
+    'bundles/uambootstrap/vendor/typeahead.js/dist/typeahead.bundle.min.js'
+    'bundles/uambootstrap/vendor/typeahead.js/dist/typeahead.jquery.min.js'
+    'bundles/uambootstrap/vendor/momentjs/moment.js'
+    'bundles/uambootstrap/vendor/bootstrap-daterangepicker/daterangepicker.js'
     'bundles/dzangocartcore/js/scripts/order/orders.js'
 %}
 <script src="{{ asset_url }}"></script>
@@ -9,6 +13,11 @@
 dzangocart.orders = {
     dataTables: {
         sAjaxSource: "{{ path('orders', { _format: 'json', affiliate_id: affiliate.id })|raw }}"
+    },
+    typeahead: {
+        remote: {
+         url:  "{{ path('customer_search', { search: '__query__' }) }}"
+        }
     }
 };
 </script>

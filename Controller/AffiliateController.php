@@ -7,6 +7,7 @@ use DateTime;
 use Dzangocart\Bundle\CoreBundle\Form\Type\AffiliateType;
 use Dzangocart\Bundle\CoreBundle\Form\Type\CustomerFiltersType;
 use Dzangocart\Bundle\CoreBundle\Form\Type\OrderFiltersType;
+use Dzangocart\Bundle\CoreBundle\Form\Type\SalesFilterType;
 use Dzangocart\Bundle\CoreBundle\Model\Affiliate;
 use Dzangocart\Bundle\CoreBundle\Model\AffiliateQuery;
 use Dzangocart\Bundle\CoreBundle\Model\User;
@@ -112,12 +113,17 @@ class AffiliateController extends BaseController
      */
     public function salesAction(Request $request, $id)
     {
+        $form = $this->createForm(
+            new SalesFilterType()
+        );
+
         $affiliate = $this->getAffiliate($request, $id);
 
         return array(
             'store' => $this->getStore(),
             'affiliate' => $affiliate,
-            'template' => $this->getBaseTemplate()
+            'template' => $this->getBaseTemplate(),
+            'form' => $form->createView()
         );
     }
 
