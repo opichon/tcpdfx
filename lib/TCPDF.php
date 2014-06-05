@@ -263,24 +263,6 @@ class TCPDF extends FPDI
         $this->SetY($cur_y);
     }
 
-    public function resetFont()
-    {
-        $this->SetFont($this->FontFamily, $this->FontStyle, $this->FontSizePt);
-    }
-
-    /*
-    public function MultiCell($w, $h, $txt, $border=0, $align='J', $fill=false, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0, $valign='T', $fitcell=false)
-    {
-        $old_cell_padding = $this->GetCellPaddings();
-        $this->setCellPaddings($this->default_cell_padding['L'],
-                                                     $this->default_cell_padding['T'],
-                                                     $this->default_cell_padding['R'],
-                                                     $this->default_cell_padding['B']);
-        parent::MultiCell($w, $h, $txt, $border, $align, $fill, $ln, $x, $y, $reseth, $stretch, $ishtml, $autopadding, $maxh, $valign, $fitcell);
-        $this->SetCellPaddings($old_cell_padding['L'], $old_cell_padding['T'], $old_cell_padding['R'], $old_cell_padding['B']);
-    }
-    */
-
     protected function init()
     {
         $this->SetAutoPageBreak(true, $this->bottom_margin);
@@ -314,6 +296,8 @@ class TCPDF extends FPDI
      */
     protected function addWatermark()
     {
+        $gvars = $this->getGraphicVars();
+
         $watermark = $this->getWatermark();
 
         if (!is_array($watermark) || empty($watermark)) {
@@ -352,8 +336,8 @@ class TCPDF extends FPDI
         $this->StopTransform();
 
         $this->SetXY($x, $y);
-        $this->resetFont();
-        $this->TextColor = $color;
+
+        $this->setGraphicVars($gvars);
     }
 
     protected function printPageHeader()
@@ -461,13 +445,16 @@ class TCPDF extends FPDI
         $this->setGraphicVars($gvars);
     }
 
+
+/*
     public function printTitle($title)
     {
         $this->SetFont($this->title_font, $this->title_style, $this->title_size);
         $this->MultiCell(0, $this->title_cell_height, $title, 0, $this->title_align, 0, 1);
         $this->resetFont();
     }
-
+*/
+/*
     public function printText($text, $multiline = false)
     {
         $this->resetFont();
@@ -477,7 +464,7 @@ class TCPDF extends FPDI
             $this->MultiCell(0, 0, $text, '', 'L', 0, 1);
         }
     }
-
+*/
     // MultiCell with bullet
     public function MultiCellBlt($w, $h, $blt, $txt, $border = 0, $align = 'J', $fill = 0, $ln = 1)
     {
