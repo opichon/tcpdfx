@@ -5,12 +5,6 @@
 define ('K_TCPDF_EXTERNAL_CONFIG', true);
 
 /**
- * Installation path (/var/www/tcpdf/).
- * By default it is automatically calculated but you can also set it as a fixed string to improve performances.
- */
-define ('K_PATH_MAIN', dirname(__FILE__).'/../../../tcpdf/tcpdf/');
-
-/**
  * path for PDF fonts
  * use K_PATH_MAIN.'fonts/old/' for old non-UTF8 fonts
  */

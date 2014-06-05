@@ -25,6 +25,7 @@ class TCPDF extends FPDI
     protected $pagination_x;
     protected $pagination_y;
 
+    protected $document_title;
     protected $document_title_font = array('Georgia', 'B', 16);
     protected $document_title_border = 'B';
     protected $document_title_align = 'C';
@@ -161,6 +162,16 @@ class TCPDF extends FPDI
     public function setPaginationFont(array $font)
     {
         $this->pagination_font = $font;
+    }
+
+    public function getDocumentTitle()
+    {
+        return $this->document_title;
+    }
+
+    public function setDocumentTitle($title)
+    {
+        $this->document_title = $title;
     }
 
     public function getDocumentTitleFont()
