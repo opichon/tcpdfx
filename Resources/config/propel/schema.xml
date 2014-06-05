@@ -534,7 +534,7 @@
             <index-column name="engine_id" />
         </index>
     </table>
-    <table name="tax" idMethod="native">
+    <table name="tax"  phpName = "TaxRate" idMethod="native">
         <column name="id"         type="integer" primaryKey="true" autoIncrement="true" required="true" />
         <column name="country"    type="varchar" size="2" required="true" defaultValue="FR" />
         <column name="name"       type="varchar" size="30" required="true" />
