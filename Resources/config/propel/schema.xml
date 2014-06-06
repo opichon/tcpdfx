@@ -221,6 +221,7 @@
         <column name="requires_registration" type="boolean" size="1" required="true" defaultValue="false" />
         <column name="restriction"           type="boolean" size="1" required="true" defaultValue="false" />
         <column name="inventory"             type="boolean" size="1" required="true" defaultValue="false" />
+        <column name="currency_id"           type="varchar" size="3" required="true" defaultValue="EUR" />
         <behavior name="nested_set">
             <parameter name="use_scope" value="true" />
             <parameter name="scope_column" value="store_id" />
@@ -232,6 +233,9 @@
         </foreign-key>
         <foreign-key foreignTable="tax" name="FI_category_tax" onDelete="restrict">
             <reference local="tax_rate_id" foreign="id" />
+        </foreign-key>
+        <foreign-key foreignTable="currency" name="FI_category_currency" onDelete="set null" onUpdate="restrict">
+            <reference local="currency_id" foreign="id" />
         </foreign-key>
         <unique name="code">
             <unique-column name="code" />
