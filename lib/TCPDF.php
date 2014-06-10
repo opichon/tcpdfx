@@ -24,6 +24,7 @@ class TCPDF extends FPDI
     protected $pagination_font = array('Verdana', '', 8);
     protected $pagination_x;
     protected $pagination_y;
+    protected $pagination_cell_height = 0;
 
     protected $document_title;
     protected $document_title_font = array('Georgia', 'B', 16);
@@ -164,6 +165,36 @@ class TCPDF extends FPDI
         $this->pagination_font = $font;
     }
 
+    public function getPaginationX()
+    {
+        return $this->pagination_x;
+    }
+
+    public function setPaginationX($x)
+    {
+        $this->pagination_x = $x;
+    }
+
+    public function getPaginationY()
+    {
+        return $this->pagination_y;
+    }
+
+    public function setPaginationY($y)
+    {
+        $this->pagination_y = $y;
+    }
+
+    public function getPaginationCellHeight()
+    {
+        return $this->pagination_cell_height;
+    }
+
+    public function setPaginationCellHeight($height)
+    {
+        $this->pagination_cell_height = $height;
+    }
+
     public function getDocumentTitle()
     {
         return $this->document_title;
@@ -241,9 +272,19 @@ class TCPDF extends FPDI
         $this->addWatermark();
 
         $this->SetY(max($this->GetY(), $this->getHeaderMargin()));
+        $y = $this->GetY();
+
         $this->printPageHeader();
 
         if ($this->getPaginationInHeader()) {
+            if (!$this->pagination_y) {
+                $this->pagination_y = $y;
+
+                if (!$this->getPaginationCellHeight()) {
+                    $this->setPaginationCellHeight($this->getDocumentTitleCellHeight());
+                }
+            }
+
             $this->paginate();
         }
     }
@@ -360,14 +401,14 @@ class TCPDF extends FPDI
         $this->SetFont($font[0], $font[1], $font[2]);
 
         $this->SetX(
-            $this->pagination_x
-            ? $this->pagination_x
+            $this->getPaginationX()
+            ? $this->getPaginationX()
             : ($this->getRTL() ? $this->original_rMargin : $this->original_lMargin)
         );
 
-        if ($this->pagination_y) {
+        if ($y = $this->getPaginationY()) {
 
-            $this->SetY($this->pagination_y);
+            $this->SetY($y);
 
         } elseif ($this->InHeader) {
 
@@ -380,9 +421,11 @@ class TCPDF extends FPDI
         }
 
         if ($this->getRTL()) {
-            $this->Cell(0, 0, $this->getPagination(), 0, 0, 'L');
+            $this->SetX($this->original_rMargin);
+            $this->Cell(0, $this->getPaginationCellHeight(), $this->getPagination(), 0, 0, 'L');
         } else {
-            $this->Cell(0, 0, $this->getAliasRightShift() . $this->getPagination(), 0, 0, 'R');
+            $this->SetX($this->original_lMargin);
+            $this->Cell(0, $this->getPaginationCellHeight(), $this->getAliasRightShift() . $this->getPagination(), 0, 0, 'R');
         }
 
         // restore graphic settings
@@ -471,29 +514,23 @@ class TCPDF extends FPDI
     }
 */
     // MultiCell with bullet
-    public function MultiCellBlt($w, $h, $blt, $txt, $border = 0, $align = 'J', $fill = 0, $ln = 1)
+    public function MultiCellBlt($w = 0, $h = 0, $bullet, $txt, $border = 0, $align = 'L', $fill = 0, $ln = 1)
     {
-    //  $font = $this->FontFamily;
-    //  $style = $this->FontStyle;
-    //  $size = $this->getFontSizePt();
-        // $this->setFont('zapfdingbats', '', $size);
-
-        //Get bullet width including margins
+        // Get bullet width including margins
         $paddings = $this->getCellPaddings();
-        $blt_width = $this->GetStringWidth($blt) + $paddings['L'] + $paddings['R'];
+        $bullet_width = $this->GetStringWidth($blt) + $paddings['L'] + $paddings['R'];
 
-        //Save x
-        $bak_x = $this->x;
+        // Save x
+        $x0 = $this->GetX();
 
         //Output bullet
-//    $this->Cell($blt_width, $h, $this->unichr(0x0076) , 0, '', $fill);
-        $this->Cell($blt_width, $h, $this->unichr(0x2022) , 0, '', $fill);
-//    $this->SetFont($font, $style, $size);
+        $this->Cell($bullet_width, $h, $this->unhtmlEntities($bullet), 0, '', $fill);
+
         //Output text
-        $this->MultiCell($w - $blt_width, $h, $txt, $border, $align, $fill, 1);
+        $this->MultiCell($w == 0 ? 0 : $w - $bullet_width, $h, $txt, $border, $align, $fill, 1);
 
         //Restore x
-        $this->x = $bak_x;
+        $this->SetX($x0);
     }
 
     public function unichr($c)
