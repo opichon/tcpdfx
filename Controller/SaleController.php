@@ -130,4 +130,13 @@ class SaleController extends BaseController
         return array();
     }
 
+    protected function getLimit(Request $request)
+    {
+        return $request->get('iDisplayLength', 10);
+    }
+
+    protected function getOffset(Request $request)
+    {
+        return $request->get('iDisplayStart', 0);
+    }
 }
