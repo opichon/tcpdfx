@@ -50,9 +50,6 @@ class SaleController extends BaseController
 
             $total_count = $query->count();
 
-            $limit = min(100, $request->query->get('iDisplayLength'));
-            $offset = max(0, $request->query->get('iDisplayStart'));
-
             $query->datatablesSearch(
                 $request->query->get('sales_filters'),
                 $this->getDataTablesSearchColumns()
@@ -61,6 +58,9 @@ class SaleController extends BaseController
             $filtered_count = $query->count();
 
             $sales = $query
+            $limit = min(100, $request->query->get('iDisplayLength'));
+
+            $offset = max(0, $request->query->get('iDisplayStart'));
                 ->dataTablesSort($request->query, $this->getDataTablesSortColumns())
                 ->setLimit($limit)
                 ->setOffset($offset)
