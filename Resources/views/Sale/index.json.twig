@@ -1,9 +1,9 @@
 {% spaceless %}
 {
-    "sEcho": "{{ sEcho }}",
-    "iTotalRecords": {{ iTotalRecords }},
-    "iTotalDisplayRecords": {{ iTotalDisplayRecords }},
-    "aaData" : [
+    "draw": "{{ draw }}",
+    "recordsTotal": {{ recordsTotal }},
+    "recordsFiltered": {{ recordsFiltered }},
+    "data" : [
         {% for sale in sales %}
             {
                 "DT_RowId": "{{ 'sale_' ~ sale.id }}",

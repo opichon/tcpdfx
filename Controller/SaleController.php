@@ -57,9 +57,9 @@ class SaleController extends BaseController
 
             $filtered_count = $query->count();
 
-            $limit = min(100, $request->query->get('iDisplayLength'));
+            $limit = min(100, $this->getLimit($request));
 
-            $offset = max(0, $request->query->get('iDisplayStart'));
+            $offset = max(0, $this->getOffset($request));
 
             $sales = $query
                 ->dataTablesSort($request->query, $this->getDataTablesSortColumns())
@@ -68,10 +68,10 @@ class SaleController extends BaseController
                 ->find();
 
             $data = array(
-                'sEcho' => $request->query->get('sEcho'),
-                'iStart' => 0,
-                'iTotalRecords' => $total_count,
-                'iTotalDisplayRecords' => $filtered_count,
+                'draw' => $request->query->get('draw'),
+                'start' => 0,
+                'recordsTotal' => $total_count,
+                'recordsFiltered' => $filtered_count,
                 'sales' => $sales,
                 'param' => $this->getTemplateParams()
             );
@@ -133,11 +133,11 @@ class SaleController extends BaseController
 
     protected function getLimit(Request $request)
     {
-        return $request->get('iDisplayLength', 10);
+        return $request->get('length', 10);
     }
 
     protected function getOffset(Request $request)
     {
-        return $request->get('iDisplayStart', 0);
+        return $request->get('start', 0);
     }
 }

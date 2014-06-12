@@ -1,6 +1,6 @@
 {% javascripts
-	'bundles/uamdatatables/js/jquery.dataTables.min.js'
-	'bundles/uamdatatables/js/jquery.dataTables_bootstrap.js'
+    'bundles/dzangocartcore/vendor/datatables/media/js/jquery.dataTables.min.js'
+    'bundles/dzangocartcore/vendor/datatables-bootstrap3/BS3/assets/js/datatables.min.js'
 	'bundles/uambootstrap/vendor/typeahead.js/dist/typeahead.bundle.min.js'
 	'bundles/uambootstrap/vendor/typeahead.js/dist/typeahead.jquery.min.js'
 	'bundles/uambootstrap/vendor/momentjs/moment.js'
@@ -12,7 +12,7 @@
 <script>
 dzangocart.sales = {
 	dataTables: {
-		sAjaxSource: "{{ path('sales', { _format: 'json' }) }}"
+		ajax: "{{ path('sales', { _format: 'json' }) }}"
 	},
 	typeahead: {
 		remote: {

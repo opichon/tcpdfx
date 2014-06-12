@@ -14,25 +14,21 @@
 					
 					$( ".filters_keyup input" ).keyup(function(event) {
 							event.stopPropagation();
-							table.fnDraw();
+							table.draw();
 					});
 
 					$( ".filters select" ).change(function(event) {
 							event.stopPropagation();
-							table.fnDraw();
+							table.draw();
 					});
 
-					table = $( "table.table", this ).dataTable( $.extend( true, {}, settings.dataTables, {
-						fnInitComplete: function( oSettings, json ) {
-							$( oSettings.nTable ).show();
+					table = $( "table.table", this ).DataTable( $.extend( true, {}, settings.dataTables, {
+						initComplete: function( settings, json ) {
+							$( settings.nTable ).show();
 						},
-						fnServerParams: function( data ) {
+						serverParams: function( data ) {
 							$( ".filters input, .filters select" ).each(function() {
-								var value = $( this ).val();
-								data.push( {
-									"name": $( this ).attr( "name" ),
-									"value": value
-								} );
+                                data[$( this ).attr( "name" )] = $( this ).val();
 							} );
 						}
 					} ) );
@@ -66,13 +62,13 @@
 					source: customers.ttAdapter()
 					}).on( "typeahead:selected", function( e, datum ) {
 						$( "[name='sales_filters[customer_id]']" ).val( datum.id );
-							table.fnDraw();
+							table.draw();
 					});
 
 				widget.keyup( function( ) {
 					if ( $(this).val() === '' ) {
 						$( "[name='sales_filters[customer_id]']" ).val( '' );
-						table.fnDraw();
+						table.draw();
 					}
 
 				})
@@ -92,9 +88,9 @@
 						$('input[name="sales_filters[date_start]"]').val('');
 						$('input[name="sales_filters[date_end]"]').val('');
 
-						table.fnDraw();
+						table.draw();
 					}).on('apply.daterangepicker', function(ev, picker){
-						table.fnDraw();
+						table.draw();
 					});
 			}
 		};
@@ -111,27 +107,27 @@
 
 	$.fn.sales.defaults = {
 		dataTables: {
-			aoColumnDefs: [
-				{ bSortable: false, aTargets: [ 0, 11 ] },
-				{ bVisible: false, aTargets: [ 0 ] },
-				{ sClass: "number", aTargets: [ 6 ] },
-				{ sClass: "amount", aTargets: [ 8, 9, 10 ] },
-				{ sClass: "actions", aTargets: [ 11 ] }
+			columnDefs: [
+				{ bSortable: false, targets: [ 0, 11 ] },
+				{ bVisible: false, targets: [ 0 ] },
+				{ className: "number", targets: [ 6 ] },
+				{ className: "amount", targets: [ 8, 9, 10 ] },
+				{ className: "actions", targets: [ 11 ] }
 			],
-			asStripeClasses: [],
-			bAutoWidth: false,
-			bDestroy: true,
-			bFilter: false,
-			bPaginate: true,
-			bProcessing: true,
-			bServerSide: true,
-			bSortCellsTop: true,
-			bSortable: true,
-			oClasses: {
-				sProcessing: "alert alert-warning"
+			stripeClasses: [],
+			autoWidth: false,
+			destroy: true,
+			searching: false,
+			paging: true,
+			processing: true,
+			serverSide: true,
+			orderCellsTop: true,
+			orderable: true,
+			classes: {
+				processing: "alert alert-warning"
 			},
-			oLanguage: {
-				sUrl: "/bundles/uamdatatables/lang/" + dzangocart.locale + ".txt"
+			language: {
+				url: "/bundles/uamdatatables/lang/" + dzangocart.locale + ".txt"
 			}
 		},
 		dateRangePicker: {
