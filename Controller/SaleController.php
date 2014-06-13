@@ -21,66 +21,6 @@ class SaleController extends BaseController
     {
         $form = $this->createForm(new SalesFilterType());
 
-        if ($request->isXmlHttpRequest() || 'json' == $request->getRequestFormat()) {
-
-            $query = $this->getQuery();
-
-            if ($affiliate_id = $request->query->get('affiliate_id')) {
-                $query
-                    ->useCartQuery()
-                        ->filterByAffiliateId($affiliate_id)
-                    ->endUse();
-            }
-
-            if ($store_id = $request->query->get('store_id')) {
-                $query
-                    ->useCartQuery()
-                        ->filterByStoreId($store_id)
-                        ->filterByStatus(array('min' => 3))
-                    ->endUse();
-            }
-
-            if ($customer_id = $request->query->get('customer_id')) {
-                $query
-                    ->useCartQuery()
-                        ->filterByCustomerId($customer_id)
-                        ->filterByStatus(array('min' => 3))
-                    ->endUse();
-            }
-
-            $total_count = $query->count();
-
-            $query->datatablesSearch(
-                $request->query->get('sales_filters'),
-                $this->getDataTablesSearchColumns()
-            );
-
-            $filtered_count = $query->count();
-
-            $limit = min(100, $this->getLimit($request));
-
-            $offset = max(0, $this->getOffset($request));
-
-            $sales = $query
-                ->dataTablesSort($request->query, $this->getDataTablesSortColumns())
-                ->setLimit($limit)
-                ->setOffset($offset)
-                ->find();
-
-            $data = array(
-                'draw' => $request->query->get('draw'),
-                'start' => 0,
-                'recordsTotal' => $total_count,
-                'recordsFiltered' => $filtered_count,
-                'sales' => $sales,
-                'param' => $this->getTemplateParams()
-            );
-
-            $view = $this->renderView('DzangocartCoreBundle:Sale:index.json.twig', $data);
-
-            return new Response($view, 200, array('Content-Type' => 'application/json'));
-        }
-
         return array_merge(
             $this->getTemplateParams(),
             array(
@@ -90,6 +30,68 @@ class SaleController extends BaseController
             )
         );
 
+    }
+
+    /**
+     * @Route("/sales/list", name="sales_list", requirements={"_format": "json"}, defaults={"_format": "json"})
+     * @Template("DzangocartCoreBundle:Sale:list.json.twig")
+     */
+    public function listAction(Request $request)
+    {
+        $query = $this->getQuery();
+
+        if ($affiliate_id = $request->query->get('affiliate_id')) {
+            $query
+                ->useCartQuery()
+                    ->filterByAffiliateId($affiliate_id)
+                ->endUse();
+        }
+
+        if ($store_id = $request->query->get('store_id')) {
+            $query
+                ->useCartQuery()
+                    ->filterByStoreId($store_id)
+                    ->filterByStatus(array('min' => 3))
+                ->endUse();
+        }
+
+        if ($customer_id = $request->query->get('customer_id')) {
+            $query
+                ->useCartQuery()
+                    ->filterByCustomerId($customer_id)
+                    ->filterByStatus(array('min' => 3))
+                ->endUse();
+        }
+
+        $total_count = $query->count();
+
+        $query->datatablesSearch(
+            $request->query->get('sales_filters'),
+            $this->getDataTablesSearchColumns()
+        );
+
+        $filtered_count = $query->count();
+
+        $limit = min(100, $this->getLimit($request));
+
+        $offset = max(0, $this->getOffset($request));
+
+        $sales = $query
+            ->dataTablesSort($request->query, $this->getDataTablesSortColumns())
+            ->setLimit($limit)
+            ->setOffset($offset)
+            ->find();
+
+        $data = array(
+            'draw' => $request->query->get('draw'),
+            'start' => 0,
+            'recordsTotal' => $total_count,
+            'recordsFiltered' => $filtered_count,
+            'sales' => $sales,
+            'param' => $this->getTemplateParams()
+        );
+
+        return $data;
     }
 
     protected function getDatatablesSortColumns()
