@@ -6,8 +6,6 @@ use Criteria;
 
 use Dzangocart\Bundle\CoreBundle\Model\om\BaseCustomerQuery;
 
-use Symfony\Component\HttpFoundation\ParameterBag;
-
 class CustomerQuery extends BaseCustomerQuery
 {
     public function datatablesSort(array $order = array(), array $columns = array())

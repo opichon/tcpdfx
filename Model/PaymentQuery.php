@@ -6,8 +6,6 @@ use \Criteria;
 
 use Dzangocart\Bundle\CoreBundle\Model\om\BasePaymentQuery;
 
-use Symfony\Component\HttpFoundation\ParameterBag;
-
 class PaymentQuery extends BasePaymentQuery
 {
    public function datatablesSort(array $order = array(), array $columns = array())
