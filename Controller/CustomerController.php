@@ -14,7 +14,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @Route("/customer")
@@ -72,9 +71,10 @@ class CustomerController extends BaseController
         $offset = max(0, $request->query->get('start', 0));
 
         $customers = $query
-            ->withColumn('SUM(cart.amount_excl)', 'sales')
-            ->groupBy('customer.id')
-            ->datatablesSort($request->query, $this->getDataTablesSortColumns())
+            ->dataTablesSort(
+                $request->query->get('order', array()),
+                $this->getDataTablesSortColumns()
+            )
             ->setLimit($limit)
             ->setOffset($offset)
             ->find();
@@ -197,7 +197,9 @@ class CustomerController extends BaseController
     {
         return CustomerQuery::create()
             ->innerJoinUserProfile('user_profile')
-            ->innerJoinCart('cart');
+            ->innerJoinCart('cart')
+            ->withColumn('SUM(cart.amount_excl)', 'sales')
+            ->groupBy('customer.id');
     }
 
     protected function getDataTablesSortColumns()

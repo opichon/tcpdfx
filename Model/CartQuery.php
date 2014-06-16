@@ -6,8 +6,6 @@ use \Criteria;
 
 use Dzangocart\Bundle\CoreBundle\Model\om\BaseCartQuery;
 
-use Symfony\Component\HttpFoundation\ParameterBag;
-
 class CartQuery extends BaseCartQuery
 {
     public function datatablesSort(array $order = array(), array $columns = array())

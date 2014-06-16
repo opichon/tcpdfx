@@ -8,7 +8,6 @@ use Dzangocart\Bundle\CoreBundle\Form\Type\SalesFilterType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
 class SaleController extends BaseController
