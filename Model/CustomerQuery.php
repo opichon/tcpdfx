@@ -2,7 +2,7 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Model;
 
-use \Criteria;
+use Criteria;
 
 use Dzangocart\Bundle\CoreBundle\Model\om\BaseCustomerQuery;
 
@@ -42,7 +42,9 @@ class CustomerQuery extends BaseCustomerQuery
 
     protected function defaultSort()
     {
-        return $this->orderBy('customer.id');
+        return $this
+            ->orderBy('user_profile.Surname')
+            ->orderBy('user_profile.GivenNames');
     }
 
     public function dataTablesSearch(array $filters = null, array $columns = array())

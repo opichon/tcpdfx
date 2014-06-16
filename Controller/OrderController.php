@@ -70,7 +70,10 @@ class OrderController extends BaseController
         $offset = max(0, $request->query->get('start', 0));
 
         $orders = $query
-            ->dataTablesSort($request->query, $this->getDataTablesSortColumns())
+            ->dataTablesSort(
+                $request->query->get('order', array()),
+                $this->getDataTablesSortColumns()
+            )
             ->setLimit($limit)
             ->setOffset($offset)
             ->find();

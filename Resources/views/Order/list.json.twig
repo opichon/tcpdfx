@@ -3,8 +3,8 @@
 {% spaceless %}
 {
     "draw": "{{ draw }}",
-    "count_total": {{ count_total }},
-    "count_filtered": {{ count_filtered }},
+    "recordsTotal": {{ count_total }},
+    "recordsFiltered": {{ count_filtered }},
     "data" : [
         {% for order in orders %}
             {

@@ -2,15 +2,14 @@
 
 {% spaceless %}
 {
-    "sEcho": "{{ sEcho }}",
-    "iTotalRecords": {{ iTotalRecords }},
-    "iTotalDisplayRecords": {{ iTotalDisplayRecords }},
-    "aaData" : [
+    "draw": "{{ draw }}",
+    "recordsTotal": {{ count_total }},
+    "recordsFiltered": {{ count_filtered }},
+    "data" : [
         {% for customer in customers %}
             {
                 "DT_RowId": "{{ '_' ~ customer.id }}",
                 "DT_RowClass": "{{ 'customer' }}",
-                "id": "{{ customer.id }}",
                 "0": "",
                 "1": "{{ customer.realm }}",
                 "2": "<a href='{{ path('customer_show', { id: customer.id }) }}'>{{ customer.userProfile.surname }}</a>",

@@ -14,7 +14,7 @@
 
 					$( ".filters_keyup input" ).keyup(function(event) {
 						event.stopPropagation();
-						table.fnDraw();
+						table.api().draw();
 					});
 
 					table = $( "table.table", this ).dataTable( $.extend( true, {}, settings.dataTables, {
@@ -65,13 +65,13 @@
 				})
 				.on( "typeahead:selected", function( e, datum ) {
 					$( "[name='order_filters[customer_id]']" ).val( datum.id );
-						table.fnDraw();
+						table.api().draw();
 				});
 
 				widget.keyup( function( ) {
 					if ( $(this).val() === "" ) {
 						$( "[name='order_filters[customer_id]']" ).val( "" );
-						table.fnDraw();
+						table.api().draw();
 					}
 
 				})
@@ -92,10 +92,10 @@
 						$( "input[name='order_filters[date_start]']" ).val( "" );
 						$( "input[name='order_filters[date_end]']" ).val( "" );
 
-						table.fnDraw();
+						table.api().draw();
 					})
 					.on( "apply.daterangepicker", function( ev, picker ) {
-						table.fnDraw();
+						table.api().draw();
 					});
 			}
 		};

@@ -16,79 +16,79 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @Route("/customer")
+ */
 class CustomerController extends BaseController
 {
     /**
-     * @Route("/customer", name="customers")
+     * @Route("/", name="customers")
      * @Template("DzangocartCoreBundle:Customer:index.html.twig")
      */
 
     public function indexAction(Request $request)
     {
-        if ($request->isXmlHttpRequest() || 'json' == $request->getRequestFormat()) {
+        $form = $this->createForm(
+              new CustomerFiltersType()
+        );
 
-            $query = CustomerQuery::create()
-                ->innerJoinUserProfile();
-
-            if ($store = $this->getStore()) {
-                $query
-                    ->filterByRealm($store->getRealm());
-            } elseif ($realm = $request->query->get('realm')) {
-                $query
-                    ->filterByRealm($realm);
-            }
-
-            if ($affiliate_id = $request->query->get('affiliate_id')) {
-                $query->filterByAffiliateId($affiliate_id);
-            }
-
-            $total_count = $query->count();
-
-            $query->datatablesSearch(
-                $request->query->get('customer_filters'),
-                $this->getDataTablesSearchColumns()
-            );
-
-            $filtered_count = $query->count();
-
-            $limit = min(100, $request->query->get('iDisplayLength'));
-            $offset = max(0, $request->query->get('iDisplayStart'));
-
-            $query->innerJoinCart('cart');
-
-            $customers = $query
-                ->withColumn('SUM(cart.amount_excl)', 'sales')
-                ->groupBy('customer.id')
-                ->datatablesSort($request->query, $this->getDataTablesSortColumns())
-                ->setLimit($limit)
-                ->setOffset($offset)
-                ->find();
-
-            $data = array(
-                'sEcho' => $request->query->get('sEcho'),
-                'iStart' => 0,
-                'iTotalRecords' => $total_count,
-                'iTotalDisplayRecords' => $filtered_count,
-                'customers' => $customers
-            );
-
-            $view = $this->renderView('DzangocartCoreBundle:Customer:index.json.twig', $data);
-
-            return new Response($view, 200, array('Content-Type' => 'application/json'));
-        }
-            $form = $this->createForm(
-                new CustomerFiltersType());
-
-            return array(
-                'store' => $this->getStore(),
-                'form' => $form->createView(),
-                'template' => $this->getBaseTemplate()
-
-         );
+        return array(
+            'store' => $this->getStore(),
+            'form' => $form->createView(),
+            'template' => $this->getBaseTemplate()
+        );
     }
 
     /**
-     * @Route("/customer/{id}", name="customer_show")
+     * @Route("/list", name="customers_list", requirements={"_format": "json"}, defaults={"_format": "json"})
+     * @Template("DzangocartCoreBundle:Customer:list.json.twig")
+     */
+    public function listAction(Request $request)
+    {
+        $query = $this->getQuery();
+
+        if ($store = $this->getStore()) {
+            $query
+                ->filterByRealm($store->getRealm());
+        } elseif ($realm = $request->query->get('realm')) {
+            $query
+                ->filterByRealm($realm);
+        }
+
+        if ($affiliate_id = $request->query->get('affiliate_id')) {
+            $query->filterByAffiliateId($affiliate_id);
+        }
+
+        $count_total = $query->count();
+
+        $query->datatablesSearch(
+            $request->query->get('customer_filters'),
+            $this->getDataTablesSearchColumns()
+        );
+
+        $count_filtered = $query->count();
+
+        $limit = min(100, $request->query->get('length', 10));
+        $offset = max(0, $request->query->get('start', 0));
+
+        $customers = $query
+            ->withColumn('SUM(cart.amount_excl)', 'sales')
+            ->groupBy('customer.id')
+            ->datatablesSort($request->query, $this->getDataTablesSortColumns())
+            ->setLimit($limit)
+            ->setOffset($offset)
+            ->find();
+
+        return array(
+            'draw' => $request->query->get('draw'),
+            'count_total' => $count_total,
+            'count_filtered' => $count_filtered,
+            'customers' => $customers
+        );
+    }
+
+    /**
+     * @Route("/{id}", name="customer_show", requirements={"id": "\d+"})
      * @Template("DzangocartCoreBundle:Customer:show.html.twig")
      */
     public function showAction(Request $request, $id)
@@ -165,11 +165,47 @@ class CustomerController extends BaseController
         );
     }
 
+    /**
+     * @Route("/customer/search/{search}", name="customer_search", defaults={ "_format": "json" })
+     * @Template("DzangocartCoreBundle:Order:search.json.twig")
+     */
+    public function searchAction(Request $request, $search = '%QUERY')
+    {
+        $customers = CustomerQuery::create()
+            ->useUserProfileQuery()
+                ->filterByGivenNames(sprintf('%%%s%%', $search), Criteria::LIKE)
+                ->_or()
+                ->filterBySurname(sprintf('%%%s%%', $search), Criteria::LIKE)
+                ->_or()
+                ->where('CONCAT(user_profile.surname, ", ", user_profile.given_names) LIKE ?', sprintf('%%%s%%', $search))
+                ->_or()
+                ->where('CONCAT(user_profile.surname, " ", user_profile.given_names) LIKE ?', sprintf('%%%s%%', $search))
+                ->_or()
+                ->where('CONCAT(user_profile.given_names, ", ", user_profile.surname) LIKE ?', sprintf('%%%s%%', $search))
+                ->_or()
+                ->where('CONCAT(user_profile.given_names, ", ", user_profile.surname) LIKE ?', sprintf('%%%s%%', $search))
+            ->endUse()
+            ->distinct()
+            ->find();
+
+        return array(
+            'customers' => $customers
+        );
+    }
+
+    protected function getQuery()
+    {
+        return CustomerQuery::create()
+            ->innerJoinUserProfile('user_profile')
+            ->innerJoinCart('cart');
+    }
+
     protected function getDataTablesSortColumns()
     {
         return array(
             1 => 'customer.realm',
-            2 => 'customer.code',
+            2 => 'UserProfile.Surname',
+            3 => 'UserProfile.GivenNames'
 
         );
     }
@@ -197,33 +233,5 @@ class CustomerController extends BaseController
         }
 
         return $customer;
-    }
-
-    /**
-     * @Route("/customer/search/{search}", name="customer_search", defaults={ "_format": "json" })
-     * @Template("DzangocartCoreBundle:Order:search.json.twig")
-     */
-    public function searchAction(Request $request, $search = '%QUERY')
-    {
-        $customers = CustomerQuery::create()
-            ->useUserProfileQuery()
-                ->filterByGivenNames(sprintf('%%%s%%', $search), Criteria::LIKE)
-                ->_or()
-                ->filterBySurname(sprintf('%%%s%%', $search), Criteria::LIKE)
-                ->_or()
-                ->where('CONCAT(user_profile.surname, ", ", user_profile.given_names) LIKE ?', sprintf('%%%s%%', $search))
-                ->_or()
-                ->where('CONCAT(user_profile.surname, " ", user_profile.given_names) LIKE ?', sprintf('%%%s%%', $search))
-                ->_or()
-                ->where('CONCAT(user_profile.given_names, ", ", user_profile.surname) LIKE ?', sprintf('%%%s%%', $search))
-                ->_or()
-                ->where('CONCAT(user_profile.given_names, ", ", user_profile.surname) LIKE ?', sprintf('%%%s%%', $search))
-            ->endUse()
-            ->distinct()
-            ->find();
-
-        return array(
-            'customers' => $customers
-        );
     }
 }
