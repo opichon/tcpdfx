@@ -8,7 +8,7 @@
     "data" : [
         {% for order in orders %}
             {
-                "DT_RowId": "{{ '_' ~ order.id }}",
+                "DT_RowId": "{{ 'o_' ~ order.id }}",
                 "DT_RowClass": "order",
                 "0": "",
                 "1": "{{ order.date|datetime('dd.MM.yy', 'HH:mm', null, app.request.locale) }}",
