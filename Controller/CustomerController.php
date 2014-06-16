@@ -206,8 +206,8 @@ class CustomerController extends BaseController
     {
         return array(
             1 => 'customer.realm',
-            2 => 'UserProfile.Surname',
-            3 => 'UserProfile.GivenNames'
+            2 => 'user_profile.Surname',
+            3 => 'user_profile.GivenNames'
 
         );
     }

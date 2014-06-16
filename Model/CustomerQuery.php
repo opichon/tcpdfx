@@ -10,20 +10,20 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 
 class CustomerQuery extends BaseCustomerQuery
 {
-
-    public function dataTablesSort(ParameterBag $params, array $columns = array())
+    public function datatablesSort(array $order = array(), array $columns = array())
     {
         $control = 0;
 
-        for ($i = 0; $i < $params->get('iSortingCols'); $i++) {
+        foreach ($order as $setting) {
 
-            $index = $params->get('iSortCol_' . $i);
+            $index = $setting['column'];
 
             if (array_key_exists($index, $columns)) {
-
                 $sort_columns = $columns[$index];
 
-                $dir = 'desc' == strtolower($params->get('sSortDir_' . $i)) ? Criteria::DESC : Criteria::ASC;
+                $dir = $setting['dir'] == 'asc'
+                    ? Criteria::ASC
+                    : Criteria::DESC;
 
                 if (!is_array($sort_columns)) {
                     $sort_columns = array($sort_columns);
