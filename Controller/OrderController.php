@@ -38,7 +38,7 @@ class OrderController extends BaseController
 
     /**
      * @Route("/list", name="orders_list", requirements={"_format": "json"}, defaults={"_format": "json"})
-    * @Template("DzangocartCoreBundle:Order:list.json.twig")
+     * @Template("DzangocartCoreBundle:Order:list.json.twig")
      */
     public function listAction(Request $request)
     {
