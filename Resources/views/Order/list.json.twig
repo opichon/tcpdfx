@@ -2,15 +2,14 @@
 
 {% spaceless %}
 {
-    "sEcho": "{{ sEcho }}",
-    "iTotalRecords": {{ iTotalRecords }},
-    "iTotalDisplayRecords": {{ iTotalDisplayRecords }},
-    "aaData" : [
+    "draw": "{{ draw }}",
+    "count_total": {{ count_total }},
+    "count_filtered": {{ count_filtered }},
+    "data" : [
         {% for order in orders %}
             {
                 "DT_RowId": "{{ '_' ~ order.id }}",
-                "DT_RowClass": "{{ 'order' }}",
-                "id": "{{ order.id }}",
+                "DT_RowClass": "order",
                 "0": "",
                 "1": "{{ order.date|datetime('dd.MM.yy', 'HH:mm', null, app.request.locale) }}",
                 "2": "{% if param['customer'] is defined %}<a href='{{ path('user_order', { id: order.id }) }}'>{{ order.id  }}</a>{% else %}<a href='{{ path('order', { id: order.id }) }}'>{{ order.id  }}</a>{% endif %}",
@@ -18,9 +17,9 @@
                 "4": "<a href='{{ path('customer_show', { id: order.customerId }) }}'>{{ order.customer.name }}</a>",
                 "5": "{{ order.status }}",
                 "6": "{{ order.currencyId  }}",
-                "7": "{{ order.getAmountExcl|currency(order.currencyId, app.request.locale) }}",
-                "8": "{{ order.getTaxAmount|currency(order.currencyId, app.request.locale)}}",
-                "9": "{{ order.getAmountIncl|currency(order.currencyId, app.request.locale)}}",
+                "7": "{{ order.currency.format(order.getAmountExcl) }}",
+                "8": "{{ order.currency.format(order.getTaxAmount)}}",
+                "9": "{{ order.currency.format(order.getAmountIncl)}}",
                 "10": "{% include 'DzangocartCoreBundle:Order:actions.html.twig' %}"
             }{% if not loop.last %},{% endif %}
         {% endfor %}

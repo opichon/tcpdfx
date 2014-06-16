@@ -14,85 +14,92 @@
 
 					$( ".filters_keyup input" ).keyup(function(event) {
 						event.stopPropagation();
-                        table.fnDraw();
+						table.fnDraw();
 					});
 
 					table = $( "table.table", this ).dataTable( $.extend( true, {}, settings.dataTables, {
-						fnInitComplete: function( oSettings, json ) {
-							$( oSettings.nTable ).show();
+						initComplete: function( settings, json ) {
+							$( this ).show();
 						},
-						fnServerParams: function( data ) {
-							$( ".filters input" ).each(function() {
-								var value = $( this ).val();
-								data.push( {
-									"name": $( this ).attr( "name" ),
-									"value": value
-								});
-							});
+						ajax: {
+							data: function( d ) {
+								$( ".filters input, .filters select" ).each(function() {
+									var name = $( this ).attr( "name" ),
+										value = $( this ).attr( "type" ) == "checkbox"
+											? ($( this ).is( ":checked" ) ? $( this ).val() : 0)
+											: $( this ).val();
+
+									d[name] = value;
+								} );
+							}
 						}
 					}));
 
-                    helpers.initCustomerWidget( );
-                    helpers.initDateFilterWidget( );
+					helpers.initCustomerWidget( );
+					helpers.initDateFilterWidget( );
 				});
 			}
 		};
-        var helpers = {
+		var helpers = {
 			initCustomerWidget: function() {
 
 				var widget = $( "[name='order_filters[customer]']" );
 
-                var customers = new Bloodhound({
-                    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-                    queryTokenizer: Bloodhound.tokenizers.whitespace,
-                    remote: {
-                        url: settings.typeahead.remote.url,
-                        replace: function( url, uriEncodedQuery ) {
-                            return url.replace( "__query__", uriEncodedQuery );
-                        }
-                    }
-                });
-                
-                customers.initialize();
+				var customers = new Bloodhound({
+					datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+					queryTokenizer: Bloodhound.tokenizers.whitespace,
+					remote: {
+						url: settings.typeahead.remote.url,
+						replace: function( url, uriEncodedQuery ) {
+							return url.replace( "__query__", uriEncodedQuery );
+						}
+					}
+				});
 
-                widget.typeahead(null, {
-                    name: 'customer',
-                    displayKey: 'value',
-                    source: customers.ttAdapter()
-                    }).on( "typeahead:selected", function( e, datum ) {
-                        $( "[name='order_filters[customer_id]']" ).val( datum.id );
-                            table.fnDraw();
-                    });
+				customers.initialize();
 
-                widget.keyup( function( ) {
-                    if ( $(this).val() === '' ) {
-                        $( "[name='order_filters[customer_id]']" ).val( '' );
-                        table.fnDraw();
-                    }
+				widget.typeahead( null, {
+					name: "customer",
+					displayKey: "value",
+					source: customers.ttAdapter()
+				})
+				.on( "typeahead:selected", function( e, datum ) {
+					$( "[name='order_filters[customer_id]']" ).val( datum.id );
+						table.fnDraw();
+				});
 
-                })
-            },
+				widget.keyup( function( ) {
+					if ( $(this).val() === "" ) {
+						$( "[name='order_filters[customer_id]']" ).val( "" );
+						table.fnDraw();
+					}
 
-            initDateFilterWidget: function() {
-                $('input[name="order_filters[date_range]"]')
-                    .daterangepicker(
-                        settings.dateRangePicker,
-                        function(start, end) {
-                            $('input[name="order_filters[date_start]"]').val(start.format('YYYY-MM-DD'));
-                            $('input[name="order_filters[date_end]"]').val(end.format('YYYY-MM-DD'));
-                        }
-                    ).on('cancel.daterangepicker', function(ev, picker) {
-                        $(this).val('');
+				})
+			},
 
-                        $('input[name="order_filters[date_start]"]').val('');
-                        $('input[name="order_filters[date_end]"]').val('');
+			initDateFilterWidget: function() {
+				$("input[name='order_filters[date_range]']")
+					.daterangepicker(
+						settings.dateRangePicker,
+						function( start, end ) {
+							$( "input[name='order_filters[date_start]']" ).val( start.format( "YYYY-MM-DD" ) );
+							$( "input[name='order_filters[date_end]']" ).val(end.format( "YYYY-MM-DD" ) );
+						}
+					)
+					.on( "cancel.daterangepicker", function( ev, picker ) {
+						$( this ).val( "" );
 
-                        table.fnDraw();
-                    }).on('apply.daterangepicker', function(ev, picker){
-                        table.fnDraw();
-                    });
-            }
-        };
+						$( "input[name='order_filters[date_start]']" ).val( "" );
+						$( "input[name='order_filters[date_end]']" ).val( "" );
+
+						table.fnDraw();
+					})
+					.on( "apply.daterangepicker", function( ev, picker ) {
+						table.fnDraw();
+					});
+			}
+		};
+
 		if ( methods[ method ] ) {
 			return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
 		}
@@ -104,35 +111,32 @@
 		}
 	};
 
-    $.fn.orders.defaults = {
-        dataTables: {
-            aoColumnDefs: [
-                { bSortable: false, aTargets: [ 0 ] },
-                { bVisible: false, aTargets: [ 0 ] },
-                { sClass: "amount", aTargets: [ 7, 8, 9 ] },
-                { sClass: "actions", aTargets: [  ] }
-            ],
-            asStripeClasses: [],
-            bAutoWidth: false,
-            bPaginate: true,
-            bProcessing: true,
-            bServerSide: true, // set datatables to use ajax to display content
-            bSortable: true,
-            bSortCellsTop: true,
-            bDestroy: true,
-            bRetrieve: true,
-            oLanguage: {
-                sUrl: "/bundles/uamdatatables/lang/" + dzangocart.locale + ".txt"
-            }
-        },
-        dateRangePicker: {
-            startDate: moment(),
-            locale: { cancelLabel: 'Clear' }
-        },
-        date_format: "dd.MM.yy"
-    };
+	$.fn.orders.defaults = {
+		dataTables: {
+			autoWidth: false,
+			columnDefs: [
+				{ className: "amount", targets: [ 7, 8, 9 ] },
+				{ classname: "actions", targets: [ 9 ] },
+				{ orderable: false, targets: [ 0 ] },
+				{ visible: false, targets: [ 0 ] }
+			],
+			destroy: true,
+			orderable: true,
+			orderCellsTop: true,
+			paginate: true,
+			processing: true,
+			serverSide: true,
+			stateSave: true,
+			stripeClasses: []
+		},
+		dateRangePicker: {
+			startDate: moment(),
+			locale: { cancelLabel: 'Clear' }
+		},
+		date_format: "dd.MM.yy"
+	};
 } ( window.jQuery );
 
 $( document ).ready(function() {
-    $( ".orders" ).orders( dzangocart.orders );
+	$( ".orders" ).orders( dzangocart.orders );
 });

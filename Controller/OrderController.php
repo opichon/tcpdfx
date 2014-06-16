@@ -14,63 +14,17 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @Route("/order")
+ */
 class OrderController extends BaseController
 {
     /**
-    * @Route("/order", name="orders")
+    * @Route("/", name="orders")
     * @Template("DzangocartCoreBundle:Order:index.html.twig")
     */
     public function indexAction(Request $request)
     {
-        if ($request->isXmlHttpRequest() || 'json' == $request->getRequestFormat()) {
-            $query = $this->getQuery();
-
-            if ($customer_id = $request->query->get('customer_id')) {
-                $query->filterByCustomerId($customer_id);
-            }
-
-            if ($affiliate_id = $request->query->get('affiliate_id')) {
-                $query->filterByAffiliateId($affiliate_id);
-            }
-
-            if ($store_id = $request->query->get('store_id')) {
-                $query->filterByStoreId($store_id);
-            }
-
-            $total_count = $query->count();
-
-            $query->datatablesSearch(
-                $request->query->get('order_filters'),
-                $this->getDataTablesSearchColumns()
-            );
-
-            $query->innerJoinStore('store');
-
-            $filtered_count = $query->count();
-
-            $limit = min(100, $request->query->get('iDisplayLength'));
-            $offset = max(0, $request->query->get('iDisplayStart'));
-
-            $orders = $query
-                ->dataTablesSort($request->query, $this->getDataTablesSortColumns())
-                ->setLimit($limit)
-                ->setOffset($offset)
-                ->find();
-
-            $data = array(
-                'sEcho' => $request->query->get('sEcho'),
-                'iStart' => 0,
-                'iTotalRecords' => $total_count,
-                'iTotalDisplayRecords' => $filtered_count,
-                'orders' => $orders,
-                'param' => $this->getTemplateParams()
-            );
-
-            $view = $this->renderView('DzangocartCoreBundle:Order:index.json.twig', $data);
-
-            return new Response($view, 200, array('Content-Type' => 'application/json'));
-        }
-
         $form = $this->createForm(
             new OrderFiltersType());
 
@@ -84,7 +38,54 @@ class OrderController extends BaseController
     }
 
     /**
-     * @Route("/order/{id}", name="order")
+     * @Route("/list", name="orders_list", requirements={"_format": "json"}, defaults={"_format": "json"})
+    * @Template("DzangocartCoreBundle:Order:list.json.twig")
+     */
+    public function listAction(Request $request)
+    {
+        $query = $this->getQuery();
+
+        if ($customer_id = $request->query->get('customer_id')) {
+            $query->filterByCustomerId($customer_id);
+        }
+
+        if ($affiliate_id = $request->query->get('affiliate_id')) {
+            $query->filterByAffiliateId($affiliate_id);
+        }
+
+        if ($store_id = $request->query->get('store_id')) {
+            $query->filterByStoreId($store_id);
+        }
+
+        $count_total = $query->count();
+
+        $query->datatablesSearch(
+            $request->query->get('order_filters'),
+            $this->getDataTablesSearchColumns()
+        );
+
+        $count_filtered = $query->count();
+
+        $limit = min(100, $request->query->get('length', 10));
+        $offset = max(0, $request->query->get('start', 0));
+
+        $orders = $query
+            ->dataTablesSort($request->query, $this->getDataTablesSortColumns())
+            ->setLimit($limit)
+            ->setOffset($offset)
+            ->find();
+
+        return array(
+            'draw' => $request->query->get('draw'),
+            'count_total' => $count_total,
+            'count_filtered' => $count_filtered,
+            'orders' => $orders,
+            'param' => $this->getTemplateParams()
+        );
+    }
+
+    /**
+     * @Route("/{id}", name="order", requirements={"id": "\d+"})
      * @Template("DzangocartCoreBundle:Order:show.html.twig")
      */
     public function showAction(Request $request, $id)
@@ -109,7 +110,8 @@ class OrderController extends BaseController
     protected function getQuery()
     {
         return CartQuery::create()
-            ->filterByStatus(Cart::STATUS_PROCESSED, Criteria::BINARY_AND);
+            ->filterByStatus(Cart::STATUS_PROCESSED, Criteria::BINARY_AND)
+            ->innerJoinStore('store');
     }
 
     protected function getTemplateParams()
