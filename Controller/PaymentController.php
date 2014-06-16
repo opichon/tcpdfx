@@ -9,71 +9,18 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @Route("/payment")
+ */
 class PaymentController extends BaseController
 {
     /**
-     * @Route("/payment", name="payments")
+     * @Route("/", name="payments")
      * @Template("DzangocartCoreBundle:Payment:index.html.twig")
      */
     public function indexAction(Request $request)
     {
-        if ($request->isXmlHttpRequest() || 'json' == $request->getRequestFormat()) {
-
-            $query = $this->getQuery();
-
-            if ($store = $this->getStore()) {
-                $query
-                    ->useGatewayQuery()
-                        ->filterByStore($store)
-                    ->endUse();
-            } elseif ($store_id = $request->query->get('store_id')) {
-                $query
-                    ->useGatewayQuery()
-                        ->filterByStoreId($store_id)
-                    ->endUse();
-            }
-
-            if ($customer_id = $request->query->get('customer_id')) {
-                $query
-                    ->useOrderQuery()
-                        ->filterByCustomerId($customer_id)
-                    ->endUse();
-            }
-
-            $total_count = $query->count();
-
-            $query->dataTablesSearch(
-                $request->query->get('payment_filters'),
-                $this->getDataTablesSearchColumns()
-            );
-
-            $filtered_count = $query->count();
-
-            $limit = min(100, $request->query->get('iDisplayLength'));
-            $offset = max(0, $request->query->get('iDisplayStart'));
-
-            $payments = $query
-                ->dataTablesSort($request->query, $this->getDataTablesSortColumns())
-                ->setLimit($limit)
-                ->setOffset($offset)
-                ->find();
-
-            $data = array(
-                'sEcho' => $request->query->get('sEcho'),
-                'iStart' => 0,
-                'iTotalRecords' => $total_count,
-                'iTotalDisplayRecords' => $filtered_count,
-                'payments' => $payments,
-                'param' => $this->getTemplateParams()
-            );
-
-            $view = $this->renderView('DzangocartCoreBundle:Payment:index.json.twig', $data);
-
-            return new Response($view, 200, array('Content-Type' => 'application/json'));
-        }
-
         $form = $this->createForm(
             new PaymentFiltersType($this->getStore())
         );
@@ -86,7 +33,63 @@ class PaymentController extends BaseController
                 'form' => $form->createView()
             )
         );
+    }
 
+    /**
+     * @Route("/list", name="payments_list", requirements={"_format": "json"}, defaults={"_format": "json"})
+     * @Template("DzangocartCoreBundle:Payment:list.json.twig")
+     */
+    public function listAction(Request $request)
+    {
+        $query = $this->getQuery();
+
+        if ($store = $this->getStore()) {
+            $query
+                ->useGatewayQuery()
+                    ->filterByStore($store)
+                ->endUse();
+        } elseif ($store_id = $request->query->get('store_id')) {
+            $query
+                ->useGatewayQuery()
+                    ->filterByStoreId($store_id)
+                ->endUse();
+        }
+
+        if ($customer_id = $request->query->get('customer_id')) {
+            $query
+                ->useOrderQuery()
+                    ->filterByCustomerId($customer_id)
+                ->endUse();
+        }
+
+        $count_total = $query->count();
+
+        $query->dataTablesSearch(
+            $request->query->get('payment_filters'),
+            $this->getDataTablesSearchColumns()
+        );
+
+        $count_filtered = $query->count();
+
+        $limit = min(100, $request->query->get('length', 10));
+        $offset = max(0, $request->query->get('start', 0));
+
+        $payments = $query
+            ->dataTablesSort(
+                $request->query->get('order', array()),
+                $this->getDataTablesSortColumns()
+            )
+            ->setLimit($limit)
+            ->setOffset($offset)
+            ->find();
+
+        return array(
+            'draw' => $request->query->get('draw'),
+            'count_total' => $count_total,
+            'count_filtered' => $count_filtered,
+            'payments' => $payments,
+            'param' => $this->getTemplateParams()
+        );
     }
 
     protected function getDatatablesSortColumns()

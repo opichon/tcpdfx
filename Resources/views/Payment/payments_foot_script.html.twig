@@ -1,16 +1,21 @@
 {% javascripts
-    'bundles/uamdatatables/js/jquery.dataTables.min.js'
-    'bundles/uamdatatables/js/jquery.dataTables_bootstrap.js'
-    'bundles/uambootstrap/vendor/momentjs/moment.js'
-    'bundles/uambootstrap/vendor/bootstrap-daterangepicker/daterangepicker.js'
-    'bundles/dzangocartcore/js/scripts/payment/payments.js'
+	'bundles/dzangocartcore/vendor/datatables/media/js/jquery.dataTables.min.js'
+	'bundles/dzangocartcore/vendor/datatables-bootstrap3/BS3/assets/js/datatables.js'
+	'bundles/dzangocartcore/vendor/momentjs/min/moment-with-langs.min.js'
+	'bundles/dzangocartcore/vendor/bootstrap-daterangepicker/daterangepicker.min.js'
+	'bundles/dzangocartcore/js/payment/payments.js'
 %}
-    <script src="{{ asset_url }}"></script>
+	<script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 <script>
 dzangocart.payments = {
-    dataTables: {
-        sAjaxSource: "{{ path('payments', { _format: 'json' }) }}"
-    }
+	dataTables: {
+		ajax: {
+			url: "{{ path('payments_list') }}"
+		},
+		language: {
+			url: "/bundles/dzangocartcore/datatables/" + dzangocart.locale + ".json"
+		}
+	}
 };
 </script>

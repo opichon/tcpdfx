@@ -2,14 +2,14 @@
 
 {% spaceless %}
 {
-    "sEcho": "{{ sEcho }}",
-    "iTotalRecords": {{ iTotalRecords }},
-    "iTotalDisplayRecords": {{ iTotalDisplayRecords }},
-    "aaData" : [
+    "draw": "{{ draw }}",
+    "recordsTotal": {{ count_total }},
+    "recordsFiltered": {{ count_filtered }},
+    "data" : [
         {% for payment in payments %}
             {
-                "DT_RowId": "{{ '_payment_' ~ payment.id }}",
-                "DT_RowClass": "{{ 'payment' }}",
+                "DT_RowId": "{{ 'p_' ~ payment.id }}",
+                "DT_RowClass": "payment",
                 "0": "",
                 "1": "{{ payment.createdAt|datetime('dd.MM.yy', 'HH:mm', time_zone, app.request.locale) }}",
                 "2": "{% include 'DzangocartCoreBundle:Payment:store.html.twig' with { store: payment.gateway.store } %}",

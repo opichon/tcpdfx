@@ -89,7 +89,6 @@ class PaymentFiltersType extends BaseAbstractType
         ));
     }
 
-
     protected function getGateway()
     {
         $gateway_services = array();
