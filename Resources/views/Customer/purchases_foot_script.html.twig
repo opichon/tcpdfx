@@ -1,22 +1,26 @@
 {% javascripts
-    'bundles/uamdatatables/js/jquery.dataTables.min.js'
-    'bundles/uamdatatables/js/jquery.dataTables_bootstrap.js'
-    'bundles/uambootstrap/vendor/typeahead.js/dist/typeahead.bundle.min.js'
-    'bundles/uambootstrap/vendor/typeahead.js/dist/typeahead.jquery.min.js'
-    'bundles/uambootstrap/vendor/momentjs/moment.js'
-    'bundles/uambootstrap/vendor/bootstrap-daterangepicker/daterangepicker.js'
-    'bundles/dzangocartcore/js/scripts/sale/sales.js'
+	'bundles/dzangocartcore/vendor/datatables/media/js/jquery.dataTables.min.js'
+	'bundles/dzangocartcore/vendor/datatables-bootstrap3/BS3/assets/js/datatables.min.js'
+	'bundles/dzangocartcore/vendor/typeahead.js/dist/typeahead.bundle.min.js'
+	'bundles/dzangocartcore/vendor/momentjs/min/moment-with-langs.min.js'
+	'bundles/dzangocartcore/vendor/bootstrap-daterangepicker/daterangepicker.min.js'
+	'bundles/dzangocartcore/js/sale/sales.js'
 %}
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 <script>
 dzangocart.sales = {
     dataTables: {
-    	aoColumnDefs: [
-            { bSortable: false, aTargets: [ 0, 11 ] },
-    		{ bVisible: false, aTargets: [ 0, 3, 4 ] }
-    	],
-        sAjaxSource: "{{ path('sales', { _format: 'json', customer_id: customer.id })|raw }}"
+        ajax: {
+            url: "{{ path('sales_list', {customer_id: customer.id })|raw }}"
+        },
+        columnDefs: [
+            { orderable: false, targets: [ 0, 11 ] },
+            { visible: false, targets: [ 0, 3, 4 ] }
+        ],
+        language: {
+            url: "/bundles/dzangocartcore/datatables/" + dzangocart.locale + ".json"
+        }
     },
     typeahead: {
         remote: {
