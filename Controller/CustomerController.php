@@ -103,7 +103,7 @@ class CustomerController extends BaseController
     }
 
      /**
-     * @Route("/customer/{id}", name="customer_edit")
+     * @Route("/{id}/edit", name="customer_edit")
      * @Template()
      */
     public function editAction(Request $request, $id)
@@ -112,7 +112,7 @@ class CustomerController extends BaseController
     }
 
      /**
-     * @Route("/customer/{id}/orders",name="customer_orders")
+     * @Route("/{id}/orders",name="customer_orders")
      * @Template("DzangocartCoreBundle:Customer:orders.html.twig")
      */
     public function ordersAction(Request $request, $id)
@@ -130,7 +130,7 @@ class CustomerController extends BaseController
     }
 
      /**
-     * @Route("/customer/{id}/payments", name="customer_payments")
+     * @Route("/{id}/payments", name="customer_payments")
      * @Template("DzangocartCoreBundle:Customer:payments.html.twig")
      */
     public function paymentsAction(Request $request, $id)
@@ -148,7 +148,7 @@ class CustomerController extends BaseController
     }
 
     /**
-     * @Route("/customer/{id}/purchases", name="customer_purchases")
+     * @Route("/{id}/purchases", name="customer_purchases")
      * @Template("DzangocartCoreBundle:Customer:purchases.html.twig")
      */
     public function purchasesAction(Request $request, $id)
@@ -166,7 +166,7 @@ class CustomerController extends BaseController
     }
 
     /**
-     * @Route("/customer/search/{search}", name="customer_search", defaults={ "_format": "json" })
+     * @Route("/search/{search}", name="customer_search", defaults={ "_format": "json" })
      * @Template("DzangocartCoreBundle:Order:search.json.twig")
      */
     public function searchAction(Request $request, $search = '%QUERY')
