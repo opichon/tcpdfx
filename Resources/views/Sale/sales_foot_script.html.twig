@@ -14,6 +14,9 @@ dzangocart.sales = {
     dataTables: {
         ajax: {
             url: "{{ path('sales_list') }}"
+        },
+        language: {
+            url: "/bundles/dzangocartcore/datatables/" + dzangocart.locale + ".json"
         }
     },
     typeahead: {

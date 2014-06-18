@@ -129,9 +129,6 @@
             orderable: true,
             classes: {
                 processing: "alert alert-warning"
-            },
-            language: {
-                url: "/bundles/uamdatatables/lang/" + dzangocart.locale + ".txt"
             }
         },
         dateRangePicker: {
