@@ -9,19 +9,6 @@
             {{ form_widget(form.date_start) }}
             {{ form_widget(form.date_end) }}
         </div>
-        <div class="col-md-3 filters_keyup">
-            {{ form_label(form.id) }}
-            {{ form_widget(form.id) }}
-        </div>
-        <div class="col-md-3 filters_keyup store_name">
-            {{ form_label(form.store_name) }}
-            {{ form_widget(form.store_name) }}
-        </div>
-        <div class="col-md-3 customer_name">
-            {{ form_label(form.customer) }}
-            {{ form_widget(form.customer) }}
-            {{ form_widget(form.customer_id) }}
-        </div>
     </div>
 </div>
 
@@ -39,6 +26,19 @@
             <th class="tax">{% trans %}order.orders.tax{% endtrans %}</th>
             <th class="net">{% trans %}order.orders.net{% endtrans %}</th>
             <th class="actions">{% trans %}order.orders.actions.title{% endtrans %}</th>
+        </tr>
+        <tr class="filters" >
+            <th></th>
+            <th></th>
+            <th class="filters_keyup">{{ form_widget(form.id) }}</th>
+            <th class="filters_keyup store_name">{{ form_widget(form.store_name) }}</th>
+            <th class="customer_name">{{ form_widget(form.customer) }} {{ form_widget(form.customer_id) }}</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
