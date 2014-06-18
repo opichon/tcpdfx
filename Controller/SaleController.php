@@ -10,10 +10,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * @Route("/sale")
+ */
 class SaleController extends BaseController
 {
     /**
-     * @Route("/sales", name="sales")
+     * @Route("/", name="sales")
      * @Template("DzangocartCoreBundle:Sale:index.html.twig")
      */
     public function indexAction(Request $request)
@@ -32,7 +35,7 @@ class SaleController extends BaseController
     }
 
     /**
-     * @Route("/sales/list", name="sales_list", requirements={"_format": "json"}, defaults={"_format": "json"})
+     * @Route("/list", name="sales_list", requirements={"_format": "json"}, defaults={"_format": "json"})
      * @Template("DzangocartCoreBundle:Sale:list.json.twig")
      */
     public function listAction(Request $request)
@@ -81,7 +84,7 @@ class SaleController extends BaseController
             ->setOffset($offset)
             ->find();
 
-        $data = array(
+        return array(
             'draw' => $request->query->get('draw'),
             'start' => 0,
             'recordsTotal' => $total_count,
@@ -89,8 +92,6 @@ class SaleController extends BaseController
             'sales' => $sales,
             'param' => $this->getTemplateParams()
         );
-
-        return $data;
     }
 
     protected function getDatatablesSortColumns()

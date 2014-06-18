@@ -1,23 +1,25 @@
 {% javascripts
     'bundles/dzangocartcore/vendor/datatables/media/js/jquery.dataTables.min.js'
     'bundles/dzangocartcore/vendor/datatables-bootstrap3/BS3/assets/js/datatables.min.js'
-	'bundles/uambootstrap/vendor/typeahead.js/dist/typeahead.bundle.min.js'
-	'bundles/uambootstrap/vendor/typeahead.js/dist/typeahead.jquery.min.js'
-	'bundles/uambootstrap/vendor/momentjs/moment.js'
+    'bundles/uambootstrap/vendor/typeahead.js/dist/typeahead.bundle.min.js'
+    'bundles/uambootstrap/vendor/typeahead.js/dist/typeahead.jquery.min.js'
+    'bundles/uambootstrap/vendor/momentjs/moment.js'
     'bundles/uambootstrap/vendor/bootstrap-daterangepicker/daterangepicker.js'
-	'bundles/dzangocartcore/js/scripts/sale/sales.js'
+    'bundles/dzangocartcore/js/sale/sales.js'
 %}
 	<script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 <script>
 dzangocart.sales = {
-	dataTables: {
-		ajax: "{{ path('sales_list', { _format: 'json' }) }}"
-	},
-	typeahead: {
-		remote: {
-		 url:  "{{ path('customer_search', { search: '__query__' }) }}"
-		}
-	}
+    dataTables: {
+        ajax: {
+            url: "{{ path('sales_list') }}"
+        }
+    },
+    typeahead: {
+        remote: {
+         url:  "{{ path('customer_search', { search: '__query__' }) }}"
+        }
+    }
 };
 </script>
