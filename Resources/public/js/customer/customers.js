@@ -58,7 +58,7 @@
 		dataTables: {
 			autoWidth: false,
             columnDefs: [
-				{ orderable: false, argets: [ 0, 7 ] },
+				{ orderable: false, targets: [ 0, 7 ] },
 				{ visible: false, targets: [ 0 ] },
 				{ className: "number", targets: [ 6 ] },
 				{ className: "actions", targets: [ 7 ] }
