@@ -1,14 +1,20 @@
 {% javascripts
-	'bundles/uamdatatables/js/jquery.dataTables.min.js'
-	'bundles/uamdatatables/js/jquery.dataTables_bootstrap.js'
-	'bundles/dzangocartcore/js/scripts/user/users.js'
+    'bundles/dzangocartcore/vendor/datatables/media/js/jquery.dataTables.min.js'
+    'bundles/dzangocartcore/vendor/datatables-bootstrap3/BS3/assets/js/datatables.min.js'
+    'bundles/dzangocartcore/js/ajax.js'
+    'bundles/dzangocartcore/js/user/users.js'
 %}
 	<script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 <script>
 dzangocart.users = {
-	dataTables: {
-		sAjaxSource: "{{ path('users', { _format: 'json' }) }}"
-	}
+    dataTables: {
+        ajax: {
+            url: "{{ path('users_list') }}"
+        },
+        language: {
+            url: "/bundles/dzangocartcore/datatables/" + dzangocart.locale + ".json"
+        }
+    }
 };
 </script>

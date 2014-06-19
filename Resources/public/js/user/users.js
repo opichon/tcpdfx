@@ -12,7 +12,11 @@
                 return this.each(function() {
                     var $this = $( this );
 
-                    table = $( "table.table", this ).dataTable( $.extend( true, {}, settings.dataTables, {} ) );
+                    table = $( "table.table", this ).dataTable( $.extend( true, {}, settings.dataTables, {
+                        initComplete: function( settings, json ) {
+                            $( this ).show();
+                        }
+                    }));
                 });
             }
         };
@@ -30,22 +34,19 @@
 
     $.fn.users.defaults = {
         dataTables: {
-            aoColumnDefs: [
-                { bSortable: false, aTargets: [ 0, 9 ] },
-                { bVisible: false, aTargets: [ 0 ] },
-                { sClass: 'actions', aTargets: [ 9 ] }
+            columnDefs: [
+                { orderable: false, targets: [ 0, 9 ] },
+                { visible: false, targets: [ 0 ] },
+                { className: 'actions', targets: [ 9 ] }
             ],
-            asStripeClasses: [],
-            bAutoWidth: false,
-            bDestroy: true,
-            bPaginate: true,
-            bProcessing: true,
-            bServerSide: true,
-            bSortable: true,
-            bSortCellsTop: true,
-            oLanguage: {
-                sUrl: "/bundles/uamdatatables/lang/" + dzangocart.locale + ".txt"
-            }
+            stripeClasses: [],
+            autoWidth: false,
+            destroy: true,
+            paging: true,
+            processing: true,
+            serverSide: true,
+            orderable: true,
+            sortCellsTop: true
         }
     };
 } ( window.jQuery );
