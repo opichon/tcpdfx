@@ -123,7 +123,7 @@
             destroy: true,
             paging: true,
             processing: true,
-            orderable: true
+            orderable: true,
             orderCellsTop: true,
             searching: false,
             serverSide: true,
