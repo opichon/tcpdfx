@@ -2,24 +2,24 @@
 
 {% spaceless %}
 {
-    "draw": "{{ draw }}",
-    "recordsTotal": {{ count_total }},
-    "recordsFiltered": {{ count_filtered }},
-    "data" : [
-        {% for payment in payments %}
-            {
-                "DT_RowId": "{{ 'p_' ~ payment.id }}",
-                "DT_RowClass": "payment",
-                "0": "",
-                "1": "{{ payment.createdAt|datetime('dd.MM.yy', 'HH:mm', time_zone, app.request.locale) }}",
-                "2": "{% include 'DzangocartCoreBundle:Payment:store.html.twig' with { store: payment.gateway.store } %}",
-                "3": "{% include 'DzangocartCoreBundle:Payment:order.html.twig' with { order: payment.order } %}",
-                "4": "{{ payment.gateway.name }}",
-                "5": "{{ payment.amount|currency(payment.currency.id, app.request.locale) }}",
-                "6": "{% include 'DzangocartCoreBundle:Payment:status.html.twig' %}",
-                "7": "{% include 'DzangocartCoreBundle:Payment:actions.html.twig' %}"
-            }{% if not loop.last %},{% endif %}
-        {% endfor %}
-    ]
+	"draw": "{{ draw }}",
+	"recordsTotal": {{ count_total }},
+	"recordsFiltered": {{ count_filtered }},
+	"data" : [
+		{% for payment in payments %}
+			{
+				"DT_RowId": "{{ 'p_' ~ payment.id }}",
+				"DT_RowClass": "payment",
+				"0": "",
+				"1": "{{ payment.createdAt|datetime('dd.MM.yy', 'HH:mm', time_zone, app.request.locale) }}",
+				"2": "{% include 'DzangocartCoreBundle:Payment:store.html.twig' with { store: payment.gateway.store } %}",
+				"3": "{% include 'DzangocartCoreBundle:Payment:order.html.twig' with { order: payment.order } %}",
+				"4": "{{ payment.gateway.name }}",
+				"5": "{{ payment.amount|currency(payment.currency.id, app.request.locale) }}",
+				"6": "{% include 'DzangocartCoreBundle:Payment:status.html.twig' %}",
+				"7": "{% include 'DzangocartCoreBundle:Payment:actions.html.twig' %}"
+			}{% if not loop.last %},{% endif %}
+		{% endfor %}
+	]
 }
 {% endspaceless %}

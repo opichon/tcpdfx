@@ -2,32 +2,32 @@
 
 
 <table class="table table-condensed">
-    <thead>
-        <tr>
-            <th class="selectall"></th>
-            <th class="datetime">{% trans %}payment.payments.date{% endtrans %}</th>
-            <th class="store">{% trans %}payment.payments.store{% endtrans %}</th>
-            <th class="id">{% trans %}payment.payments.order_id{% endtrans %}</th>
-            <th class="gateway">{% trans %}payment.payments.gateway{% endtrans %}</th>
-            <th class="amount">{% trans %}payment.payments.transaction.amount{% endtrans %}</th>
-            <th class="status">{% trans %}payment.payments.status{% endtrans %}</th>
-            <th class="actions">{% trans %}payment.payments.actions.title{% endtrans %}</th>
-        </tr>
-        <tr class="filters">
-            <th></th>
-            <th>
-                {{ form_widget(form.date_range) }}
-                {{ form_widget(form.date_start) }}
-                {{ form_widget(form.date_end) }}
-            </th>
-            <th></th>
-            <th>{{ form_widget(form.id) }}</th>
-            <th>{{ form_widget(form.provider_id) }}</th>
-            <th></th>
-            <th>{{ form_widget(form.status) }}</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-    </tbody>
+	<thead>
+		<tr>
+			<th class="selectall"></th>
+			<th class="datetime">{% trans %}payment.payments.date{% endtrans %}</th>
+			<th class="store">{% trans %}payment.payments.store{% endtrans %}</th>
+			<th class="id">{% trans %}payment.payments.order_id{% endtrans %}</th>
+			<th class="gateway">{% trans %}payment.payments.gateway{% endtrans %}</th>
+			<th class="amount">{% trans %}payment.payments.transaction.amount{% endtrans %}</th>
+			<th class="status">{% trans %}payment.payments.status{% endtrans %}</th>
+			<th class="actions"><i class="fa fa-cog"></i></th>
+		</tr>
+		<tr class="filters">
+			<th></th>
+			<th>
+				{{ form_widget(form.date_range) }}
+				{{ form_widget(form.date_start) }}
+				{{ form_widget(form.date_end) }}
+			</th>
+			<th></th>
+			<th>{{ form_widget(form.id) }}</th>
+			<th>{{ form_widget(form.provider_id) }}</th>
+			<th></th>
+			<th>{{ form_widget(form.status) }}</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+	</tbody>
 </table>

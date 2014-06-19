@@ -88,8 +88,9 @@
 			paginate: true,
 			processing: true,
 			saveState: true,
+			searching: false,
 			serverSide: true,
-			stripeClasses: [],
+			stripeClasses: []
 		},
 		dateRangePicker: {
 			startDate: moment(),
