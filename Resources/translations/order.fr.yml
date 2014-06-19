@@ -11,7 +11,7 @@ order:
 
     orders:
         actions:
-            title:          Actions
+            show:           Afficher la commande
         currency:           Dev.
         customer:           Client
         date:               Date

@@ -115,16 +115,16 @@
 		dataTables: {
 			autoWidth: false,
 			columnDefs: [
-				{ className: "amount", targets: [ 7, 8, 9 ] },
-				{ classname: "actions", targets: [ 9 ] },
-				{ orderable: false, targets: [ 0 ] },
-				{ visible: false, targets: [ 0 ] }
+				{ orderable: false, targets: [ 0, 10 ] },
+				{ visible: false, targets: [ 0 ] },
+				{ className: "number", targets: [ 7, 8, 9 ] },
+				{ className: "actions", targets: [ 10 ] }
 			],
-			destroy: true,
 			orderable: true,
 			orderCellsTop: true,
 			paginate: true,
 			processing: true,
+			searching: false,
 			serverSide: true,
 			stateSave: true,
 			stripeClasses: []

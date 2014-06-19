@@ -121,15 +121,12 @@
             stripeClasses: [],
             autoWidth: false,
             destroy: true,
-            searching: false,
             paging: true,
             processing: true,
-            serverSide: true,
+            orderable: true
             orderCellsTop: true,
-            orderable: true,
-            classes: {
-                processing: "alert alert-warning"
-            }
+            searching: false,
+            serverSide: true,
         },
         dateRangePicker: {
             startDate: moment(),
