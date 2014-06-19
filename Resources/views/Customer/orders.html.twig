@@ -5,17 +5,17 @@
 {% block page_sub_title %}{% trans %}order.orders.page_title{% endtrans %}{% endblock %}
 
 {% block _core_content %}
-    <div class="orders">
-        {% include "DzangocartCoreBundle:Order:orders.html.twig" %}
-    </div>
+	<div class="orders">
+		{% include "DzangocartCoreBundle:Order:orders.html.twig" %}
+	</div>
 {% endblock %}
 
 {% block _core_head_style %}
-    {{ parent() }}
-    {% include "DzangocartCoreBundle:Order:orders_head_style.html.twig" %}
+	{{ parent() }}
+	{% include "DzangocartCoreBundle:Order:orders_head_style.html.twig" %}
 {% endblock %}
 
 {% block _core_foot_script %}
-    {{ parent() }}
-    {% include "DzangocartCoreBundle:Customer:orders_foot_script.html.twig" %}
+	{{ parent() }}
+	{% include "DzangocartCoreBundle:Customer:orders_foot_script.html.twig" %}
 {% endblock %}

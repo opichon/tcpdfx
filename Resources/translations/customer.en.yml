@@ -6,17 +6,16 @@ customer:
         payments:           %name%: Payments
 
     customers:
-        page_title:         Customers
-
         actions:
-            title:          Actions
+            show:           Show customer
         code:               Code
-        id:                 ID
-        realm:              Realm
-        surname:            Surname
+        email:              Email
+        eu:                 EU
+        id:                 Id
         given_names:        Given Name
         gender:             Gender
-        email:              Email
+        page_title:         Customers
+        realm:              Realm
         sales:
             ytd:            YTD Sales
-        eu:                 EU
+        surname:            Surname

@@ -2,24 +2,24 @@
 
 {% spaceless %}
 {
-    "draw": "{{ draw }}",
-    "recordsTotal": {{ count_total }},
-    "recordsFiltered": {{ count_filtered }},
-    "data" : [
-        {% for customer in customers %}
-            {
-                "DT_RowId": "{{ 'c_' ~ customer.id }}",
-                "DT_RowClass": "customer",
-                "0": "",
-                "1": "{{ customer.realm }}",
-                "2": "<a href='{{ path('customer_show', { id: customer.id }) }}'>{{ customer.userProfile.surname }}</a>",
-                "3": "{{ customer.userProfile.GivenNames }}",
-                "4": "{% if(customer.userProfile.gender == '1') %} m {% elseif(customer.userProfile.gender == '0') %} f {% else %} {% endif %}",
-                "5": "{{ customer.userProfile.email }}",
-                "6": "{{ customer.getSales|currency('EUR', app.request.locale) }}",
-                "7": "{% include 'DzangocartCoreBundle:Customer:actions.html.twig' %}"
-            }{% if not loop.last %},{% endif %}
-        {% endfor %}
-    ]
+	"draw": "{{ draw }}",
+	"recordsTotal": {{ count_total }},
+	"recordsFiltered": {{ count_filtered }},
+	"data" : [
+		{% for customer in customers %}
+			{
+				"DT_RowId": "{{ 'c_' ~ customer.id }}",
+				"DT_RowClass": "customer",
+				"0": "",
+				"1": "{{ customer.realm }}",
+				"2": "<a href='{{ path('customer_show', { id: customer.id }) }}'>{{ customer.userProfile.surname }}</a>",
+				"3": "{{ customer.userProfile.GivenNames }}",
+				"4": "{% if(customer.userProfile.gender == '1') %} m {% elseif(customer.userProfile.gender == '0') %} f {% else %} {% endif %}",
+				"5": "{{ customer.userProfile.email }}",
+				"6": "{{ customer.getSales|currency('EUR', app.request.locale) }}",
+				"7": "{% include 'DzangocartCoreBundle:Customer:actions.html.twig' %}"
+			}{% if not loop.last %},{% endif %}
+		{% endfor %}
+	]
 }
 {% endspaceless %}

@@ -1,7 +1,7 @@
 sale:
     sales:
         actions:
-            title:          Actions
+            show:           Show order
         category:           Category
         code:               Code
         currency:           Ccy
