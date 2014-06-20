@@ -7,6 +7,7 @@
     "datatables-bootstrap3": "0.1",
     "font-awesome": "~4.1",
     "jquery": "~1.11",
+    "jquery-treetable": "~3.1.0",
     "typeahead.js": "~0.10"
   },
   "overrides": {
@@ -25,6 +26,13 @@
         "BS3/assets/images/sort_desc.png",
         "BS3/assets/images/sort_desc_disabled.png",
         "BS3/assets/js/datatables.js"
+      ]
+    },
+    "jquery-treetable": {
+      "main": [
+        "javascripts/src/jquery.treetable.js",
+        "stylesheets/jquery.treetable.css",
+        "stylesheets/jquery.treetable.theme.default.css"
       ]
     },
     "momentjs": {
