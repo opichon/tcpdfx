@@ -86,7 +86,9 @@
                             $('input[name="sales_filters[date_start]"]').val(start.format('YYYY-MM-DD'));
                             $('input[name="sales_filters[date_end]"]').val(end.format('YYYY-MM-DD'));
                         }
-                    ).on('cancel.daterangepicker', function(ev, picker) {
+                    ).on( "show.daterangepicker", function( ev, picker ) {
+                        $( ".daterangepicker" ).addClass('show-calendar');
+                    }).on('cancel.daterangepicker', function(ev, picker) {
                         $(this).val('');
 
                         $('input[name="sales_filters[date_start]"]').val('');
@@ -129,6 +131,14 @@
             serverSide: true,
         },
         dateRangePicker: {
+            ranges: {
+                'MTD': [moment().startOf('month'), moment()],
+                'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')],
+                'QTD': [moment().month(moment().quarter()*3).subtract('month', 3).startOf('month'), moment()],
+                'Last quarter': [moment().month((moment().quarter()-1)*3).subtract('month', 3).startOf('month'), moment().month((moment().quarter()-1)*3).subtract('month', 1).endOf('month')],
+                'YTD': [moment().startOf('year'), moment()],
+                'Last Year': [moment().subtract('year', 1).startOf('year'), moment().subtract('year', 1).endOf('year')]
+            },
             startDate: moment(),
             locale: { cancelLabel: 'Clear' }
         },
@@ -141,5 +151,3 @@ $( document ).ready(function() {
 		$( ".sales" ).sales( dzangocart.sales );
 	}
 });
-
-
