@@ -1,14 +1,14 @@
 sale:
     sales:
         actions:
-            title:          Actions
-        category:           Category
+            show:           Afficher la commande
+        category:           Categorie
         code:               Code
-        currency:           Ccy
+        currency:           Dev,
         customer:           Client
         date:               Date
         gross:              HT
-        name:               Name
+        name:               Nom
         net:                TTC
         order_id:           Comm.
         order_date:         Date
@@ -19,4 +19,4 @@ sale:
 
 purchase:
     purchases:
-        page_title:         Purchases
+        page_title:         Achats

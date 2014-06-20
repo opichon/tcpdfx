@@ -78,9 +78,10 @@
 		dataTables: {
 			autoWidth: false,
 			columnDefs: [
-				{ className: "actions", targets: [ 7 ] },
 				{ orderable: false, targets: [ 0, 7 ] },
-				{ visible: false, targets: [ 0 ] }
+				{ visible: false, targets: [ 0 ] },
+				{ className: "amount", targets: [ 5 ] },
+				{ className: "actions", targets: [ 7 ] }
 			],
 			destroy: true,
 			orderable: true,
@@ -88,8 +89,9 @@
 			paginate: true,
 			processing: true,
 			saveState: true,
+			searching: false,
 			serverSide: true,
-			stripeClasses: [],
+			stripeClasses: []
 		},
 		dateRangePicker: {
 			startDate: moment(),

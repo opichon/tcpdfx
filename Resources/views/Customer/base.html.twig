@@ -3,8 +3,8 @@
 {% trans_default_domain "customer" %}
 
 {% block _core_head_style %}
-    {{ parent() }}
-    {% include "DzangocartCoreBundle:Customer:customer_head_style.html.twig" %}
+	{{ parent() }}
+	{% include "DzangocartCoreBundle:Customer:customer_head_style.html.twig" %}
 {% endblock %}
 
 {% block page_nav %}
@@ -12,17 +12,17 @@
 {% endblock %}
 
 {% block page_header %}
-    <h2 class="content_title">{% block _core_page_title %}{% trans with { '%name%': customer.name } %}customer.show.page_title{% endtrans %}{% endblock %}</h2>
-    <h3 class="content_title">{% block page_sub_title %}{% endblock %}</h3>
+	<h2 class="content_title">{% block _core_page_title %}{% trans with { '%name%': customer.name } %}customer.show.page_title{% endtrans %}{% endblock %}</h2>
+	<h3 class="content_title">{% block page_sub_title %}{% endblock %}</h3>
 {% endblock %}
 
 {% block page_class %}customer{% endblock %}
 
 {% block sidebar %}
-    {% if store %}
-        {% set menu = knp_menu_get("DzangocartStoreAdminBundle:AdminMenuBuilder:mainMenu", [], { customer: customer }) %}
-        {{ knp_menu_render(menu, { style: 'stacked-pills' }) }}
-     {% else %} {{ knp_menu_render("DzangocartAdminBundle:AdminMenuBuilder:mainMenu", { style: 'stacked-pills' }) }} {% endif %}
+	{% if store %}
+		{% set menu = knp_menu_get("DzangocartStoreAdminBundle:AdminMenuBuilder:mainMenu", [], { customer: customer }) %}
+		{{ knp_menu_render(menu, { style: 'stacked-pills' }) }}
+	 {% else %} {{ knp_menu_render("DzangocartAdminBundle:AdminMenuBuilder:mainMenu", { style: 'stacked-pills' }) }} {% endif %}
 {% endblock %}
 
 {% block _core_content  %}

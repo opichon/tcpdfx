@@ -1,3 +1,15 @@
 {% spaceless %}
-    <a href='{{ path('customer_show', { id: customer.id }) }}'><i class='fa fa-edit'></i></a>
+
+{% trans_default_domain "customer" %}
+
+<div class='btn-group'>
+	<button type='button' class='dropdown-toggle' data-toggle='dropdown'>
+		<i class='fa fa-cog'></i>
+	</button>
+	<ul class='dropdown-menu dropdown-menu-right navbar-right' role='menu'>
+		<li>
+			<a href='{{ path('customer_show', { id: customer.id }) }}'>{% trans %}customer.customers.actions.show{% endtrans %}</a>
+		</li>
+	</ul>
+</div>
 {% endspaceless %}

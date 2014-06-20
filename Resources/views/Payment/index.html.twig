@@ -7,15 +7,15 @@
 {% block bodyclass %}payments{% endblock %}
 
 {% block content %}
-    {% include "DzangocartCoreBundle:Payment:payments.html.twig" %}
+	{% include "DzangocartCoreBundle:Payment:payments.html.twig" %}
 {% endblock %}
 
 {% block head_style %}
-    {{ parent() }}
-    {% include "DzangocartCoreBundle:Payment:payments_head_style.html.twig" %}
+	{{ parent() }}
+	{% include "DzangocartCoreBundle:Payment:payments_head_style.html.twig" %}
 {% endblock %}
 
 {% block foot_script %}
-    {{ parent() }}
+	{{ parent() }}
 	{% include "DzangocartCoreBundle:Payment:payments_foot_script.html.twig" %}
 {% endblock %}

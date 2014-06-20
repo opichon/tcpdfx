@@ -5,9 +5,9 @@
 {% block page_sub_title %}{% trans %}payment.payments.page_title{% endtrans %}{% endblock %}
 
 {% block _core_content %}
-    <div class="payments">
-	    {% include "DzangocartCoreBundle:Payment:payments.html.twig" %}
-    </div>
+	<div class="payments">
+		{% include "DzangocartCoreBundle:Payment:payments.html.twig" %}
+	</div>
 {% endblock %}
 
 {% block _core_head_style %}
@@ -17,5 +17,5 @@
 
 {% block _core_foot_script %}
 	{{ parent() }}
-    {% include "DzangocartCoreBundle:Customer:payments_foot_script.html.twig" %}
+	{% include "DzangocartCoreBundle:Customer:payments_foot_script.html.twig" %}
 {% endblock %}

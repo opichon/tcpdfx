@@ -1,9 +1,23 @@
 payment:
     payments:
         actions:
-            title:          Actions
+            show:          	Afficher la commande
         order_id:           Commande
         date:               Date
         page_title:         Paiements
         store:				Boutique
-        status:				Etat
+        status:				Statut
+
+    status:
+        class:
+            approved:        warning
+            cancelled:       info
+            error:           danger
+            open:            default
+            paid:            success
+        label:
+            approved:        APPROUVÉ
+            cancelled:       ANNULÉ
+            error:           ERREUR
+            open:            OUVERT
+            paid:            RÉGLÉ

@@ -58,10 +58,10 @@
 		dataTables: {
 			autoWidth: false,
             columnDefs: [
+				{ orderable: false, targets: [ 0, 7 ] },
+				{ visible: false, targets: [ 0 ] },
 				{ className: "number", targets: [ 6 ] },
-				{ className: "actions", targets: [ 7 ] },
-				{ orderable: false, argets: [ 0, 7 ] },
-				{ visible: false, targets: [ 0 ] }
+				{ className: "actions", targets: [ 7 ] }
 			],
 			destroy: true,
 			orderable: true,
@@ -69,6 +69,7 @@
 			paginate: true,
 			processing: true,
 			saveState: true,
+			searching: false,
 			serverSide: true,
 			stripeClasses: []
 		}

@@ -1,7 +1,7 @@
 payment:
     payments:
         actions:
-            title:          Actions
+            show:           Show order
         date:               Date
         gateway:            Gateway
         order_id:           Order

@@ -9,13 +9,13 @@
 {% endjavascripts %}
 <script>
 dzangocart.payments = {
-    dataTables: {
-        ajax: {
-            url: "{{ path('payments_list', {customer_id: customer.id })|raw}}"
-        },
-        language: {
-            url: "/bundles/dzangocartcore/datatables/" + dzangocart.locale + ".json"
-        }
-    }
+	dataTables: {
+		ajax: {
+			url: "{{ path('payments_list', {customer_id: customer.id })|raw}}"
+		},
+		language: {
+			url: "/bundles/dzangocartcore/datatables/" + dzangocart.locale + ".json"
+		}
+	}
 };
 </script>

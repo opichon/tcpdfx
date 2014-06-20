@@ -18,53 +18,17 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * @Route("/affiliate")
+ */
 class AffiliateController extends BaseController
 {
     /**
-     * @Route("/affiliate", name="affiliates")
+     * @Route("/", name="affiliates")
      * @Template("DzangocartCoreBundle:Affiliate:index.html.twig")
      */
     public function indexAction(Request $request)
     {
-        if ($request->isXmlHttpRequest() || 'json' == $request->getRequestFormat()) {
-
-            $query = $this->getQuery();
-
-            if ($store_id = $request->query->get('store_id')) {
-                $query->filterByStoreId($store_id);
-            }
-
-            $total_count = $query->count();
-
-            $query->datatablesSearch(
-                $request->query->get('sSearch'),
-                $this->getDataTablesSearchColumns()
-            );
-
-            $filtered_count = $query->count();
-
-            $limit = min(100, $request->query->get('iDisplayLength'));
-            $offset = max(0, $request->query->get('iDisplayStart'));
-
-            $affiliates = $query
-                ->dataTablesSort($request->query, $this->getDataTablesSortColumns())
-                ->setLimit($limit)
-                ->setOffset($offset)
-                ->find();
-
-            $data = array(
-                'sEcho' => $request->query->get('sEcho'),
-                'iStart' => 0,
-                'iTotalRecords' => $total_count,
-                'iTotalDisplayRecords' => $filtered_count,
-                'affiliates' => $affiliates
-            );
-
-            $view = $this->renderView('DzangocartCoreBundle:Affiliate:index.json.twig', $data);
-
-            return new Response($view, 200, array('Content-Type' => 'application/json'));
-        }
-
         return array_merge(
             $this->getTemplateParams(),
             array(
@@ -74,7 +38,48 @@ class AffiliateController extends BaseController
     }
 
     /**
-     * @Route("/affiliate/{id}", requirements={"id" = "\d+"}, name="affiliate_show")
+     * @Route("/list", name="affiliates_list", requirements={"_format": "json"}, defaults={"_format": "json"})
+     * @Template("DzangocartCoreBundle:Affiliate:list.json.twig")
+     */
+    public function listAction(Request $request)
+    {
+        $query = $this->getQuery();
+
+        if ($store_id = $request->query->get('store_id')) {
+            $query->filterByStoreId($store_id);
+        }
+
+        $total_count = $query->count();
+
+        $search = $request->query->get('search');
+
+        $query->datatablesSearch(
+            $search['value'],
+            $this->getDataTablesSearchColumns()
+        );
+
+        $filtered_count = $query->count();
+
+        $limit = min(100, $request->query->get('length'));
+        $offset = max(0, $request->query->get('start'));
+
+        $affiliates = $query
+            ->dataTablesSort($request->query, $this->getDataTablesSortColumns())
+            ->setLimit($limit)
+            ->setOffset($offset)
+            ->find();
+
+        return array(
+            'draw' => $request->query->get('draw'),
+            'start' => 0,
+            'recordsTotal' => $total_count,
+            'recordsFiltered' => $filtered_count,
+            'affiliates' => $affiliates
+        );
+    }
+
+    /**
+     * @Route("/{id}", requirements={"id" = "\d+"}, name="affiliate_show")
      * @Template("DzangocartCoreBundle:Affiliate:show.html.twig")
      */
     public function showAction(Request $request, $id)
@@ -89,7 +94,7 @@ class AffiliateController extends BaseController
     }
 
      /**
-     * @Route("/affiliate/{id}/order",name="affiliate_orders")
+     * @Route("/{id}/order",name="affiliate_orders")
      * @Template("DzangocartCoreBundle:Affiliate:orders.html.twig")
      */
     public function ordersAction(Request $request, $id)
@@ -108,7 +113,7 @@ class AffiliateController extends BaseController
     }
 
     /**
-     * @Route("/affiliate/{id}/sale", name="affiliate_sales")
+     * @Route("/{id}/sale", name="affiliate_sales")
      * @Template("DzangocartCoreBundle:Affiliate:sales.html.twig")
      */
     public function salesAction(Request $request, $id)
@@ -128,7 +133,7 @@ class AffiliateController extends BaseController
     }
 
     /**
-     * @Route("/affiliate/{id}/customer", name="affiliate_customer")
+     * @Route("/{id}/customer", name="affiliate_customer")
      * @Template("DzangocartCoreBundle:Affiliate:customers.html.twig")
      */
     public function customerAction(Request $request, $id)
@@ -164,7 +169,7 @@ class AffiliateController extends BaseController
     }
 
     /**
-     *@Route("/affiliate/create", name="affiliate_create")
+     *@Route("/create", name="affiliate_create")
      *@Template("DzangocartCoreBundle:Affiliate:create.html.twig")
      */
     public function createAction(Request $request)
