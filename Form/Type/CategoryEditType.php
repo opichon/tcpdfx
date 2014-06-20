@@ -3,7 +3,7 @@
 namespace Dzangocart\Bundle\CoreBundle\Form\Type;
 
 use Dzangocart\Bundle\CoreBundle\Model\Store;
-use Dzangocart\Bundle\CoreBundle\Model\TaxQuery;
+use Dzangocart\Bundle\CoreBundle\Model\TaxRateQuery;
 
 use Propel\PropelBundle\Form\BaseAbstractType;
 
@@ -115,7 +115,7 @@ class CategoryEditType extends BaseAbstractType
     {
         $tax_rates = array();
 
-        $taxes = TaxQuery::create()
+        $taxes = TaxRateQuery::create()
             ->filterByCountry($this->store->getCountryId())
             ->find();
 
