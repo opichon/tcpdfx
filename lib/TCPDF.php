@@ -257,19 +257,6 @@ class TCPDF extends FPDI
         $this->SetFont($this->FontFamily, $this->FontStyle, $this->FontSizePt);
     }
 
-    /*
-    public function MultiCell($w, $h, $txt, $border=0, $align='J', $fill=false, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0, $valign='T', $fitcell=false)
-    {
-        $old_cell_padding = $this->GetCellPaddings();
-        $this->setCellPaddings($this->default_cell_padding['L'],
-                                                     $this->default_cell_padding['T'],
-                                                     $this->default_cell_padding['R'],
-                                                     $this->default_cell_padding['B']);
-        parent::MultiCell($w, $h, $txt, $border, $align, $fill, $ln, $x, $y, $reseth, $stretch, $ishtml, $autopadding, $maxh, $valign, $fitcell);
-        $this->SetCellPaddings($old_cell_padding['L'], $old_cell_padding['T'], $old_cell_padding['R'], $old_cell_padding['B']);
-    }
-    */
-
     protected function init()
     {
         $this->SetAutoPageBreak(true, $this->bottom_margin);
@@ -414,13 +401,6 @@ class TCPDF extends FPDI
         );
     }
 
-    protected function _cell($s, $link = '')
-    {
-        $this->Cell($this->getStringWidth($s), 0, $s, 0, 0, 'L', 0, $link);
-    }
-
-    //public function getCellPadding() { return $this->cMargin; }
-
     public function printDocumentTitle()
     {
         $title = $this->getDocumentTitle();
@@ -468,40 +448,35 @@ class TCPDF extends FPDI
     }
 
     // MultiCell with bullet
-    public function MultiCellBlt($w, $h, $blt, $txt, $border = 0, $align = 'J', $fill = 0, $ln = 1)
+    public function MultiCellBlt($width, $line_height, $bullet, $text, $border = 0, $align = 'L', $fill = 0)
     {
-    //  $font = $this->FontFamily;
-    //  $style = $this->FontStyle;
-    //  $size = $this->getFontSizePt();
-        // $this->setFont('zapfdingbats', '', $size);
-
         //Get bullet width including margins
         $paddings = $this->getCellPaddings();
-        $blt_width = $this->GetStringWidth($blt) + $paddings['L'] + $paddings['R'];
+        $bullet_width = $this->GetStringWidth($bullett) + $paddings['L'] + $paddings['R'];
 
         //Save x
-        $bak_x = $this->x;
+        $x = $this->x;
 
         //Output bullet
-//    $this->Cell($blt_width, $h, $this->unichr(0x0076) , 0, '', $fill);
-        $this->Cell($blt_width, $h, $this->unichr(0x2022) , 0, '', $fill);
-//    $this->SetFont($font, $style, $size);
+        $this->Cell($bullet_width, $line_height, $this->unichr(0x2022) , 0, '', $fill);
+
         //Output text
-        $this->MultiCell($w - $blt_width, $h, $txt, $border, $align, $fill, 1);
+        $this->MultiCell($width - $bullet_width, $ine_height, $text, $border, $align, $fill, 1);
 
         //Restore x
-        $this->x = $bak_x;
+        $this->x = $x;
     }
 
     public function unichr($c)
     {
-        if ($c <= 0x7F) { return chr($c); } elseif ($c <= 0x7FF) { return chr(0xC0 | $c >> 6) . chr(0x80 | $c & 0x3F); } elseif ($c <= 0xFFFF) {
-                return chr(0xE0 | $c >> 12) . chr(0x80 | $c >> 6 & 0x3F)
-                                                                        . chr(0x80 | $c & 0x3F);
+        if ($c <= 0x7F) {
+            return chr($c);
+        } elseif ($c <= 0x7FF) {
+            return chr(0xC0 | $c >> 6) . chr(0x80 | $c & 0x3F);
+        } elseif ($c <= 0xFFFF) {
+            return chr(0xE0 | $c >> 12) . chr(0x80 | $c >> 6 & 0x3F) . chr(0x80 | $c & 0x3F);
         } elseif ($c <= 0x10FFFF) {
-                return chr(0xF0 | $c >> 18) . chr(0x80 | $c >> 12 & 0x3F)
-                                                                        . chr(0x80 | $c >> 6 & 0x3F)
-                                                                        . chr(0x80 | $c & 0x3F);
+               return chr(0xF0 | $c >> 18) . chr(0x80 | $c >> 12 & 0x3F) . chr(0x80 | $c >> 6 & 0x3F) . chr(0x80 | $c & 0x3F);
         } else { return false; }
     }
 
@@ -544,17 +519,36 @@ class TCPDF extends FPDI
      *                              All values except for keys 'data' and 'min_row_height' are either single values
      *                              (applying to all header cells) or an array containing values for each cell.
      */
-    public function generateTable($data, $width, $align = 'L', $border, $font, $font_style, $font_size,
-                                                                $cell_height, $min_row_height = 0,
-                                                                $headers = array(), $footers = array(),
-                                                                $fill = 0) {
+    public function generateTable(
+        $data,
+        $width,
+        $align = 'L',
+        $border,
+        $font,
+        $font_style,
+        $font_size,
+        $cell_height,
+        $min_row_height = 0,
+        $headers = array(),
+        $footers = array(),
+        $fill = 0)
+    {
 
         // print headers
         foreach ($headers as $h) {
-            $this->__row($h['data'], $h['width'], $h['align'], $h['border'],
-                                     $h['font'], $h['font_style'], $h['font_size'],
-                                     $h['cell_height'], $h['min_row_height'], 0,
-                                     isset($h['fill']) ? $h['fill'] : 0);
+            $this->__row(
+                $h['data'],
+                $h['width'],
+                $h['align'],
+                $h['border'],
+                $h['font'],
+                $h['font_style'],
+                $h['font_size'],
+                $h['cell_height'],
+                $h['min_row_height'],
+                0,
+                isset($h['fill']) ? $h['fill'] : 0
+            );
         }
 
         foreach ($data as $row) {
@@ -574,17 +568,34 @@ class TCPDF extends FPDI
                 }
             }
 
-            $this->__row($row, $width, $align, $border,
-                                     $font, $font_style, $font_size,
-                                     $cell_height, $min_row_height, $height, $fill);
+            $this->__row(
+                $row,
+                $width,
+                $align,
+                $border,
+                $font,
+                $font_style,
+                $font_size,
+                $cell_height,
+                $min_row_height,
+                $height,
+                $fill
+            );
         }
 
         // print footers
         foreach ($footers as $f) {
-            $this->__row($f['data'], $f['width'], $f['align'], $f['border'],
-                                     $f['font'], $f['font_style'], $f['font_size'],
-                                     $f['cell_height'], $f['min_row_height'],
-                                     isset($f['fill']) ? $f['fill'] : 0);
+            $this->__row(
+                $f['data'],
+                $f['width'],
+                $f['align'],
+                $f['border'],
+                $f['font'],
+                $f['font_style'],
+                $f['font_size'],
+                $f['cell_height'],
+                $f['min_row_height'],
+                isset($f['fill']) ? $f['fill'] : 0);
         }
     }
 
@@ -629,7 +640,18 @@ class TCPDF extends FPDI
         return $height;
     }
 
-    protected function __row($data, $width, $align = 'C', $border, $font, $font_style, $font_size, $cell_height, $min_height = 0, $height = 0, $fill = 0)
+    protected function __row(
+        $data,
+        $width,
+        $align = 'C',
+        $border,
+        $font,
+        $font_style,
+        $font_size,
+        $cell_height,
+        $min_height = 0,
+        $height = 0,
+        $fill = 0)
     {
         $x0 = $this->GetX();
         $y0 = $this->GetY();
@@ -644,25 +666,31 @@ class TCPDF extends FPDI
 
         for ($i = 0; $i < $n; $i++) {
             $this->SetXY($x1, $y0);
-            $this->SetFont(is_array($font) ? $font[$i] : $font,
-                                         is_array($font_style) ? $font_style[$i] : $font_style,
-                                         is_array($font_size) ? $font_size[$i] : $font_size);
-            $this->MultiCell(is_array($width) ? $width[$i] : $width,
-                                             $height,
-                                             $data[$i],
-                                             is_array($border) ? $border[$i] : $border,
-                                             is_array($align) ? $align[$i] : $align,
-                                             is_array($fill) ? $fill[$i] : $fill,
-                                             1);
 
-                $x1 += is_array($width) ? $width[$i] : $width;
-                $height = max($height, $this->getY() - $y0);
+            $this->SetFont(
+                is_array($font) ? $font[$i] : $font,
+                is_array($font_style) ? $font_style[$i] : $font_style,
+                is_array($font_size) ? $font_size[$i] : $font_size
+            );
+
+            $this->MultiCell(
+                is_array($width) ? $width[$i] : $width,
+                $height,
+                $data[$i],
+                is_array($border) ? $border[$i] : $border,
+                is_array($align) ? $align[$i] : $align,
+                is_array($fill) ? $fill[$i] : $fill,
+                1
+            );
+
+            $x1 += is_array($width) ? $width[$i] : $width;
+            $height = max($height, $this->getY() - $y0);
         }
 
         $this->SetXY($x0, $y0 + $height);
     }
 
-/**
+    /**
      * This function calculate row height
      *
      * @param  array $data
@@ -689,18 +717,14 @@ class TCPDF extends FPDI
         return max($height);
     }
 
-    public function sanitizeName($string = '')
+    public function sanitizeName($string)
     {
-        $string = strtr(utf8_decode($string),
-                                        utf8_decode("()!$'?: ,&+-/.ŠŒŽšœžŸ¥µÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýÿ"),
-                                        "--------------SOZsozYYuAAAAAAACEEEEIIIIDNOOOOOOUUUUYsaaaaaaaceeeeiiiionoooooouuuuyy");
-/*
-        htmlentities($string);
-        $string = preg_replace("/&([a-z])[a-z]+;/i", "$1", $string);
-*/
-        // Replace all weird characters with dashes
-//    $string = preg_replace('/[^\w\-]+/u', '-', $string);
-        // Only allow one dash separator at a time (and make string lowercase)
+        $string = strtr(
+            utf8_decode($string),
+            utf8_decode("()!$'?: ,&+-/.ŠŒŽšœžŸ¥µÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýÿ"),
+            "--------------SOZsozYYuAAAAAAACEEEEIIIIDNOOOOOOUUUUYsaaaaaaaceeeeiiiionoooooouuuuyy"
+        );
+
         return mb_strtolower(preg_replace('/--+/u', '-', $string), 'UTF-8');
     }
 }
