@@ -24,7 +24,9 @@ class TCPDF extends FPDI
     protected $pagination_font = array('Verdana', '', 8);
     protected $pagination_x;
     protected $pagination_y;
+    protected $pagination_cell_height = 0;
 
+    protected $document_title;
     protected $document_title_font = array('Georgia', 'B', 16);
     protected $document_title_border = 'B';
     protected $document_title_align = 'C';
@@ -163,6 +165,46 @@ class TCPDF extends FPDI
         $this->pagination_font = $font;
     }
 
+    public function getPaginationX()
+    {
+        return $this->pagination_x;
+    }
+
+    public function setPaginationX($x)
+    {
+        $this->pagination_x = $x;
+    }
+
+    public function getPaginationY()
+    {
+        return $this->pagination_y;
+    }
+
+    public function setPaginationY($y)
+    {
+        $this->pagination_y = $y;
+    }
+
+    public function getPaginationCellHeight()
+    {
+        return $this->pagination_cell_height;
+    }
+
+    public function setPaginationCellHeight($height)
+    {
+        $this->pagination_cell_height = $height;
+    }
+
+    public function getDocumentTitle()
+    {
+        return $this->document_title;
+    }
+
+    public function setDocumentTitle($title)
+    {
+        $this->document_title = $title;
+    }
+
     public function getDocumentTitleFont()
     {
         return $this->document_title_font;
@@ -230,9 +272,19 @@ class TCPDF extends FPDI
         $this->addWatermark();
 
         $this->SetY(max($this->GetY(), $this->getHeaderMargin()));
+        $y = $this->GetY();
+
         $this->printPageHeader();
 
         if ($this->getPaginationInHeader()) {
+            if (!$this->pagination_y) {
+                $this->pagination_y = $y;
+
+                if (!$this->getPaginationCellHeight()) {
+                    $this->setPaginationCellHeight($this->getDocumentTitleCellHeight());
+                }
+            }
+
             $this->paginate();
         }
     }
@@ -250,11 +302,6 @@ class TCPDF extends FPDI
         }
 
         $this->SetY($cur_y);
-    }
-
-    public function resetFont()
-    {
-        $this->SetFont($this->FontFamily, $this->FontStyle, $this->FontSizePt);
     }
 
     protected function init()
@@ -290,6 +337,8 @@ class TCPDF extends FPDI
      */
     protected function addWatermark()
     {
+        $gvars = $this->getGraphicVars();
+
         $watermark = $this->getWatermark();
 
         if (!is_array($watermark) || empty($watermark)) {
@@ -328,8 +377,8 @@ class TCPDF extends FPDI
         $this->StopTransform();
 
         $this->SetXY($x, $y);
-        $this->resetFont();
-        $this->TextColor = $color;
+
+        $this->setGraphicVars($gvars);
     }
 
     protected function printPageHeader()
@@ -352,14 +401,14 @@ class TCPDF extends FPDI
         $this->SetFont($font[0], $font[1], $font[2]);
 
         $this->SetX(
-            $this->pagination_x
-            ? $this->pagination_x
+            $this->getPaginationX()
+            ? $this->getPaginationX()
             : ($this->getRTL() ? $this->original_rMargin : $this->original_lMargin)
         );
 
-        if ($this->pagination_y) {
+        if ($y = $this->getPaginationY()) {
 
-            $this->SetY($this->pagination_y);
+            $this->SetY($y);
 
         } elseif ($this->InHeader) {
 
@@ -372,9 +421,11 @@ class TCPDF extends FPDI
         }
 
         if ($this->getRTL()) {
-            $this->Cell(0, 0, $this->getPagination(), 0, 0, 'L');
+            $this->SetX($this->original_rMargin);
+            $this->Cell(0, $this->getPaginationCellHeight(), $this->getPagination(), 0, 0, 'L');
         } else {
-            $this->Cell(0, 0, $this->getAliasRightShift() . $this->getPagination(), 0, 0, 'R');
+            $this->SetX($this->original_lMargin);
+            $this->Cell(0, $this->getPaginationCellHeight(), $this->getAliasRightShift() . $this->getPagination(), 0, 0, 'R');
         }
 
         // restore graphic settings
@@ -430,54 +481,24 @@ class TCPDF extends FPDI
         $this->setGraphicVars($gvars);
     }
 
-    public function printTitle($title)
-    {
-        $this->SetFont($this->title_font, $this->title_style, $this->title_size);
-        $this->MultiCell(0, $this->title_cell_height, $title, 0, $this->title_align, 0, 1);
-        $this->resetFont();
-    }
-
-    public function printText($text, $multiline = false)
-    {
-        $this->resetFont();
-        if (!$multiline) {
-            $this->Cell(0, 0, $text, 0, 1, 'L');
-        } else {
-            $this->MultiCell(0, 0, $text, '', 'L', 0, 1);
-        }
-    }
-
     // MultiCell with bullet
-    public function MultiCellBlt($width, $line_height, $bullet, $text, $border = 0, $align = 'L', $fill = 0)
+    public function MultiCellBlt($width = 0, $line_height = 0, $bullet, $text, $border = 0, $align = 'L', $fill = 0)
     {
-        //Get bullet width including margins
+        // Get bullet width including margins
         $paddings = $this->getCellPaddings();
         $bullet_width = $this->GetStringWidth($bullett) + $paddings['L'] + $paddings['R'];
 
-        //Save x
-        $x = $this->x;
+        // Save x
+        $x = $this->GetX();
 
-        //Output bullet
-        $this->Cell($bullet_width, $line_height, $this->unichr(0x2022) , 0, '', $fill);
+        // Output bullet
+        $this->Cell($bullet_width, $h, $this->unhtmlEntities($bullet), 0, '', $fill);
 
-        //Output text
+        // Output text
         $this->MultiCell($width - $bullet_width, $ine_height, $text, $border, $align, $fill, 1);
 
-        //Restore x
-        $this->x = $x;
-    }
-
-    public function unichr($c)
-    {
-        if ($c <= 0x7F) {
-            return chr($c);
-        } elseif ($c <= 0x7FF) {
-            return chr(0xC0 | $c >> 6) . chr(0x80 | $c & 0x3F);
-        } elseif ($c <= 0xFFFF) {
-            return chr(0xE0 | $c >> 12) . chr(0x80 | $c >> 6 & 0x3F) . chr(0x80 | $c & 0x3F);
-        } elseif ($c <= 0x10FFFF) {
-               return chr(0xF0 | $c >> 18) . chr(0x80 | $c >> 12 & 0x3F) . chr(0x80 | $c >> 6 & 0x3F) . chr(0x80 | $c & 0x3F);
-        } else { return false; }
+        // Restore x
+        $this->SetX($x);
     }
 
     /**
@@ -554,17 +575,29 @@ class TCPDF extends FPDI
         foreach ($data as $row) {
             // add a new page if necessary
             $height = $this->__row_height($row, $width, $align, $border, $font, $font_style, $font_size, $cell_height, $min_row_height);
+
             $dimensions = $this->getPageDimensions();
+
             if ($this->getY() + $height + $dimensions['bm'] >= $dimensions['hk']) {
                 $x0 = $this->GetX();
                 $this->addPage();
                 $this->SetX($x0);
+
                 // reprint the headers
                 foreach ($headers as $h) {
-                    $this->__row($h['data'], $h['width'], $h['align'], $h['border'],
-                                             $h['font'], $h['font_style'], $h['font_size'],
-                                             $h['cell_height'], $h['min_row_height'], 0,
-                                             isset($h['fill']) ? $h['fill'] : 0);
+                    $this->__row(
+                        $h['data'],
+                        $h['width'],
+                        $h['align'],
+                        $h['border'],
+                        $h['font'],
+                        $h['font_style'],
+                        $h['font_size'],
+                        $h['cell_height'],
+                        $h['min_row_height'],
+                        0,
+                        isset($h['fill']) ? $h['fill'] : 0
+                    );
                 }
             }
 
@@ -612,29 +645,61 @@ class TCPDF extends FPDI
      * @param  array $footers
      * @return int
      */
-    public function getTableHeight($data, $width, $border, $font, $font_style, $font_size,
-                                                                 $cell_height, $min_row_height = 0, $headers = array(), $footers = array()) {
+    public function getTableHeight(
+        $data,
+        $width,
+        $border,
+        $font,
+        $font_style,
+        $font_size,
+        $cell_height,
+        $min_row_height = 0,
+        $headers = array(),
+        $footers = array())
+    {
 
         $height = 0;
+
         foreach ($headers as $h) {
-            $height += $this->__row_height($h['data'], $h['width'], $h['align'],
-                                                                         $h['border'], $h['font'],
-                                                                         $h['font_style'], $h['font_size'],
-                                                                         $h['cell_height'], $h['min_row_height']);
+            $height += $this->__row_height(
+                $h['data'],
+                $h['width'],
+                $h['align'],
+                $h['border'],
+                $h['font'],
+                $h['font_style'],
+                $h['font_size'],
+                $h['cell_height'],
+                $h['min_row_height']
+            );
         }
 
         foreach ($data as $row) {
-            $height += $this->__row_height($row, $width, '',
-                                                                         $border, $font,
-                                                                         $font_style, $font_size,
-                                                                         $cell_height, $min_row_height);
+            $height += $this->__row_height(
+                $row,
+                $width,
+                '',
+                $border,
+                $font,
+                $font_style,
+                $font_size,
+                $cell_height,
+                $min_row_height
+            );
         }
 
         foreach ($footers as $f) {
-            $height += $this->__row_height($f['data'], $f['width'], $f['align'],
-                                                                         $f['border'], $f['font'],
-                                                                         $f['font_style'], $f['font_size'],
-                                                                         $f['cell_height'], $f['min_row_height']);
+            $height += $this->__row_height(
+                $f['data'],
+                $f['width'],
+                $f['align'],
+                $f['border'],
+                $f['font'],
+                $f['font_style'],
+                $f['font_size'],
+                $f['cell_height'],
+                $f['min_row_height']
+            );
         }
 
         return $height;
@@ -684,6 +749,7 @@ class TCPDF extends FPDI
             );
 
             $x1 += is_array($width) ? $width[$i] : $width;
+
             $height = max($height, $this->getY() - $y0);
         }
 
@@ -701,17 +767,39 @@ class TCPDF extends FPDI
      * @param  int   $cell_height
      * @return int
      */
-    protected function __row_height($data, $width, $align, $border, $font, $font_style, $font_size, $cell_height, $min_height = 0)
+    protected function __row_height(
+        $data,
+        $width,
+        $align,
+        $border,
+        $font,
+        $font_style,
+        $font_size,
+        $cell_height,
+        $min_height = 0)
     {
         $lines = array();
+
         $height = array($cell_height, $min_height);
+
         $n = count($data);
+
         $w = is_array($width) ? null : $width;
+
         for ($i = 0; $i < $n; $i++) {
-            $this->SetFont(is_array($font) ? $font[$i] : $font,
-                                         is_array($font_style) ? $font_style[$i] : $font_style,
-                                         is_array($font_size) ? $font_size[$i] : $font_size);
-            $height[] = $this->getStringHeight($w ? $w : $width[$i], $data[$i], false, true, $this->cell_padding, $border);
+            $this->SetFont(
+                is_array($font) ? $font[$i] : $font,
+                is_array($font_style) ? $font_style[$i] : $font_style,
+                is_array($font_size) ? $font_size[$i] : $font_size);
+
+            $height[] = $this->getStringHeight(
+                $w ? $w : $width[$i],
+                $data[$i],
+                false,
+                true,
+                $this->cell_padding,
+                $border
+            );
         }
 
         return max($height);
