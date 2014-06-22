@@ -84,6 +84,9 @@
 				{ className: "actions", targets: [ 7 ] }
 			],
 			destroy: true,
+            language: {
+                url: "/bundles/dzangocartcore/datatables/" + dzangocart.locale + ".json"
+            },
 			orderable: true,
 			orderCellsTop: true,
 			paginate: true,

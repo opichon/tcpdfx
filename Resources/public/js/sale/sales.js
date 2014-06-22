@@ -113,6 +113,7 @@
 
     $.fn.sales.defaults = {
         dataTables: {
+            autoWidth: false,
             columnDefs: [
                 { orderable: false, targets: [ 0, 11 ] },
                 { visible: false, targets: [ 0 ] },
@@ -120,15 +121,17 @@
                 { className: "amount", targets: [ 8, 9, 10 ] },
                 { className: "actions", targets: [ 11 ] }
             ],
-            stripeClasses: [],
-            autoWidth: false,
             destroy: true,
-            paging: true,
-            processing: true,
+            language: {
+                url: "/bundles/dzangocartcore/datatables/" + dzangocart.locale + ".json"
+            },
             orderable: true,
             orderCellsTop: true,
+            paging: true,
+            processing: true,
             searching: false,
             serverSide: true,
+            stripeClasses: []
         },
         dateRangePicker: {
             ranges: {
