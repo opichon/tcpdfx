@@ -2,10 +2,10 @@
 
 {% spaceless %}
 {
-    "sEcho": "{{ sEcho }}",
-    "iTotalRecords": {{ iTotalRecords }},
-    "iTotalDisplayRecords": {{ iTotalDisplayRecords }},
-    "aaData" : [
+    "draw": "{{ draw }}",
+    "recordsTotal": {{ recordsTotal }},
+    "recordsFiltered": {{ recordsFiltered }},
+    "data" : [
         {% for order in orders %}
             {
                 "DT_RowId": "{{ '_' ~ order.id }}",

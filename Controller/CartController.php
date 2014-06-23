@@ -20,47 +20,6 @@ class CartController extends BaseController
     */
     public function indexAction(Request $request)
     {
-        if ($request->isXmlHttpRequest() || 'json' == $request->getRequestFormat()) {
-
-            $query = $this->getQuery();
-
-            if ($store_id = $request->query->get('store_id')) {
-                $query->filterByStoreId($store_id);
-            }
-
-            $total_count = $query->count();
-
-            $query->datatablesSearch(
-                $request->query->get('order_filters'),
-                $this->getDataTablesSearchColumns()
-            );
-
-            $query->innerJoinStore('store');
-
-            $filtered_count = $query->count();
-
-            $limit = min(100, $request->query->get('iDisplayLength'));
-            $offset = max(0, $request->query->get('iDisplayStart'));
-
-            $orders = $query
-                ->dataTablesSort($request->query, $this->getDataTablesSortColumns())
-                ->setLimit($limit)
-                ->setOffset($offset)
-                ->find();
-
-            $data = array(
-                'sEcho' => $request->query->get('sEcho'),
-                'iStart' => 0,
-                'iTotalRecords' => $total_count,
-                'iTotalDisplayRecords' => $filtered_count,
-                'orders' => $orders
-            );
-
-            $view = $this->renderView('DzangocartCoreBundle:Cart:index.json.twig', $data);
-
-            return new Response($view, 200, array('Content-Type' => 'application/json'));
-        }
-
         $form = $this->createForm(
             new OrderFiltersType());
 
@@ -71,6 +30,47 @@ class CartController extends BaseController
         );
     }
 
+    /**
+     * @Route("/cart//list", name="cart_list", requirements={"_format": "json"}, defaults={"_format": "json"})
+     * @Template("DzangocartCoreBundle:Order:list.json.twig")
+     */
+    public function listAction(Request $request)
+    {
+
+        $query = $this->getQuery();
+
+        if ($store_id = $request->query->get('store_id')) {
+            $query->filterByStoreId($store_id);
+        }
+
+        $total_count = $query->count();
+
+        $query->datatablesSearch(
+            $request->query->get('order_filters'),
+            $this->getDataTablesSearchColumns()
+        );
+
+        $query->innerJoinStore('store');
+
+        $filtered_count = $query->count();
+
+        $limit = min(100, $request->query->get('length'));
+        $offset = max(0, $request->query->get('start'));
+
+        $orders = $query
+            ->dataTablesSort($request->query->get('order', array()), $this->getDataTablesSortColumns())
+            ->setLimit($limit)
+            ->setOffset($offset)
+            ->find();
+
+        return array(
+            'draw' => $request->query->get('draw'),
+            'start' => 0,
+            'count_total' => $total_count,
+            'count_filtered' => $filtered_count,
+            'orders' => $orders
+        );
+    }
     /**
      * @Route("/cart/{id}", name="cart")
      * @Template("DzangocartCoreBundle:Cart:show.html.twig")
