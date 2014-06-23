@@ -198,7 +198,7 @@
     <table name="category" idMethod="native">
         <column name="id"                    type="integer" primaryKey="true" autoIncrement="true" required="true" />
         <column name="code"                  type="varchar" size="128" required="false" />
-        <column name="pcode"                 type="varchar" size="32" required="false" phpName="suffix"/>
+        <column name="pcode"                 type="varchar" size="32" required="false" phpName="Suffix"/>
         <column name="name"                  type="varchar" size="128" required="true" />
         <column name="price"                 type="float" size="8" scale="2" required="true" defaultValue="0.00" />
         <column name="tax_rate_id"           type="integer" required="false" />
