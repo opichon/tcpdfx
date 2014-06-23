@@ -25,7 +25,8 @@ class PromotionController extends BaseController
         if ($request->isXmlHttpRequest() || 'json' == $request->getRequestFormat()) {
 
             $store_id = $request->query->get('store_id');
-            $query = PromotionQuery::create()
+
+            $query = $this->getQuery()
                 ->joinWithI18n($request->getLocale());
 
             if ($store = $this->getStore()) {
@@ -93,7 +94,7 @@ class PromotionController extends BaseController
      */
     public function editAction(Request $request, $id)
     {
-        $promotion = PromotionQuery::create()
+        $promotion = $this->getQuery()
             ->joinWithI18n($request->getLocale())
             ->findPk($id);
 
@@ -136,7 +137,7 @@ class PromotionController extends BaseController
      */
     public function deleteAction(Request $request, $id)
     {
-        $promotion = PromotionQuery::create()
+        $promotion = $this->getQuery()
             ->findPk($id);
 
         $promotion_i18n = PromotionI18nQuery::create()->findById($id);
@@ -214,5 +215,10 @@ class PromotionController extends BaseController
             'form' => $form->createView(),
             'template' => $this->getBaseTemplate()
         );
+    }
+
+    protected function getQuery()
+    {
+        return PromotionQuery::create();
     }
 }
