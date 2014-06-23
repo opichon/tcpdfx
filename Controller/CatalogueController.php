@@ -36,7 +36,7 @@ class CatalogueController extends BaseController
      */
     public function catalogue2Action(Request $request)
     {
-        $catalogue = CategoryQuery::create()
+        $catalogue = $this->getQuery()
             ->findRoot($this->getStore()->getId());
 
         return array(
@@ -52,7 +52,7 @@ class CatalogueController extends BaseController
      */
     public function catalogueAction(Request $request, $id)
     {
-        $catalogue = CategoryQuery::create()
+        $catalogue = $this->getQuery()
             ->findRoot($id);
 
         $data= array(
@@ -71,7 +71,7 @@ class CatalogueController extends BaseController
      */
     public function categoryAction(Request $request, $id)
     {
-        $category = CategoryQuery::create()
+        $category = $this->getQuery()
             ->findPk($id);
 
         return array(
@@ -87,7 +87,7 @@ class CatalogueController extends BaseController
      */
     public function editAction(Request $request, $id)
     {
-        $category = CategoryQuery::create()
+        $category = $this->getQuery()
             ->findPk($id);
 
         $packs = PackComponentQuery::create()
@@ -133,5 +133,10 @@ class CatalogueController extends BaseController
             'form' => $form->createView(),
             'template' => $this->getBaseTemplate()
         );
+    }
+
+    protected function getQuery()
+    {
+        return CategoryQuery::create();
     }
 }
