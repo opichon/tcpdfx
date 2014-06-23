@@ -22,8 +22,7 @@ class CartController extends BaseController
     {
         if ($request->isXmlHttpRequest() || 'json' == $request->getRequestFormat()) {
 
-            $query = CartQuery::create('Cart')
-                ->filterByStatus(Cart::STATUS_OPEN);
+            $query = $this->getQuery();
 
             if ($store = $this->getStore()) {
                 $query->filterByStore($store);
@@ -114,5 +113,11 @@ class CartController extends BaseController
             'date_start' => 'cart.date BETWEEN CONCAT("%s%%, 00:00:00")',
             'date_end' => 'CONCAT("%s%%, 23:59:59")'
         );
+    }
+
+    protected function getQuery()
+    {
+        return CartQuery::create('Cart')
+            ->filterByStatus(Cart::STATUS_OPEN);
     }
 }
