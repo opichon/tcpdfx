@@ -43,12 +43,7 @@ class PaymentController extends BaseController
     {
         $query = $this->getQuery();
 
-        if ($store = $this->getStore()) {
-            $query
-                ->useGatewayQuery()
-                    ->filterByStore($store)
-                ->endUse();
-        } elseif ($store_id = $request->query->get('store_id')) {
+        if ($store_id = $request->query->get('store_id')) {
             $query
                 ->useGatewayQuery()
                     ->filterByStoreId($store_id)

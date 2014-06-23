@@ -46,13 +46,10 @@ class CustomerController extends BaseController
     {
         $query = $this->getQuery();
 
-        if ($store = $this->getStore()) {
-            $query
-                ->filterByRealm($store->getRealm());
-        } elseif ($realm = $request->query->get('realm')) {
+        if ($realm = $request->query->get('realm')) {
             $query
                 ->filterByRealm($realm);
-        }
+         }
 
         if ($affiliate_id = $request->query->get('affiliate_id')) {
             $query->filterByAffiliateId($affiliate_id);

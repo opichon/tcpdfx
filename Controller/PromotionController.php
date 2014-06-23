@@ -29,9 +29,7 @@ class PromotionController extends BaseController
             $query = $this->getQuery()
                 ->joinWithI18n($request->getLocale());
 
-            if ($store = $this->getStore()) {
-                $query->filterByStoreId($store->getId());
-            } elseif ($store_id = $request->query->get('store_id')) {
+            if ($store_id = $request->query->get('store_id')) {
                 $query->filterByStoreId($store_id);
             }
 

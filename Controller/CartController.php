@@ -24,9 +24,7 @@ class CartController extends BaseController
 
             $query = $this->getQuery();
 
-            if ($store = $this->getStore()) {
-                $query->filterByStore($store);
-            } elseif ($store_id = $request->query->get('store_id')) {
+            if ($store_id = $request->query->get('store_id')) {
                 $query->filterByStoreId($store_id);
             }
 
