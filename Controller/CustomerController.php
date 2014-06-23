@@ -4,16 +4,15 @@ namespace Dzangocart\Bundle\CoreBundle\Controller;
 
 use Criteria;
 
-use Dzangocart\Bundle\CoreBundle\Model\CustomerQuery;
 use Dzangocart\Bundle\CoreBundle\Form\Type\CustomerFiltersType;
 use Dzangocart\Bundle\CoreBundle\Form\Type\OrderFiltersType;
 use Dzangocart\Bundle\CoreBundle\Form\Type\PaymentFiltersType;
 use Dzangocart\Bundle\CoreBundle\Form\Type\SalesFilterType;
+use Dzangocart\Bundle\CoreBundle\Model\Cart;
+use Dzangocart\Bundle\CoreBundle\Model\CustomerQuery;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-
-use Dzangocart\Bundle\CoreBundle\Model\Cart;
 
 use Symfony\Component\HttpFoundation\Request;
 
