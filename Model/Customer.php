@@ -19,4 +19,21 @@ class Customer extends BaseCustomer
             ->getUserProfile()
             ->getFullName(true);
     }
+
+    public function getYdtSales()
+    {
+        $dates = array();
+
+        $dates['min'] = date('Y-01-01') . ' 00:00:00';
+
+        $dates['max'] = date('Y-m-d') . ' 23:59:59';
+
+        $cart = CartQuery::create()
+            ->filterByCustomer($this)
+            ->filterByDate($dates)
+            ->withColumn('SUM(cart.amount_excl)', 'sumAmountExcl')
+            ->findOne();
+
+        return $cart->getSumAmountExcl();
+    }
 }

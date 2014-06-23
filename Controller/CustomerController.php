@@ -13,6 +13,8 @@ use Dzangocart\Bundle\CoreBundle\Form\Type\SalesFilterType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
+use Dzangocart\Bundle\CoreBundle\Model\Cart;
+
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -193,9 +195,10 @@ class CustomerController extends BaseController
     protected function getQuery()
     {
         return CustomerQuery::create()
+            ->useCartQuery('cart')
+                ->filterByStatus(Cart::STATUS_PROCESSED, Criteria::BINARY_AND)
+            ->endUse()
             ->innerJoinUserProfile('user_profile')
-            ->innerJoinCart('cart')
-            ->withColumn('SUM(cart.amount_excl)', 'sales')
             ->groupBy('customer.id');
     }
 
