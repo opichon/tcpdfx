@@ -2,6 +2,8 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Model;
 
+use Dzangocart\Bundle\CoreBundle\Model\Cart;
+
 use Dzangocart\Bundle\CoreBundle\Model\om\BaseCustomer;
 
 class Customer extends BaseCustomer
@@ -30,6 +32,7 @@ class Customer extends BaseCustomer
 
         $cart = CartQuery::create()
             ->filterByCustomer($this)
+            ->filterByStatus(Cart::STATUS_PROCESSED, Criteria::BINARY_AND)
             ->filterByDate($dates)
             ->withColumn('SUM(cart.amount_excl)', 'sumAmountExcl')
             ->findOne();

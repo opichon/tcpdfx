@@ -8,7 +8,6 @@ use Dzangocart\Bundle\CoreBundle\Form\Type\CustomerFiltersType;
 use Dzangocart\Bundle\CoreBundle\Form\Type\OrderFiltersType;
 use Dzangocart\Bundle\CoreBundle\Form\Type\PaymentFiltersType;
 use Dzangocart\Bundle\CoreBundle\Form\Type\SalesFilterType;
-use Dzangocart\Bundle\CoreBundle\Model\Cart;
 use Dzangocart\Bundle\CoreBundle\Model\CustomerQuery;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -194,9 +193,7 @@ class CustomerController extends BaseController
     protected function getQuery()
     {
         return CustomerQuery::create()
-            ->useCartQuery('cart')
-                ->filterByStatus(Cart::STATUS_PROCESSED, Criteria::BINARY_AND)
-            ->endUse()
+            ->innerJoinCart('cart')
             ->innerJoinUserProfile('user_profile')
             ->groupBy('customer.id');
     }
