@@ -4,8 +4,6 @@ namespace Dzangocart\Bundle\CoreBundle\Model;
 
 use Criteria;
 
-use Dzangocart\Bundle\CoreBundle\Model\Cart;
-
 use Dzangocart\Bundle\CoreBundle\Model\om\BaseCustomer;
 
 class Customer extends BaseCustomer

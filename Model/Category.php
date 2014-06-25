@@ -21,6 +21,7 @@ class Category extends BaseCategory
             $this->pcode = $v;
             $this->modifiedColumns[] = CategoryPeer::PCODE;
         }
+
         return $this;
     }
 }
