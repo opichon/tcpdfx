@@ -16,7 +16,7 @@
 				"3": "{{ customer.userProfile.GivenNames }}",
 				"4": "{% if(customer.userProfile.gender == '1') %} m {% elseif(customer.userProfile.gender == '0') %} f {% else %} {% endif %}",
 				"5": "{{ customer.userProfile.email }}",
-				"6": "{{ customer.ydtSales|currency('EUR', app.request.locale) }}",
+				"6": "{{ customer.getydtSales|currency('EUR', app.request.locale) }}",
 				"7": "{% include 'DzangocartCoreBundle:Customer:actions.html.twig' %}"
 			}{% if not loop.last %},{% endif %}
 		{% endfor %}

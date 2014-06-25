@@ -8,6 +8,7 @@ use Dzangocart\Bundle\CoreBundle\Form\Type\CustomerFiltersType;
 use Dzangocart\Bundle\CoreBundle\Form\Type\OrderFiltersType;
 use Dzangocart\Bundle\CoreBundle\Form\Type\PaymentFiltersType;
 use Dzangocart\Bundle\CoreBundle\Form\Type\SalesFilterType;
+use Dzangocart\Bundle\CoreBundle\Model\Cart;
 use Dzangocart\Bundle\CoreBundle\Model\CustomerQuery;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -192,8 +193,17 @@ class CustomerController extends BaseController
 
     protected function getQuery()
     {
+        $today = date('Y-m-d') . ' 23:59:59';
+
+        $year_first_date = date('Y-01-01') . ' 00:00:00';
+
+        $query = sprintf(
+            "( SELECT SUM(cart.amount_excl) FROM cart WHERE cart.status = %s AND cart.date >= '%s' AND cart.date <= '%s' )", Cart::STATUS_PROCESSED, $year_first_date, $today
+        );
+
         return CustomerQuery::create()
             ->innerJoinCart('cart')
+            ->withColumn($query, 'ydtSales')
             ->innerJoinUserProfile('user_profile')
             ->groupBy('customer.id');
     }
