@@ -68,15 +68,14 @@ class SaleController extends BaseController
         $total_count = $query->count();
 
         $query->datatablesSearch(
-            $request->query->get('sales_filters'),
+            $request->query->get('sales_filters', array()),
             $this->getDataTablesSearchColumns()
         );
 
         $filtered_count = $query->count();
 
-        $limit = min(100, $this->getLimit($request));
-
-        $offset = max(0, $this->getOffset($request));
+        $limit = $this->getLimit($request);
+        $offset = $this->getOffset($request);
 
         $sales = $query
             ->dataTablesSort($request->query, $this->getDataTablesSortColumns())
@@ -135,11 +134,11 @@ class SaleController extends BaseController
 
     protected function getLimit(Request $request)
     {
-        return $request->get('length', 10);
+        return $request->query->get('length', 10);
     }
 
     protected function getOffset(Request $request)
     {
-        return $request->get('start', 0);
+        return $request->query->get('start', 0);
     }
 }
