@@ -49,18 +49,18 @@ class SaleController extends BaseController
                 ->endUse();
         }
 
-        if ($store_id = $request->query->get('store_id')) {
-            $query
-                ->useCartQuery()
-                    ->filterByStoreId($store_id)
-                    ->filterByStatus(array('min' => 3))
-                ->endUse();
-        }
-
         if ($customer_id = $request->query->get('customer_id')) {
             $query
                 ->useCartQuery()
                     ->filterByCustomerId($customer_id)
+                    ->filterByStatus(array('min' => 3))
+                ->endUse();
+        }
+
+        if ($store_id = $request->query->get('store_id')) {
+            $query
+                ->useCartQuery()
+                    ->filterByStoreId($store_id)
                     ->filterByStatus(array('min' => 3))
                 ->endUse();
         }
