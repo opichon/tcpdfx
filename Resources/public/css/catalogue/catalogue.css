@@ -2,6 +2,10 @@
     margin-left: 8px;
 }
 
+.catalogue table.table {
+    display: none;
+ }
+ 
 .edit {
     margin-left: 10px;
 }

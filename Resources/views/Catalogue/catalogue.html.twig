@@ -1,6 +1,20 @@
-{% trans_default_domain "catalogue" %}
-
-<div class="_catalogue">
-    <div class="jqtree">
-    </div>
-</div>
+{% if not catalogue.root %}
+    <tr data-tt-id="{{ catalogue.id }}" {% if not catalogue.parent.root %}data-tt-parent-id="{{ catalogue.getParent.id }}" {% endif %}>
+        <td>{{ catalogue.name }}</td>
+        <td class="number">{{ catalogue.code }}</td>
+        <td>
+            <a href="{{ path('category', { id: catalogue.id }) }}">
+                <i class="fa fa-edit"></i>
+            </a>
+        </td>
+    </tr>
+    {% if catalogue.hasChildren %}
+        {% for child in catalogue.children %}
+            {% include "DzangocartCoreBundle:Catalogue:catalogue.html.twig" with { 'catalogue': child } %}
+        {% endfor %}
+    {% endif %}
+{% else %}
+	{% for child in catalogue.children %}
+		{% include "DzangocartCoreBundle:Catalogue:catalogue.html.twig" with { catalogue: child } %}
+	{% endfor %}
+{% endif %}

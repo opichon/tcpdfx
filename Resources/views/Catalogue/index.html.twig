@@ -4,10 +4,22 @@
 
 {% block page_title %}{% trans with { '%store%': store.name } %}catalogue.page_title{% endtrans %}{% endblock %}
 
-{% block page_class %}catalogue{% endblock %}
+{% block bodyclass %}catalogue{% endblock %}
 
 {% block _core_content %}
-	{% include "DzangocartCoreBundle:Catalogue:catalogue.html.twig" %}
+<table class="table treetable">
+    <thead>
+        <tr>
+            <th class="name">{% trans %}catalogue.name{% endtrans %}</th>
+            <th class="code">{% trans %}catalogue.code{% endtrans %}</th>
+            <th class="actions">{% trans %}catalogue.actions{% endtrans %}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% include "DzangocartCoreBundle:Catalogue:catalogue.html.twig" %}
+    </tbody>
+</table>
+
 {% endblock %}
 
 {% block _core_head_style %}
