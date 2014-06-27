@@ -1,4 +1,7 @@
 catalogue:
+    pcode:               Pcode
+    price:               Price
+    tax_included:        Tax Included
     page_title:          %store% Catalogue
     category:
         page_title:      Category: %category%

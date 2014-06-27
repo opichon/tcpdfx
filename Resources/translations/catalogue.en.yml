@@ -1,6 +1,9 @@
 catalogue:
     name:                Name
     code:                Code
+    pcode:               Pcode
+    price:               Price
+    tax_included:        Tax Included
     actions:             Action
     page_title:          %store% Catalogue
     category:
