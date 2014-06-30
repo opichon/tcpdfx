@@ -68,7 +68,7 @@ class SaleController extends BaseController
         $total_count = $query->count();
 
         $query->datatablesSearch(
-            $request->query->get('sales_filters', array()),
+            $this->getFilters($request),
             $this->getDataTablesSearchColumns()
         );
 
@@ -140,5 +140,10 @@ class SaleController extends BaseController
     protected function getOffset(Request $request)
     {
         return $request->query->get('start', 0);
+    }
+
+    protected function getFilters(Request $request)
+    {
+        return $request->query->get('sales_filters', array());
     }
 }
