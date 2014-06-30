@@ -5,56 +5,56 @@
 {% block page_class %}category{% endblock %}
 
 {% block content %}
-    {% for flashMessage in app.session.flashbag.get('success') %}
-        <div class="alert alert-success">
-            {{ flashMessage }}
-        </div>
-    {% endfor %}
-    {{ form_start(form) }}
-        {{ form_row(form.name) }}
-        {{ form_row(form.code) }}
-        {{ form_row(form.suffix) }}
-        {{ form_row(form.price) }}
-        {{ form_row(form.taxRateId) }}
-        {{ form_row(form.taxIncluded) }}
-        {{ form_row(form.export) }}
-        {{ form_row(form.shipping) }}
-        {{ form_row(form.download) }}
-        {{ form_row(form.pack) }}
-        <div class="pack_component" style="display: none">
-            <table class="table table-condensed">
-                <thead>
-                    <tr>
-                        <th class="selectall"></th>
-                        <th class="code">{% trans %}catalogue.category.pack_component.code{% endtrans %}</th>
-                        <th class="name">{% trans %}catalogue.category.pack_component.name{% endtrans %}</th>
-                        <th class="name">{% trans %}catalogue.category.pack_component.category_name{% endtrans %}</th>
-                        <th class="quantity">{% trans %}catalogue.category.pack_component.quantity{% endtrans %}</th>
-                        <th class="price">{% trans %}catalogue.category.pack_component.price{% endtrans %}</th>
-                        <th class="tax">{% trans %}catalogue.category.pack_component.tax_included{% endtrans %}</th>
-                        <th class="price">{% trans %}catalogue.category.pack_component.fixed_price{% endtrans %}</th>
-                        <th class="actions">{% trans %}catalogue.category.pack_component.actions.title{% endtrans %}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {% for pack in packs %}
-                    <tr>
-                        <td></td>
-                        <td>{{ pack.code }}</td>
-                        <td>{{ pack.name }}</td>
-                        <td>{{ pack.CategoryRelatedByCategoryId.name }}</td>
-                        <td>{{ pack.quantity|integer(app.request.locale) }}</td>
-                        <td>{{ pack.price|currency(pack.currencyId, app.request.locale) }}</td>
-                        <td><input id="catagory_edit_taxIncluded_1" type="checkbox"  value="{% if (pack.taxIncluded) %}" checked="checked" {% endif %} name="catagory_edit_1[taxIncluded]" /></td>
-                        <td><input id="catagory_edit_fixedPrice" type="checkbox"  value="{% if (pack.fixedPrice) %}" checked="checked" {% endif %} name="catagory_edit_1[fixedPrice]" /></td>
-                        <td></td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        {{ form_rest(form) }}
-    {{ form_end(form) }}
+	{% for flashMessage in app.session.flashbag.get('success') %}
+		<div class="alert alert-success">
+			{{ flashMessage }}
+		</div>
+	{% endfor %}
+	{{ form_start(form) }}
+		{{ form_row(form.name) }}
+		{{ form_row(form.code) }}
+		{{ form_row(form.suffix) }}
+		{{ form_row(form.price) }}
+		{{ form_row(form.taxRateId) }}
+		{{ form_row(form.taxIncluded) }}
+		{{ form_row(form.export) }}
+		{{ form_row(form.shipping) }}
+		{{ form_row(form.download) }}
+		{{ form_row(form.pack) }}
+		<div class="pack_component" style="display: none">
+			<table class="table table-condensed">
+				<thead>
+					<tr>
+						<th class="selectall"></th>
+						<th class="code">{% trans %}catalogue.category.pack_component.code{% endtrans %}</th>
+						<th class="name">{% trans %}catalogue.category.pack_component.name{% endtrans %}</th>
+						<th class="name">{% trans %}catalogue.category.pack_component.category_name{% endtrans %}</th>
+						<th class="quantity">{% trans %}catalogue.category.pack_component.quantity{% endtrans %}</th>
+						<th class="price">{% trans %}catalogue.category.pack_component.price{% endtrans %}</th>
+						<th class="tax">{% trans %}catalogue.category.pack_component.tax_included{% endtrans %}</th>
+						<th class="price">{% trans %}catalogue.category.pack_component.fixed_price{% endtrans %}</th>
+						<th class="actions">{% trans %}catalogue.category.pack_component.actions.title{% endtrans %}</th>
+					</tr>
+				</thead>
+				<tbody>
+				{% for pack in packs %}
+					<tr>
+						<td></td>
+						<td>{{ pack.code }}</td>
+						<td>{{ pack.name }}</td>
+						<td>{{ pack.CategoryRelatedByCategoryId.name }}</td>
+						<td>{{ pack.quantity|integer(app.request.locale) }}</td>
+						<td>{{ pack.price|currency(pack.currencyId, app.request.locale) }}</td>
+						<td><input id="catagory_edit_taxIncluded_1" type="checkbox"  value="{% if (pack.taxIncluded) %}" checked="checked" {% endif %} name="catagory_edit_1[taxIncluded]" /></td>
+						<td><input id="catagory_edit_fixedPrice" type="checkbox"  value="{% if (pack.fixedPrice) %}" checked="checked" {% endif %} name="catagory_edit_1[fixedPrice]" /></td>
+						<td></td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		{{ form_rest(form) }}
+	{{ form_end(form) }}
 
 {% endblock %}
 
@@ -69,9 +69,9 @@
 {% block foot_script %}
 	{{ parent() }}
 	{% javascripts
-        'bundles/dzangocartcore/js/scripts/catalogue/pack.js'
+		'bundles/dzangocartcore/js/scripts/catalogue/pack.js'
 	%}
-    <script src="{{ asset_url }}"></script>
+	<script src="{{ asset_url }}"></script>
 	{% endjavascripts %}
 	<script>
 
