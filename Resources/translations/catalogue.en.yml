@@ -3,6 +3,7 @@ catalogue:
     code:                Code
     pcode:               Pcode
     price:               Price
+    suffix:              Suffix
     tax_included:        Tax Included
     actions:             Action
     page_title:          %store% Catalogue
@@ -31,6 +32,8 @@ catalogue:
                 label:   PCode
             price:
                 label:   Price
+            suffix:
+                label:   Suffix
             tax_rate_id:
                 label:   Tax Rate
             tax_included:

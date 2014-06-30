@@ -1,6 +1,7 @@
 catalogue:
     pcode:               Pcode
     price:               Price
+    suffix:              Suffix
     tax_included:        Tax Included
     page_title:          %store% Catalogue
     category:
@@ -16,6 +17,8 @@ catalogue:
                 label:   PCode
             price:
                 label:   Price
+            suffix:
+                label:   Suffix
             tax_rate_id:
                 label:   Tax Rate
             tax_included:

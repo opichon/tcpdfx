@@ -44,8 +44,8 @@ class CategoryEditType extends BaseAbstractType
             'required' => FALSE
         ));
 
-        $builder->add('pCode', 'text', array(
-            'label' => 'catalogue.category.form.pcode.label',
+        $builder->add('suffix', 'text', array(
+            'label' => 'catalogue.category.form.suffix.label',
             'required' => FALSE
         ));
 

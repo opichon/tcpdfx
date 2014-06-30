@@ -2,7 +2,7 @@
     <tr data-tt-id="{{ catalogue.id }}" {% if not catalogue.parent.root %}data-tt-parent-id="{{ catalogue.getParent.id }}" {% endif %}>
         <td>{{ catalogue.name }}</td>
         <td>{{ catalogue.code }}</td>
-        <td>{{ catalogue.pcode }}</td>
+        <td>{{ catalogue.suffix }}</td>
         <td>{{ catalogue.price }}</td>
         <td>{{ catalogue.taxIncluded ? '<i class="fa fa-check">' : '<i class="fa fa-times">' }}</td>
         <td>
