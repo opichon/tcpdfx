@@ -67,7 +67,7 @@ class SaleController extends BaseController
 
         $total_count = $query->count();
 
-        $query->datatablesSearch(
+        $query->filter(
             $this->getFilters($request),
             $this->getDataTablesSearchColumns()
         );
