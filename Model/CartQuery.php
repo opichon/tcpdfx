@@ -2,7 +2,7 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Model;
 
-use \Criteria;
+use Criteria;
 
 use Dzangocart\Bundle\CoreBundle\Model\om\BaseCartQuery;
 
