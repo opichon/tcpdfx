@@ -70,7 +70,7 @@ class OrderController extends BaseController
 
         $orders = $query
             ->dataTablesSort(
-                $request->query->get('order', array()),
+                $this->getSortOrder($request),
                 $this->getDataTablesSortColumns()
             )
             ->setLimit($limit)
@@ -159,5 +159,10 @@ class OrderController extends BaseController
     protected function getFilters(Request $request)
     {
         return $request->query->get('order_filters', array());
+    }
+
+    protected function getSortOrder(Request $request)
+    {
+        return $request->query->get('order', array());
     }
 }
