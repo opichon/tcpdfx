@@ -156,7 +156,7 @@ class SaleController extends BaseController
      *
      * @return array
      */
-    protected getSortOrder(Request $request)
+    protected function getSortOrder(Request $request)
     {
         return array();
     }
