@@ -103,6 +103,22 @@ class ItemQuery extends BaseItemQuery
         return $control ? $this : $this->defaultSort();
     }
 
+    /**
+     * Adds sorting to the query. The sort order is provided by the $order argument
+     * in the form of a 2-dimensional array. Each array element is an array in the form of
+     * [field, direction], where:
+     * - field is a column-name in a format understandable by this Propel query
+     * - direction is either Criteria::ASC or Criteria::DESC
+     *
+     * @param $order Array a 2-dimensional array in the form of [[field1, direction1],[field2, direction2],...]
+     *
+     * @Return ItemQuery this query
+     */
+    public function sort($order = array())
+    {
+        return $this;
+    }
+
     protected function defaultSort()
     {
         return $this->orderBy('item.orderId');

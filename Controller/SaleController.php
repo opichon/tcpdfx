@@ -146,4 +146,18 @@ class SaleController extends BaseController
     {
         return $request->query->get('sales_filters', array());
     }
+
+    /**
+     * Returns the sort order parameters in a format that can be passed
+     * as the argument to the ItemQuery#sort method.
+     *
+     * If the request query provides no sort order indications, this method
+     * should return an array reflecting the default sort order (by date).
+     *
+     * @return array
+     */
+    protected getSortOrder(Request $request)
+    {
+        return array();
+    }
 }
