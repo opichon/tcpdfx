@@ -44,7 +44,7 @@ class CartController extends BaseController
 
         $total_count = $query->count();
 
-        $query->datatablesSearch(
+        $query->filter(
             $request->query->get('order_filters'),
             $this->getDataTablesSearchColumns()
         );
@@ -57,7 +57,7 @@ class CartController extends BaseController
         $offset = max(0, $request->query->get('start'));
 
         $orders = $query
-            ->dataTablesSort($request->query->get('order', array()), $this->getDataTablesSortColumns())
+            ->sort($request->query->get('order', array()), $this->getDataTablesSortColumns())
             ->setLimit($limit)
             ->setOffset($offset)
             ->find();

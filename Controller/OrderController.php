@@ -58,7 +58,7 @@ class OrderController extends BaseController
 
         $count_total = $query->count();
 
-        $query->datatablesSearch(
+        $query->filter(
             $this->getFilters($request),
             $this->getDataTablesSearchColumns()
         );
@@ -69,7 +69,7 @@ class OrderController extends BaseController
         $offset = $this->getOffset($request);
 
         $orders = $query
-            ->dataTablesSort(
+            ->sort(
                 $this->getSortOrder($request),
                 $this->getDataTablesSortColumns()
             )
