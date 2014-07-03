@@ -78,7 +78,10 @@ class SaleController extends BaseController
         $offset = $this->getOffset($request);
 
         $sales = $query
-            ->dataTablesSort($request->query, $this->getDataTablesSortColumns())
+            ->sort(
+                $this->getSortOrder($request),
+                $this->getDataTablesSortColumns()
+            )
             ->setLimit($limit)
             ->setOffset($offset)
             ->find();
@@ -158,6 +161,6 @@ class SaleController extends BaseController
      */
     protected function getSortOrder(Request $request)
     {
-        return array();
+        return $request->query->get('order', array());
     }
 }
