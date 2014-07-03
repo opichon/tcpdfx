@@ -59,14 +59,14 @@ class OrderController extends BaseController
         $count_total = $query->count();
 
         $query->datatablesSearch(
-            $request->query->get('order_filters'),
+            $this->getFilters($request),
             $this->getDataTablesSearchColumns()
         );
 
         $count_filtered = $query->count();
 
-        $limit = min(100, $request->query->get('length', 10));
-        $offset = max(0, $request->query->get('start', 0));
+        $limit = $this->getLimit($request);
+        $offset = $this->getOffset($request);
 
         $orders = $query
             ->dataTablesSort(
@@ -144,5 +144,20 @@ class OrderController extends BaseController
             'date_start' => 'cart.date >= CONCAT("%s%%, 00:00:00")',
             'date_end' => 'cart.date <= CONCAT("%s%%, 23:59:59")'
         );
+    }
+
+    protected function getLimit(Request $request)
+    {
+        return $request->query->get('length', 10);
+    }
+
+    protected function getOffset(Request $request)
+    {
+        return $request->query->get('start', 0);
+    }
+
+    protected function getFilters(Request $request)
+    {
+        return $request->query->get('order_filters', array());
     }
 }
