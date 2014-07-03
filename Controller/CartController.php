@@ -57,7 +57,7 @@ class CartController extends BaseController
         $offset = max(0, $request->query->get('start'));
 
         $orders = $query
-            ->sort($request->query->get('order', array()), $this->getDataTablesSortColumns())
+            ->sort($this->getSortOrder($request))
             ->setLimit($limit)
             ->setOffset($offset)
             ->find();
@@ -116,5 +116,32 @@ class CartController extends BaseController
     {
         return CartQuery::create('Cart')
             ->filterByStatus(Cart::STATUS_OPEN);
+    }
+
+    protected function getSortOrder(Request $request)
+    {
+        $sort_order = array();
+
+        $order = $request->query->get('order', array());
+
+        $columns = $this->getDatatablesSortColumns();
+        $i = 0;
+        foreach ($order as $setting) {
+
+            $index = $setting['column'];
+
+            if (!array_key_exists($index, $columns)) {
+                $sort_order[$i]['column'] = $columns[1] ;
+
+                return $sort_order;
+            }
+
+            $sort_order[$i]['column'] = $columns[$index] ;
+            $sort_order[$i]['dir'] = $setting['dir'];
+            $i++;
+
+        }
+
+        return $sort_order;
     }
 }

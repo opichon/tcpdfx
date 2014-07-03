@@ -51,38 +51,15 @@ class ItemQuery extends BaseItemQuery
      *
      * @Return ItemQuery this query
      */
-    public function sort(array $order = array(), array $columns = array())
+    public function sort(array $order = array())
     {
-        $control = 0;
-
         foreach ($order as $setting) {
-
-            $index = $setting['column'];
-
-            if (array_key_exists($index, $columns)) {
-                $sort_columns = $columns[$index];
-
-                $dir = $setting['dir'] == 'asc'
-                    ? Criteria::ASC
-                    : Criteria::DESC;
-
-                if (!is_array($sort_columns)) {
-                    $sort_columns = array($sort_columns);
-                }
-
-                foreach ($sort_columns as $column) {
-                    $this->orderBy($column, $dir);
-                }
-
-                $control++;
-            }
+            $sort_columns = $setting['column'];
+            $dir = $setting['dir'];
+            $this->orderBy($sort_columns, $dir);
         }
 
-        return $control ? $this : $this->defaultSort();
+        return $this;
     }
 
-    protected function defaultSort()
-    {
-        return $this->orderBy('item.orderId');
-    }
 }

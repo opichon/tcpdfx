@@ -79,8 +79,7 @@ class SaleController extends BaseController
 
         $sales = $query
             ->sort(
-                $this->getSortOrder($request),
-                $this->getDataTablesSortColumns()
+                $this->getSortOrder($request)
             )
             ->setLimit($limit)
             ->setOffset($offset)
@@ -161,6 +160,29 @@ class SaleController extends BaseController
      */
     protected function getSortOrder(Request $request)
     {
-        return $request->query->get('order', array());
+        $sort_order = array();
+
+        $order = $request->query->get('order', array());
+
+        $columns = $this->getDatatablesSortColumns();
+        $i = 0;
+        foreach ($order as $setting) {
+
+            $index = $setting['column'];
+
+            if (!array_key_exists($index, $columns)) {
+                $sort_order[$i]['column'] = $columns[1] ;
+                $sort_order[$i]['dir'] = 'asc';
+
+                return $sort_order;
+            }
+
+            $sort_order[$i]['column'] = $columns[$index] ;
+            $sort_order[$i]['dir'] = $setting['dir'];
+            $i++;
+
+        }
+
+        return $sort_order;
     }
 }
