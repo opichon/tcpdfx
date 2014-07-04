@@ -54,9 +54,20 @@ class ItemQuery extends BaseItemQuery
     public function sort(array $order = array())
     {
         foreach ($order as $setting) {
+
             $sort_columns = $setting['column'];
-            $dir = $setting['dir'];
-            $this->orderBy($sort_columns, $dir);
+
+            $dir = $setting['dir'] == 'asc'
+            ? Criteria::ASC
+            : Criteria::DESC;
+
+            if (!is_array($sort_columns)) {
+                $sort_columns = array($sort_columns);
+            }
+
+            foreach ($sort_columns as $column) {
+                $this->orderBy($column, $dir);
+            }
         }
 
         return $this;
