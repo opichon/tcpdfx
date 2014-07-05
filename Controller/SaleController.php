@@ -69,7 +69,7 @@ class SaleController extends BaseController
 
         $query->filter(
             $this->getFilters($request),
-            $this->getDataTablesSearchColumns()
+            $this->getSearchColumns()
         );
 
         $filtered_count = $query->count();
@@ -78,47 +78,18 @@ class SaleController extends BaseController
         $offset = $this->getOffset($request);
 
         $sales = $query
-            ->sort(
-                $this->getSortOrder($request)
-            )
+            ->sort($this->getSortOrder($request))
             ->setLimit($limit)
             ->setOffset($offset)
             ->find();
 
-        return array(
-            'draw' => $request->query->get('draw'),
-            'start' => 0,
-            'recordsTotal' => $total_count,
-            'recordsFiltered' => $filtered_count,
-            'sales' => $sales,
-            'param' => $this->getTemplateParams()
-        );
-    }
-
-    protected function getDatatablesSortColumns()
-    {
-        return array(
-            1 => 'Cart.Date',
-            2 => 'item.orderId',
-            3 => 'store.Name',
-            5 => 'item.name',
-            6 => 'item.quantity',
-            7 => 'item.currencyId',
-            8 => 'item.amount_excl',
-            9 => 'item.tax_amount',
-            10 => 'item.amount_incl'
-        );
-
-    }
-
-    protected function getDataTablesSearchColumns()
-    {
-        return array(
-            'order_id' => 'item.orderId LIKE "%%%s%%"',
-            'name' => 'item.name LIKE "%%%s%%"',
-            'customer_id' => 'Cart.customerId = "%s%%"',
-            'date_start' => 'Cart.date >= CONCAT("%s%%, 00:00:00")',
-            'date_end' => 'Cart.date <= CONCAT("%s%%, 23:59:59")'
+        return array_merge(
+            $this->getTemplateParams(),
+            array(
+                'total_count' => $total_count,
+                'filtered_count' => $filtered_count,
+                'sales' => $sales
+            )
         );
     }
 
@@ -136,17 +107,28 @@ class SaleController extends BaseController
 
     protected function getLimit(Request $request)
     {
-        return $request->query->get('length', 10);
+        return min(100, $request->query->get('length', 10));
     }
 
     protected function getOffset(Request $request)
     {
-        return $request->query->get('start', 0);
+        return max($request->query->get('start', 0), 0);
     }
 
     protected function getFilters(Request $request)
     {
         return $request->query->get('sales_filters', array());
+    }
+
+    protected function getSearchColumns()
+    {
+        return array(
+            'order_id' => 'item.orderId LIKE "%%%s%%"',
+            'name' => 'item.name LIKE "%%%s%%"',
+            'customer_id' => 'Cart.customerId = "%s%%"',
+            'date_start' => 'Cart.date >= CONCAT("%s%%, 00:00:00")',
+            'date_end' => 'Cart.date <= CONCAT("%s%%, 23:59:59")'
+        );
     }
 
     /**
@@ -160,29 +142,46 @@ class SaleController extends BaseController
      */
     protected function getSortOrder(Request $request)
     {
-        $sort_order = array();
+        $sort = array();
 
         $order = $request->query->get('order', array());
 
-        $columns = $this->getDatatablesSortColumns();
-        $i = 0;
+        $columns = $this->getSortColumns();
+
         foreach ($order as $setting) {
 
             $index = $setting['column'];
 
-            if (!array_key_exists($index, $columns)) {
-                $sort_order[$i]['column'] = $columns[1] ;
-                $sort_order[$i]['dir'] = 'asc';
-
-                return $sort_order;
+            if (array_key_exists($index, $columns)) {
+                $sort[] = array(
+                    $columns[$index],
+                    $setting['dir']
+                );
             }
-
-            $sort_order[$i]['column'] = $columns[$index] ;
-            $sort_order[$i]['dir'] = $setting['dir'];
-            $i++;
-
         }
 
-        return $sort_order;
+       if (empty($sort)) {
+            $sort[] = array(
+                'Cart.date',
+                'asc'
+            );
+        }
+
+        return $sort;
+    }
+
+    protected function getSortColumns()
+    {
+        return array(
+            1 => 'Cart.Date',
+            2 => 'item.orderId',
+            3 => 'store.Name',
+            5 => 'item.name',
+            6 => 'item.quantity',
+            7 => 'item.currencyId',
+            8 => 'item.amount_excl',
+            9 => 'item.tax_amount',
+            10 => 'item.amount_incl'
+        );
     }
 }
