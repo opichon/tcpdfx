@@ -104,23 +104,6 @@
                     }
                 )
                 .data( "daterangepicker" ).updateInputText();
-
-                /*
-                .on( "show.daterangepicker", function( ev, picker ) {
-                    $( ".daterangepicker" ).addClass( "show-calendar" );
-                })
-                .on('cancel.daterangepicker', function( ev, picker ) {
-                    $( this ).val( "" );
-
-                    $( "input[name='sales_filters[date_from]']" ).val( "" );
-                    $( "input[name='sales_filters[date_to]']" ).val( "" );
-
-                    table.api().draw();
-                })
-                .on( "apply.daterangepicker", function( ev, picker ) {
-                    table.api().draw();
-                });
-                */
             }
         };
         if ( methods[ method ] ) {
