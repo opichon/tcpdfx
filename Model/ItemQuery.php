@@ -53,21 +53,15 @@ class ItemQuery extends BaseItemQuery
      */
     public function sort(array $order = array())
     {
+        /*
+         * TODO [OP 2014-07-05] There is no validation here. Is this acceptable?
+         * In some ways, yes, because this methods is called internally (not via a public API),
+         * and as long as the calling logic does the validation.
+         */
         foreach ($order as $setting) {
-
-            $sort_columns = $setting['column'];
-
-            $dir = $setting['dir'] == 'asc'
-            ? Criteria::ASC
-            : Criteria::DESC;
-
-            if (!is_array($sort_columns)) {
-                $sort_columns = array($sort_columns);
-            }
-
-            foreach ($sort_columns as $column) {
-                $this->orderBy($column, $dir);
-            }
+            $column = $setting[0];
+            $direction = $setting[1];
+            $this->orderBy($column, $direction);
         }
 
         return $this;
