@@ -70,9 +70,7 @@ class OrderController extends BaseController
         $offset = $this->getOffset($request);
 
         $orders = $query
-            ->sort(
-                $this->getSortOrder($request)
-            )
+//            ->sort($this->getSortOrder($request))
             ->setLimit($limit)
             ->setOffset($offset)
             ->find();
@@ -112,7 +110,7 @@ class OrderController extends BaseController
     protected function getQuery()
     {
         return CartQuery::create()
-            ->filterByStatus(Cart::STATUS_PROCESSED, Criteria::BINARY_AND)
+            ->processed()
             ->innerJoinStore('store');
     }
 
