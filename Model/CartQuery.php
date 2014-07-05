@@ -2,10 +2,19 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Model;
 
+use Criteria;
+
+use Dzangocart\Bundle\CoreBundle\Model\Cart;
 use Dzangocart\Bundle\CoreBundle\Model\om\BaseCartQuery;
 
 class CartQuery extends BaseCartQuery
 {
+    public function processed()
+    {
+        return $this
+            ->filterByStatus(Cart::STATUS_PROCESSED, Criteria::BINARY_AND);
+    }
+
     /**
      * Adds sorting to the query. The sort order is provided by the $order argument
      * in the form of a 2-dimensional array. Each array element is an array in the form of

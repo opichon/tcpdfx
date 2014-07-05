@@ -95,9 +95,14 @@ class SaleController extends BaseController
 
     protected function getQuery()
     {
-        return ItemQuery::create()
+        $query = ItemQuery::create()
             ->innerJoinCart()
+            ->useCartQuery()
+                ->processed()
+            ->endUse()
             ->filterByParentId(null);
+
+        return $query;
     }
 
     protected function getTemplateParams()
@@ -173,7 +178,7 @@ class SaleController extends BaseController
     protected function getSortColumns()
     {
         return array(
-            1 => 'Cart.Date',
+            1 => 'cart.Date',
             2 => 'item.orderId',
             3 => 'store.Name',
             5 => 'item.name',
