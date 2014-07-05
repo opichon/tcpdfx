@@ -10,7 +10,6 @@
 			<th class="customer">{% trans %}sale.sales.customer{% endtrans %}</th>
 			<th class="name">{% trans %}sale.sales.name{% endtrans %}</th>
 			<th class="quantity">{% trans %}sale.sales.quantity{% endtrans %}</th>
-			<th class="currency">{% trans %}sale.sales.currency{% endtrans %}</th>
 			<th class="gross">{% trans %}sale.sales.gross{% endtrans %}</th>
 			<th class="tax">{% trans %}sale.sales.tax{% endtrans %}</th>
 			<th class="net">{% trans %}sale.sales.net{% endtrans %}</th>
@@ -18,12 +17,11 @@
 		</tr>
 		<tr class="filters">
 			<th></th>
-			<th>{{ form_widget(form.date_range) }}{{ form_widget(form.date_start) }}{{ form_widget(form.date_end) }}</th>
-			<th class="filters_keyup">{{ form_widget(form.order_id) }}</th>
 			<th></th>
-			<th>{{ form_widget(form.customer) }}{{ form_widget(form.customer_id) }}</th>
-			<th class="filters_keyup">{{ form_widget(form.name) }}</th>
+			<th class="filters_keyup">{{ form_widget(filters.order_id) }}</th>
 			<th></th>
+			<th>{{ form_widget(filters.customer) }}</th>
+			<th class="filters_keyup">{{ form_widget(filters.name) }}</th>
 			<th></th>
 			<th></th>
 			<th></th>

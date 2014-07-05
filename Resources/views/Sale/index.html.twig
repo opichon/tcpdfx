@@ -14,6 +14,7 @@
 {% block bodyclass %}sales{% endblock %}
 
 {% block _core_content %}
+    {% include 'DzangocartCoreBundle:Sale:filters.html.twig' %}
     {% include 'DzangocartCoreBundle:Sale:sales.html.twig' %}
 {% endblock %}
 

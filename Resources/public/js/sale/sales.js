@@ -12,12 +12,19 @@
                 return this.each(function() {
                     var $this = $( this );
 
+                    moment.lang( dzangocart.locale );
+
                     $( ".filters_keyup input" ).keyup(function(event) {
                         event.stopPropagation();
                         table.api().draw();
                     });
 
                     $( ".filters select" ).change(function(event) {
+                        event.stopPropagation();
+                        table.api().draw();
+                    });
+
+                    $( ".filters input", $this ).change(function() {
                         event.stopPropagation();
                         table.api().draw();
                     });
@@ -37,12 +44,15 @@
                             }
                         }
                     } ) );
+
                     helpers.initCustomerWidget( );
-                    helpers.initDateFilterWidget();
+
+                    helpers.initDateFilterWidget($this);
 
                 });
             }
         };
+
         var helpers = {
             initCustomerWidget: function() {
 
@@ -65,39 +75,52 @@
                     name: 'customer',
                     displayKey: 'value',
                     source: customers.ttAdapter()
-                    }).on( "typeahead:selected", function( e, datum ) {
-                        $( "[name='sales_filters[customer_id]']" ).val( datum.id );
-                            table.api().draw();
-                    });
+                })
+                .on( "typeahead:selected", function( e, datum ) {
+                    $( "[name='sales_filters[customer_id]']" ).val( datum.id );
+                        table.api().draw();
+                });
 
                 widget.keyup( function( ) {
-                    if ( $(this).val() === '' ) {
+                    if ( $(this).val() === "" ) {
                         $( "[name='sales_filters[customer_id]']" ).val( '' );
                             table.api().draw();
                     }
                 })
             },
 
-            initDateFilterWidget: function() {
-                $('input[name="sales_filters[date_range]"]')
-                    .daterangepicker(
-                        settings.dateRangePicker,
-                        function(start, end) {
-                            $('input[name="sales_filters[date_start]"]').val(start.format('YYYY-MM-DD'));
-                            $('input[name="sales_filters[date_end]"]').val(end.format('YYYY-MM-DD'));
+            initDateFilterWidget: function(elt) {
+                $('input[name="sales_filters[period]"]').daterangepicker(
+                    $.extend( true, {}, settings.daterangepicker,
+                        {
+                            startDate: moment( $( ".filters .date_from", elt ).val(), "YYYY-MM-DD" ),
+                            endDate: moment( $( ".filters .date_to", elt ).val(), "YYYY-MM-DD" )
                         }
-                    ).on( "show.daterangepicker", function( ev, picker ) {
-                        $( ".daterangepicker" ).addClass('show-calendar');
-                    }).on('cancel.daterangepicker', function(ev, picker) {
-                        $(this).val('');
-
-                        $('input[name="sales_filters[date_start]"]').val('');
-                        $('input[name="sales_filters[date_end]"]').val('');
-
+                    ),
+                    function(start, end) {
+                        $( "input[name='sales_filters[date_from]']" ).val( start.format( "YYYY-MM-DD" ) );
+                        $( "input[name='sales_filters[date_to]']" ).val( end.format( "YYYY-MM-DD" ) );
                         table.api().draw();
-                    }).on('apply.daterangepicker', function(ev, picker){
-                        table.api().draw();
-                    });
+                    }
+                )
+                .data( "daterangepicker" ).updateInputText();
+
+                /*
+                .on( "show.daterangepicker", function( ev, picker ) {
+                    $( ".daterangepicker" ).addClass( "show-calendar" );
+                })
+                .on('cancel.daterangepicker', function( ev, picker ) {
+                    $( this ).val( "" );
+
+                    $( "input[name='sales_filters[date_from]']" ).val( "" );
+                    $( "input[name='sales_filters[date_to]']" ).val( "" );
+
+                    table.api().draw();
+                })
+                .on( "apply.daterangepicker", function( ev, picker ) {
+                    table.api().draw();
+                });
+                */
             }
         };
         if ( methods[ method ] ) {

@@ -1,4 +1,13 @@
 sale:
+    filters:
+        customer:           Customer
+        from:               From
+        name:               Name
+        order_id:           Order id
+        period:             Period
+        test:               Include test orders
+        to:                 To
+
     sales:
         actions:
             show:           Show order

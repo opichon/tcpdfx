@@ -13,7 +13,8 @@ class SalesFilterType extends BaseAbstractType
     {
         $resolver->setDefaults(array(
             'name' => 'sales_filters',
-            'show_legend' => false
+            'show_legend' => false,
+            'translation_domain' => 'sale'
         ));
     }
 
@@ -22,52 +23,60 @@ class SalesFilterType extends BaseAbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('order_id', 'text', array());
-
-        $builder->add('name', 'text', array());
-
-        $builder->add('customer', 'text', array());
-
-        $builder->add('customer_id', 'hidden', array());
-
-        $builder->add('date_start', 'date', array(
-                    'required' => true,
-                    'label' => false,
-                    'widget' => 'single_text',
-                    'attr' => array(
-                        'class' => 'date date_start',
-                        'style' => 'display: none;'
-                    )
+        $builder->add('order_id', 'text', array(
+            'label' => 'sale.filters.order_id'
         ));
 
-        $builder->add('date_end', 'date', array(
+        $builder->add('name', 'text', array(
+            'label' => 'sale.filters.name'
+        ));
+
+        $builder->add('customer', 'text', array(
+            'label' => 'sale.filters.name'
+        ));
+
+        $builder->add('customer_id', 'hidden', array(
+            'label' => false
+        ));
+
+        $builder->add('date_from', 'date', array(
             'required' => true,
-            'label' => false,
+            'label' => 'sale.filters.date_from',
             'widget' => 'single_text',
             'attr' => array(
-                'class' => 'date date_end',
-                'style' => 'display: none;'
+                'class' => 'date date_from'
             )
         ));
 
-        $range = '';
+        $builder->add('date_to', 'date', array(
+            'required' => true,
+            'label' => 'sale.filters.date_to',
+            'widget' => 'single_text',
+            'attr' => array(
+                'class' => 'date date_to'
+            )
+        ));
 
-        $builder->add('date_range', 'text', array(
+        $builder->add('period', 'text', array(
             'mapped' => false,
             'required' => true,
-            'data' => $range,
-            'label' => 'order.filter.date_range.label',
+            'data' => '',
+            'label' => 'sale.filters.period',
             'attr' => array(
-                'class' => 'dates',
-                'autocomplete' => 'off',
-                'readonly' => 'readonly'
+                'class' => 'period'
             )
         ));
 
+        $builder->add('test', 'checkbox', array(
+            'label' => 'sale.filters.test',
+            'attr' => array(
+                'class' => 'checkbox'
+            ),
+        ));
     }
 
     public function getName()
     {
-        return "sales_filters";
+        return 'sales_filters';
     }
 }

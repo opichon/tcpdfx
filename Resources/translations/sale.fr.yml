@@ -1,10 +1,19 @@
 sale:
+    filters:
+        customer:           Client
+        from:               Du
+        name:               Nom
+        order_id:           Commande n˚
+        period:             Période
+        test:               Inclure les commandes de démonstration
+        to:                 Au
+
     sales:
         actions:
             show:           Afficher la commande
-        category:           Categorie
+        category:           Catégorie
         code:               Code
-        currency:           Dev,
+        currency:           Dev.
         customer:           Client
         date:               Date
         gross:              HT
