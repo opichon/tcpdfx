@@ -6,6 +6,7 @@ sale:
         order_id:           Order id
         period:             Period
         test:               Include test orders
+        test_orders:        Test orders
         to:                 To
 
     sales:
