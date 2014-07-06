@@ -1,0 +1,23 @@
+{% extends template %}
+
+{% trans_default_domain "gateway" %}
+
+{% block _core_page_title %}{% trans with { '%name%': gateway.name } %}gateway.show.page_title{% endtrans %}{% endblock %}
+
+{% block _core_page_nav %}
+<a href="{{ path('gateways') }}"><i class="fa fa-long-arrow-left"></i> {% trans %}gateway.show.back{% endtrans %}</a>
+{% endblock %}
+
+{% block _core_content %}
+
+{% endblock %}
+
+{% block _core_head_style %}
+	{{ parent() }}
+	{% include "DzangocartCoreBundle:Gateway:gateway_head_style.html.twig" %}
+{% endblock %}
+
+{% block _core_foot_script %}
+	{{ parent() }}
+	{% include "DzangocartCoreBundle:Gateway:gateway_foot_script.html.twig" %}
+{% endblock %}

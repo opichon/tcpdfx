@@ -81,8 +81,12 @@ class GatewayController extends BaseController
     {
         $gateway = $this->getGateway($id);
 
-        return array(
-            'gateway' => $gateway
+        return array_merge(
+            $this->getTemplateParams(),
+            array(
+                'template' => $this->getBaseTemplate(),
+                'gateway' => $gateway
+            )
         );
     }
 
@@ -186,7 +190,7 @@ class GatewayController extends BaseController
     protected function getGateway($id)
     {
         $gateway = $this->getQuery()
-            ->findk($id);
+            ->findPk($id);
 
         if (!$gateway) {
             throw $this->createNotFoundException('Gateway not found');
