@@ -1,8 +1,6 @@
 .*
 **/bower_components
 **/node_modules
-/Model/map/
-/Model/om/
+/Model/**/map/
+/Model/**/om/
 /vendor/
-/Model/Promotion/map/
-/Model/Promotion/om/
