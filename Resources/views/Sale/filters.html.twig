@@ -1,9 +1,12 @@
+{% trans_default_domain "sale" %}
+
 <div class="filters clearfix">
 	<div class="row">
 		<div class="col-sm-6">
 			{{ form_row(filters.period) }}
 		</div>
 		<div class="col-sm-6">
+			<label class="control-label">{% trans %}sale.filters.test_orders{% endtrans %}</label>
 			{{ form_row(filters.test) }}
 		</div>
 	</div>

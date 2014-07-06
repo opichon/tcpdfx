@@ -29,6 +29,7 @@ order:
         store:              Boutique
         period:             Période
         test:               Inclure les commandes de démonstration
+        test_orders:        Commandes de démonstration
         to:                 Au
 
 cart:
