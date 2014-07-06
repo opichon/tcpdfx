@@ -34,7 +34,6 @@ class SaleController extends BaseController
         return array_merge(
             $this->getTemplateParams(),
             array(
-                'store' => $this->getStore(),
                 'template' => $this->getBaseTemplate(),
                 'filters' => $filters->createView()
             )
