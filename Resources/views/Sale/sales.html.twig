@@ -1,5 +1,7 @@
 {% trans_default_domain "sale" %}
 
+{% include 'DzangocartCoreBundle:Sale:filters.html.twig' %}
+
 <table class="table table-condensed">
 	<thead>
 		<tr>
@@ -19,7 +21,7 @@
 			<th></th>
 			<th></th>
 			<th class="filters_keyup">{{ form_widget(filters.order_id) }}</th>
-			<th></th>
+			<th>{{ form_widget(filters.store) }}</th>
 			<th>{{ form_widget(filters.customer) }}</th>
 			<th class="filters_keyup">{{ form_widget(filters.name) }}</th>
 			<th></th>

@@ -292,7 +292,7 @@ class User extends BaseUser implements UserInterface
 
     public function getLoggedIn($context)
     {
-        $token = new UsernamePasswordToken($this, NULL, "main", $this->getRoles());
+        $token = new UsernamePasswordToken($this, null, "main", $this->getRoles());
 
         return $context->setToken($token);
     }

@@ -149,7 +149,7 @@ class PromotionController extends BaseController
         $items = ItemQuery::create()->filterByPromotionId($id)->find();
 
         foreach ($items as $item) {
-            $item->setPromotionId(NULL);
+            $item->setPromotionId(null);
             $item->save();
         }
 

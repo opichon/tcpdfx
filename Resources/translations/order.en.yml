@@ -35,15 +35,15 @@ order:
         store_name:         Store
         tax:                Tax
 
-    filter:
-        date_range:
-            label:          Filter By Date Range
-        customer:
-            label:          Filter By Customer Name
-        store_name:
-            label:          Filter By Store Name
-        id:
-            label:          Filter By Order ID
+    filters:
+        customer:           Customer
+        date_from:          From
+        id:                 Id
+        store:              Store
+        period:             Period
+        test:               Include test orders
+        to:                 To
+
 cart:
     carts:
         page_title:         Carts

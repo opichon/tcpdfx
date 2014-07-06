@@ -2,9 +2,9 @@
 
 {% spaceless %}
 {
-    "draw": "{{ draw }}",
-    "recordsTotal": {{ count_total }},
-    "recordsFiltered": {{ count_filtered }},
+    "draw": "{{ app.request.query.all.draw }}",
+    "recordsTotal": {{ total_count }},
+    "recordsFiltered": {{ filtered_count }},
     "data" : [
         {% for order in orders %}
             {
@@ -12,15 +12,14 @@
                 "DT_RowClass": "order",
                 "0": "",
                 "1": "{{ order.date|datetime('dd.MM.yy', 'HH:mm', null, app.request.locale) }}",
-                "2": "{% if param['customer'] is defined %}<a href='{{ path('user_order', { id: order.id }) }}'>{{ order.id  }}</a>{% else %}<a href='{{ path('order', { id: order.id }) }}'>{{ order.id  }}</a>{% endif %}",
+                "2": "{% if customer is defined %}<a href='{{ path('user_order', { id: order.id }) }}'>{{ order.id  }}</a>{% else %}<a href='{{ path('order', { id: order.id }) }}'>{{ order.id  }}</a>{% endif %}",
                 "3": "{% include 'DzangocartCoreBundle:Order:store.html.twig' with { store: order.store } %}",
                 "4": "<a href='{{ path('customer_show', { id: order.customerId }) }}'>{{ order.customer.name }}</a>",
                 "5": "{{ order.status }}",
-                "6": "{{ order.currencyId  }}",
-                "7": "{{ order.currency.format(order.getAmountExcl) }}",
-                "8": "{{ order.currency.format(order.getTaxAmount)}}",
-                "9": "{{ order.currency.format(order.getAmountIncl)}}",
-                "10": "{% include 'DzangocartCoreBundle:Order:actions.html.twig' %}"
+                "6": "{{ order.currency.format(order.getAmountExcl) }}",
+                "7": "{{ order.currency.format(order.getTaxAmount)}}",
+                "8": "{{ order.currency.format(order.getAmountIncl)}}",
+                "9": "{% include 'DzangocartCoreBundle:Order:actions.html.twig' %}"
             }{% if not loop.last %},{% endif %}
         {% endfor %}
     ]

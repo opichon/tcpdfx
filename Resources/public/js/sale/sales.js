@@ -29,26 +29,27 @@
                         table.api().draw();
                     });
 
-                    table = $( "table.table", this ).dataTable( $.extend( true, {}, settings.dataTables, {
+                    table = $( "table.table", this ).dataTable( $.extend( true, {}, settings.datatables, {
                         initComplete: function( settings, json ) {
                             $( this ).show();
                         },
                         ajax: {
-                            data: function( d ) {
+                            data: function( data ) {
                                 $( ".filters input, .filters select" ).each(function() {
                                     var name = $( this ).attr( "name" ),
-                                        value = $( this ).val();
+                                        value = $( this ).attr( "type" ) == "checkbox"
+                                            ? ($( this ).is( ":checked" ) ? $( this ).val() : 0)
+                                            : $( this ).val();
 
-                                    d[name] = value;
+                                    data[name] = value;
                                 } );
                             }
                         }
                     } ) );
 
-                    helpers.initCustomerWidget( );
+                    helpers.initCustomerWidget();
 
-                    helpers.initDateFilterWidget($this);
-
+                    helpers.initDateRangePicker( $this );
                 });
             }
         };
@@ -89,12 +90,12 @@
                 })
             },
 
-            initDateFilterWidget: function(elt) {
-                $('input[name="sales_filters[period]"]').daterangepicker(
+            initDateRangePicker: function( elt ) {
+                $( "input[name='sales_filters[period]']" ).daterangepicker(
                     $.extend( true, {}, settings.daterangepicker,
                         {
-                            startDate: moment( $( ".filters .date_from", elt ).val(), "YYYY-MM-DD" ),
-                            endDate: moment( $( ".filters .date_to", elt ).val(), "YYYY-MM-DD" )
+                            startDate: moment( $( "input[name='sales_filters[date_from]']", elt ).val(), "YYYY-MM-DD" ),
+                            endDate: moment( $( "input[name='sales_filters[date_to]']", elt ).val(), "YYYY-MM-DD" )
                         }
                     ),
                     function(start, end) {
@@ -106,6 +107,7 @@
                 .data( "daterangepicker" ).updateInputText();
             }
         };
+
         if ( methods[ method ] ) {
             return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ) );
         }
@@ -118,14 +120,14 @@
     };
 
     $.fn.sales.defaults = {
-        dataTables: {
+        datatables: {
             autoWidth: false,
             columnDefs: [
-                { orderable: false, targets: [ 0, 11 ] },
+                { orderable: false, targets: [ 0, 10 ] },
                 { visible: false, targets: [ 0 ] },
                 { className: "number", targets: [ 6 ] },
-                { className: "amount", targets: [ 8, 9, 10 ] },
-                { className: "actions", targets: [ 11 ] }
+                { className: "amount", targets: [ 7, 8, 9 ] },
+                { className: "actions", targets: [ 10 ] }
             ],
             destroy: true,
             language: {
@@ -137,19 +139,34 @@
             processing: true,
             searching: false,
             serverSide: true,
+            stateSave: true,
             stripeClasses: []
         },
-        dateRangePicker: {
+        daterangepicker: {
+            locale: { cancelLabel: "Clear"  },
+            maxDate: moment(),
+            minDate: moment( "2009-01-01" ),
             ranges: {
-                'MTD': [moment().startOf('month'), moment()],
-                'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')],
-                'QTD': [moment().month(moment().quarter()*3).subtract('month', 3).startOf('month'), moment()],
-                'Last quarter': [moment().month((moment().quarter()-1)*3).subtract('month', 3).startOf('month'), moment().month((moment().quarter()-1)*3).subtract('month', 1).endOf('month')],
-                'YTD': [moment().startOf('year'), moment()],
-                'Last Year': [moment().subtract('year', 1).startOf('year'), moment().subtract('year', 1).endOf('year')]
+                "MTD": [moment().startOf( "month" ), moment()],
+                "Last Month": [
+                    moment().subtract( "month", 1).startOf( "month" ),
+                    moment().subtract( "month", 1).endOf( "month" )
+                ],
+                "QTD": [
+                    moment().month( moment().quarter() * 3 ).subtract( "month", 3).startOf( "month" ),
+                    moment()
+                ],
+                "Last quarter": [
+                    moment().month( (moment().quarter() - 1) * 3 ).subtract( "month", 3 ).startOf( "month" ),
+                    moment().month( (moment().quarter() - 1) * 3 ).subtract( "month", 1 ).endOf( "month" )
+                ],
+                "YTD": [moment().startOf( "year" ), moment()],
+                "Last Year": [
+                    moment().subtract( "year", 1 ).startOf( "year"),
+                    moment().subtract( "year", 1 ).endOf( "year" )
+                ]
             },
-            startDate: moment(),
-            locale: { cancelLabel: 'Clear' }
+            startDate: moment()
         },
         date_format: "dd.MM.yy"
     };

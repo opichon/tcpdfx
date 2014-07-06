@@ -5,7 +5,7 @@ namespace Dzangocart\Bundle\CoreBundle\Controller;
 use DateTime;
 
 use Dzangocart\Bundle\CoreBundle\Model\ItemQuery;
-use Dzangocart\Bundle\CoreBundle\Form\Type\SalesFilterType;
+use Dzangocart\Bundle\CoreBundle\Form\Type\SalesFiltersType;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -24,7 +24,7 @@ class SaleController extends BaseController
     public function indexAction(Request $request)
     {
         $filters = $this->createForm(
-            new SalesFilterType(),
+            new SalesFiltersType(),
             array(
                 'date_from' => (new DateTime())->modify('first day of this month'),
                 'date_to' => new DateTime()
@@ -135,11 +135,12 @@ class SaleController extends BaseController
     protected function getSearchColumns()
     {
         return array(
-            'order_id' => 'item.orderId LIKE "%%%s%%"',
-            'name' => 'item.name LIKE "%%%s%%"',
-            'customer_id' => 'Cart.customerId = "%s%%"',
-            'date_from' => 'Cart.date >= CONCAT("%s%%, 00:00:00")',
-            'date_to' => 'Cart.date <= CONCAT("%s%%, 23:59:59")'
+            'order_id' => 'item.orderId = %d',
+            'store' => 'Cart.storeId = %d',
+            'customer_id' => 'Cart.customerId = %d',
+            'date_from' => 'Cart.date >= "%s 00:00:00"',
+            'date_to' => 'Cart.date <= "%s 23:59:59"',
+            'name' => 'item.name LIKE "%%%s%%"'
         );
     }
 
