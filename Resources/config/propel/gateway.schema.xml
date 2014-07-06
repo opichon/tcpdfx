@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<database name="default" namespace="Dzangocart\Bundle\CoreBundle\Model" defaultIdMethod="native">
+<database name="default" namespace="Dzangocart\Bundle\CoreBundle\Model\Gateway" defaultIdMethod="native">
     <table name="gateway" idMethod="native">
         <column name="id"                    type="integer" primaryKey="true" autoIncrement="true" required="true" />
         <column name="store_id"              type="integer" required="true"/>
@@ -36,7 +36,7 @@
             <parameter name="locale_column" value="culture" />
         </behavior>
     </table>
-    <table name="gateway_engine" idMethod="native">
+    <table name="gateway_engine" phpName="Engine" idMethod="native">
         <column name="id"                    type="integer" primaryKey="true" autoIncrement="true" required="true" />
         <column name="name"                  type="varchar" size="100" required="true" />
         <column name="msg_payment_methods"   type="longvarchar" required="false" />
@@ -48,7 +48,7 @@
             <parameter name="locale_column" value="culture" />
         </behavior>
     </table>
-    <table name="gateway_service" idMethod="native">
+    <table name="gateway_service" phpName="Service" idMethod="native">
         <column name="id"        type="integer" primaryKey="true" autoIncrement="true" required="true" />
         <column name="name"      type="varchar" size="32" required="true" />
         <column name="country"   type="varchar" size="2" required="false" />
