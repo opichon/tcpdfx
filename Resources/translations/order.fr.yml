@@ -1,13 +1,12 @@
 order:
     show:
         page_title:         Order: %id%
-        name:               Name
-        quantity:           Quantity
-        price_excl:         Price Excl
-        amount_excl:        Amount Excl
-        amount_tax:         Tax
-        amount_incl:        Amount Incl
-        action:             Action
+        name:               Nom
+        quantity:           Qté
+        price_excl:         Prix HT
+        amount_excl:        HT
+        amount_tax:         TVA
+        amount_incl:        TTC
 
     orders:
         actions:
@@ -20,18 +19,18 @@ order:
         net:                TTC
         page_title:         Commandes
         store_name:         Boutique
-        status:             Status
+        status:             Etat
         tax:                TVA
 
-    filter:
-        date_range:
-            label:          Filter By Date Range
-        customer:
-            label:          Filter By Customer Name
-        store_name:
-            label:          Filter By Store Name
-        id:
-            label:          Filter By Order ID
+    filters:
+        customer:           Client
+        date_from:          Du
+        id:                 N˚
+        store:              Boutique
+        period:             Période
+        test:               Inclure les commandes de démonstration
+        to:                 Au
+
 cart:
     carts:
         page_title:         Carts

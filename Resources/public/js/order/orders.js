@@ -12,34 +12,48 @@
                 return this.each(function() {
                     var $this = $( this );
 
+                    moment.lang( dzangocart.locale );
+
                     $( ".filters_keyup input" ).keyup(function(event) {
                         event.stopPropagation();
                         table.api().draw();
                     });
 
-                    table = $( "table.table", this ).dataTable( $.extend( true, {}, settings.dataTables, {
+                    $( ".filters select" ).change(function(event) {
+                        event.stopPropagation();
+                        table.api().draw();
+                    });
+
+                    $( ".filters input", $this ).change(function() {
+                        event.stopPropagation();
+                        table.api().draw();
+                    });
+
+                    table = $( "table.table", this ).dataTable( $.extend( true, {}, settings.datatables, {
                         initComplete: function( settings, json ) {
                             $( this ).show();
                         },
                         ajax: {
-                            data: function( d ) {
+                            data: function( data ) {
                                 $( ".filters input, .filters select" ).each(function() {
                                     var name = $( this ).attr( "name" ),
                                         value = $( this ).attr( "type" ) == "checkbox"
                                             ? ($( this ).is( ":checked" ) ? $( this ).val() : 0)
                                             : $( this ).val();
 
-                                    d[name] = value;
+                                    data[name] = value;
                                 } );
                             }
                         }
-                    }));
+                    } ) );
 
-                    helpers.initCustomerWidget( );
-                    helpers.initDateFilterWidget( );
+                    helpers.initCustomerWidget();
+
+                    helpers.initDateRangePicker( $this );
                 });
             }
         };
+
         var helpers = {
             initCustomerWidget: function() {
 
@@ -77,29 +91,21 @@
                 })
             },
 
-            initDateFilterWidget: function() {
-                $("input[name='order_filters[date_range]']")
-                    .daterangepicker(
-                        settings.dateRangePicker,
-                        function( start, end ) {
-                            $( "input[name='order_filters[date_start]']" ).val( start.format( "YYYY-MM-DD" ) );
-                            $( "input[name='order_filters[date_end]']" ).val(end.format( "YYYY-MM-DD" ) );
+            initDateRangePicker: function( elt ) {
+                $( "input[name='orders_filters[period]']" ).daterangepicker(
+                    $.extend( true, {}, settings.daterangepicker,
+                        {
+                            startDate: moment( $( "input[name='orders_filters[date_from]']", elt ).val(), "YYYY-MM-DD" ),
+                            endDate: moment( $( "input[name='orders_filters[date_to]']", elt ).val(), "YYYY-MM-DD" )
                         }
-                    )
-                    .on( "show.daterangepicker", function( ev, picker ) {
-                        $( ".daterangepicker" ).addClass('show-calendar');
-                    })
-                    .on( "cancel.daterangepicker", function( ev, picker ) {
-                        $( this ).val( "" );
-
-                        $( "input[name='order_filters[date_start]']" ).val( "" );
-                        $( "input[name='order_filters[date_end]']" ).val( "" );
-
+                    ),
+                    function(start, end) {
+                        $( "input[name='orders_filters[date_from]']" ).val( start.format( "YYYY-MM-DD" ) );
+                        $( "input[name='orders_filters[date_to]']" ).val( end.format( "YYYY-MM-DD" ) );
                         table.api().draw();
-                    })
-                    .on( "apply.daterangepicker", function( ev, picker ) {
-                        table.api().draw();
-                    });
+                    }
+                )
+                .data( "daterangepicker" ).updateInputText();
             }
         };
 
@@ -115,34 +121,52 @@
     };
 
     $.fn.orders.defaults = {
-        dataTables: {
+        datatables: {
             autoWidth: false,
             columnDefs: [
-                { orderable: false, targets: [ 0, 10 ] },
+                { orderable: false, targets: [ 0, 9 ] },
                 { visible: false, targets: [ 0 ] },
-                { className: "number", targets: [ 7, 8, 9 ] },
-                { className: "actions", targets: [ 10 ] }
+                { className: "number", targets: [ 6, 7, 8 ] },
+                { className: "actions", targets: [ 9 ] }
             ],
+            destroy: true,
+            language: {
+                url: "/bundles/dzangocartcore/datatables/" + dzangocart.locale + ".json"
+            },
             orderable: true,
             orderCellsTop: true,
-            paginate: true,
+            paging: true,
             processing: true,
             searching: false,
             serverSide: true,
             stateSave: true,
             stripeClasses: []
         },
-        dateRangePicker: {
+        daterangepicker: {
+            locale: { cancelLabel: "Clear" },
+            maxDate: moment(),
+            minDate: moment( "2009-01-01" ),
             ranges: {
-                'MTD': [moment().startOf('month'), moment()],
-                'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')],
-                'QTD': [moment().month(moment().quarter()*3).subtract('month', 3).startOf('month'), moment()],
-                'Last quarter': [moment().month((moment().quarter()-1)*3).subtract('month', 3).startOf('month'), moment().month((moment().quarter()-1)*3).subtract('month', 1).endOf('month')],
-                'YTD': [moment().startOf('year'), moment()],
-                'Last Year': [moment().subtract('year', 1).startOf('year'), moment().subtract('year', 1).endOf('year')]
+                "MTD": [moment().startOf( "month" ), moment()],
+                "Last Month": [
+                    moment().subtract( "month", 1).startOf( "month" ),
+                    moment().subtract( "month", 1).endOf( "month" )
+                ],
+                "QTD": [
+                    moment().month( moment().quarter() * 3 ).subtract( "month", 3).startOf( "month" ),
+                    moment()
+                ],
+                "Last quarter": [
+                    moment().month( (moment().quarter() - 1) * 3 ).subtract( "month", 3 ).startOf( "month" ),
+                    moment().month( (moment().quarter() - 1) * 3 ).subtract( "month", 1 ).endOf( "month" )
+                ],
+                "YTD": [moment().startOf( "year" ), moment()],
+                "Last Year": [
+                    moment().subtract( "year", 1 ).startOf( "year"),
+                    moment().subtract( "year", 1 ).endOf( "year" )
+                ]
             },
-            startDate: moment(),
-            locale: { cancelLabel: 'Clear' }
+            startDate: moment()
         },
         date_format: "dd.MM.yy"
     };

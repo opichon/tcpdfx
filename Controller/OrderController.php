@@ -2,11 +2,13 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Controller;
 
+use DateTime;
+
 use Criteria;
 
 use Dzangocart\Bundle\CoreBundle\Model\Cart;
 use Dzangocart\Bundle\CoreBundle\Model\CartQuery;
-use Dzangocart\Bundle\CoreBundle\Form\Type\OrderFiltersType;
+use Dzangocart\Bundle\CoreBundle\Form\Type\OrdersFiltersType;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -24,13 +26,18 @@ class OrderController extends BaseController
     */
     public function indexAction(Request $request)
     {
-        $form = $this->createForm(
-            new OrderFiltersType());
+        $filters = $this->createForm(
+            new OrdersFiltersType(),
+            array(
+                'date_from' => (new DateTime())->modify('first day of this month'),
+                'date_to' => new DateTime()
+            )
+        );
 
         return array_merge(
             $this->getTemplateParams(),
             array(
-                'form' => $form->createView(),
+                'filters' => $filters->createView(),
                 'template' => $this->getBaseTemplate()
             )
         );
@@ -57,14 +64,14 @@ class OrderController extends BaseController
             $query->filterByStoreId($store_id);
         }
 
-        $count_total = $query->count();
+        $total_count = $query->count();
 
         $query->filter(
             $this->getFilters($request),
-            $this->getDataTablesSearchColumns()
+            $this->getSearchColumns()
         );
 
-        $count_filtered = $query->count();
+        $filtered_count = $query->count();
 
         $limit = $this->getLimit($request);
         $offset = $this->getOffset($request);
@@ -75,12 +82,13 @@ class OrderController extends BaseController
             ->setOffset($offset)
             ->find();
 
-        return array(
-            'draw' => $request->query->get('draw'),
-            'count_total' => $count_total,
-            'count_filtered' => $count_filtered,
-            'orders' => $orders,
-            'param' => $this->getTemplateParams()
+        return array_merge(
+            $this->getTemplateParams(),
+            array(
+                'total_count' => $total_count,
+                'filtered_count' => $filtered_count,
+                'orders' => $orders
+            )
         );
     }
 
@@ -111,7 +119,7 @@ class OrderController extends BaseController
     {
         return CartQuery::create()
             ->processed()
-            ->innerJoinStore('store');
+            ->innerJoinStore();
     }
 
     protected function getTemplateParams()
@@ -119,44 +127,30 @@ class OrderController extends BaseController
         return array();
     }
 
-    protected function getDatatablesSortColumns()
-    {
-        return array(
-            1 => 'cart.date',
-            2 => 'cart.id',
-            3 => 'store.Name',
-            5 => 'cart.status',
-            6 => 'cart.currency',
-            7 => 'cart.amount_excl',
-            8 => 'cart.tax_amount',
-            9 => 'cart.amount_incl'
-        );
-    }
-
-    protected function getDataTablesSearchColumns()
-    {
-        return array(
-            'id' => 'cart.id LIKE "%s%%"',
-            'store_name' => 'store.name LIKE "%%%s%%"',
-            'customer_id' => 'cart.customer_id = "%s%%"',
-            'date_start' => 'cart.date >= CONCAT("%s%%, 00:00:00")',
-            'date_end' => 'cart.date <= CONCAT("%s%%, 23:59:59")'
-        );
-    }
-
     protected function getLimit(Request $request)
     {
-        return $request->query->get('length', 10);
+        return min(100, $request->query->get('length', 10));
     }
 
     protected function getOffset(Request $request)
     {
-        return $request->query->get('start', 0);
+        return max(0, $request->query->get('start', 0));
     }
 
     protected function getFilters(Request $request)
     {
-        return $request->query->get('order_filters', array());
+        return $request->query->get('orders_filters', array());
+    }
+
+    protected function getSearchColumns()
+    {
+        return array(
+            'id' => 'cart.id = %d',
+            'store' => 'cart.storeId = %d',
+            'customer_id' => 'cart.customerId = %d',
+            'date_from' => 'cart.date >= "%s 00:00:00"',
+            'date_to' => 'cart.date <= "%s 23:59:59"'
+        );
     }
 
     protected function getSortOrder(Request $request)
@@ -185,5 +179,19 @@ class OrderController extends BaseController
         }
 
         return $sort_order;
+    }
+
+    protected function getDatatablesSortColumns()
+    {
+        return array(
+            1 => 'cart.date',
+            2 => 'cart.id',
+            3 => 'store.Name',
+            5 => 'cart.status',
+            6 => 'cart.currency',
+            7 => 'cart.amount_excl',
+            8 => 'cart.tax_amount',
+            9 => 'cart.amount_incl'
+        );
     }
 }

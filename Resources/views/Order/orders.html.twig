@@ -1,15 +1,6 @@
 {% trans_default_domain "order" %}
 
-<div class ="row">
-    <div class="filters" >
-        <div class="col-md-3">
-            {{ form_label(form.date_range) }}
-            {{ form_widget(form.date_range) }}
-            {{ form_widget(form.date_start) }}
-            {{ form_widget(form.date_end) }}
-        </div>
-    </div>
-</div>
+{% include "DzangocartCoreBundle:Order:filters.html.twig" %}
 
 <table class="table table-condensed">
     <thead>
@@ -20,7 +11,6 @@
             <th class="store">{% trans %}order.orders.store_name{% endtrans %}</th>
             <th class="customer">{% trans %}order.orders.customer{% endtrans %}</th>
             <th class="status">{% trans %}order.orders.status{% endtrans %}</th>
-            <th class="currency">{% trans %}order.orders.currency{% endtrans %}</th>
             <th class="gross">{% trans %}order.orders.gross{% endtrans %}</th>
             <th class="tax">{% trans %}order.orders.tax{% endtrans %}</th>
             <th class="net">{% trans %}order.orders.net{% endtrans %}</th>
@@ -29,10 +19,9 @@
         <tr class="filters" >
             <th></th>
             <th></th>
-            <th class="filters_keyup">{{ form_widget(form.id) }}</th>
-            <th class="filters_keyup store_name">{{ form_widget(form.store_name) }}</th>
-            <th class="customer_name">{{ form_widget(form.customer) }} {{ form_widget(form.customer_id) }}</th>
-            <th></th>
+            <th class="filters_keyup">{{ form_widget(filters.order_id) }}</th>
+            <th class="filters_keyup store_name">{{ form_widget(filters.store) }}</th>
+            <th class="customer_name">{{ form_widget(filters.customer) }}</th>
             <th></th>
             <th></th>
             <th></th>
