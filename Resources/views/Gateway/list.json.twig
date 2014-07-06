@@ -1,5 +1,7 @@
 {% trans_default_domain "gateway" %}
 
+{% import "DzangocartCoreBundle:Gateway:name.html.twig" as gateway_name %}
+
 {% spaceless %}
 {
     "draw": "{{ app.request.query.all.draw }}",
@@ -11,10 +13,7 @@
                 "DT_RowId": "{{ 'gateway_' ~ gateway.id }}",
                 "DT_RowClass": "gateway{{ gateway.testing ? ' testing' : '' }}",
                 "id": {{ gateway.id }},
-                "name": "{% spaceless %}
-                    {% if gateway.testing %}{% trans with { '%name%': gateway.service.name } %}gateway.gateways.name{% endtrans %}
-                    {% else %}{{ gateway.service.name }}
-                    {% endif %}{% endspaceless %}",
+                "name": "{{ gateway_name.name(gateway) }}",
                 "service": {
                     "id": {{ gateway.service.id }},
                     "name": "{{ gateway.service.name }}"

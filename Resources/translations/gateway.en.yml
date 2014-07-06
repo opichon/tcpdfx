@@ -21,6 +21,8 @@ gateway:
         store:          Store
         testing:        Test
 
+    name:               %name% (test)
+
     status:
         class:
             0:          pending

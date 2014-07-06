@@ -1,0 +1,9 @@
+{% trans_default_domain "gateway" %}
+
+{% macro name(gateway) %}{% spaceless %}
+	{% if gateway.testing %}
+		{% trans with { '%name%': gateway.name } %}gateway.name{% endtrans %}
+	{% else %}
+		{{ gateway.service.name }}
+	{% endif %}
+{% endspaceless %}{% endmacro %}
