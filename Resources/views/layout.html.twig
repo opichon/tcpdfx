@@ -7,7 +7,7 @@
 <head>
 	{% block _core_head_style %}{% endblock %}
 </head>
-<body>
+<body class="{% block _core_page_class %}{% endblock %}">
 {% block _core_page_title %}{% endblock %}
 {% block _core_page_nav %}{% endblock %}
 {% block _core_content %}{% endblock %}
