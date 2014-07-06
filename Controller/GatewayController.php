@@ -2,33 +2,25 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Controller;
 
-use DateTime;
-
-use Dzangocart\Bundle\CoreBundle\Model\ItemQuery;
-use Dzangocart\Bundle\CoreBundle\Form\Type\SalesFiltersType;
+use Dzangocart\Bundle\CoreBundle\Form\Type\GatewaysFiltersType;
+use Dzangocart\Bundle\CoreBundle\Model\Gateway\EngineQuery;
+use Dzangocart\Bundle\CoreBundle\Model\Gateway\GatewayQuery;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- * @Route("/sale")
- */
-class SaleController extends BaseController
+class GatewayController extends BaseController
 {
     /**
-     * @Route("/", name="sales")
-     * @Template("DzangocartCoreBundle:Sale:index.html.twig")
+     * @Route("/gateway", name="gateways")
+     * @Template("DzangocartCoreBundle:Gateway:index.html.twig")
      */
     public function indexAction(Request $request)
     {
         $filters = $this->createForm(
-            new SalesFiltersType(),
-            array(
-                'date_from' => (new DateTime())->modify('first day of this month'),
-                'date_to' => new DateTime()
-            )
+            new GatewaysFiltersType($request->getLocale())
         );
 
         return array_merge(
@@ -41,34 +33,16 @@ class SaleController extends BaseController
     }
 
     /**
-     * @Route("/list", name="sales_list", requirements={"_format": "json"}, defaults={"_format": "json"})
-     * @Template("DzangocartCoreBundle:Sale:list.json.twig")
+     * @Route("/list", name="gateways_list", requirements={"_format": "json"}, defaults={"_format": "json"})
+     * @Template("DzangocartCoreBundle:Gateway:list.json.twig")
      */
     public function listAction(Request $request)
     {
         $query = $this->getQuery();
 
-        if ($affiliate_id = $request->query->get('affiliate_id')) {
-            $query
-                ->useCartQuery()
-                    ->filterByAffiliateId($affiliate_id)
-                ->endUse();
-        }
-
-        if ($customer_id = $request->query->get('customer_id')) {
-            $query
-                ->useCartQuery()
-                    ->filterByCustomerId($customer_id)
-                    ->filterByStatus(array('min' => 3))
-                ->endUse();
-        }
-
         if ($store_id = $request->query->get('store_id')) {
             $query
-                ->useCartQuery()
-                    ->filterByStoreId($store_id)
-                    ->filterByStatus(array('min' => 3))
-                ->endUse();
+                ->filterByStoreId($store_id);
         }
 
         $total_count = $query->count();
@@ -83,7 +57,7 @@ class SaleController extends BaseController
         $limit = $this->getLimit($request);
         $offset = $this->getOffset($request);
 
-        $sales = $query
+        $gateways = $query
             ->sort($this->getSortOrder($request))
             ->setLimit($limit)
             ->setOffset($offset)
@@ -94,21 +68,29 @@ class SaleController extends BaseController
             array(
                 'total_count' => $total_count,
                 'filtered_count' => $filtered_count,
-                'sales' => $sales
+                'gateways' => $gateways
             )
+        );
+    }
+
+    /**
+     * @Route("/gateway/{id}", name="gateway", requirements={"id": "\d+"})
+     * @Template("DzangocartCoreBundle:Gateway:show.html.twig")
+     */
+    public function showAction(Request $request, $id)
+    {
+        $gateway = $this->getGateway($id);
+
+        return array(
+            'gateway' => $gateway
         );
     }
 
     protected function getQuery()
     {
-        $query = ItemQuery::create()
-            ->innerJoinCart()
-            ->useCartQuery()
-                ->processed()
-            ->endUse()
-            ->filterByParentId(null);
-
-        return $query;
+    	return GatewayQuery::create()
+    		->joinService()
+    		->orderBy('Service.Name');
     }
 
     protected function getTemplateParams()
@@ -128,18 +110,20 @@ class SaleController extends BaseController
 
     protected function getFilters(Request $request)
     {
-        return $request->query->get('sales_filters', array());
+        return $request->query->get('gateways_filters', array());
     }
 
     protected function getSearchColumns()
     {
         return array(
+            /* FIXME [OP 2014--07-06]}
             'order_id' => 'item.orderId = %d',
             'store' => 'Cart.storeId = %d',
             'customer_id' => 'Cart.customerId = %d',
             'date_from' => 'Cart.date >= "%s 00:00:00"',
             'date_to' => 'Cart.date <= "%s 23:59:59"',
             'name' => 'item.name LIKE "%%%s%%"'
+            */
         );
     }
 
@@ -185,6 +169,7 @@ class SaleController extends BaseController
     protected function getSortColumns()
     {
         return array(
+            /* FIXME [OP 2014--07-06]}
             1 => 'cart.Date',
             2 => 'item.orderId',
             3 => 'store.Name',
@@ -194,6 +179,19 @@ class SaleController extends BaseController
             8 => 'item.amount_excl',
             9 => 'item.tax_amount',
             10 => 'item.amount_incl'
+            */
         );
+    }
+
+    protected function getGateway($id)
+    {
+        $gateway = $this->getQuery()
+            ->findk($id);
+
+        if (!$gateway) {
+            throw $this->createNotFoundException('Gateway not found');
+        }
+
+        return $gateway;
     }
 }

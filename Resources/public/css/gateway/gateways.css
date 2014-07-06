@@ -1,0 +1,29 @@
+.gateways table.table th.testing {
+	width: 6em;
+	text-align: center;
+}
+
+.gateways table.table th.status {
+	width: 6em;
+}
+
+.gateways table.table td.testing {
+	text-align: center;
+	color: #d9534f;
+}
+
+.gateways table.table tr.testing td {
+	background-color: #f2dede;
+}
+
+.gateways .label-pending {
+	background-color: #f0ad4e;
+}
+
+.gateways .label-ready {
+	background-color: #5bc0de;
+}
+
+.gateways .label-active {
+	background-color: #5cb85c;
+}

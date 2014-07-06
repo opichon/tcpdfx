@@ -1,0 +1,32 @@
+gateway:
+    filters:
+        engine_id:          Engine
+        service_id:         Service
+        status:             Status
+        store_id:           Store
+        testing:
+            exclude:        Exclude
+            include:        Include
+            indifferent:    ''
+            label:          Test
+
+    gateways:
+        actions:
+            show:       Show
+        engine:         Engine
+        name:           %name% (test)
+        page_title:     Payment gateways
+        service:        Service
+        status:         Status
+        store:          Store
+        testing:        Test
+
+    status:
+        class:
+            0:          pending
+            1:          ready
+            3:          active
+        label:
+            0:          PENDING
+            1:          READY
+            3:          ACTIVE

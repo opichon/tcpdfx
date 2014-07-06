@@ -1,0 +1,45 @@
+{% trans_default_domain "gateway" %}
+
+{% spaceless %}
+{
+    "draw": "{{ app.request.query.all.draw }}",
+    "recordsTotal": {{ total_count }},
+    "recordsFiltered": {{ filtered_count }},
+    "data" : [
+        {% for gateway in gateways %}
+            {
+                "DT_RowId": "{{ 'gateway_' ~ gateway.id }}",
+                "DT_RowClass": "gateway{{ gateway.testing ? ' testing' : '' }}",
+                "id": {{ gateway.id }},
+                "name": "{% spaceless %}
+                    {% if gateway.testing %}{% trans with { '%name%': gateway.service.name } %}gateway.gateways.name{% endtrans %}
+                    {% else %}{{ gateway.service.name }}
+                    {% endif %}{% endspaceless %}",
+                "service": {
+                    "id": {{ gateway.service.id }},
+                    "name": "{{ gateway.service.name }}"
+                },
+                "engine": {
+                    "id": {{ gateway.service.engine.id }},
+                    "name": "{{ gateway.service.engine.name }}"
+                },
+                "store": {
+                    "id": {{ gateway.store.id }},
+                    "name": "{{ gateway.store.name }}"
+                },
+                "testing": {{ gateway.testing ? 1 : 0 }},
+                "status": {
+                    "status": {{ gateway.status }},
+                    "class": "{{ ('gateway.status.class.' ~ gateway.status)|trans }}",
+                    "label": "{{ ('gateway.status.label.' ~ gateway.status)|trans }}"
+                },
+                "actions": "{% include 'DzangocartCoreBundle:Gateway:actions.html.twig' %}",
+                "urls": {
+                    "show": "{{ path('gateway', { id: gateway.id }) }}",
+                    "store": "{{ path('store', { id: gateway.store.id }) }}"
+                }
+            }{% if not loop.last %},{% endif %}
+        {% endfor %}
+    ]
+}
+{% endspaceless %}

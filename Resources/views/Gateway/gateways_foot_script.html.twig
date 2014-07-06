@@ -1,0 +1,17 @@
+{% javascripts
+    'bundles/dzangocartcore/vendor/datatables/media/js/jquery.dataTables.min.js'
+    'bundles/dzangocartcore/vendor/datatables-bootstrap3/BS3/assets/js/datatables.min.js'
+    'bundles/dzangocartcore/js/ajax.js'
+    'bundles/dzangocartcore/js/gateway/gateways.js'
+%}
+	<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+<script>
+dzangocart.gateways = {
+    datatables: {
+        ajax: {
+            url: "{{ path('gateways_list') }}"
+        }
+    }
+};
+</script>

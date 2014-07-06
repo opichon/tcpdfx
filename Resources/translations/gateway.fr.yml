@@ -1,0 +1,21 @@
+gateway:
+    gateways:
+    	actions:
+    		show:		Afficher
+        engine:         Moteur
+        name:           %name% (test)
+        page_title:     Portails de paiement
+        service:        Service
+        status:         Etat
+        store:          Boutique
+        testing:        Test
+
+    status:
+        class:
+            0:          pending
+            1:          ready
+            3:          active
+        label:
+            0:          EN ATTENTE
+            1:          PRÊT
+            3:          ACTIVÉ

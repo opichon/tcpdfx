@@ -1,0 +1,26 @@
+{% trans_default_domain "gateway" %}
+
+<table class="table table-condensed table-hover">
+	<thead>
+		<tr>
+			<th class="selectall"></th>
+			<th class="service">{% trans %}gateway.gateways.service{% endtrans %}</th>
+			<th class="store">{% trans %}gateway.gateways.store{% endtrans %}</th>
+			<th class="engine">{% trans %}gateway.gateways.engine{% endtrans %}</th>
+			<th class="testing">{% trans %}gateway.gateways.testing{% endtrans %}</th>
+			<th class="status">{% trans %}gateway.gateways.status{% endtrans %}</th>
+			<th class="actions"><i class="fa fa-cog"></i></th>
+		</tr>
+		<tr class="filters">
+			<th></th>
+			<th>{{ form_widget(filters.service_id) }}</th>
+			<th>{{ form_widget(filters.store_id) }}</th>
+			<th>{{ form_widget(filters.engine_id) }}</th>
+			<th>{{ form_widget(filters.testing) }}</th>
+			<th>{{ form_widget(filters.status) }}</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+	</tbody>
+</table>
