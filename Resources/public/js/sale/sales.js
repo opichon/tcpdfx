@@ -121,11 +121,11 @@
         dataTables: {
             autoWidth: false,
             columnDefs: [
-                { orderable: false, targets: [ 0, 11 ] },
+                { orderable: false, targets: [ 0, 10 ] },
                 { visible: false, targets: [ 0 ] },
                 { className: "number", targets: [ 6 ] },
-                { className: "amount", targets: [ 8, 9, 10 ] },
-                { className: "actions", targets: [ 11 ] }
+                { className: "amount", targets: [ 7, 8, 9 ] },
+                { className: "actions", targets: [ 10 ] }
             ],
             destroy: true,
             language: {

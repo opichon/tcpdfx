@@ -15,11 +15,10 @@
                 "4": "<a href='{{ path('customer_show', { id: sale.order.customerId }) }}'>{{ sale.order.customer.name }}</a>",
                 "5": "{{ sale.name }}",
                 "6": "{{ sale.quantity|integer(app.request.locale) }}",
-                "7": "{{ sale.currencyId }}",
-                "8": "{{ sale.getAmountExcl|currency(sale.currencyId, app.request.locale) }}",
-                "9": "{{ sale.getTaxAmount|currency(sale.currencyId, app.request.locale)}}",
-                "10": "{{ sale.getAmountIncl|currency(sale.currencyId, app.request.locale)}}",
-                "11": "{% include 'DzangocartCoreBundle:Sale:actions.html.twig' %}"
+                "7": "{{ sale.getAmountExcl|currency(sale.currencyId, app.request.locale) }}",
+                "8": "{{ sale.getTaxAmount|currency(sale.currencyId, app.request.locale)}}",
+                "9": "{{ sale.getAmountIncl|currency(sale.currencyId, app.request.locale)}}",
+                "10": "{% include 'DzangocartCoreBundle:Sale:actions.html.twig' %}"
             }{% if not loop.last %},{% endif %}
         {% endfor %}
     ]
