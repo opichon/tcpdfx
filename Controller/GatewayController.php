@@ -3,7 +3,6 @@
 namespace Dzangocart\Bundle\CoreBundle\Controller;
 
 use Dzangocart\Bundle\CoreBundle\Form\Type\GatewaysFiltersType;
-use Dzangocart\Bundle\CoreBundle\Model\Gateway\EngineQuery;
 use Dzangocart\Bundle\CoreBundle\Model\Gateway\GatewayQuery;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -92,9 +91,9 @@ class GatewayController extends BaseController
 
     protected function getQuery()
     {
-    	return GatewayQuery::create()
-    		->joinService()
-    		->orderBy('Service.Name');
+        return GatewayQuery::create()
+            ->joinService()
+            ->orderBy('Service.Name');
     }
 
     protected function getTemplateParams()

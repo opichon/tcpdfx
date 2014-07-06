@@ -66,5 +66,4 @@ class ItemQuery extends BaseItemQuery
 
         return $this;
     }
-
 }

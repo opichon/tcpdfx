@@ -7,8 +7,8 @@ use Dzangocart\Bundle\CoreBundle\Model\Gateway\om\BaseGateway;
 class Gateway extends BaseGateway
 {
     const STATUS_PENDING = 0;
-	const STATUS_READY = 1;
-  	const STATUS_ACTIVE = 3;
+    const STATUS_READY = 1;
+    const STATUS_ACTIVE = 3;
 
     public function getName()
     {
@@ -17,6 +17,6 @@ class Gateway extends BaseGateway
 
     public function isTesting()
     {
-    	return $this->getTesting();
+        return $this->getTesting();
     }
 }
