@@ -173,7 +173,7 @@
 } ( window.jQuery );
 
 $( document ).ready(function() {
-	if (undefined != dzangocart.sales) {
+	if ( undefined != dzangocart.sales ) {
 		$( ".sales" ).sales( dzangocart.sales );
 	}
 });
