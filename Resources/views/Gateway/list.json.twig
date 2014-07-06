@@ -1,6 +1,6 @@
 {% trans_default_domain "gateway" %}
 
-{% import "DzangocartCoreBundle:Gateway:name.html.twig" as gateway_name %}
+{% import "DzangocartCoreBundle:Gateway:macros.html.twig" as macros %}
 
 {% spaceless %}
 {
@@ -13,7 +13,7 @@
                 "DT_RowId": "{{ 'gateway_' ~ gateway.id }}",
                 "DT_RowClass": "gateway{{ gateway.testing ? ' testing' : '' }}",
                 "id": {{ gateway.id }},
-                "name": "{{ gateway_name.name(gateway) }}",
+                "name": "{{ macros.name(gateway) }}",
                 "service": {
                     "id": {{ gateway.service.id }},
                     "name": "{{ gateway.service.name }}"
