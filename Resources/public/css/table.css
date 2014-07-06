@@ -84,6 +84,13 @@ table.table thead tr.filters th .form-control {
 	font-weight: normal;
 }
 
+table.table tbody tr:hover td,
+table.table tbody tr:hover td a,
+table.table tbody tr:hover th {
+	color: #535353;
+	background-color: #FFF6BF;
+}
+
 table.table td.actions button.dropdown-toggle {
 	border: none;
 	background: transparent;
