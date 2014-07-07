@@ -119,14 +119,7 @@ class GatewayController extends BaseController
     protected function getSearchColumns()
     {
         return array(
-            /* FIXME [OP 2014--07-06]}
-            'order_id' => 'item.orderId = %d',
-            'store' => 'Cart.storeId = %d',
-            'customer_id' => 'Cart.customerId = %d',
-            'date_from' => 'Cart.date >= "%s 00:00:00"',
-            'date_to' => 'Cart.date <= "%s 23:59:59"',
-            'name' => 'item.name LIKE "%%%s%%"'
-            */
+            'service_id' => 'Service.id LIKE "%%%s%%"',
         );
     }
 
