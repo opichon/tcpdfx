@@ -1,5 +1,6 @@
 {% trans_default_domain "payment" %}
 
+{% include 'DzangocartCoreBundle:Payment:filters.html.twig' %}
 
 <table class="table table-condensed">
 	<thead>
@@ -13,20 +14,7 @@
 			<th class="status">{% trans %}payment.payments.status{% endtrans %}</th>
 			<th class="actions"><i class="fa fa-cog"></i></th>
 		</tr>
-		<tr class="filters">
-			<th></th>
-			<th>
-				{{ form_widget(form.date_range) }}
-				{{ form_widget(form.date_start) }}
-				{{ form_widget(form.date_end) }}
-			</th>
-			<th></th>
-			<th>{{ form_widget(form.id) }}</th>
-			<th>{{ form_widget(form.provider_id) }}</th>
-			<th></th>
-			<th>{{ form_widget(form.status) }}</th>
-			<th></th>
-		</tr>
+		{% include "DzangocartCoreBundle:Payment:filters_row.html.twig" %}
 	</thead>
 	<tbody>
 	</tbody>

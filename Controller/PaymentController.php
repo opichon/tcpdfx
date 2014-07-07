@@ -2,7 +2,7 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Controller;
 
-use Dzangocart\Bundle\CoreBundle\Form\Type\PaymentFiltersType;
+use Dzangocart\Bundle\CoreBundle\Form\Type\PaymentsFiltersType;
 use Dzangocart\Bundle\CoreBundle\Model\PaymentQuery;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -21,16 +21,13 @@ class PaymentController extends BaseController
      */
     public function indexAction(Request $request)
     {
-        $form = $this->createForm(
-            new PaymentFiltersType($this->getStore())
-        );
+        $filters = $this->getFiltersForm();
 
         return array_merge(
             $this->getTemplateParams(),
             array(
-                'store' => $this->getStore(),
                 'template' => $this->getBaseTemplate(),
-                'form' => $form->createView()
+                'filters' => $filters->createView()
             )
         );
     }
@@ -87,6 +84,13 @@ class PaymentController extends BaseController
         );
     }
 
+    protected function getFiltersForm()
+    {
+        return $this->createForm(
+            new PaymentsFiltersType()
+        );
+    }
+
     protected function getDatatablesSortColumns()
     {
         return array(
@@ -102,7 +106,7 @@ class PaymentController extends BaseController
             'id' => 'payment.orderId LIKE "%s%%"',
             'date_start' => 'payment.createdAt >= CONCAT("%s%%, 00:00:00")',
             'date_end' => 'payment.createdAt <= CONCAT("%s%%, 23:59:59")',
-            'provider_id' => 'gateway.provider_id = "%s%%"',
+            'gateway_id' => 'gateway.provider_id = "%s%%"',
             'status' => $this->getStatusQueryString(),
         );
     }
