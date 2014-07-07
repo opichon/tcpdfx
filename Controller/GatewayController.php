@@ -92,7 +92,10 @@ class GatewayController extends BaseController
     protected function getQuery()
     {
         return GatewayQuery::create()
-            ->joinService()
+            ->useServiceQuery()
+                ->useEngineQuery()
+                ->endUse()
+            ->endUse()
             ->orderBy('Service.Name');
     }
 
@@ -120,6 +123,7 @@ class GatewayController extends BaseController
     {
         return array(
             'service_id' => 'Service.id LIKE "%%%s%%"',
+            'engine_id' => 'Engine.id LIKE "%%%s%%"'
         );
     }
 
