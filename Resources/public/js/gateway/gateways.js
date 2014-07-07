@@ -60,30 +60,38 @@
 			columns: [
 				{ data: "id" },
 				{ data: function( row, type, val, meta ) {
-						if ( "display" == type ) {
+						if ( "display" === type ) {
 						   return "<a href='" + row.urls.show + "'>" + row.name + "</a>"
 						}
+						
+						return "";
 					}
 				},
 				{ data: function( row, type, val, meta ) {
-						if ( "display" == type ) {
+						if ( "display" === type ) {
 							return "<a href='" + row.urls.store + "'>" + row.store.name + "</a>";
 						}
+						
+						return "";
 					}
 				},
 				{ data: "engine.name" },
 				{ data: function( row, type, val, meta ) {
-						if ( "display" == type ) {
+						if ( "display" === type ) {
 							return row.testing
 								? "<i class='fa fa-exclamation-circle'></i>"
 								: "";
 						}
+
+						return "";
 					}
 				},
 				{ data: function( row, type, val, meta ) {
-						if ( "display" == type ) {
+						if ( "display" === type ) {
 							return "<label class='label label-" + row.status.class + "'>" + row.status.label + "</label>";
 						}
+
+						return "";
 					}
 				},
 				{ data: "actions" }
