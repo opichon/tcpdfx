@@ -6,7 +6,7 @@ use Dzangocart\Bundle\CoreBundle\Model\Gateway\om\BaseGatewayQuery;
 
 class GatewayQuery extends BaseGatewayQuery
 {
-     public function filter(array $search = null, array $columns = array())
+    public function filter(array $search = null, array $columns = array())
     {
         if (empty($search)) {
             return $this;
