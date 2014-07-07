@@ -2,6 +2,7 @@ payment:
     filters:
         customer:           Customer
         from:               From
+        gateway:            gateway
         gateway_service:    Gateway service
         name:               Name
         order_id:           Order id

@@ -21,7 +21,7 @@ class PaymentController extends BaseController
      */
     public function indexAction(Request $request)
     {
-        $filters = $this->getFiltersForm();
+        $filters = $this->getFiltersForm($request);
 
         return array_merge(
             $this->getTemplateParams(),
@@ -84,7 +84,7 @@ class PaymentController extends BaseController
         );
     }
 
-    protected function getFiltersForm()
+    protected function getFiltersForm(Request $request)
     {
         return $this->createForm(
             new PaymentsFiltersType()
