@@ -92,6 +92,7 @@ class GatewayController extends BaseController
     protected function getQuery()
     {
         return GatewayQuery::create()
+            ->innerJoinStore()
             ->useServiceQuery()
                 ->useEngineQuery()
                 ->endUse()
@@ -122,8 +123,9 @@ class GatewayController extends BaseController
     protected function getSearchColumns()
     {
         return array(
-            'service_id' => 'Service.id LIKE "%%%s%%"',
-            'engine_id' => 'Engine.id LIKE "%%%s%%"'
+            'service_id' => 'Service.id = "%d"',
+            'store_id' => 'Store.id = "%d"',
+            'engine_id' => 'Engine.id = "%d"'
         );
     }
 
