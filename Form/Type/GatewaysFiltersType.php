@@ -118,7 +118,7 @@ class GatewaysFiltersType extends BaseAbstractType
 
         return $choices;
     }
-    
+
     protected function getStatuses()
     {
         $status_dropdown_choices = array();

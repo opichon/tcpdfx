@@ -2,8 +2,6 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Model;
 
-use Criteria;
-
 use Dzangocart\Bundle\CoreBundle\Model\om\BaseItemQuery;
 
 class ItemQuery extends BaseItemQuery
