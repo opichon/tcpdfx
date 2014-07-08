@@ -2,7 +2,7 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Controller;
 
-use Dzangocart\Bundle\CoreBundle\Form\Type\CategoryEditType;
+use Dzangocart\Bundle\CoreBundle\Form\Type\CategoryFormType;
 use Dzangocart\Bundle\CoreBundle\Model\CategoryQuery;
 use Dzangocart\Bundle\CoreBundle\Model\PackComponentQuery;
 use Dzangocart\Bundle\CoreBundle\Model\StoreQuery;

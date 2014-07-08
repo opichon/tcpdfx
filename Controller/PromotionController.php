@@ -2,7 +2,7 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Controller;
 
-use Dzangocart\Bundle\CoreBundle\Form\Type\PromotionEditType;
+use Dzangocart\Bundle\CoreBundle\Form\Type\PromotionFormType;
 use Dzangocart\Bundle\CoreBundle\Model\ItemQuery;
 use Dzangocart\Bundle\CoreBundle\Model\Promotion\Promotion;
 use Dzangocart\Bundle\CoreBundle\Model\Promotion\PromotionI18nQuery;
