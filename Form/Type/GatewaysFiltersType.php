@@ -3,6 +3,7 @@
 namespace Dzangocart\Bundle\CoreBundle\Form\Type;
 
 use Dzangocart\Bundle\CoreBundle\Model\Gateway\EngineQuery;
+use Dzangocart\Bundle\CoreBundle\Model\Gateway\GatewayQuery;
 use Dzangocart\Bundle\CoreBundle\Model\Gateway\ServiceQuery;
 use Dzangocart\Bundle\CoreBundle\Model\StoreQuery;
 
@@ -129,7 +130,18 @@ class GatewaysFiltersType extends BaseAbstractType
 
     protected function getStatuses()
     {
-        return array();
+        $status_dropdown_choices = array();
+        $choices = GatewayQuery::create()
+            ->select(array('status'))
+            ->where('status is not null')
+            ->distinct()
+            ->find();
+
+        foreach ($choices as $i) {
+            $status_dropdown_choices [$i] = 'gateway.status.label.' . $i;
+        }
+
+        return $status_dropdown_choices;
     }
 
     protected function getLocale()
