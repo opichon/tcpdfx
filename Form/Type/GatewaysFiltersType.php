@@ -121,18 +121,18 @@ class GatewaysFiltersType extends BaseAbstractType
 
     protected function getStatuses()
     {
-        $status_dropdown_choices = array();
-        $choices = GatewayQuery::create()
+        $choices = array();
+        $query = GatewayQuery::create()
             ->select(array('status'))
             ->where('status is not null')
             ->distinct()
             ->find();
 
-        foreach ($choices as $i) {
-            $status_dropdown_choices [$i] = 'gateway.status.label.' . $i;
+        foreach ($query as $i) {
+            $choices [$i] = 'gateway.status.label.' . $i;
         }
 
-        return $status_dropdown_choices;
+        return $choices;
     }
 
     protected function getLocale()
