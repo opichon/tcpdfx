@@ -2,7 +2,7 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Controller;
 
-use Dzangocart\Bundle\CoreBundle\Form\Type\CategoryEditType;
+use Dzangocart\Bundle\CoreBundle\Form\Type\CategoryFormType;
 use Dzangocart\Bundle\CoreBundle\Model\CategoryQuery;
 use Dzangocart\Bundle\CoreBundle\Model\PackComponentQuery;
 use Dzangocart\Bundle\CoreBundle\Model\StoreQuery;
@@ -95,7 +95,7 @@ class CatalogueController extends BaseController
         }
 
         $form = $this->createForm(
-            new CategoryEditType($this->store), $category, array( 'action' => $this->generateUrl('category_edit', array('id' => $id)))
+            new CategoryFormType($this->store), $category, array( 'action' => $this->generateUrl('category_edit', array('id' => $id)))
         );
 
         $form->handleRequest($request);
