@@ -10,7 +10,7 @@ use Propel\PropelBundle\Form\BaseAbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class CategoryEditType extends BaseAbstractType
+class CategoryFormType extends BaseAbstractType
 {
 
     protected $store;

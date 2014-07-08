@@ -95,7 +95,7 @@ class CatalogueController extends BaseController
         }
 
         $form = $this->createForm(
-            new CategoryEditType($this->store), $category, array( 'action' => $this->generateUrl('category_edit', array('id' => $id)))
+            new CategoryFormType($this->store), $category, array( 'action' => $this->generateUrl('category_edit', array('id' => $id)))
         );
 
         $form->handleRequest($request);
