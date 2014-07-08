@@ -55,11 +55,11 @@ class GatewaysFiltersType extends BaseAbstractType
             'required' => false
         ));
 
-        $builder->add('testing', 'choice', array(
+        $builder->add('testing', 'checkbox', array(
             'label' => 'gateway.filters.testing.label',
-            'choices' => $this->getTestingChoices(),
-            'empty_value' => false,
-            'required' => false,
+            'attr' => array(
+                'class' => 'checkbox'
+            ),
         ));
 
         $builder->add('status', 'choice', array(
@@ -118,16 +118,7 @@ class GatewaysFiltersType extends BaseAbstractType
 
         return $choices;
     }
-
-    protected function getTestingChoices()
-    {
-        return array(
-            '' => 'gateway.filters.testing.indifferent',
-            0 => 'gateway.filters.testing.include',
-            1 => 'gateway.filters.testing.exclude'
-        );
-    }
-
+    
     protected function getStatuses()
     {
         $status_dropdown_choices = array();
