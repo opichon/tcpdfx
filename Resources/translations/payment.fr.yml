@@ -1,12 +1,28 @@
 payment:
+    filters:
+        customer:           Client
+        from:               Du
+        gateway:            Portail de paiement
+        gateway_service:    Service de paiement
+        name:               Nom
+        order_id:           Commande n˚
+        period:             Période
+        status:             Etat
+        test:               Inclure les paiements de démonstration
+        test_orders:        Paiments de démonstration
+        to:                 Au
+
     payments:
         actions:
             show:          	Afficher la commande
-        order_id:           Commande
         date:               Date
+        gateway:            Portail de paiement
+        order_id:           Commande
         page_title:         Paiements
-        store:				Boutique
-        status:				Statut
+        status:             Etat
+        store:              Boutique
+        transaction:
+            amount:         Amount
 
     status:
         class:
