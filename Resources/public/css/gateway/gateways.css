@@ -1,3 +1,8 @@
+.checkbox {
+	width: 6em;
+	vertical-align: middle;
+}
+
 .gateways table.table th.testing {
 	width: 6em;
 	text-align: center;
