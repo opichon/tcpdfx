@@ -123,9 +123,9 @@ class GatewayController extends BaseController
     protected function getSearchColumns()
     {
         return array(
-            'service_id' => 'Service.id = "%d"',
-            'store_id' => 'Store.id = "%d"',
-            'engine_id' => 'Engine.id = "%d"'
+            'service_id' => 'Service.id = %d',
+            'store_id' => 'Store.id = %d',
+            'engine_id' => 'Engine.id = %d'
         );
     }
 
