@@ -125,7 +125,8 @@ class GatewayController extends BaseController
         return array(
             'service_id' => 'Service.id = %d',
             'store_id' => 'Store.id = %d',
-            'engine_id' => 'Engine.id = %d'
+            'engine_id' => 'Engine.id = %d',
+            'status' => 'gateway.status = %d'
         );
     }
 
