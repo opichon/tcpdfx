@@ -183,11 +183,17 @@ class CustomerController extends BaseController
                 ->_or()
                 ->where('CONCAT(user_profile.given_names, ", ", user_profile.surname) LIKE ?', sprintf('%%%s%%', $search))
             ->endUse()
-            ->distinct()
-            ->find();
+            ->distinct();
+
+        if ($store = $this->getStore()) {
+            $customers
+                ->useCartQuery()
+                    ->filterByStore($store)
+                ->endUse();
+        }
 
         return array(
-            'customers' => $customers
+            'customers' => $customers->find()
         );
     }
 
