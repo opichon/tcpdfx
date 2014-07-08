@@ -201,10 +201,9 @@ class SaleController extends BaseController
             4 => array('user_profile.surname', 'user_profile.given_names'),
             5 => 'item.name',
             6 => 'item.quantity',
-            7 => 'item.currencyId',
-            8 => 'item.amount_excl',
-            9 => 'item.tax_amount',
-            10 => 'item.amount_incl'
+            7 => 'item.amount_excl',
+            8 => 'item.tax_amount',
+            9 => 'item.amount_incl'
         );
     }
 }
