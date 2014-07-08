@@ -103,7 +103,7 @@ class PromotionController extends BaseController
         }
 
         $form = $this->createForm(
-            new PromotionEditType(), $promotion, array( 'action' => $this->generateUrl('promotion_edit', array('id' => $id)))
+            new PromotionFormType(), $promotion, array( 'action' => $this->generateUrl('promotion_edit', array('id' => $id)))
         );
 
         $form->handleRequest($request);
@@ -182,7 +182,7 @@ class PromotionController extends BaseController
         $promotion->setStoreId($this->getStore()->getId());
 
         $form = $this->createForm(
-            new PromotionEditType(),
+            new PromotionFormType(),
             $promotion,
             array(
                 'action' => $this->generateUrl('promotion_create')

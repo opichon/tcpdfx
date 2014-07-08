@@ -7,7 +7,7 @@ use Propel\PropelBundle\Form\BaseAbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class PromotionEditType extends BaseAbstractType
+class PromotionFormType extends BaseAbstractType
 {
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
