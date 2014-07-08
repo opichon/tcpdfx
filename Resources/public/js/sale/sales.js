@@ -24,7 +24,7 @@
                         table.api().draw();
                     });
 
-                    $( ".filters input", $this ).change(function() {
+                    $( ".filters input", $this ).change(function(event) {
                         event.stopPropagation();
                         table.api().draw();
                     });

@@ -105,6 +105,9 @@ class SaleController extends BaseController
             ->innerJoinCart()
             ->useCartQuery()
                 ->processed()
+                ->useCustomerQuery()
+                    ->innerJoinUserProfile('user_profile')
+                ->endUse()
             ->endUse()
             ->filterByParentId(null);
 
@@ -165,10 +168,17 @@ class SaleController extends BaseController
             $index = $setting['column'];
 
             if (array_key_exists($index, $columns)) {
-                $sort[] = array(
-                    $columns[$index],
-                    $setting['dir']
-                );
+
+                if (!is_array($columns[$index])) {
+                    $columns[$index] = array($columns[$index]);
+                }
+
+                foreach ($columns[$index] as $sort_column) {
+                    $sort[] = array(
+                        $sort_column,
+                        $setting['dir']
+                    );
+                }
             }
         }
 
@@ -185,9 +195,10 @@ class SaleController extends BaseController
     protected function getSortColumns()
     {
         return array(
-            1 => 'cart.Date',
+            1 => 'Cart.Date',
             2 => 'item.orderId',
             3 => 'store.Name',
+            4 => array('user_profile.surname', 'user_profile.given_names'),
             5 => 'item.name',
             6 => 'item.quantity',
             7 => 'item.currencyId',
