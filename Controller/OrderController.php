@@ -6,7 +6,6 @@ use DateTime;
 
 use Criteria;
 
-use Dzangocart\Bundle\CoreBundle\Model\Cart;
 use Dzangocart\Bundle\CoreBundle\Model\CartQuery;
 use Dzangocart\Bundle\CoreBundle\Form\Type\OrdersFiltersType;
 
@@ -77,7 +76,7 @@ class OrderController extends BaseController
         $offset = $this->getOffset($request);
 
         $orders = $query
-//            ->sort($this->getSortOrder($request))
+            ->sort($this->getSortOrder($request))
             ->setLimit($limit)
             ->setOffset($offset)
             ->find();
@@ -119,7 +118,10 @@ class OrderController extends BaseController
     {
         return CartQuery::create()
             ->processed()
-            ->innerJoinStore();
+            ->innerJoinStore()
+            ->useCustomerQuery()
+                ->innerJoinUserProfile('user_profile')
+            ->endUse();
     }
 
     protected function getTemplateParams()
@@ -134,7 +136,7 @@ class OrderController extends BaseController
 
     protected function getOffset(Request $request)
     {
-        return max(0, $request->query->get('start', 0));
+        return max($request->query->get('start', 0), 0);;
     }
 
     protected function getFilters(Request $request)
@@ -145,7 +147,7 @@ class OrderController extends BaseController
     protected function getSearchColumns()
     {
         return array(
-            'id' => 'cart.id = %d',
+            'order_id' => 'cart.id = %d',
             'store' => 'cart.storeId = %d',
             'customer_id' => 'cart.customerId = %d',
             'date_from' => 'cart.date >= "%s 00:00:00"',
@@ -155,43 +157,52 @@ class OrderController extends BaseController
 
     protected function getSortOrder(Request $request)
     {
-        $sort_order = array();
+        $sort = array();
 
         $order = $request->query->get('order', array());
 
-        $columns = $this->getDatatablesSortColumns();
-        $i = 0;
+        $columns = $this->getSortColumns();
+
         foreach ($order as $setting) {
 
             $index = $setting['column'];
 
-            if (!array_key_exists($index, $columns)) {
-                $sort_order[$i]['column'] = $columns[1] ;
-                $sort_order[$i]['dir'] = 'asc';
+            if (array_key_exists($index, $columns)) {
 
-                return $sort_order;
+                if (!is_array($columns[$index])) {
+                    $columns[$index] = array($columns[$index]);
+                }
+
+                foreach ($columns[$index] as $sort_column) {
+                    $sort[] = array(
+                        $sort_column,
+                        $setting['dir']
+                    );
+                }
             }
-
-            $sort_order[$i]['column'] = $columns[$index] ;
-            $sort_order[$i]['dir'] = $setting['dir'];
-            $i++;
-
         }
 
-        return $sort_order;
+       if (empty($sort)) {
+            $sort[] = array(
+                'cart.date',
+                'asc'
+            );
+        }
+
+        return $sort;
     }
 
-    protected function getDatatablesSortColumns()
+    protected function getSortColumns()
     {
         return array(
             1 => 'cart.date',
             2 => 'cart.id',
             3 => 'store.Name',
+            4 => array('user_profile.surname', 'user_profile.given_names'),
             5 => 'cart.status',
-            6 => 'cart.currency',
-            7 => 'cart.amount_excl',
-            8 => 'cart.tax_amount',
-            9 => 'cart.amount_incl'
+            6 => 'cart.amount_excl',
+            7 => 'cart.tax_amount',
+            8 => 'cart.amount_incl'
         );
     }
 }
