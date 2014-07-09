@@ -103,6 +103,7 @@ class PaymentController extends BaseController
     protected function getDataTablesSearchColumns()
     {
         return array(
+            'store' => 'Cart.storeId = %d',
             'id' => 'payment.orderId LIKE "%s%%"',
             'date_start' => 'payment.createdAt >= CONCAT("%s%%, 00:00:00")',
             'date_end' => 'payment.createdAt <= CONCAT("%s%%, 23:59:59")',

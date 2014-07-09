@@ -2,13 +2,12 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Controller;
 
-use DateTime;
-
 use Criteria;
 
-use Dzangocart\Bundle\CoreBundle\Model\Cart;
-use Dzangocart\Bundle\CoreBundle\Model\CartQuery;
+use DateTime;
+
 use Dzangocart\Bundle\CoreBundle\Form\Type\OrdersFiltersType;
+use Dzangocart\Bundle\CoreBundle\Model\CartQuery;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -137,7 +136,7 @@ class OrderController extends BaseController
 
     protected function getOffset(Request $request)
     {
-        return max(0, $request->query->get('start', 0));
+        return max($request->query->get('start', 0), 0);;
     }
 
     protected function getFilters(Request $request)
@@ -148,7 +147,7 @@ class OrderController extends BaseController
     protected function getSearchColumns()
     {
         return array(
-            'id' => 'cart.id = %d',
+            'order_id' => 'cart.id = %d',
             'store' => 'cart.storeId = %d',
             'customer_id' => 'cart.customerId = %d',
             'date_from' => 'cart.date >= "%s 00:00:00"',
@@ -156,6 +155,15 @@ class OrderController extends BaseController
         );
     }
 
+    /**
+     * Returns the sort order parameters in a format that can be passed
+     * as the argument to the ItemQuery#sort method.
+     *
+     * If the request query provides no sort order indications, this method
+     * should return an array reflecting the default sort order (by date).
+     *
+     * @return array
+     */
     protected function getSortOrder(Request $request)
     {
         $sort = array();

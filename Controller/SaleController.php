@@ -4,8 +4,8 @@ namespace Dzangocart\Bundle\CoreBundle\Controller;
 
 use DateTime;
 
-use Dzangocart\Bundle\CoreBundle\Model\ItemQuery;
 use Dzangocart\Bundle\CoreBundle\Form\Type\SalesFiltersType;
+use Dzangocart\Bundle\CoreBundle\Model\ItemQuery;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
