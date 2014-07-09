@@ -2,12 +2,12 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Controller;
 
-use DateTime;
-
 use Criteria;
 
-use Dzangocart\Bundle\CoreBundle\Model\CartQuery;
+use DateTime;
+
 use Dzangocart\Bundle\CoreBundle\Form\Type\OrdersFiltersType;
+use Dzangocart\Bundle\CoreBundle\Model\CartQuery;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -155,6 +155,15 @@ class OrderController extends BaseController
         );
     }
 
+    /**
+     * Returns the sort order parameters in a format that can be passed
+     * as the argument to the ItemQuery#sort method.
+     *
+     * If the request query provides no sort order indications, this method
+     * should return an array reflecting the default sort order (by date).
+     *
+     * @return array
+     */
     protected function getSortOrder(Request $request)
     {
         $sort = array();
