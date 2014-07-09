@@ -136,7 +136,7 @@ class OrderController extends BaseController
 
     protected function getOffset(Request $request)
     {
-        return max(0, $request->query->get('start', 0));
+        return max($request->query->get('start', 0), 0);;
     }
 
     protected function getFilters(Request $request)
