@@ -2,6 +2,8 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Controller;
 
+use DateTime;
+
 use Dzangocart\Bundle\CoreBundle\Form\Type\OrdersFiltersType;
 use Dzangocart\Bundle\CoreBundle\Model\Cart;
 use Dzangocart\Bundle\CoreBundle\Model\CartQuery;
@@ -20,7 +22,12 @@ class CartController extends BaseController
     public function indexAction(Request $request)
     {
         $filters = $this->createForm(
-            new OrdersFiltersType());
+            new OrdersFiltersType(),
+            array(
+                'date_from' => (new DateTime())->modify('first day of this month'),
+                'date_to' => new DateTime()
+            )
+        );
 
         return array(
             'store' => $this->getStore(),
@@ -30,12 +37,11 @@ class CartController extends BaseController
     }
 
     /**
-     * @Route("/cart//list", name="cart_list", requirements={"_format": "json"}, defaults={"_format": "json"})
+     * @Route("/cart/list", name="cart_list", requirements={"_format": "json"}, defaults={"_format": "json"})
      * @Template("DzangocartCoreBundle:Order:list.json.twig")
      */
     public function listAction(Request $request)
     {
-
         $query = $this->getQuery();
 
         if ($store_id = $request->query->get('store_id')) {
@@ -45,16 +51,16 @@ class CartController extends BaseController
         $total_count = $query->count();
 
         $query->filter(
-            $request->query->get('order_filters'),
-            $this->getDataTablesSearchColumns()
+            $this->getFilters($request),
+            $this->getSearchColumns()
         );
 
         $query->innerJoinStore('store');
 
         $filtered_count = $query->count();
 
-        $limit = min(100, $request->query->get('length'));
-        $offset = max(0, $request->query->get('start'));
+        $limit = $this->getLimit($request);
+        $offset = $this->getOffset($request);
 
         $orders = $query
             ->sort($this->getSortOrder($request))
@@ -63,15 +69,14 @@ class CartController extends BaseController
             ->find();
 
         return array(
-            'draw' => $request->query->get('draw'),
             'start' => 0,
-            'count_total' => $total_count,
-            'count_filtered' => $filtered_count,
+            'total_count' => $total_count,
+            'filtered_count' => $filtered_count,
             'orders' => $orders
         );
     }
     /**
-     * @Route("/cart/{id}", name="cart")
+     * @Route("/cart/{id}", requirements={"id": "\d+"}, name="cart")
      * @Template("DzangocartCoreBundle:Cart:show.html.twig")
      */
     public function showAction(Request $request, $id)
@@ -91,57 +96,99 @@ class CartController extends BaseController
         );
     }
 
-    protected function getDatatablesSortColumns()
+    protected function getSortColumns()
     {
         return array(
             1 => 'cart.date',
             2 => 'cart.id',
             3 => 'store.Name',
-            4 => 'cart.status'
+            4 => array('user_profile.surname', 'user_profile.given_names'),
+            5 => 'cart.status',
+            6 => 'cart.amount_excl',
+            7 => 'cart.tax_amount',
+            8 => 'cart.amount_incl'
         );
     }
 
-    protected function getDataTablesSearchColumns()
+    protected function getSearchColumns()
     {
         return array(
-            'id' => 'cart.id LIKE "%s%%"',
-            'store_name' => 'store.name LIKE "%%%s%%"',
-            'customer_id' => 'cart.customer_id = "%s%%"',
-            'date_start' => 'cart.date BETWEEN CONCAT("%s%%, 00:00:00")',
-            'date_end' => 'CONCAT("%s%%, 23:59:59")'
+            'order_id' => 'cart.id = %d',
+            'store' => 'cart.storeId = %d',
+            'customer_id' => 'cart.customerId = %d',
+            'date_from' => 'cart.date >= "%s 00:00:00"',
+            'date_to' => 'cart.date <= "%s 23:59:59"'
         );
     }
 
     protected function getQuery()
     {
-        return CartQuery::create('Cart')
-            ->filterByStatus(Cart::STATUS_OPEN);
+        return CartQuery::create()
+            ->filterByStatus(Cart::STATUS_OPEN)
+            ->useCustomerQuery()
+                ->innerJoinUserProfile('user_profile')
+            ->endUse();
     }
 
+    /**
+     * Returns the sort order parameters in a format that can be passed
+     * as the argument to the ItemQuery#sort method.
+     *
+     * If the request query provides no sort order indications, this method
+     * should return an array reflecting the default sort order (by date).
+     *
+     * @return array
+     */
     protected function getSortOrder(Request $request)
     {
-        $sort_order = array();
+        $sort = array();
 
         $order = $request->query->get('order', array());
 
-        $columns = $this->getDatatablesSortColumns();
-        $i = 0;
+        $columns = $this->getSortColumns();
+
         foreach ($order as $setting) {
 
             $index = $setting['column'];
 
-            if (!array_key_exists($index, $columns)) {
-                $sort_order[$i]['column'] = $columns[1] ;
+            if (array_key_exists($index, $columns)) {
 
-                return $sort_order;
+                if (!is_array($columns[$index])) {
+                    $columns[$index] = array($columns[$index]);
+                }
+
+                foreach ($columns[$index] as $sort_column) {
+                    $sort[] = array(
+                        $sort_column,
+                        $setting['dir']
+                    );
+                }
             }
-
-            $sort_order[$i]['column'] = $columns[$index] ;
-            $sort_order[$i]['dir'] = $setting['dir'];
-            $i++;
-
         }
 
-        return $sort_order;
+       if (empty($sort)) {
+            $sort[] = array(
+                'cart.date',
+                'asc'
+            );
+        }
+
+        return $sort;
     }
+
+    protected function getLimit(Request $request)
+    {
+        return min(100, $request->query->get('length', 10));
+    }
+
+    protected function getOffset(Request $request)
+    {
+        return max($request->query->get('start', 0), 0);;
+    }
+
+    protected function getFilters(Request $request)
+    {
+        return $request->query->get('orders_filters', array());
+    }
+
 }

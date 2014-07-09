@@ -11,7 +11,7 @@
 {% endjavascripts %}
 <script>
 dzangocart.orders = {
-    dataTables: {
+    datatables: {
         ajax: {
             url: "{{ path('cart_list') }}"
         },
@@ -21,7 +21,7 @@ dzangocart.orders = {
     },
     typeahead: {
         remote: {
-         url:  "{{ path('customer_search', { search: '__query__' }) }}"
+            url:  "{{ path('customer_search', { search: '__query__' }) }}"
         }
     }
 };
