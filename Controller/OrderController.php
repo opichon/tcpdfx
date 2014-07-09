@@ -6,7 +6,6 @@ use DateTime;
 
 use Criteria;
 
-use Dzangocart\Bundle\CoreBundle\Model\Cart;
 use Dzangocart\Bundle\CoreBundle\Model\CartQuery;
 use Dzangocart\Bundle\CoreBundle\Form\Type\OrdersFiltersType;
 
@@ -148,7 +147,7 @@ class OrderController extends BaseController
     protected function getSearchColumns()
     {
         return array(
-            'id' => 'cart.id = %d',
+            'order_id' => 'cart.id = %d',
             'store' => 'cart.storeId = %d',
             'customer_id' => 'cart.customerId = %d',
             'date_from' => 'cart.date >= "%s 00:00:00"',

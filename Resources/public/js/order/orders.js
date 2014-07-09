@@ -57,7 +57,7 @@
         var helpers = {
             initCustomerWidget: function() {
 
-                var widget = $( "[name='order_filters[customer]']" );
+                var widget = $( "[name='orders_filters[customer]']" );
 
                 var customers = new Bloodhound({
                     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
@@ -78,13 +78,13 @@
                     source: customers.ttAdapter()
                 })
                 .on( "typeahead:selected", function( e, datum ) {
-                    $( "[name='order_filters[customer_id]']" ).val( datum.id );
+                    $( "[name='orders_filters[customer_id]']" ).val( datum.id );
                         table.api().draw();
                 });
 
                 widget.keyup( function( ) {
                     if ( $(this).val() === "" ) {
-                        $( "[name='order_filters[customer_id]']" ).val( "" );
+                        $( "[name='orders_filters[customer_id]']" ).val( "" );
                         table.api().draw();
                     }
 
