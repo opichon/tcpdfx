@@ -2,9 +2,9 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Controller;
 
+use Dzangocart\Bundle\CoreBundle\Form\Type\OrdersFiltersType;
 use Dzangocart\Bundle\CoreBundle\Model\Cart;
 use Dzangocart\Bundle\CoreBundle\Model\CartQuery;
-use Dzangocart\Bundle\CoreBundle\Form\Type\OrderFiltersType;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -19,12 +19,12 @@ class CartController extends BaseController
     */
     public function indexAction(Request $request)
     {
-        $form = $this->createForm(
-            new OrderFiltersType());
+        $filters = $this->createForm(
+            new OrdersFiltersType());
 
         return array(
             'store' => $this->getStore(),
-            'form' => $form->createView(),
+            'filters' => $filters->createView(),
             'template' => $this->getBaseTemplate()
         );
     }
