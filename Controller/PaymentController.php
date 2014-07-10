@@ -56,21 +56,18 @@ class PaymentController extends BaseController
 
         $count_total = $query->count();
 
-        $query->dataTablesSearch(
-            $request->query->get('payment_filters'),
-            $this->getDataTablesSearchColumns()
+        $query->filter(
+            $this->getFilters($request),
+            $this->getSearchColumns()
         );
 
         $count_filtered = $query->count();
 
-        $limit = min(100, $request->query->get('length', 10));
-        $offset = max(0, $request->query->get('start', 0));
+        $limit = $this->getLimit($request);
+        $offset = $this->getOffset($request);
 
         $payments = $query
-            ->dataTablesSort(
-                $request->query->get('order', array()),
-                $this->getDataTablesSortColumns()
-            )
+            ->sort($this->getSortOrder($request))
             ->setLimit($limit)
             ->setOffset($offset)
             ->find();
@@ -91,22 +88,35 @@ class PaymentController extends BaseController
         );
     }
 
-    protected function getDatatablesSortColumns()
+    protected function getQuery()
+    {
+        return PaymentQuery::create()
+                ->useGatewayQuery()
+                    ->innerJoinService('gateway_service')
+                    ->innerJoinStore('store')
+                ->endUse()
+            ->innerJoinGateway();
+    }
+
+    protected function getSortColumns()
     {
         return array(
-            1 => 'payment.orderId',
-            2 => 'payment.createdAt'
+            1 => 'payment.createdAt',
+            2 => 'store.name',
+            3 => 'payment.orderId',
+            4 => 'gateway_service.name',
+            6 => 'payment.status'
         );
 
     }
 
-    protected function getDataTablesSearchColumns()
+    protected function getSearchColumns()
     {
         return array(
-            'store' => 'Cart.storeId = %d',
+            'store' => 'cart.storeId = %d',
             'id' => 'payment.orderId LIKE "%s%%"',
-            'date_start' => 'payment.createdAt >= CONCAT("%s%%, 00:00:00")',
-            'date_end' => 'payment.createdAt <= CONCAT("%s%%, 23:59:59")',
+            'date_start' => 'payment.createdAt >= "%s 00:00:00"',
+            'date_end' => 'payment.createdAt <= "%s 23:59:59"',
             'gateway_id' => 'gateway.provider_id = "%s%%"',
             'status' => $this->getStatusQueryString(),
         );
@@ -125,15 +135,70 @@ class PaymentController extends BaseController
         return 'payment.status & "%s%%"';
     }
 
-    protected function getQuery()
-    {
-        return PaymentQuery::create('Cart')
-            ->innerJoinGateway();
-    }
-
     protected function getTemplateParams()
     {
         return array();
+    }
+
+    protected function getLimit(Request $request)
+    {
+        return min(100, $request->query->get('length', 10));
+    }
+
+    protected function getOffset(Request $request)
+    {
+        return max($request->query->get('start', 0), 0);
+    }
+
+    protected function getFilters(Request $request)
+    {
+        return $request->query->get('payment_filters', array());
+    }
+
+    /**
+     * Returns the sort order parameters in a format that can be passed
+     * as the argument to the PaymentQuery#sort method.
+     *
+     * If the request query provides no sort order indications, this method
+     * should return an array reflecting the default sort order (by date).
+     *
+     * @return array
+     */
+    protected function getSortOrder(Request $request)
+    {
+        $sort = array();
+
+        $order = $request->query->get('order', array());
+
+        $columns = $this->getSortColumns();
+
+        foreach ($order as $setting) {
+
+            $index = $setting['column'];
+
+            if (array_key_exists($index, $columns)) {
+
+                if (!is_array($columns[$index])) {
+                    $columns[$index] = array($columns[$index]);
+                }
+
+                foreach ($columns[$index] as $sort_column) {
+                    $sort[] = array(
+                        $sort_column,
+                        $setting['dir']
+                    );
+                }
+            }
+        }
+
+       if (empty($sort)) {
+            $sort[] = array(
+                'payment.createdAt',
+                'asc'
+            );
+        }
+
+        return $sort;
     }
 
 }
