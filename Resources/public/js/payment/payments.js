@@ -40,19 +40,19 @@
 						}
 					} ) );
 
-					$("input[name='payment_filters[date_range]']")
+					$("input[name='payments_filters[period]']")
 					.daterangepicker(
 						settings.dateRangePicker,
 						function( start, end ) {
-							$( "input[name='payment_filters[date_start]']" ).val( start.format( "YYYY-MM-DD" ) );
-							$( "input[name='payment_filters[date_end]']" ).val( end.format( "YYYY-MM-DD" ) );
+							$( "input[name='payments_filters[date_from]']" ).val( start.format( "YYYY-MM-DD" ) );
+							$( "input[name='payments_filters[date_to]']" ).val( end.format( "YYYY-MM-DD" ) );
 						}
 					)
 					.on( "cancel.daterangepicker", function( e, picker ) {
 						$( this ).val( "" );
 
-						$( "input[name='payment_filters[date_start]']" ).val(  "" );
-						$( "input[name='payment_filters[date_end]']" ).val( "" );
+						$( "input[name='payments_filters[date_from]']" ).val(  "" );
+						$( "input[name='payments_filters[date_to]']" ).val( "" );
 
 						table.api().draw();
 					})
@@ -96,11 +96,33 @@
 			serverSide: true,
 			stripeClasses: []
 		},
-		dateRangePicker: {
-			startDate: moment(),
-			locale: { cancelLabel: "Clear" }
-		},
-		date_format: "dd.MM.yy"
+		daterangepicker: {
+            locale: { cancelLabel: "Clear"  },
+            maxDate: moment(),
+            minDate: moment( "2009-01-01" ),
+            ranges: {
+                "MTD": [moment().startOf( "month" ), moment()],
+                "Last Month": [
+                    moment().subtract( "month", 1).startOf( "month" ),
+                    moment().subtract( "month", 1).endOf( "month" )
+                ],
+                "QTD": [
+                    moment().month( moment().quarter() * 3 ).subtract( "month", 3).startOf( "month" ),
+                    moment()
+                ],
+                "Last quarter": [
+                    moment().month( (moment().quarter() - 1) * 3 ).subtract( "month", 3 ).startOf( "month" ),
+                    moment().month( (moment().quarter() - 1) * 3 ).subtract( "month", 1 ).endOf( "month" )
+                ],
+                "YTD": [moment().startOf( "year" ), moment()],
+                "Last Year": [
+                    moment().subtract( "year", 1 ).startOf( "year"),
+                    moment().subtract( "year", 1 ).endOf( "year" )
+                ]
+            },
+            startDate: moment()
+        },
+        date_format: "dd.MM.yy"
 	};
 } ( window.jQuery );
 

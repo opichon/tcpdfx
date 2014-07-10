@@ -2,6 +2,8 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Controller;
 
+use DateTime;
+
 use Dzangocart\Bundle\CoreBundle\Form\Type\PaymentsFiltersType;
 use Dzangocart\Bundle\CoreBundle\Model\PaymentQuery;
 
@@ -84,7 +86,11 @@ class PaymentController extends BaseController
     protected function getFiltersForm(Request $request)
     {
         return $this->createForm(
-            new PaymentsFiltersType()
+            new PaymentsFiltersType(),
+            array(
+                'date_from' => (new DateTime())->modify('first day of this month'),
+                'date_to' => new DateTime()
+            )
         );
     }
 
@@ -113,12 +119,12 @@ class PaymentController extends BaseController
     protected function getSearchColumns()
     {
         return array(
-            'store' => 'cart.storeId = %d',
-            'id' => 'payment.orderId LIKE "%s%%"',
-            'date_start' => 'payment.createdAt >= "%s 00:00:00"',
-            'date_end' => 'payment.createdAt <= "%s 23:59:59"',
-            'gateway_id' => 'gateway.provider_id = "%s%%"',
-            'status' => $this->getStatusQueryString(),
+            'store' => 'store.Id = %d',
+            'order_id' => 'payment.orderId LIKE "%s%%"',
+            'date_from' => 'payment.createdAt >= "%s 00:00:00"',
+            'date_to' => 'payment.createdAt <= "%s 23:59:59"',
+            'service_id' => 'gateway_service.id = "%s%%"',
+            'status' => $this->getStatusQueryString()
         );
     }
 
@@ -126,7 +132,7 @@ class PaymentController extends BaseController
     {
         $request = $this->container->get('request');
 
-        $status = $request->query->get('payment_filters')['status'];
+        $status = $request->query->get('payments_filters')['status'];
 
         if ($status == 0) {
             return 'payment.status = "%s%%"';
@@ -152,7 +158,7 @@ class PaymentController extends BaseController
 
     protected function getFilters(Request $request)
     {
-        return $request->query->get('payment_filters', array());
+        return $request->query->get('payments_filters', array());
     }
 
     /**
