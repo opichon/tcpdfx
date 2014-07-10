@@ -116,7 +116,7 @@ class OrderController extends BaseController
 
     protected function getQuery()
     {
-        return CartQuery::create()
+        return CartQuery::create('Cart')
             ->processed()
             ->innerJoinStore()
             ->useCustomerQuery()
@@ -147,11 +147,11 @@ class OrderController extends BaseController
     protected function getSearchColumns()
     {
         return array(
-            'order_id' => 'cart.id = %d',
-            'store' => 'cart.storeId = %d',
-            'customer_id' => 'cart.customerId = %d',
-            'date_from' => 'cart.date >= "%s 00:00:00"',
-            'date_to' => 'cart.date <= "%s 23:59:59"'
+            'order_id' => 'Cart.id = %d',
+            'store' => 'Cart.storeId = %d',
+            'customer_id' => 'Cart.customerId = %d',
+            'date_from' => 'Cart.date >= "%s 00:00:00"',
+            'date_to' => 'Cart.date <= "%s 23:59:59"'
         );
     }
 
@@ -193,7 +193,7 @@ class OrderController extends BaseController
 
        if (empty($sort)) {
             $sort[] = array(
-                'cart.date',
+                'Cart.date',
                 'asc'
             );
         }
@@ -204,14 +204,14 @@ class OrderController extends BaseController
     protected function getSortColumns()
     {
         return array(
-            1 => 'cart.date',
-            2 => 'cart.id',
+            1 => 'Cart.date',
+            2 => 'Cart.id',
             3 => 'store.Name',
             4 => array('user_profile.surname', 'user_profile.given_names'),
-            5 => 'cart.status',
-            6 => 'cart.amount_excl',
-            7 => 'cart.tax_amount',
-            8 => 'cart.amount_incl'
+            5 => 'Cart.status',
+            6 => 'Cart.amount_excl',
+            7 => 'Cart.tax_amount',
+            8 => 'Cart.amount_incl'
         );
     }
 }
