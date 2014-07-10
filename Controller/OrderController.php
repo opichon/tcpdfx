@@ -136,7 +136,7 @@ class OrderController extends BaseController
 
     protected function getOffset(Request $request)
     {
-        return max($request->query->get('start', 0), 0);;
+        return max($request->query->get('start', 0), 0);
     }
 
     protected function getFilters(Request $request)
@@ -157,7 +157,7 @@ class OrderController extends BaseController
 
     /**
      * Returns the sort order parameters in a format that can be passed
-     * as the argument to the ItemQuery#sort method.
+     * as the argument to the CartQuery#sort method.
      *
      * If the request query provides no sort order indications, this method
      * should return an array reflecting the default sort order (by date).
