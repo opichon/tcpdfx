@@ -51,12 +51,12 @@ class OrderController extends BaseController
 
         $query = $this->getQuery();
 
-        if ($customer_id = $request->query->get('customer_id')) {
-            $query->filterByCustomerId($customer_id);
-        }
-
         if ($affiliate_id = $request->query->get('affiliate_id')) {
             $query->filterByAffiliateId($affiliate_id);
+        }
+
+        if ($customer_id = $request->query->get('customer_id')) {
+            $query->filterByCustomerId($customer_id);
         }
 
         if ($store_id = $request->query->get('store_id')) {
