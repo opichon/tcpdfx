@@ -115,14 +115,19 @@ class PaymentsFiltersType extends BaseAbstractType
     {
         $services = array();
 
-        $query = ServiceQuery::create()
-            ->orderByName();
+        $query = $this->getServiceQuery();
 
         foreach ($query->find() as $service) {
             $services[$service->getId()] = $service->getName();
         }
 
         return $services;
+    }
+
+    protected function getServiceQuery()
+    {
+        return ServiceQuery::create()
+            ->orderByName();
     }
 
     public function getName()
