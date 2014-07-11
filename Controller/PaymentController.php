@@ -86,7 +86,11 @@ class PaymentController extends BaseController
     protected function getFiltersForm(Request $request)
     {
         return $this->createForm(
-            new PaymentsFiltersType()
+            new PaymentsFiltersType(),
+            array(
+                'date_from' => (new DateTime())->modify('first day of this month'),
+                'date_to' => new DateTime()
+            )
         );
     }
 
