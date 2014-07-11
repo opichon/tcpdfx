@@ -8,16 +8,27 @@
 	"data" : [
 		{% for payment in payments %}
 			{
-				"DT_RowId": "{{ 'p_' ~ payment.id }}",
-				"DT_RowClass": "payment",
-				"0": "",
-				"1": "{{ payment.createdAt|datetime('dd.MM.yy', 'HH:mm', time_zone, app.request.locale) }}",
-				"2": "{% include 'DzangocartCoreBundle:Payment:store.html.twig' with { store: payment.gateway.store } %}",
-				"3": "{% include 'DzangocartCoreBundle:Payment:order.html.twig' with { order: payment.order } %}",
-				"4": "{{ payment.gateway.name }}",
-				"5": "{{ payment.amount|currency(payment.currency.id, app.request.locale) }}",
-				"6": "{% include 'DzangocartCoreBundle:Payment:status.html.twig' %}",
-				"7": "{% include 'DzangocartCoreBundle:Payment:actions.html.twig' %}"
+                "DT_RowId":      "{{ 'p_' ~ payment.id }}",
+                "DT_RowClass":   "{{ 'payment' }}",
+                "check":         "",
+                "date":          "{{ payment.createdAt|datetime('dd.MM.yy', 'HH:mm', time_zone, app.request.locale) }}",
+				"store":         "{% include 'DzangocartCoreBundle:Order:store.html.twig' with { store: payment.gateway.store } %}"
+                    "id":        {{ payment.gateway.store.id }},
+                    "name":      "{{ payment.gateway.store.name }}"
+                },
+	            "order":         "{% include 'DzangocartCoreBundle:Payment:order.html.twig' with { order: payment.order }%}" {
+				    "id":        "{{ payment.order.id }}"
+				},
+				"gateway":       {
+					"name":      "{{ payment.gateway.name }}"
+				},
+                "amount":        "{{ payment.amount|currency(payment.currency.id, app.request.locale) }}",
+				"status":        "{% include 'DzangocartCoreBundle:Payment:status.html.twig' %}",
+                "actions":       "{% include 'DzangocartCoreBundle:Payment:actions.html.twig' %}",
+				"urls": {
+                    "show": "{{ path('payments', { id: payment.id }) }}",
+                    "store": "{{ path('store', { id: payment.gateway.store.id }) }}"
+                }
 			}{% if not loop.last %},{% endif %}
 		{% endfor %}
 	]
