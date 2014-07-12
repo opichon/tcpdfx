@@ -256,7 +256,7 @@ class TCPDF extends FPDI
 
         $this->generate();
 
-        parent::Output($name ? $name : $this->getName(), $dest);
+        parent::Output($this->sanitize($name ? $name : $this->getName()), $dest);
 
         header_remove('Content-Length');
     }
@@ -814,6 +814,18 @@ class TCPDF extends FPDI
         );
 
         return mb_strtolower(preg_replace('/--+/u', '-', $string), 'UTF-8');
+    }
+
+    public function sanitize($filename)
+    {
+        $path_parts = pathinfo($filename);
+
+        return sprintf(
+            '%s/%s.%s',
+            $path_parts['dirname'],
+            $this->sanitizeName($path_parts['filename']),
+            $path_parts['extension']
+        );
     }
 }
 
