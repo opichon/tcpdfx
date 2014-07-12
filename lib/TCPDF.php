@@ -43,7 +43,6 @@ class TCPDF extends FPDI
     protected $subtitle_style = 'B';
     protected $subtitle_cell_height = 6;
 
-
     protected $default_cell_padding = array('L' => 0.3, 'T' => 0.3, 'R' => 0.3, 'B' => 0.3);
 
     public function __construct($orientation = 'P', $unit = 'mm', $format = 'A4', $unicode = true, $encoding = 'UTF-8', $diskcache = false, $pdfa = false)
@@ -414,7 +413,7 @@ class TCPDF extends FPDI
 
             $this->SetY(max($this->getHeaderMargin(), $this->GetY()));
 
-        } else if ($this->InFooter) {
+        } elseif ($this->InFooter) {
 
             $this->SetY($this->h - $this->footer_margin);
 
