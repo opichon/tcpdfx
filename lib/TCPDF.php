@@ -249,15 +249,19 @@ class TCPDF extends FPDI
      */
     public function Output($name = null, $dest = 'D')
     {
+        header_remove('Content-Length');
+
         $this->init();
 
         $this->AddPage();
 
         $this->generate();
 
-        parent::Output($this->sanitize($name ? $name : $this->getName()), $dest);
+        $filename = $this->sanitize($name ? $name : $this->getName());
 
-        header_remove('Content-Length');
+        parent::Output($filename, $dest);
+
+        return $filename;
     }
 
     /**
