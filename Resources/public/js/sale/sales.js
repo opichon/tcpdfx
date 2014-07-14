@@ -72,9 +72,9 @@
 
                 customers.initialize();
 
-                widget.typeahead(null, {
-                    name: 'customer',
-                    displayKey: 'value',
+                widget.typeahead( null, {
+                    name: "customer",
+                    displayKey: "value",
                     source: customers.ttAdapter()
                 })
                 .on( "typeahead:selected", function( e, datum ) {
@@ -82,7 +82,7 @@
                         table.api().draw();
                 });
 
-                widget.keyup( function( ) {
+                widget.keyup(function() {
                     if ( $(this).val() === "" ) {
                         $( "[name='sales_filters[customer_id]']" ).val( '' );
                             table.api().draw();

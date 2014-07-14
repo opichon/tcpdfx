@@ -87,7 +87,6 @@
                         $( "[name='orders_filters[customer_id]']" ).val( "" );
                         table.api().draw();
                     }
-
                 })
             },
 

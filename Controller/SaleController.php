@@ -126,7 +126,7 @@ class SaleController extends BaseController
 
     protected function getOffset(Request $request)
     {
-        return max($request->query->get('start', 0), 0);
+        return max(0, $request->query->get('start', 0));
     }
 
     protected function getFilters(Request $request)
