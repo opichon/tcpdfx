@@ -91,7 +91,7 @@
 				},
                 { data: function( row, type, val, meta ) {
 						if ( "display" === type ) {
-							return "<a href='" + row.urls.order + "'>" + row.order.id + "</a>";
+							return row.urls.show ;
 						}
 						
 						return "";
