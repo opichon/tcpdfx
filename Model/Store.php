@@ -6,6 +6,14 @@ use Dzangocart\Bundle\CoreBundle\Model\om\BaseStore;
 
 class Store extends BaseStore
 {
+    const STATUS_UNCONFIRMED = 0; // Domain has been reserved
+    const STATUS_CONFIRMED   = 1; // Domain has been confirmed
+    const STATUS_READY       = 2; // At least 1 prod gateway is setup and subscription is paid
+    const STATUS_ACTIVE      = 4; // Store has been activated by user
+    const STATUS_SUSPENDED   = 8; // Store has been suspended by dzangocart admin
+    const STATUS_CLOSED      = 16; // Store has been closed by owner
+    const STATUS_DISABLED    = 32; // Store has been disabled by owner
+
     public function fixCatalogue()
     {
         CategoryPeer::fixLevels($this->getId());
@@ -14,6 +22,135 @@ class Store extends BaseStore
     public function getResolvedHostname($host)
     {
         return $this->getDomain() . '.' . $host;
+    }
+
+    public function isConfirmed()
+    {
+        return $this->getStatus() & self::CONFIRMED;
+    }
+
+    public function confirm()
+    {
+        //$this->setup();
+        $this->setStatus($this->getStatus() | self::CONFIRMED);
+    }
+
+    public function isReady()
+    {
+        return $this->isConfirmed() && $this->getStatus() & self::READY;
+    }
+
+    public function ready()
+    {
+        if (!$this->isConfirmed() || !$this->checkSubscriptionFee()) {
+            return;
+        }
+
+        $count = GatewayPeer::getGatewaysCountForStore($this, true, false, 0);
+
+        if (!$count) {
+            return;
+        }
+
+        $this->setStatus($this->getStatus() | self::READY);
+    }
+
+    public function unready()
+    {
+        if (!$this->isReady()) {
+            return;
+        }
+
+        $count = GatewayPeer::getGatewaysCountForStore($this, true, false, 0);
+
+        if ($count) {
+            return;
+        }
+
+        $this->setStatus($this->getStatus() & ~self::READY);
+
+        $this->disable();
+    }
+
+    public function isActive()
+    {
+        return !$this->isDisabled()
+            && !$this->isClosed()
+            && !$this->isSuspended()
+            && $this->isReady()
+            && ($this->getStatus() & self::ACTIVE);
+    }
+
+    /*
+     * Whether the store has been disabled by the owner.
+     * Warning:This is not quite the opposite of getActive!
+     */
+    public function isDisabled()
+    {
+        return $this->getStatus() & self::DISABLED;
+    }
+
+    public function disable()
+    {
+        $this->setStatus($this->getStatus() | self::DISABLED);
+    }
+
+    public function activate()
+    {
+        if ($this->isDisabled()
+            || $this->isClosed()
+            || $this->isSuspended()
+            || !$this->isReady()) {
+            return;
+        }
+        $this->setStatus($this->getStatus() | self::ACTIVE);
+    }
+
+    public function reactivate()
+    {
+        $this->setStatus($this->getStatus() & ~self::DISABLED);
+    }
+
+    public function isSuspended()
+    {
+        return $this->getStatus() & self::SUSPENDED;
+    }
+
+    public function suspend()
+    {
+        $this->setStatus($this->getStatus() | self::SUSPENDED);
+        $this->disable();
+    }
+
+    public function unsuspend()
+    {
+        $this->setStatus($this->getStatus() & ~self::SUSPENDED);
+    }
+
+    public function isClosed()
+    {
+        return $this->getStatus() & self::CLOSED;
+    }
+
+    public function close()
+    {
+        if ($this->isActive()) {
+            return;
+        }
+
+        $this->setStatus($this->getStatus() | self::CLOSED);
+    }
+
+    public function reopen()
+    {
+        $this->setStatus($this->getStatus() & ~self::CLOSED);
+    }
+
+    public function allowOrders()
+    {
+        return $this->isConfirmed()
+            && !$this->isClosed()
+            && !$this->isSuspended();
     }
 
     public function isOwner(User $user)
