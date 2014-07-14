@@ -78,6 +78,30 @@
 	$.fn.payments.defaults = {
 		dataTables: {
 			autoWidth: false,
+			columns: [
+                { data: "check" },
+                { data: "date" },
+                { data: function( row, type, val, meta ) {
+						if ( "display" === type ) {
+							return "<a href='" + row.urls.store + "'>" + row.store.name + "</a>";
+						}
+						
+						return "";
+					}
+				},
+                { data: function( row, type, val, meta ) {
+						if ( "display" === type ) {
+							return row.urls.show ;
+						}
+						
+						return "";
+					}
+				},
+                { data: "gateway.name" },
+                { data: "amount" },
+                { data: "status" },
+                { data: "actions" }
+            ],
 			columnDefs: [
 				{ orderable: false, targets: [ 0, 7 ] },
 				{ visible: false, targets: [ 0 ] },
