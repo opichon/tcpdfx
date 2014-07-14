@@ -26,18 +26,18 @@ class Store extends BaseStore
 
     public function isConfirmed()
     {
-        return $this->getStatus() & self::CONFIRMED;
+        return $this->getStatus() & self::STATUS_CONFIRMED;
     }
 
     public function confirm()
     {
         //$this->setup();
-        $this->setStatus($this->getStatus() | self::CONFIRMED);
+        $this->setStatus($this->getStatus() | self::STATUS_CONFIRMED);
     }
 
     public function isReady()
     {
-        return $this->isConfirmed() && $this->getStatus() & self::READY;
+        return $this->isConfirmed() && $this->getStatus() & self::STATUS_READY;
     }
 
     public function ready()
@@ -52,7 +52,7 @@ class Store extends BaseStore
             return;
         }
 
-        $this->setStatus($this->getStatus() | self::READY);
+        $this->setStatus($this->getStatus() | self::STATUS_READY);
     }
 
     public function unready()
@@ -67,7 +67,7 @@ class Store extends BaseStore
             return;
         }
 
-        $this->setStatus($this->getStatus() & ~self::READY);
+        $this->setStatus($this->getStatus() & ~self::STATUS_READY);
 
         $this->disable();
     }
@@ -78,7 +78,7 @@ class Store extends BaseStore
             && !$this->isClosed()
             && !$this->isSuspended()
             && $this->isReady()
-            && ($this->getStatus() & self::ACTIVE);
+            && ($this->getStatus() & self::STATUS_ACTIVE);
     }
 
     /*
@@ -87,12 +87,12 @@ class Store extends BaseStore
      */
     public function isDisabled()
     {
-        return $this->getStatus() & self::DISABLED;
+        return $this->getStatus() & self::STATUS_DISABLED;
     }
 
     public function disable()
     {
-        $this->setStatus($this->getStatus() | self::DISABLED);
+        $this->setStatus($this->getStatus() | self::STATUS_DISABLED);
     }
 
     public function activate()
@@ -103,33 +103,33 @@ class Store extends BaseStore
             || !$this->isReady()) {
             return;
         }
-        $this->setStatus($this->getStatus() | self::ACTIVE);
+        $this->setStatus($this->getStatus() | self::STATUS_ACTIVE);
     }
 
     public function reactivate()
     {
-        $this->setStatus($this->getStatus() & ~self::DISABLED);
+        $this->setStatus($this->getStatus() & ~self::STATUS_DISABLED);
     }
 
     public function isSuspended()
     {
-        return $this->getStatus() & self::SUSPENDED;
+        return $this->getStatus() & self::STATUS_SUSPENDED;
     }
 
     public function suspend()
     {
-        $this->setStatus($this->getStatus() | self::SUSPENDED);
+        $this->setStatus($this->getStatus() | self::STATUS_SUSPENDED);
         $this->disable();
     }
 
     public function unsuspend()
     {
-        $this->setStatus($this->getStatus() & ~self::SUSPENDED);
+        $this->setStatus($this->getStatus() & ~self::STATUS_SUSPENDED);
     }
 
     public function isClosed()
     {
-        return $this->getStatus() & self::CLOSED;
+        return $this->getStatus() & self::STATUS_CLOSED;
     }
 
     public function close()
@@ -138,12 +138,12 @@ class Store extends BaseStore
             return;
         }
 
-        $this->setStatus($this->getStatus() | self::CLOSED);
+        $this->setStatus($this->getStatus() | self::STATUS_CLOSED);
     }
 
     public function reopen()
     {
-        $this->setStatus($this->getStatus() & ~self::CLOSED);
+        $this->setStatus($this->getStatus() & ~self::STATUS_CLOSED);
     }
 
     public function allowOrders()
