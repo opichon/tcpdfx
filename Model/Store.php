@@ -14,11 +14,6 @@ class Store extends BaseStore
     const STATUS_CLOSED      = 16; // Store has been closed by owner
     const STATUS_DISABLED    = 32; // Store has been disabled by owner
 
-    public function fixCatalogue()
-    {
-        CategoryPeer::fixLevels($this->getId());
-    }
-
     public function getResolvedHostname($host)
     {
         return $this->getDomain() . '.' . $host;
@@ -222,5 +217,10 @@ class Store extends BaseStore
         $endpoint = $user_settings->getOauthLoginEndpoint();
 
         return str_replace($search_value, $replace_value, $endpoint);
+    }
+
+    public function fixCatalogue()
+    {
+        CategoryPeer::fixLevels($this->getId());
     }
 }
