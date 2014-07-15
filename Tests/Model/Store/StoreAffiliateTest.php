@@ -8,16 +8,16 @@ use Dzangocart\Bundle\CoreBundle\Model\Store;
 
 class StoreAffiliateTest extends PHPUnit_Framework_TestCase
 {
-	protected $store;
+    protected $store;
 
-	public function setUp()
-	{
-		$this->store = new Store();
-	}
+    public function setUp()
+    {
+        $this->store = new Store();
+    }
 
-	public function testGetAffiliateFromNullId()
-	{
-		$this->assertFalse($this->store->getAffiliate(null, true));
-		this->assertFalse($this->store->getAffiliate(null, false)));
-	}
+    public function testGetAffiliateFromNullId()
+    {
+        $this->assertFalse($this->store->getAffiliate(null, true));
+        this->assertFalse($this->store->getAffiliate(null, false)));
+    }
 }

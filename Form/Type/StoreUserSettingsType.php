@@ -25,7 +25,11 @@ class StoreUserSettingsType extends BaseAbstractType
 
         $builder->add('UserHandling' , 'choice' , array(
             'label' => 'settings.user.handlings.label',
-            'choices' => array( '0' => 'settings.user.authenticate.none.label', '1' => 'settings.user.authenticate.store.label', '2' => 'settings.user.authenticate.site.label' ),
+            'choices' => array(
+                '0' => 'settings.user.authenticate.none.label',
+                '1' => 'settings.user.authenticate.store.label',
+                '2' => 'settings.user.authenticate.site.label'
+            ),
             'required' => true
         ));
 

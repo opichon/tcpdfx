@@ -8,17 +8,17 @@ use Dzangocart\Bundle\CoreBundle\Model\Store;
 
 class StoreStatusTest extends PHPUnit_Framework_TestCase
 {
-	public function testConfirmed()
-	{
-	}
+    public function testConfirmed()
+    {
+    }
 
-	public function testReady()
-	{
+    public function testReady()
+    {
 
-	}
+    }
 
-	public function testActive()
-	{
+    public function testActive()
+    {
 
-	}
+    }
 }
