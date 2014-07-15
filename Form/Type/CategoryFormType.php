@@ -12,7 +12,6 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class CategoryFormType extends BaseAbstractType
 {
-
     protected $store;
 
     public function __construct(Store $store)
@@ -23,7 +22,6 @@ class CategoryFormType extends BaseAbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'name' => 'catagory_edit',
             'translation_domain' => 'catalogue',
             'show_legend' => false
         ));
@@ -124,7 +122,10 @@ class CategoryFormType extends BaseAbstractType
         $tax_rates = array();
 
         $taxes = TaxRateQuery::create()
-            ->filterByCountry($this->getStore()->getCountryId())
+            ->filterByCountry(
+                $this->getStore()
+                    ->getCountryId()
+            )
             ->find();
 
         foreach ($taxes as $tax) {

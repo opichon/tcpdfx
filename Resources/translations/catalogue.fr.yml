@@ -1,37 +1,55 @@
 catalogue:
+    actions:             Action
+    code:                Code
+    name:                Name
+    page_title:          %store% Catalogue
     pcode:               Pcode
     price:               Price
     suffix:              Suffix
     tax_included:        Tax Included
-    page_title:          %store% Catalogue
 
     category:
-        page_title:      Category: %category%
+        pack_component:
+            actions:
+                title:     Actions
+            category_name: Category Name
+            code:          Code
+            fixed_price:   Fixed Price
+            name:          Name
+            price:         Price
+            quantity:      Quantity
+            tax_included:  Tax Included
+
         edit:
             success:     The category was successfully modified.
+
         form:
-            name:
-                label:   Name
             code:
                 label:   Code
-            pcode:
-                label:   PCode
-            price:
-                label:   Price
-            suffix:
-                label:   Suffix
-            tax_rate_id:
-                label:   Tax Rate
-            tax_included:
-                label:   Tax Included
-            export:
-                label:   Export
-            shipping:
-                label:   Shipping
             download:
                 label:   Download
+            export:
+                label:   Export
             min_quantity:
                 label:   Min. Quantity
             max_quantity:
                 label:   Max. Quantity
-            submit:         Sauvegarder
+            name:
+                label:   Name
+            pack:
+                label:   Pack
+            pcode:
+                label:   PCode
+            price:
+                label:   Price
+            shipping:
+                label:   Shipping
+            suffix:
+                label:   Suffix
+            submit:      Save
+            tax_included:
+                label:   Tax Included
+            tax_rate_id:
+                label:   Tax Rate
+
+        page_title:      Category %category%
