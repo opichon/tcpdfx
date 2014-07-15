@@ -104,7 +104,9 @@ class CategoryFormType extends BaseAbstractType
             'required' => TRUE
         ));
 
-        $builder->add('catalogue.category.form.submit', 'submit');
+        $builder->add('submit', 'submit', array(
+            'label' => 'catalogue.category.form.submit'
+        ));
     }
 
     public function getName()

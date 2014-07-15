@@ -7,6 +7,7 @@ catalogue:
     tax_included:        Tax Included
     actions:             Action
     page_title:          %store% Catalogue
+
     category:
         page_title:      Category %category%
         pack_component:
