@@ -1,12 +1,17 @@
+cart:
+    carts:
+        page_title:         Carts
+
 order:
-    show:
-        page_title:         Order: %id%
-        name:               Nom
-        quantity:           Qté
-        price_excl:         Prix HT
-        amount_excl:        HT
-        amount_tax:         TVA
-        amount_incl:        TTC
+    filters:
+        customer:           Client
+        date_from:          Du
+        id:                 N˚
+        period:             Période
+        store:              Boutique
+        test:               Inclure les commandes de démonstration
+        test_orders:        Commandes de démonstration
+        to:                 Au
 
     orders:
         actions:
@@ -22,16 +27,24 @@ order:
         status:             Etat
         tax:                TVA
 
-    filters:
-        customer:           Client
-        date_from:          Du
-        id:                 N˚
-        store:              Boutique
-        period:             Période
-        test:               Inclure les commandes de démonstration
-        test_orders:        Commandes de démonstration
-        to:                 Au
-
-cart:
-    carts:
-        page_title:         Carts
+    show:
+        action:             Action
+        amount_excl:        HT
+        amount_incl:        TTC
+        amount_tax:         TVA
+        back:               Back to orders list
+        customer:           Customer
+        date:               Date
+        items:              Items
+        name:               Nom
+        number:             'Order #'
+        page_title:         Order: %id%
+        price_excl:         Prix HT
+        payment:
+            amount:         Amount
+            date:           Date
+            description:    Description
+            gateway:        Gateway
+        payments:           Payments
+        quantity:           Qté
+        store:              Store

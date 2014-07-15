@@ -1,25 +1,17 @@
+cart:
+    carts:
+        page_title:         Carts
+
 order:
-    show:
-        action:             Action
-        amount_excl:        Gross
-        amount_incl:        Net
-        amount_tax:         Tax
-        back:               Back to orders list
+    filters:
         customer:           Customer
-        date:               Date
-        items:              Items
-        name:               Name
-        number:             'Order #'
-        quantity:           Quantity
-        page_title:         Order: %id%
-        price_excl:         Gross price
-        payment:
-            amount:         Amount
-            date:           Date
-            description:    Description
-            gateway:        Gateway
-        payments:           Payments
+        date_from:          From
+        id:                 Id
+        period:             Period
         store:              Store
+        test:               Include test orders
+        test_orders:        Test orders
+        to:                 To
 
     orders:
         actions:
@@ -35,16 +27,24 @@ order:
         store_name:         Store
         tax:                Tax
 
-    filters:
+    show:
+        action:             Action
+        amount_excl:        Gross
+        amount_incl:        Net
+        amount_tax:         Tax
+        back:               Back to orders list
         customer:           Customer
-        date_from:          From
-        id:                 Id
+        date:               Date
+        items:              Items
+        name:               Name
+        number:             'Order #'
+        page_title:         Order: %id%
+        price_excl:         Gross price
+        payment:
+            amount:         Amount
+            date:           Date
+            description:    Description
+            gateway:        Gateway
+        payments:           Payments
+        quantity:           Quantity
         store:              Store
-        period:             Period
-        test:               Include test orders
-        test_orders:        Test orders
-        to:                 To
-
-cart:
-    carts:
-        page_title:         Carts

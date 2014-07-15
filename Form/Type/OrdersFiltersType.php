@@ -14,7 +14,6 @@ class OrdersFiltersType extends BaseAbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'name' => 'orders_filters',
             'translation_domain' => 'order',
             'show_legend' => false
         ));
