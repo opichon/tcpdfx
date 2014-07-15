@@ -1,18 +1,31 @@
 customer:
-    show:
-        page_title:         Customer: %id%
-
     customers:
         actions:
-            show:           Afficher
-        code:               Code
-        email:              Email
-        eu:                 EU
-        id:                 Id
-        given names:        Given Name
-        gender:             Gender
-        page_title:         Customers
-        realm:              Realm
+            show:     Show customer
+        code:         Code
+        email:        Email
+        eu:           EU
+        gender:       Gender
+        given_names:  Given Name
+        id:           Id
+        page_title:   Customers
+        realm:        Realm
         sales:
-            ytd:            YTD Sales
-        surname:            Surname
+            ytd:      YTD Sales
+        surname:      Surname
+
+    filters:
+        email:        Email
+        gender:
+            female:   Female
+            male:     Male
+        given_names:  Given Name
+        id:           Id
+        realm:        Realm
+        surname:      Surname
+
+    show:
+        back:         Back to customer list
+        orders:       %name%: Orders
+        page_title:   Customer: %name%
+        payments:     %name%: Payments

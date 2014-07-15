@@ -12,7 +12,6 @@ class CustomerFiltersType extends BaseAbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'name' => 'customer_filters',
             'translation_domain' => 'customer',
             'show_legend' => false
         ));
@@ -24,27 +23,33 @@ class CustomerFiltersType extends BaseAbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('id', 'text', array(
+            'label'=>'customer.filters.id',
             'required' => false
         ));
 
         $builder->add('realm', 'text', array(
+            'label'=>'customer.filters.realm',
             'required' => false
         ));
 
         $builder->add('surname', 'text', array(
+            'label'=>'customer.filters.surname',
             'required' => false
         ));
 
         $builder->add('given_names', 'text', array(
+            'label'=>'customer.filters.given_names',
             'required' => false
         ));
 
         $builder->add('gender', 'choice', array(
-            'choices' => array(1=>'Male', 0=>'Female'),
+            'label'=>'customer.filters.gender',
+            'choices' => array(1=>'customer.filters.gender.male', 0=>'customer.filters.gender.female'),
             'required' => false
         ));
 
         $builder->add('email', 'text', array(
+            'label'=>'customer.filters.email',
             'required' => false
         ));
     }
