@@ -1,15 +1,14 @@
 user:
     users:
-        page_title:         Users
-
         actions:
             title:          Actions
-        id:                 Id
-        realm:              Realm
         code:               Code
-        surname:            Surname
-        given_names:        Given Name
-        gender:             Gender
-        username:           Username
         createdAt:          Created At
+        gender:             Gender
+        given_names:        Given Name
+        id:                 Id
         lastLogin:          Last Login
+        page_title:         Users
+        realm:              Realm
+        surname:            Surname
+        username:           Username
