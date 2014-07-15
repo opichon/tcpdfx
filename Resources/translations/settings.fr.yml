@@ -1,48 +1,49 @@
 settings:
+    oauth:
+        access_token_url:
+            label:          Access Token Url
+        auth_code_url:
+            label:          Authentication Code Url
+        client_id:
+            label:          Client ID
+        create:
+            success:        The OAuth Settings was successfully created.
+        page_title:         OAuth Settings
+        secret_key:
+            label:          Secret Key
+        submit:             Save
+
     token:
+        actions:
+            title:          Actions
+        button:
+            label:          Generate Token
         create:
             success:        The token was successfully generated.
         delete:
             success:        The token was successfully deleted.
-        button:
-            label:          Generate Token
-
         page_title:         Api Token
         token:              Token
 
-        actions:
-            title:          Actions
-
     user:
-        page_title:         User Settings
+        authenticate:
+            none:
+                label:      None
+            site:
+                label:      Site
+            store:
+                label:      Store
+
         edit:
             success:        The user settings was successfully modified.
             error:
                 not_found:  No settings found for this store.
-        handlings:
-            label:          User Handling
 
-        authenticate:
-            none:
-                label:      None
-            store:
-                label:      Store
-            site:
-                label:      Site
         form:
             button:
                 label:      Save
 
-    oauth:
-        page_title:         OAuth Settings
-        create:
-            success:        The OAuth Settings was successfully created.
+        handlings:
+            label:          User Handling
 
-        secret_key:
-            label:          Secret Key
-        auth_code_url:
-            label:          Authentication Code Url
-        access_token_url:
-            label:          Access Token Url
-        client_id:
-            label:          Client ID
+        page_title:         User Settings

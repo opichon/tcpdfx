@@ -12,7 +12,6 @@ class StoreOAuthSttingsType extends BaseAbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'name' => 'oauth_settings',
             'translation_domain' => 'settings',
             'show_legend' => false
         ));
@@ -44,7 +43,9 @@ class StoreOAuthSttingsType extends BaseAbstractType
             'required' => TRUE
         ));
 
-        $builder->add('Save', 'submit');
+        $builder->add('submit', 'submit', array(
+            'label' => 'settings.oauth.submit',
+        ));
     }
 
     public function getName()
