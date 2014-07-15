@@ -12,7 +12,6 @@ class TokenGenerateType extends BaseAbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'name' => 'token_generate',
             'translation_domain' => 'settings',
             'show_legend' => false
         ));
@@ -23,11 +22,11 @@ class TokenGenerateType extends BaseAbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('token', 'submit', array('label'=>'settings.token.button.label'));
+        $builder->add('submit', 'submit', array('label'=>'settings.token.button.label'));
     }
 
     public function getName()
     {
-        return "token_generate";
+        return "token";
     }
 }
