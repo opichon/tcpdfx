@@ -1,14 +1,26 @@
 affiliate:
     affiliates:
-        page_title:         Affiliates
-        store:              Store Name
-        name:               Name
-        website:            Website
-
         actions:
             title:          Actions
         create:             Create New Affiliate
+        name:               Name
+        page_title:         Affiliates
+        store:              Store Name
+        website:            Website
+
+    create:
+        success:            The affiliate was successfully created.
+
     error:
         not_found:          Not Found
+
+    form:
+        name:
+            label:          Name
+        submit:
+            label:          Save
+        website:
+            label:          Website
+
     show:
         page_title:         %name%

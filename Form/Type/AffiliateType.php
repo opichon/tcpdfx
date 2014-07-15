@@ -12,7 +12,6 @@ class AffiliateType extends BaseAbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'name' => 'affiliate_type',
             'translation_domain' => 'affiliate',
             'show_legend' => false
         ));
@@ -33,12 +32,14 @@ class AffiliateType extends BaseAbstractType
             'required' => FALSE,
         ));
 
-        $builder->add('Save', 'submit');
+        $builder->add('submit', 'submit', array(
+            'label' => 'affiliate.form.submit.label',
+        ));
     }
 
     public function getName()
     {
-        return "affiliate_type";
+        return "affiliate";
     }
 
 }
