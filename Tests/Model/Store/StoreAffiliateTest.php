@@ -18,6 +18,6 @@ class StoreAffiliateTest extends PHPUnit_Framework_TestCase
     public function testGetAffiliateFromNullId()
     {
         $this->assertFalse($this->store->getAffiliate(null, true));
-        this->assertFalse($this->store->getAffiliate(null, false)));
+        $this->assertFalse($this->store->getAffiliate(null, false));
     }
 }
