@@ -153,6 +153,16 @@ class Store extends BaseStore
         return $this->getOwnerId() == $user->getId();
     }
 
+    public function getAffiliate($id, $include_suspended = false)
+    {
+        return AffiliateQuery::create()
+            ->filterByStore($this)
+            ->_if(!$include_suspended)
+                ->filterBySuspended(false)
+            ->_endif()
+            ->findPk($id);
+    }
+
     public function generateApiToken()
     {
         return rtrim(strtr(base64_encode($this->getRandomNumber()), '+/', '-_'), '=');
