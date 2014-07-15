@@ -12,7 +12,6 @@ class PromotionFormType extends BaseAbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'name' => 'promotion_edit',
             'translation_domain' => 'promotion',
             'show_legend' => false
         ));
@@ -50,12 +49,14 @@ class PromotionFormType extends BaseAbstractType
             'required' => TRUE
         ));
 
-        $builder->add('Save', 'submit');
+        $builder->add('submit', 'submit', array(
+            'label' => 'promotion.form.submit'
+        ));
     }
 
     public function getName()
     {
-        return "promotion_edit";
+        return "promotion";
     }
 
 }
