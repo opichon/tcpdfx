@@ -12,7 +12,6 @@ class StoreUserSettingsType extends BaseAbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'name' => 'store_user_settings',
             'translation_domain' => 'settings',
             'show_legend' => false
         ));
@@ -65,7 +64,7 @@ class StoreUserSettingsType extends BaseAbstractType
 //            'label' => 'Is Open',
 //            'required' => true));
 
-         $builder->add('save', 'submit', array('label'=>'settings.user.form.button.label'));
+         $builder->add('submit', 'submit', array('label'=>'settings.user.form.button.label'));
     }
 
     public function getName()
