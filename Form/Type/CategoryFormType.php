@@ -49,12 +49,12 @@ class CategoryFormType extends BaseAbstractType
             'required' => FALSE
         ));
 
-        $builder->add('price', 'integer', array(
+        $builder->add('price', 'number', array(
             'attr' => array(
-                'min' => 1
+                'min' => 0
             ),
             'label' => 'catalogue.category.form.price.label',
-            'required' => TRUE
+            'required' => true
         ));
 
         $builder->add('taxRateId', 'choice', array(
