@@ -99,6 +99,7 @@ class AffiliateController extends BaseController
     public function ordersAction(Request $request, $id)
     {
         $affiliate = $this->getAffiliate($request, $id);
+
         $form = $this->createForm(
             new OrderFiltersType());
 
@@ -107,7 +108,6 @@ class AffiliateController extends BaseController
             'form' => $form->createView(),
             'affiliate' => $affiliate,
             'template' => $this->getBaseTemplate()
-
         );
     }
 
@@ -117,11 +117,11 @@ class AffiliateController extends BaseController
      */
     public function salesAction(Request $request, $id)
     {
+        $affiliate = $this->getAffiliate($request, $id);
+
         $form = $this->createForm(
             new SalesFilterType()
         );
-
-        $affiliate = $this->getAffiliate($request, $id);
 
         return array(
             'store' => $this->getStore(),
