@@ -21,35 +21,35 @@ catalogue:
             tax_included:  Tax Included
 
         edit:
-            success:     The category was successfully modified.
+            success:       The category was successfully modified.
 
         form:
             code:
-                label:   Code
+                label:     Code
             download:
-                label:   Download
+                label:     Download
             export:
-                label:   Export
+                label:     Export
             min_quantity:
-                label:   Min. Quantity
+                label:     Min. Quantity
             max_quantity:
-                label:   Max. Quantity
+                label:     Max. Quantity
             name:
-                label:   Name
+                label:     Name
             pack:
-                label:   Pack
+                label:     Pack
             pcode:
-                label:   PCode
+                label:     PCode
             price:
-                label:   Price
+                label:     Price
             shipping:
-                label:   Shipping
+                label:     Shipping
             suffix:
-                label:   Suffix
-            submit:      Save
+                label:     Suffix
+            submit:        Save
             tax_included:
-                label:   Tax Included
+                label:     Tax Included
             tax_rate_id:
-                label:   Tax Rate
+                label:     Tax Rate
 
-        page_title:      Category %category%
+        page_title:        Category %category%
