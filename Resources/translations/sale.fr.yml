@@ -1,3 +1,7 @@
+purchase:
+    purchases:
+        page_title:         Achats
+
 sale:
     filters:
         customer:           Client
@@ -27,6 +31,3 @@ sale:
         store:              Boutique
         tax:                TVA
 
-purchase:
-    purchases:
-        page_title:         Achats

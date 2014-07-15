@@ -1,3 +1,7 @@
+purchase:
+    purchases:
+        page_title:         Purchases
+
 sale:
     filters:
         customer:           Customer
@@ -27,6 +31,3 @@ sale:
         store:              Store
         tax:                Tax
 
-purchase:
-    purchases:
-        page_title:         Purchases

@@ -14,7 +14,6 @@ class SalesFiltersType extends BaseAbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'name' => 'sales_filters',
             'show_legend' => false,
             'translation_domain' => 'sale'
         ));
