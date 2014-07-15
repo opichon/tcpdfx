@@ -48,3 +48,4 @@ catalogue:
                 label:   Min. Quantity
             max_quantity:
                 label:   Max. Quantity
+            submit:      Save

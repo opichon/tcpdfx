@@ -75,18 +75,11 @@ class CatalogueController extends BaseController
      */
     public function editAction(Request $request, $id)
     {
-        $category = $this->getQuery()
-            ->findPk($id);
+        $category = $this->getCategory($id);
 
         $packs = PackComponentQuery::create()
             ->filterByCategoryId($id)
             ->find();
-
-        if (!$category) {
-            throw $this->createNotFoundException(
-                $this->get('translator')->trans('catalogue.category.show.error.not_found', array(), 'catalogue', $request->getLocale())
-            );
-        }
 
         if (!$this->store = $this->getStore()) {
             $this->store = StoreQuery::create()
@@ -95,21 +88,27 @@ class CatalogueController extends BaseController
         }
 
         $form = $this->createForm(
-            new CategoryFormType($this->store), $category, array( 'action' => $this->generateUrl('category_edit', array('id' => $id)))
+            new CategoryFormType($this->store),
+            $category,
+            array(
+                'action' => $this->generateUrl('category_edit', array('id' => $id))
+            )
         );
 
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $category->save();
+
             $this->get('session')->getFlashBag()->add(
-            'success',
-            $this->get('translator')->trans(
-                'catalogue.category.edit.success',
-                array(),
-                'catalogue',
-                $request->getLocale()
-            ));
+                'success',
+                $this->get('translator')->trans(
+                    'catalogue.category.edit.success',
+                    array(),
+                    'catalogue',
+                    $request->getLocale()
+                )
+            );
 
             return $this->redirect($this->generateUrl('category_edit', array('id' => $id)));
         }
@@ -126,5 +125,17 @@ class CatalogueController extends BaseController
     protected function getQuery()
     {
         return CategoryQuery::create();
+    }
+
+    protected function getCategory($id)
+    {
+        $category = $this->getQuery()
+            ->findPk($id);
+
+        if (!$category) {
+            throw $this->createNotFoundException('Category not found');
+        }
+
+        return $category;
     }
 }

@@ -103,12 +103,18 @@ class CategoryFormType extends BaseAbstractType
             ),
             'required' => TRUE
         ));
-        $builder->add('Save', 'submit');
+
+        $builder->add('catalogue.category.form.submit', 'submit');
     }
 
     public function getName()
     {
-        return "catagory_edit";
+        return "category";
+    }
+
+    protected function getStore()
+    {
+        return $this->store;
     }
 
     protected function getTaxRate()
@@ -116,7 +122,7 @@ class CategoryFormType extends BaseAbstractType
         $tax_rates = array();
 
         $taxes = TaxRateQuery::create()
-            ->filterByCountry($this->store->getCountryId())
+            ->filterByCountry($this->getStore()->getCountryId())
             ->find();
 
         foreach ($taxes as $tax) {
@@ -125,5 +131,4 @@ class CategoryFormType extends BaseAbstractType
 
         return $tax_rates;
     }
-
 }
