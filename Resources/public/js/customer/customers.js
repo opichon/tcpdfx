@@ -22,7 +22,7 @@
 						table.api().draw();
 					});
 
-					table = $( "table.table", this ).dataTable( $.extend( true, {}, settings.dataTables, {
+					table = $( "table.table", this ).dataTable( $.extend( true, {}, settings.datatables, {
 						initComplete: function( settings, json ) {
 							$( this ).show();
 						},
@@ -55,7 +55,7 @@
 	};
 
 	$.fn.customers.defaults = {
-		dataTables: {
+		datatables: {
 			autoWidth: false,
             columnDefs: [
 				{ orderable: false, targets: [ 0, 7 ] },
