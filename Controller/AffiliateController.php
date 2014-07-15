@@ -6,8 +6,8 @@ use DateTime;
 
 use Dzangocart\Bundle\CoreBundle\Form\Type\AffiliateType;
 use Dzangocart\Bundle\CoreBundle\Form\Type\CustomerFiltersType;
-use Dzangocart\Bundle\CoreBundle\Form\Type\OrderFiltersType;
-use Dzangocart\Bundle\CoreBundle\Form\Type\SalesFilterType;
+use Dzangocart\Bundle\CoreBundle\Form\Type\OrdersFiltersType;
+use Dzangocart\Bundle\CoreBundle\Form\Type\SalesFiltersType;
 use Dzangocart\Bundle\CoreBundle\Model\Affiliate;
 use Dzangocart\Bundle\CoreBundle\Model\AffiliateQuery;
 use Dzangocart\Bundle\CoreBundle\Model\User;
@@ -100,14 +100,19 @@ class AffiliateController extends BaseController
     {
         $affiliate = $this->getAffiliate($request, $id);
 
-        $form = $this->createForm(
-            new OrderFiltersType());
+        $filters = $this->createForm(
+            new OrdersFiltersType(),
+            array(
+                'date_from' => (new DateTime())->modify('first day of this month'),
+                'date_to' => new DateTime()
+            )
+        );
 
         return array(
             'store' => $this->getStore(),
-            'form' => $form->createView(),
             'affiliate' => $affiliate,
-            'template' => $this->getBaseTemplate()
+            'template' => $this->getBaseTemplate(),
+            'filters' => $filters->createView()
         );
     }
 
@@ -119,15 +124,19 @@ class AffiliateController extends BaseController
     {
         $affiliate = $this->getAffiliate($request, $id);
 
-        $form = $this->createForm(
-            new SalesFilterType()
+        $filters = $this->createForm(
+            new SalesFiltersType(),
+            array(
+                'date_from' => (new DateTime())->modify('first day of this month'),
+                'date_to' => new DateTime()
+            )
         );
 
         return array(
             'store' => $this->getStore(),
             'affiliate' => $affiliate,
             'template' => $this->getBaseTemplate(),
-            'form' => $form->createView()
+            'filters' => $filters->createView()
         );
     }
 

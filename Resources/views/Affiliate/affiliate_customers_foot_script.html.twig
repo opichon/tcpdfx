@@ -1,6 +1,6 @@
 {% javascripts
     'bundles/dzangocartcore/vendor/datatables/media/js/jquery.dataTables.min.js'
-    'bundles/dzangocartcore/vendor/datatables-bootstrap3/BS3/assets/js/datatables.js'
+    'bundles/dzangocartcore/vendor/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js'
     'bundles/dzangocartcore/js/ajax.js'
     'bundles/dzangocartcore/js/customer/customers.js'
 %}
@@ -8,12 +8,9 @@
 {% endjavascripts %}
 <script>
 dzangocart.customers = {
-    dataTables: {
+    datatables: {
         ajax: {
             url: "{{ path('customers_list', { affiliate_id: affiliate.id })|raw }}"
-        },
-        language: {
-            url: "/bundles/dzangocartcore/datatables/" + dzangocart.locale + ".json"
         }
     }
 };

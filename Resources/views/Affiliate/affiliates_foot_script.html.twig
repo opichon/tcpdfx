@@ -1,6 +1,6 @@
 {% javascripts
 	'bundles/dzangocartcore/vendor/datatables/media/js/jquery.dataTables.min.js'
-	'bundles/dzangocartcore/vendor/datatables-bootstrap3/BS3/assets/js/datatables.min.js'
+    'bundles/dzangocartcore/vendor/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js'
 	'bundles/dzangocartcore/js/ajax.js'
     'bundles/dzangocartcore/js/affiliate/affiliates.js'
 %}
@@ -8,7 +8,7 @@
 {% endjavascripts %}
 <script>
 dzangocart.affiliates = {
-    dataTables: {
+    datatables: {
         ajax: {
             url: "{{ path('affiliates_list', { _format: 'json' }) }}"
         },
