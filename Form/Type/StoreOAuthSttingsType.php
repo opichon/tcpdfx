@@ -25,22 +25,22 @@ class StoreOAuthSttingsType extends BaseAbstractType
 
         $builder->add('clientId', 'text', array(
             'label' => 'settings.oauth.client_id.label',
-            'required' => TRUE,
+            'required' => true,
         ));
 
         $builder->add('secretKey', 'text', array(
             'label' => 'settings.oauth.secret_key.label',
-            'required' => TRUE,
+            'required' => true,
         ));
 
         $builder->add('authCodeUrl', 'text', array(
             'label' => 'settings.oauth.auth_code_url.label',
-            'required' => TRUE
+            'required' => true
         ));
 
         $builder->add('accessTokenUrl', 'text', array(
             'label' => 'settings.oauth.access_token_url.label',
-            'required' => TRUE
+            'required' => true
         ));
 
         $builder->add('submit', 'submit', array(

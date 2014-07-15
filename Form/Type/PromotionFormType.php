@@ -24,29 +24,29 @@ class PromotionFormType extends BaseAbstractType
     {
         $builder->add('code', 'text', array(
             'label'=>'promotion.form.code.label',
-            'required' => FALSE
+            'required' => false
         ));
 
         $builder->add('dateFrom', 'date', array(
             'label' => 'promotion.form.date_from.label',
-            'required' => FALSE,
+            'required' => false,
             'widget' => 'single_text',
         ));
 
         $builder->add('dateTo', 'date', array(
             'label' => 'promotion.form.date_to.label',
-            'required' => FALSE,
+            'required' => false,
             'widget' => 'single_text',
         ));
 
         $builder->add('name', 'text', array(
             'label' => 'promotion.form.name.label',
-            'required' => TRUE
+            'required' => true
         ));
 
         $builder->add('description', 'textarea', array(
             'label' => 'promotion.form.description.label',
-            'required' => TRUE
+            'required' => true
         ));
 
         $builder->add('submit', 'submit', array(

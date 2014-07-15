@@ -24,12 +24,12 @@ class AffiliateType extends BaseAbstractType
     {
         $builder->add('name', 'text', array(
             'label'=>'affiliate.form.name.label',
-            'required' => FALSE
+            'required' => false
         ));
 
         $builder->add('website', 'text', array(
             'label' => 'affiliate.form.website.label',
-            'required' => FALSE,
+            'required' => false,
         ));
 
         $builder->add('submit', 'submit', array(

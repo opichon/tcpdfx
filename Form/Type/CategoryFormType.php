@@ -34,17 +34,17 @@ class CategoryFormType extends BaseAbstractType
     {
         $builder->add('name', 'text', array(
             'label'=>'catalogue.category.form.name.label',
-            'required' => TRUE
+            'required' => true
         ));
 
         $builder->add('code', 'text', array(
             'label' => 'catalogue.category.form.code.label',
-            'required' => FALSE
+            'required' => false
         ));
 
         $builder->add('suffix', 'text', array(
             'label' => 'catalogue.category.form.suffix.label',
-            'required' => FALSE
+            'required' => false
         ));
 
         $builder->add('price', 'number', array(
@@ -58,32 +58,32 @@ class CategoryFormType extends BaseAbstractType
         $builder->add('taxRateId', 'choice', array(
             'label' => 'catalogue.category.form.tax_rate_id.label',
             'choices'   => $this->getTaxRate(),
-            'required' => FALSE
+            'required' => false
         ));
 
         $builder->add('taxIncluded', 'checkbox', array(
             'label' => 'catalogue.category.form.tax_included.label',
-            'required' => FALSE
+            'required' => false
         ));
 
         $builder->add('export', 'checkbox', array(
             'label' => 'catalogue.category.form.export.label',
-            'required' => FALSE
+            'required' => false
         ));
 
         $builder->add('shipping', 'checkbox', array(
             'label' => 'catalogue.category.form.shipping.label',
-            'required' => FALSE
+            'required' => false
         ));
 
         $builder->add('download', 'checkbox', array(
             'label' => 'catalogue.category.form.download.label',
-            'required' => FALSE
+            'required' => false
         ));
 
         $builder->add('pack', 'checkbox', array(
             'label' => 'catalogue.category.form.pack.label',
-            'required' => FALSE
+            'required' => false
         ));
 
         $builder->add('minQuantity', 'integer', array(
@@ -91,7 +91,7 @@ class CategoryFormType extends BaseAbstractType
             'attr' => array(
                 'min' => 1
             ),
-            'required' => TRUE
+            'required' => true
         ));
 
         $builder->add('maxQuantity', 'integer', array(
@@ -99,7 +99,7 @@ class CategoryFormType extends BaseAbstractType
             'attr' => array(
                 'min' => 1
             ),
-            'required' => TRUE
+            'required' => true
         ));
 
         $builder->add('submit', 'submit', array(
