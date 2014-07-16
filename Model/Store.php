@@ -21,7 +21,7 @@ class Store extends BaseStore
 
     public function isConfirmed()
     {
-        return $this->getStatus() & self::STATUS_CONFIRMED;
+        return ($this->getStatus() & self::STATUS_CONFIRMED) ? true : false;
     }
 
     public function confirm()
@@ -32,7 +32,7 @@ class Store extends BaseStore
 
     public function isReady()
     {
-        return $this->isConfirmed() && $this->getStatus() & self::STATUS_READY;
+        return ($this->isConfirmed() && $this->getStatus() & self::STATUS_READY) ? true : false;
     }
 
     public function ready()
@@ -82,7 +82,7 @@ class Store extends BaseStore
      */
     public function isDisabled()
     {
-        return $this->getStatus() & self::STATUS_DISABLED;
+        return ($this->getStatus() & self::STATUS_DISABLED) ? true : false;
     }
 
     public function disable()
@@ -108,7 +108,7 @@ class Store extends BaseStore
 
     public function isSuspended()
     {
-        return $this->getStatus() & self::STATUS_SUSPENDED;
+        return ($this->getStatus() & self::STATUS_SUSPENDED) ? true : false;
     }
 
     public function suspend()
@@ -124,7 +124,7 @@ class Store extends BaseStore
 
     public function isClosed()
     {
-        return $this->getStatus() & self::STATUS_CLOSED;
+        return ($this->getStatus() & self::STATUS_CLOSED) ? true : false;
     }
 
     public function close()
