@@ -15,6 +15,10 @@ class Store extends BaseStore
     const STATUS_CLOSED      = 16; // Store has been closed by owner
     const STATUS_DISABLED    = 32; // Store has been disabled by owner
 
+    /**
+     * @deprecated
+     * Use gethostname instead
+     */
     public function getResolvedHostname($host)
     {
         return $this->getDomain() . '.' . $host;
@@ -140,9 +144,9 @@ class Store extends BaseStore
 
     public function allowOrders()
     {
-        return $this->isConfirmed()
+        return ($this->isConfirmed()
             && !$this->isClosed()
-            && !$this->isSuspended();
+            && !$this->isSuspended()) ? true : false;
     }
 
     public function isOwner(User $user)

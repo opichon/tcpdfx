@@ -12,48 +12,58 @@ class AllowOrdersTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->store = new Store();
-	    $this->store->setStatus(Store::STATUS_UNCONFIRMED);
+        $this->store = $this->getMockBuilder('Dzangocart\Bundle\CoreBundle\Model\Store')
+            ->setMethods(array('isConfirmed', 'isSuspended', 'isClosed'))
+            ->getMock();
     }
 
     public function testUnconfirmed()
     {
+        $this->store
+            ->expects($this->any())
+            ->method('isConfirmed')
+            ->will($this->returnValue(false));
+
     	$this->assertFalse($this->store->allowOrders());
-    }
-
-    public function testConfirmed()
-    {
-    	$this->store->confirm();
-    	$this->assertFalse($this->store->allowOrders());
-    }
-
-    public function testReady()
-    {
-	    $this->store->ready();
-	   	$this->assertFalse($this->store->allowOrders());
-    }
-
-    public function testActive()
-    {
-    	$this->store->activate();
-    	$this->assertTrue($this->store->allowOrders());
     }
 
     public function testSuspended()
     {
-	    $this->store->setStatus(Store::STATUS_SUSPENDED);
-    	$this->assertFalse($this->store->allowOrders());
-    }
+        $this->store
+            ->expects($this->any())
+            ->method('isSuspended')
+            ->will($this->returnValue(true));
 
-    public function testDisabled()
-    {
-    	$this->store->setStatus(Store::STATUS_DISABLED);
-    	$this->assertFalse($this->store->allowOrders());
+        $this->assertFalse($this->store->allowOrders());
     }
 
     public function testClosed()
     {
-	    $this->store->setStatus(Store::STATUS_CLOSED);
-    	$this->assertFalse($this->store->allowOrders());
+        $this->store
+            ->expects($this->any())
+            ->method('isClosed')
+            ->will($this->returnValue(true));
+
+        $this->assertFalse($this->store->allowOrders());
+    }
+
+    public function testAllowOrders()
+    {
+        $this->store
+            ->expects($this->any())
+            ->method('isConfirmed')
+            ->will($this->returnValue(true));
+
+        $this->store
+            ->expects($this->any())
+            ->method('isSuspended')
+            ->will($this->returnValue(false));
+
+        $this->store
+            ->expects($this->any())
+            ->method('isClosed')
+            ->will($this->returnValue(false));
+
+    	$this->assertTrue($this->store->allowOrders());
     }
 }
