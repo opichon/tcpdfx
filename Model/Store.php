@@ -2,7 +2,7 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Model;
 
-use Dzangocart\Bundle\CoreBundle\Model\Gateway\GatewayPeer;
+use Dzangocart\Bundle\CoreBundle\Model\Gateway\GatewayQuery;
 use Dzangocart\Bundle\CoreBundle\Model\om\BaseStore;
 
 class Store extends BaseStore
@@ -38,13 +38,11 @@ class Store extends BaseStore
 
     public function ready()
     {
-        if (!$this->isConfirmed() || !$this->isExpired()) {
+        if (!$this->isConfirmed() || $this->isExpired()) {
             return;
         }
 
-        $count = GatewayPeer::getGatewaysCountForStore($this, true, false, 0);
-
-        if (!$count) {
+        if (!$this->countActiveProdGateways()) {
             return;
         }
 
@@ -57,9 +55,7 @@ class Store extends BaseStore
             return;
         }
 
-        $count = GatewayPeer::getGatewaysCountForStore($this, true, false, 0);
-
-        if ($count) {
+        if ($this->countActiveProdGateways()) {
             return;
         }
 
@@ -233,5 +229,13 @@ class Store extends BaseStore
     public function fixCatalogue()
     {
         CategoryPeer::fixLevels($this->getId());
+    }
+
+    public function countActiveGateways()
+    {
+        return GatewayQuery::create()
+            ->filterByStatus(gateway::STATUS_ACTIVE, Criteria::GREATER_THAN)
+            ->filterByTesting(false)
+            ->count();
     }
 }
