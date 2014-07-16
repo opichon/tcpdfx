@@ -1,5 +1,7 @@
 {% trans_default_domain "payment" %}
 
+{% import "DzangocartCoreBundle:Payment:status.html.twig" as status %}
+
 {% spaceless %}
 {
 	"draw": "{{ draw }}",
@@ -8,26 +10,32 @@
 	"data" : [
 		{% for payment in payments %}
 			{
-                "DT_RowId":      "{{ 'p_' ~ payment.id }}",
-                "DT_RowClass":   "{{ 'payment' }}",
-                "check":         "",
-                "date":          "{{ payment.createdAt|datetime('dd.MM.yy', 'HH:mm', time_zone, app.request.locale) }}",
+                "DT_RowId":     "{{ 'payment_' ~ payment.id }}",
+                "DT_RowClass":  "{{ 'payment' }}",
+                "check":        "",
+                "date":         "{{ payment.createdAt|datetime('dd.MM.yy', 'HH:mm', time_zone, app.request.locale) }}",
 				"store":         {
                     "id":        {{ payment.gateway.store.id }},
-                    "name":      "{{ payment.gateway.store.name }}"
+                    "name":     "{{ payment.gateway.store.name }}"
                 },
 	            "order":         {
-				    "id":        "{{ payment.order.id }}"
+				    "id":       "{{ payment.order.id }}"
 				},
 				"gateway":       {
-					"name":      "{{ payment.gateway.name }}"
+                    "id":       "{{ payment.gateway.id }}",
+					"name":     "{{ payment.gateway.name }}"
 				},
-                "amount":        "{{ payment.amount|currency(payment.currency.id, app.request.locale) }}",
-				"status":        "{% include 'DzangocartCoreBundle:Payment:status.html.twig' %}",
-                "actions":       "{% include 'DzangocartCoreBundle:Payment:actions.html.twig' %}",
+                "amount":       "{{ payment.amount|currency(payment.currency.id, app.request.locale) }}",
+				"status":        {
+                    "status":    {{ payment.status }},
+                    "class":    "{{ ('payment.status.class.' ~ status.name(payment))|trans }}",
+                    "label":    "{{ ('payment.status.label.' ~ status.name(payment))|trans }}"
+                },
+                "actions":      "{% include 'DzangocartCoreBundle:Payment:actions.html.twig' %}",
 				"urls": {
-                    "show": "{% include 'DzangocartCoreBundle:Payment:order.html.twig' with { order: payment.order }%}",
-                    "store": "{{ path('store', { id: payment.gateway.store.id }) }}"
+                    "order":    "{{ param['customer'] is defined ? path('user_order', { id: payment.order.id }) : path('order', { id: payment.order.id }) }}",
+                    "store":    "{{ path('store', { id: payment.gateway.store.id }) }}",
+                    "gateway":  "{{ path('gateway', { id: payment.gateway.id }) }}"
                 }
 			}{% if not loop.last %},{% endif %}
 		{% endfor %}

@@ -1,18 +1,17 @@
-{% spaceless %}
+{% macro name(payment) %}
+    {% spaceless %}
+        {% if payment.error %}
+            {% set status = 'error' %}
+        {% elseif payment.paid %}
+            {% set status = 'paid' %}
+        {% elseif payment.cancelled %}
+            {% set status = 'cancelled' %}
+        {% elseif payment.approved %}
+            {% set status = 'approved' %}
+        {% else %}
+            {% set status = 'open' %}
+        {% endif %}
 
-{% trans_default_domain "payment" %}
-
-{% if payment.error %}
-	{% set status = 'error' %}
-{% elseif payment.paid %}
-	{% set status = 'paid' %}
-{% elseif payment.cancelled %}
-	{% set status = 'cancelled' %}
-{% elseif payment.approved %}
-	{% set status = 'approved' %}
-{% else %}
-	{% set status = 'open' %}
-{% endif %}
-
-	<div class='label label-{{ ("payment.status.class." ~ status)|trans }}'>{{ ("payment.status.label." ~ status)|trans }}</div>
-{% endspaceless %}
+        {{ status }}
+    {% endspaceless %}
+{% endmacro %}
