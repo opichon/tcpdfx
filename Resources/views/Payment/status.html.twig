@@ -1,17 +1,15 @@
-{% macro name(payment) %}
-    {% spaceless %}
-        {% if payment.error %}
-            {% set status = 'error' %}
-        {% elseif payment.paid %}
-            {% set status = 'paid' %}
-        {% elseif payment.cancelled %}
-            {% set status = 'cancelled' %}
-        {% elseif payment.approved %}
-            {% set status = 'approved' %}
-        {% else %}
-            {% set status = 'open' %}
-        {% endif %}
+{% macro name(payment) %}{% spaceless %}
+    {% if payment.error %}
+        {% set status = 'error' %}
+    {% elseif payment.paid %}
+        {% set status = 'paid' %}
+    {% elseif payment.cancelled %}
+        {% set status = 'cancelled' %}
+    {% elseif payment.approved %}
+        {% set status = 'approved' %}
+    {% else %}
+        {% set status = 'open' %}
+    {% endif %}
 
-        {{ status }}
-    {% endspaceless %}
-{% endmacro %}
+    {{ status }}
+{% endspaceless %}{% endmacro %}
