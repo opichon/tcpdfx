@@ -11,7 +11,8 @@
     "require": {
         "php": ">=5.3.3",
         "symfony/symfony": "~2.4",
-        "propel/propel-bundle": "1.4.*"
+        "propel/propel-bundle": "~1.4",
+        "willdurand/propel-typehintable-behavior": "~1.0"
     },
     "autoload": {
         "psr-0": { "Dzangocart\\Bundle\\CoreBundle": "" }

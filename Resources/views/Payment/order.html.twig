@@ -1,5 +1,0 @@
-{% spaceless %}
-	{% if order %}
-		{% if param['customer'] is defined %}<a href='{{ path('user_order', { id: order.id }) }}'>{{ order.id  }}</a>{% else %}<a href='{{ path('order', { id: order.id }) }}'>{{ order.id  }}</a>{% endif %}
-	{% endif %}
-{% endspaceless %}

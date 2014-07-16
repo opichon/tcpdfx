@@ -12,29 +12,29 @@
                 return this.each(function() {
                     var $this = $( this );
 
-					$( ".filters input" ).keyup(function( event ) {
+                    $( ".filters input" ).keyup(function( event ) {
                         event.stopPropagation();
                         table.api().draw();
                     });
 
-					$( ".filters select" ).change(function( event ) {
+                    $( ".filters select" ).change(function( event ) {
                         event.stopPropagation();
                         table.api().draw();
                     });
 
-					table = $( "table.table", this ).dataTable( $.extend( true, {}, settings.dataTables, {
+                    table = $( "table.table", this ).dataTable( $.extend( true, {}, settings.dataTables, {
                         initComplete: function( settings, json ) {
                             $( this ).show();
                         },
                         ajax: {
-							data: function( d ) {
+                            data: function( d ) {
                                 $( ".filters input, .filters select" ).each(function() {
                                     var name = $( this ).attr( "name" ),
                                         value = $( this ).attr( "type" ) == "checkbox"
                                             ? ($( this ).is( ":checked" ) ? $( this ).val() : 0)
                                             : $( this ).val();
 
-									d[name] = value;
+                                    d[name] = value;
                                 } );
                             }
                         }
@@ -75,53 +75,67 @@
         }
     };
 
-	$.fn.payments.defaults = {
-		dataTables: {
-			autoWidth: false,
-			columns: [
+    $.fn.payments.defaults = {
+        dataTables: {
+            autoWidth: false,
+            columns: [
                 { data: "check" },
                 { data: "date" },
                 { data: function( row, type, val, meta ) {
-						if ( "display" === type ) {
-							return "<a href='" + row.urls.store + "'>" + row.store.name + "</a>";
-						}
-						
-						return "";
-					}
-				},
+                        if ( "display" === type ) {
+                            return "<a href='" + row.urls.store + "'>" + row.store.name + "</a>";
+                        }
+
+                        return "";
+                    }
+                },
                 { data: function( row, type, val, meta ) {
-						if ( "display" === type ) {
-							return row.urls.show ;
-						}
-						
-						return "";
-					}
-				},
-                { data: "gateway.name" },
+                        if ( "display" === type ) {
+                            return "<a href='" + row.urls.order + "'>" + row.order.id + "</a>";
+                        }
+
+                        return "";
+                    }
+                },
+                { data: function( row, type, val, meta ) {
+                        if ( "display" === type ) {
+                            return "<a href='" + row.urls.gateway + "'>" + row.gateway.name + "</a>";
+                        }
+
+                        return "";
+                    }
+                },
                 { data: "amount" },
-                { data: "status" },
+                { data: function( row, type, val, meta ) {
+                        if ( "display" === type ) {
+                            return "<label class='label label-" + row.status.class + "'>" + row.status.label + "</label>";
+                        }
+
+                        return "";
+                    }
+                },
                 { data: "actions" }
             ],
-			columnDefs: [
-				{ orderable: false, targets: [ 0, 7 ] },
-				{ visible: false, targets: [ 0 ] },
-				{ className: "amount", targets: [ 5 ] },
-				{ className: "actions", targets: [ 7 ] }
-			],
-			destroy: true,
+            columnDefs: [
+                { orderable: false, targets: [ 0, 7 ] },
+                { visible: false, targets: [ 0 ] },
+                { className: "amount", targets: [ 5 ] },
+                { className: "actions", targets: [ 7 ] }
+            ],
+            destroy: true,
             language: {
                 url: "/bundles/dzangocartcore/datatables/" + dzangocart.locale + ".json"
             },
-			orderable: true,
-			orderCellsTop: true,
-			paginate: true,
-			processing: true,
-			saveState: true,
-			searching: false,
-			serverSide: true,
-			stripeClasses: []
-		},
-		daterangepicker: {
+            orderable: true,
+            orderCellsTop: true,
+            paginate: true,
+            processing: true,
+            saveState: true,
+            searching: false,
+            serverSide: true,
+            stripeClasses: []
+        },
+        daterangepicker: {
             locale: { cancelLabel: "Clear"  },
             maxDate: moment(),
             minDate: moment( "2009-01-01" ),
@@ -148,7 +162,7 @@
             startDate: moment()
         },
         date_format: "dd.MM.yy"
-	};
+    };
 } ( window.jQuery );
 
 $( document ).ready(function() {

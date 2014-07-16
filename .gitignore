@@ -1,6 +1,9 @@
 .*
 **/bower_components
 **/node_modules
-/Model/**/map/
-/Model/**/om/
-/vendor/
+composer.lock
+Model/**/map/
+Model/**/om/
+phpunit.xml
+Tests/autoload.php
+vendor/*
