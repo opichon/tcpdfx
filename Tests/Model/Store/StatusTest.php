@@ -12,8 +12,18 @@ class StatusTest extends PHPUnit_Framework_TestCase
 
 	protected function setUp()
 	{
-		$this->store = new Store();
-		$this->store->setStatus(Store::STATUS_UNCONFIRMED);
+		$store = $this->getMockBuilder('Dzangocart\Bundle\CoreBundle\Model\Store')
+			->setMethods(array('countActiveProdGateways'))
+			->getMock();
+
+		$store
+			->expects($this->any())
+			->method('countActiveProdGateways')
+			->will($this->returnValue(1));
+
+		$store->setStatus(Store::STATUS_UNCONFIRMED);
+
+		$this->store = $store;
 	}
 
 	public function testUnconfirmed()
@@ -38,40 +48,44 @@ class StatusTest extends PHPUnit_Framework_TestCase
 		$this->assertFalse($this->store->isClosed(), 'not closed');
     }
 
-    public function testReadyExpiredNull()
-    {
-	    $this->store->setExpiresAt(null);
-    	$this->store->confirm();
-    	$this->store->ready();
-
-		$this->assertTrue($this->store->isConfirmed(), 'confirmed');
-		$this->assertFalse($this->store->isReady(), 'ready');
-		$this->assertFalse($this->store->isActive(), 'not active');
-		$this->assertFalse($this->store->isDisabled(), 'not disabled');
-		$this->assertFalse($this->store->isSuspended(), 'not suspended');
-		$this->assertFalse($this->store->isClosed(), 'not closed');
-    }
-
     public function testReadyExpired()
     {
 	    $this->store->setExpiresAt(date_create()->modify('-1 year'));
     	$this->store->confirm();
     	$this->store->ready();
 
+    	$this->assertTrue($this->store->isExpired(), 'expired');
 		$this->assertTrue($this->store->isConfirmed(), 'confirmed');
-		$this->assertFalse($this->store->isReady(), 'ready');
+		$this->assertFalse($this->store->isReady(), 'not ready');
 		$this->assertFalse($this->store->isActive(), 'not active');
 		$this->assertFalse($this->store->isDisabled(), 'not disabled');
 		$this->assertFalse($this->store->isSuspended(), 'not suspended');
 		$this->assertFalse($this->store->isClosed(), 'not closed');
     }
 
-    public function testReadyNotExpired()
+    public function testReadyFixedExpiration()
     {
 	    $this->store->setExpiresAt(date_create()->modify('+1 year'));
     	$this->store->confirm();
     	$this->store->ready();
 
+    	$this->assertFalse($this->store->isExpired(), 'not expired');
+		$this->assertTrue($this->store->isConfirmed(), 'confirmed');
+		$this->assertTrue($this->store->isReady(), 'ready');
+		$this->assertFalse($this->store->isActive(), 'not active');
+		$this->assertFalse($this->store->isDisabled(), 'not disabled');
+		$this->assertFalse($this->store->isSuspended(), 'not suspended');
+		$this->assertFalse($this->store->isClosed(), 'not closed');
+    }
+
+    public function testReadyNoExpiration()
+    {
+	    $this->store->setExpiresAt(null);
+    	$this->store->confirm();
+    	$this->store->ready();
+
+    	$this->assertNull($this->store->getExpiresAt('U'));
+    	$this->assertFalse($this->store->isExpired(), 'not expired');
 		$this->assertTrue($this->store->isConfirmed(), 'confirmed');
 		$this->assertTrue($this->store->isReady(), 'ready');
 		$this->assertFalse($this->store->isActive(), 'not active');
@@ -88,8 +102,8 @@ class StatusTest extends PHPUnit_Framework_TestCase
     	$this->store->activate();
 
 		$this->assertTrue($this->store->isConfirmed(), 'confirmed');
-		$this->assertTrue($this->store->isReady(), 'not ready');
-		$this->assertTrue($this->store->isActive(), 'not active');
+		$this->assertTrue($this->store->isReady(), 'ready');
+		$this->assertTrue($this->store->isActive(), 'active');
 		$this->assertFalse($this->store->isDisabled(), 'not disabled');
 		$this->assertFalse($this->store->isSuspended(), 'not suspended');
 		$this->assertFalse($this->store->isClosed(), 'not closed');
