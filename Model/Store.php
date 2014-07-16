@@ -2,6 +2,7 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Model;
 
+use Dzangocart\Bundle\CoreBundle\Model\Gateway\GatewayPeer;
 use Dzangocart\Bundle\CoreBundle\Model\om\BaseStore;
 
 class Store extends BaseStore
@@ -37,7 +38,7 @@ class Store extends BaseStore
 
     public function ready()
     {
-        if (!$this->isConfirmed() || !$this->checkSubscriptionFee()) {
+        if (!$this->isConfirmed() || !$this->isExpired()) {
             return;
         }
 

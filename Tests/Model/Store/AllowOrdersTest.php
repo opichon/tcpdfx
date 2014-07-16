@@ -30,7 +30,7 @@ class AllowOrdersTest extends PHPUnit_Framework_TestCase
     public function testReady()
     {
 	    $this->store->ready();
-    	$this->assertFalse($this->store->allowOrders());
+	   	$this->assertFalse($this->store->allowOrders());
     }
 
     public function testActive()

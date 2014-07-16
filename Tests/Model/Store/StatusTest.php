@@ -38,8 +38,37 @@ class StatusTest extends PHPUnit_Framework_TestCase
 		$this->assertFalse($this->store->isClosed(), 'not closed');
     }
 
-    public function testReady()
+    public function testReadyExpiredNull()
     {
+	    $this->store->setExpiresAt(null);
+    	$this->store->confirm();
+    	$this->store->ready();
+
+		$this->assertTrue($this->store->isConfirmed(), 'confirmed');
+		$this->assertFalse($this->store->isReady(), 'ready');
+		$this->assertFalse($this->store->isActive(), 'not active');
+		$this->assertFalse($this->store->isDisabled(), 'not disabled');
+		$this->assertFalse($this->store->isSuspended(), 'not suspended');
+		$this->assertFalse($this->store->isClosed(), 'not closed');
+    }
+
+    public function testReadyExpired()
+    {
+	    $this->store->setExpiresAt(date_create()->modify('-1 year'));
+    	$this->store->confirm();
+    	$this->store->ready();
+
+		$this->assertTrue($this->store->isConfirmed(), 'confirmed');
+		$this->assertFalse($this->store->isReady(), 'ready');
+		$this->assertFalse($this->store->isActive(), 'not active');
+		$this->assertFalse($this->store->isDisabled(), 'not disabled');
+		$this->assertFalse($this->store->isSuspended(), 'not suspended');
+		$this->assertFalse($this->store->isClosed(), 'not closed');
+    }
+
+    public function testReadyNotExpired()
+    {
+	    $this->store->setExpiresAt(date_create()->modify('+1 year'));
     	$this->store->confirm();
     	$this->store->ready();
 
@@ -53,6 +82,7 @@ class StatusTest extends PHPUnit_Framework_TestCase
 
     public function testActive()
     {
+	    $this->store->setExpiresAt(date_create()->modify('+1 year'));
     	$this->store->confirm();
     	$this->store->ready();
     	$this->store->activate();
