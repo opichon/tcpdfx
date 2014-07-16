@@ -34,7 +34,7 @@
                 "actions":      "{% include 'DzangocartCoreBundle:Payment:actions.html.twig' %}",
                 "urls": {
                     "order":    "{{ param['customer'] is defined ? path('user_order', { id: payment.order.id }) : path('order', { id: payment.order.id }) }}",
-                    "store":    "{{ path('store', { id: payment.gateway.store.id }) }}",
+                    "store":    "{% if store is not defined %}{{ path('store', { id: payment.gateway.store.id }) }}{% endif %}",
                     "gateway":  "{{ path('gateway', { id: payment.gateway.id }) }}"
                 }
             }{% if not loop.last %},{% endif %}
