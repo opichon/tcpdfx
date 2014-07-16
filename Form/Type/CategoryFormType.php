@@ -23,7 +23,8 @@ class CategoryFormType extends BaseAbstractType
     {
         $resolver->setDefaults(array(
             'translation_domain' => 'catalogue',
-            'show_legend' => false
+            'show_legend' => false,
+            'csrf_protection' => false
         ));
     }
 
