@@ -156,12 +156,15 @@ class Store extends BaseStore
 
     public function getAffiliate($id, $include_suspended = false)
     {
-        return AffiliateQuery::create()
+        $affiliate = AffiliateQuery::create()
             ->filterByStore($this)
             ->_if(!$include_suspended)
                 ->filterBySuspended(false)
             ->_endif()
-            ->findPk($id);
+            ->filterById($id)
+            ->findOne();
+
+        return $affiliate;
     }
 
     public function generateApiToken()

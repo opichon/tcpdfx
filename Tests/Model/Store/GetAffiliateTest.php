@@ -38,10 +38,8 @@ class GetAffiliateTest extends KernelTestCase
 
             if ($affiliate->isSuspended()) {
                 $this->assertNull($store->getAffiliate($affiliate->getId(), false));
-                $this->assertEquals($store->getAffiliate($affiliate->getId(), true));
             } else {
                 $this->assertEquals($affiliate, $store->getAffiliate($affiliate->getId(), false));
-                $this->assertEquals($affiliate, $store->getAffiliate($affiliate->getId(), true));
             }
         }
     }
