@@ -1,0 +1,22 @@
+po:
+    transactions:
+        actions:
+            show:               Show Order
+        amount:                 Amount
+        bank:                   Bank
+        cheque_number:          Cheque no.
+        date:                   Date
+        filters:
+            date_from:          From
+            date_to:            To
+            period:             Period
+            test_orders:        Test transactions
+            test:               Include test transactions
+        order_id:               Order no.
+        page_title:             Direct payments
+        pay_by:
+            cheque:             Cheque
+            wire_transfer:      Wire transfer
+        store:                  Store
+        test:                   Demo
+        type:                   Payment by

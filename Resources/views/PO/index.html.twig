@@ -1,0 +1,21 @@
+{% extends template %}
+
+{% trans_default_domain "po" %}
+
+{% block page_title %}{% trans %}po.transactions.page_title{% endtrans %}{% endblock %}
+
+{% block bodyclass %}po{% endblock %}
+
+{% block content %}
+	{% include "DzangocartCoreBundle:PO:transactions.html.twig" %}
+{% endblock %}
+
+{% block head_style %}
+	{{ parent() }}
+	{% include "DzangocartCoreBundle:PO:transactions_head_style.html.twig" %}
+{% endblock %}
+
+{% block foot_script %}
+	{{ parent() }}
+	{% include "DzangocartCoreBundle:PO:transactions_foot_script.html.twig" %}
+{% endblock %}

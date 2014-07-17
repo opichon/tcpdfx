@@ -1,0 +1,36 @@
+{% trans_default_domain "po" %}
+
+
+{% spaceless %}
+{
+    "draw": "{{ draw }}",
+    "recordsTotal": {{ count_total }},
+    "recordsFiltered": {{ count_filtered }},
+    "data" : [
+        {% for payment in payments %}
+            {
+                "DT_RowId":     "{{ 'po_' ~ payment.id }}",
+                "DT_RowClass":  "{{ 'transactions' }}",
+                "check":        "",
+                "date":         "{{ payment.createdAt|datetime('dd.MM.yy', 'HH:mm', time_zone, app.request.locale) }}",
+                "store":         {
+                    "id":        {{ payment.gateway.store.id }},
+                    "name":     "{{ payment.gateway.store.name }}"
+                },
+                "order":         {
+                    "id":       "{{ payment.order.id }}"
+                },
+                "amount":       "{{ payment.transaction.amount|currency(payment.transaction.currencyId, app.request.locale) }}",
+                "bank":         "{{ payment.transaction.bank }}",
+                "type":         "{{ payment.transaction.type }}",
+                "cheque":       "{{ payment.transaction.chequeNumber }}",
+                "actions":      "{% include 'DzangocartCoreBundle:PO:actions.html.twig' %}",
+                "urls": {
+                    "order":    "{{ param['customer'] is defined ? path('user_order', { id: payment.order.id }) : path('order', { id: payment.order.id }) }}",
+                    "store":    "{% if store is not defined %}{{ path('store', { id: payment.gateway.store.id }) }}{% endif %}"
+                }
+            }{% if not loop.last %},{% endif %}
+        {% endfor %}
+    ]
+}
+{% endspaceless %}
