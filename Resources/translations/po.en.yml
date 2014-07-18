@@ -15,8 +15,8 @@ po:
         order_id:               Order no.
         page_title:             Direct payments
         pay_by:
-            cheque:             Cheque
-            wire_transfer:      Wire transfer
+            1:                  Wire transfer
+            2:                  Cheque
         store:                  Store
         test:                   Demo
         type:                   Payment by

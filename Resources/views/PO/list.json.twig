@@ -1,6 +1,5 @@
 {% trans_default_domain "po" %}
 
-
 {% spaceless %}
 {
     "draw": "{{ draw }}",
@@ -22,7 +21,7 @@
                 },
                 "amount":       "{{ payment.transaction.amount|currency(payment.transaction.currencyId, app.request.locale) }}",
                 "bank":         "{{ payment.transaction.bank }}",
-                "type":         "{{ payment.transaction.type }}",
+                "type":         "{{ ('po.transactions.pay_by.' ~ payment.transaction.type)|trans }}",
                 "cheque":       "{{ payment.transaction.chequeNumber }}",
                 "actions":      "{% include 'DzangocartCoreBundle:PO:actions.html.twig' %}",
                 "urls": {
