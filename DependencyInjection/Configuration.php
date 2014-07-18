@@ -20,6 +20,19 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('dzangocart_core');
 
+        $rootNode
+            ->children()
+                ->scalarNode('redirect_url')
+                    ->cannotBeEmpty()
+                    ->defaultValue('http://admin.dzangocart.net')
+                ->end()
+                ->scalarNode('host')
+                    ->defaultValue('dzangocart.net')
+                    ->isRequired()
+                    ->cannotBeEmpty()
+                ->end()
+            ->end();
+
         return $treeBuilder;
     }
 }
