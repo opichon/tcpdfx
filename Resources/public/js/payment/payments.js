@@ -12,7 +12,7 @@
                 return this.each(function() {
                     var $this = $( this );
 
-                    $( ".filters input" ).keyup(function( event ) {
+                    $( ".filters_keyup input" ).keyup(function( event ) {
                         event.stopPropagation();
                         table.api().draw();
                     });
@@ -41,11 +41,47 @@
                     } ) );
 
                     helpers.initDateRangePicker( $this );
+                    helpers.initCustomerWidget(  );
                 });
             }
         };
 
         var helpers = {
+            initCustomerWidget: function() {
+
+                var widget = $( "[name='payments_filters[customer]']" );
+
+                var customers = new Bloodhound({
+                    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+                    queryTokenizer: Bloodhound.tokenizers.whitespace,
+                    remote: {
+                        url: settings.typeahead.remote.url,
+                        replace: function( url, uriEncodedQuery ) {
+                            return url.replace( "__query__", uriEncodedQuery );
+                        }
+                    }
+                });
+
+                customers.initialize();
+
+                widget.typeahead( null, {
+                    name: "customer",
+                    displayKey: "value",
+                    source: customers.ttAdapter()
+                })
+                .on( "typeahead:selected", function( e, datum ) {
+                    $( "[name='payments_filters[customer_id]']" ).val( datum.id );
+                        table.api().draw();
+                });
+
+                widget.keyup( function( ) {
+                    if ( $(this).val() === "" ) {
+                        $( "[name='payments_filters[customer_id]']" ).val( "" );
+                        table.api().draw();
+                    }
+                })
+            },
+
             initDateRangePicker: function( elt ) {
                 $( "input[name='payments_filters[period]']" ).daterangepicker(
                     $.extend( true, {}, settings.daterangepicker,
@@ -97,6 +133,7 @@
                         return "";
                     }
                 },
+                { data: "customer"},
                 { data: function( row, type, val, meta ) {
                         if ( "display" === type ) {
                             return "<a href='" + row.urls.gateway + "'>" + row.gateway.name + "</a>";
@@ -117,10 +154,10 @@
                 { data: "actions" }
             ],
             columnDefs: [
-                { orderable: false, targets: [ 0, 7 ] },
+                { orderable: false, targets: [ 0, 8 ] },
                 { visible: false, targets: [ 0 ] },
-                { className: "amount", targets: [ 5 ] },
-                { className: "actions", targets: [ 7 ] }
+                { className: "amount", targets: [ 6 ] },
+                { className: "actions", targets: [ 8 ] }
             ],
             destroy: true,
             language: {
@@ -130,7 +167,7 @@
             orderCellsTop: true,
             paginate: true,
             processing: true,
-            saveState: true,
+            saveState: false,
             searching: false,
             serverSide: true,
             stripeClasses: []

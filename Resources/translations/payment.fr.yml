@@ -15,6 +15,7 @@ payment:
     payments:
         actions:
             show:          	Afficher la commande
+        customer:           Customer
         date:               Date
         gateway:            Portail de paiement
         order_id:           Commande

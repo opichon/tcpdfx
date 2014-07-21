@@ -97,10 +97,16 @@ class PaymentController extends BaseController
     protected function getQuery()
     {
         return PaymentQuery::create()
-                ->useGatewayQuery()
-                    ->innerJoinService('gateway_service')
-                    ->innerJoinStore('store')
+            ->innerJoinOrder('Order')
+            ->useGatewayQuery()
+                ->innerJoinService('gateway_service')
+                ->innerJoinStore('store')
+            ->endUse()
+            ->useOrderQuery()
+                ->useCustomerQuery()
+                    ->innerJoinUserProfile('user_profile')
                 ->endUse()
+            ->endUse()
             ->innerJoinGateway();
     }
 
@@ -110,8 +116,9 @@ class PaymentController extends BaseController
             1 => 'payment.createdAt',
             2 => 'store.name',
             3 => 'payment.orderId',
-            4 => 'gateway_service.name',
-            6 => 'payment.status'
+            4 => array('user_profile.surname', 'user_profile.given_names'),
+            5 => 'gateway_service.name',
+            7 => 'payment.status'
         );
 
     }
@@ -124,6 +131,7 @@ class PaymentController extends BaseController
             'date_from' => 'payment.createdAt >= "%s 00:00:00"',
             'date_to' => 'payment.createdAt <= "%s 23:59:59"',
             'service_id' => 'gateway_service.id = "%s%%"',
+            'customer_id' => 'Order.customerId = %d',
             'status' => $this->getStatusQueryString()
         );
     }

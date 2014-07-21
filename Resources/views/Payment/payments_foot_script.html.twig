@@ -1,6 +1,7 @@
 {% javascripts
 	'bundles/dzangocartcore/vendor/datatables/media/js/jquery.dataTables.min.js'
 	'bundles/dzangocartcore/vendor/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js'
+	'bundles/dzangocartcore/vendor/typeahead.js/dist/typeahead.bundle.min.js'
 	'bundles/dzangocartcore/vendor/momentjs/min/moment-with-langs.min.js'
 	'bundles/dzangocartcore/vendor/bootstrap-daterangepicker/daterangepicker.min.js'
 	'bundles/dzangocartcore/js/ajax.js'
@@ -10,10 +11,15 @@
 {% endjavascripts %}
 <script>
 dzangocart.payments = {
-	dataTables: {
-		ajax: {
-			url: "{{ path('payments_list') }}"
-		}
-	}
+    dataTables: {
+        ajax: {
+            url: "{{ path('payments_list') }}"
+        }
+    },
+    typeahead: {
+        remote: {
+            url:  "{{ path('customer_search', { search: '__query__' }) }}"
+        }
+    }
 };
 </script>

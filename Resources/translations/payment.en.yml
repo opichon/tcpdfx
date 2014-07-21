@@ -15,6 +15,7 @@ payment:
     payments:
         actions:
             show:           Show order
+        customer:           Customer
         date:               Date
         gateway:            Gateway
         order_id:           Order
