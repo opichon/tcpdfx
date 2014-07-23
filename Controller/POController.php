@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 class POController extends BaseController
 {
     /**
-     * @Route("/", name="po")
+     * @Route("/", name="po_transasctions")
      * @Template("DzangocartCoreBundle:PO:index.html.twig")
      */
     public function indexAction(Request $request)
