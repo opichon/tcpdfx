@@ -49,6 +49,24 @@ class CustomerController extends BaseController
     {
         $query = $this->getQuery();
 
+        $today = date('Y-m-d') . ' 23:59:59';
+
+        $year_start = date('Y-01-01') . ' 00:00:00';
+
+        $subquery = sprintf(
+            "( SELECT SUM(cart.amount_excl) FROM cart WHERE cart.status & %d AND cart.date >= '%s' AND cart.date <= '%s' )",
+            Cart::STATUS_PROCESSED,
+            $year_start,
+            $today
+        );
+
+        $query
+            ->withColumn($subquery, 'ydtSales')
+            ->groupById()
+            ->useUserProfileQuery('user_profile', Criteria::INNER_JOIN)
+                ->filterBySurname(null, Criteria::ISNOTNULL)
+            ->endUse();
+
         if ($realm = $request->query->get('realm')) {
             $query
                 ->filterByRealm($realm);
@@ -189,13 +207,28 @@ class CustomerController extends BaseController
     }
 
     /**
+     * @Route("/{id}/cart", name="customer_carts")
+     * @Template("DzangocartCoreBundle:Customer:carts.html.twig")
+     */
+    public function cartsAction(Request $request, $id)
+    {
+        return array_merge(
+            $this->getTemplateParams(),
+            array(
+                'customer' => $this->getCustomer($request, $id),
+                'filters' => $filters->createView()
+            )
+        );
+    }
+
+    /**
      * @Route("/search/{search}", name="customer_search", defaults={ "_format": "json" })
      * @Template("DzangocartCoreBundle:Order:search.json.twig")
      */
     public function searchAction(Request $request, $search = '%QUERY')
     {
-        $customers = CustomerQuery::create()
-            ->useUserProfileQuery()
+        $customers = $this->getQuery()
+            ->useUserProfileQuery('user_profile')
                 ->filterByGivenNames(sprintf('%%%s%%', $search), Criteria::LIKE)
                 ->_or()
                 ->filterBySurname(sprintf('%%%s%%', $search), Criteria::LIKE)
@@ -210,13 +243,6 @@ class CustomerController extends BaseController
             ->endUse()
             ->distinct();
 
-        if ($store = $this->getStore()) {
-            $customers
-                ->useCartQuery()
-                    ->filterByStore($store)
-                ->endUse();
-        }
-
         return array(
             'customers' => $customers->find()
         );
@@ -224,25 +250,10 @@ class CustomerController extends BaseController
 
     protected function getQuery()
     {
-        $today = date('Y-m-d') . ' 23:59:59';
-
-        $year_start = date('Y-01-01') . ' 00:00:00';
-
-        $query = sprintf(
-            "( SELECT SUM(cart.amount_excl) FROM cart WHERE cart.status & %d AND cart.date >= '%s' AND cart.date <= '%s' )",
-            Cart::STATUS_PROCESSED,
-            $year_start,
-            $today
-        );
 
         return CustomerQuery::create()
             ->innerJoinCart('cart')
-            ->withColumn($query, 'ydtSales')
-            ->innerJoinUserProfile('user_profile')
-            ->useUserProfileQuery('user_profile', Criteria::INNER_JOIN)
-                ->filterBySurname(null, Criteria::ISNOTNULL)
-            ->endUse()
-            ->groupBy('customer.id');
+            ->innerJoinUserProfile('user_profile');
     }
 
     protected function getDataTablesSortColumns()
