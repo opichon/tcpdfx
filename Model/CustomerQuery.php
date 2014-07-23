@@ -76,4 +76,10 @@ class CustomerQuery extends BaseCustomerQuery
             return $this->where($conditions, 'and');
         }
     }
+
+    public function identified()
+    {
+        return $this
+            ->filterByUserProfileId(null, Criteria::ISNOTNULL);
+    }
 }
