@@ -10,10 +10,7 @@
 dzangocart.affiliates = {
     datatables: {
         ajax: {
-            url: "{{ path('affiliates_list', { _format: 'json' }) }}"
-        },
-        language: {
-            url: "/bundles/dzangocartcore/datatables/" + dzangocart.locale + ".json"
+            url: "{{ path('affiliates_list') }}"
         }
     }
 };

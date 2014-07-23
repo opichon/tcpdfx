@@ -3,11 +3,12 @@
 namespace Dzangocart\Bundle\CoreBundle\Controller;
 
 use Criteria;
+use DateTime;
 
-use Dzangocart\Bundle\CoreBundle\Form\Type\CustomerFiltersType;
-use Dzangocart\Bundle\CoreBundle\Form\Type\OrderFiltersType;
-use Dzangocart\Bundle\CoreBundle\Form\Type\PaymentFiltersType;
-use Dzangocart\Bundle\CoreBundle\Form\Type\SalesFilterType;
+use Dzangocart\Bundle\CoreBundle\Form\Type\CustomersFiltersType;
+use Dzangocart\Bundle\CoreBundle\Form\Type\OrdersFiltersType;
+use Dzangocart\Bundle\CoreBundle\Form\Type\StorePaymentsFiltersType;
+use Dzangocart\Bundle\CoreBundle\Form\Type\SalesFiltersType;
 use Dzangocart\Bundle\CoreBundle\Model\Cart;
 use Dzangocart\Bundle\CoreBundle\Model\CustomerQuery;
 
@@ -28,14 +29,15 @@ class CustomerController extends BaseController
 
     public function indexAction(Request $request)
     {
-        $form = $this->createForm(
-              new CustomerFiltersType()
+        $filters = $this->createForm(
+              new CustomersFiltersType()
         );
 
-        return array(
-            'store' => $this->getStore(),
-            'form' => $form->createView(),
-            'template' => $this->getBaseTemplate()
+        return array_merge(
+            $this->getTemplateParams(),
+            array(
+                'filters' => $filters->createView()
+            )
         );
     }
 
@@ -77,26 +79,30 @@ class CustomerController extends BaseController
             ->setOffset($offset)
             ->find();
 
-        return array(
-            'draw' => $request->query->get('draw'),
-            'count_total' => $count_total,
-            'count_filtered' => $count_filtered,
-            'customers' => $customers
+        return array_merge(
+            $this->getTemplateParams(),
+            array(
+                'draw' => $request->query->get('draw'),
+                'count_total' => $count_total,
+                'count_filtered' => $count_filtered,
+                'customers' => $customers
+            )
         );
     }
 
     /**
-     * @Route("/{id}", name="customer_show", requirements={"id": "\d+"})
+     * @Route("/{id}", name="customer", requirements={"id": "\d+"})
      * @Template("DzangocartCoreBundle:Customer:show.html.twig")
      */
     public function showAction(Request $request, $id)
     {
         $customer = $this->getCustomer($request, $id);
 
-        return array(
-            'store' => $this->getStore(),
-            'customer' => $customer,
-            'template' => $this->getBaseTemplate()
+        return array_merge(
+            $this->getTemplateParams(),
+            array(
+                'customer' => $customer
+            )
         );
     }
 
@@ -115,33 +121,20 @@ class CustomerController extends BaseController
      */
     public function ordersAction(Request $request, $id)
     {
-        $form = $this->createForm(
-            new OrderFiltersType());
-
-        return array(
-            'store' => $this->getStore(),
-            'customer' => $this->getCustomer($request, $id),
-            'form' => $form->createView(),
-            'template' => $this->getBaseTemplate()
-
-        );
-    }
-
-     /**
-     * @Route("/{id}/payments", name="customer_payments")
-     * @Template("DzangocartCoreBundle:Customer:payments.html.twig")
-     */
-    public function paymentsAction(Request $request, $id)
-    {
-        $form = $this->createForm(
-            new PaymentFiltersType($this->getStore())
+        $filters = $this->createForm(
+            new OrdersFiltersType(),
+            array(
+                'date_from' => $this->getStore()->getCreatedAt(null),
+                'date_to' => new DateTime()
+            )
         );
 
-        return array(
-            'store' => $this->getStore(),
-            'customer' => $this->getCustomer($request, $id),
-            'template' => $this->getBaseTemplate(),
-            'form' => $form->createView()
+        return array_merge(
+            $this->getTemplateParams(),
+            array(
+                'customer' => $this->getCustomer($request, $id),
+                'filters' => $filters->createView()
+            )
         );
     }
 
@@ -151,15 +144,47 @@ class CustomerController extends BaseController
      */
     public function purchasesAction(Request $request, $id)
     {
-        $form = $this->createForm(
-            new SalesFilterType()
+        $filters = $this->createForm(
+            new SalesFiltersType(),
+            array(
+                'date_from' => $this->getStore()->getCreatedAt(null),
+                'date_to' => new DateTime()
+            )
         );
 
-        return array(
-            'store' => $this->getStore(),
-            'customer' => $this->getCustomer($request, $id),
-            'template' => $this->getBaseTemplate(),
-            'form' => $form->createView()
+        return array_merge(
+            $this->getTemplateParams(),
+            array(
+                'customer' => $this->getCustomer($request, $id),
+                'filters' => $filters->createView()
+            )
+        );
+    }
+
+     /**
+     * @Route("/{id}/payments", name="customer_payments")
+     * @Template("DzangocartCoreBundle:Customer:payments.html.twig")
+     */
+    public function paymentsAction(Request $request, $id)
+    {
+        $filters = $this->createForm(
+            new StorePaymentsFiltersType(
+                $this->getStore(),
+                $this->get('translator'),
+                $request->getLocale()
+            ),
+            array(
+                'date_from' => $this->getStore()->getCreatedAt(null),
+                'date_to' => new DateTime()
+            )
+        );
+
+        return array_merge(
+            $this->getTemplateParams(),
+            array(
+                'customer' => $this->getCustomer($request, $id),
+                'filters' => $filters->createView()
+            )
         );
     }
 
@@ -201,16 +226,22 @@ class CustomerController extends BaseController
     {
         $today = date('Y-m-d') . ' 23:59:59';
 
-        $year_first_date = date('Y-01-01') . ' 00:00:00';
+        $year_start = date('Y-01-01') . ' 00:00:00';
 
         $query = sprintf(
-            "( SELECT SUM(cart.amount_excl) FROM cart WHERE cart.status = %s AND cart.date >= '%s' AND cart.date <= '%s' )", Cart::STATUS_PROCESSED, $year_first_date, $today
+            "( SELECT SUM(cart.amount_excl) FROM cart WHERE cart.status & %d AND cart.date >= '%s' AND cart.date <= '%s' )",
+            Cart::STATUS_PROCESSED,
+            $year_start,
+            $today
         );
 
         return CustomerQuery::create()
             ->innerJoinCart('cart')
             ->withColumn($query, 'ydtSales')
             ->innerJoinUserProfile('user_profile')
+            ->useUserProfileQuery('user_profile', Criteria::INNER_JOIN)
+                ->filterBySurname(null, Criteria::ISNOTNULL)
+            ->endUse()
             ->groupBy('customer.id');
     }
 

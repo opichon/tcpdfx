@@ -114,11 +114,6 @@ class SaleController extends BaseController
         return $query;
     }
 
-    protected function getTemplateParams()
-    {
-        return array();
-    }
-
     protected function getLimit(Request $request)
     {
         return min(100, $request->query->get('length', 10));

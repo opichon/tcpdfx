@@ -29,7 +29,6 @@ class POController extends BaseController
         return array_merge(
             $this->getTemplateParams(),
             array(
-                'template' => $this->getBaseTemplate(),
                 'filters' => $filters->createView()
             )
         );
@@ -68,12 +67,14 @@ class POController extends BaseController
             ->setOffset($offset)
             ->find();
 
-        return array(
-            'draw' => $request->query->get('draw'),
-            'count_total' => $count_total,
-            'count_filtered' => $count_filtered,
-            'payments' => $payments,
-            'param' => $this->getTemplateParams()
+        return array_merge(
+            $this->getTemplateParams(),
+            array(
+                'draw' => $request->query->get('draw'),
+                'count_total' => $count_total,
+                'count_filtered' => $count_filtered,
+                'payments' => $payments
+            )
         );
     }
 
@@ -124,11 +125,6 @@ class POController extends BaseController
             'bank' => 'po_transaction.bank LIKE "%%%s%%"',
             'cheque' => 'po_transaction.chequeNumber = %d'
         );
-    }
-
-    protected function getTemplateParams()
-    {
-        return array();
     }
 
     protected function getLimit(Request $request)

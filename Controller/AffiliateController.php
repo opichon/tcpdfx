@@ -5,7 +5,7 @@ namespace Dzangocart\Bundle\CoreBundle\Controller;
 use DateTime;
 
 use Dzangocart\Bundle\CoreBundle\Form\Type\AffiliateType;
-use Dzangocart\Bundle\CoreBundle\Form\Type\CustomerFiltersType;
+use Dzangocart\Bundle\CoreBundle\Form\Type\CustomersFiltersType;
 use Dzangocart\Bundle\CoreBundle\Form\Type\OrdersFiltersType;
 use Dzangocart\Bundle\CoreBundle\Form\Type\SalesFiltersType;
 use Dzangocart\Bundle\CoreBundle\Model\Affiliate;
@@ -68,12 +68,15 @@ class AffiliateController extends BaseController
             ->setOffset($offset)
             ->find();
 
-        return array(
-            'draw' => $request->query->get('draw'),
-            'start' => 0,
-            'recordsTotal' => $total_count,
-            'recordsFiltered' => $filtered_count,
-            'affiliates' => $affiliates
+        return array_merge(
+            $this->getTemplateParams(),
+            array(
+                'draw' => $request->query->get('draw'),
+                'start' => 0,
+                'recordsTotal' => $total_count,
+                'recordsFiltered' => $filtered_count,
+                'affiliates' => $affiliates
+            )
         );
     }
 
@@ -85,10 +88,11 @@ class AffiliateController extends BaseController
     {
         $affiliate = $this->getAffiliate($request, $id);
 
-        return array(
-            'store' => $this->getStore(),
-            'affiliate' => $affiliate,
-            'template' => $this->getBaseTemplate()
+        return array_merge(
+            $this->getTemplateParams(),
+            array(
+                'affiliate' => $affiliate,
+            )
         );
     }
 
@@ -108,11 +112,12 @@ class AffiliateController extends BaseController
             )
         );
 
-        return array(
-            'store' => $this->getStore(),
-            'affiliate' => $affiliate,
-            'template' => $this->getBaseTemplate(),
-            'filters' => $filters->createView()
+        return array_merge(
+            $this->getTemplateParams(),
+            array(
+                'affiliate' => $affiliate,
+                'filters' => $filters->createView()
+            )
         );
     }
 
@@ -132,11 +137,12 @@ class AffiliateController extends BaseController
             )
         );
 
-        return array(
-            'store' => $this->getStore(),
-            'affiliate' => $affiliate,
-            'template' => $this->getBaseTemplate(),
-            'filters' => $filters->createView()
+        return array_merge(
+            $this->getTemplateParams(),
+            array(
+                'affiliate' => $affiliate,
+                'filters' => $filters->createView()
+            )
         );
     }
 
@@ -148,14 +154,15 @@ class AffiliateController extends BaseController
     {
         $affiliate = $this->getAffiliate($request, $id);
 
-        $form = $this->createForm(
-            new CustomerFiltersType());
+        $filters = $this->createForm(
+            new CustomersFiltersType());
 
-        return array(
-            'store' => $this->getStore(),
-            'form' => $form->createView(),
-            'affiliate' => $affiliate,
-            'template' => $this->getBaseTemplate()
+        return array_merge(
+            $this->getTemplateParams(),
+            array(
+                'affiliate' => $affiliate,
+                'filters' => $filters->createView()
+            )
         );
     }
 
@@ -230,11 +237,6 @@ class AffiliateController extends BaseController
     {
         return AffiliateQuery::create()
             ->innerJoinStore('store');
-    }
-
-    protected function getTemplateParams()
-    {
-        return array();
     }
 
     protected function getAffiliate(Request $request, $id)

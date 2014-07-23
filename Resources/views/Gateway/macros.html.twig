@@ -2,7 +2,7 @@
 
 {% macro name(gateway) %}{% spaceless %}
 	{% if gateway.testing %}
-		{% trans with { '%name%': gateway.name } %}gateway.name{% endtrans %}
+		{% trans with { '%name%': gateway.service.name } %}gateway.name{% endtrans %}
 	{% else %}
 		{{ gateway.service.name }}
 	{% endif %}

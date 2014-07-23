@@ -1,6 +1,8 @@
 {% trans_default_domain "payment" %}
 
 {% import "DzangocartCoreBundle:Payment:status.html.twig" as status %}
+{% import "DzangocartCoreBundle:Gateway:macros.html.twig" as gateway_macros %}
+
 
 {% spaceless %}
 {
@@ -21,10 +23,13 @@
                 "order":         {
                     "id":       "{{ payment.order.id }}"
                 },
-                "customer":     "{{ payment.order.customer.name }}",
+                "customer": {
+                    "id":       "{{ payment.order.customer.id }}",
+                    "name":     "{{ payment.order.customer.name }}"
+                },
                 "gateway":       {
                     "id":       "{{ payment.gateway.id }}",
-                    "name":     "{{ payment.gateway.name }}"
+                    "name":     "{{ gateway_macros.name(payment.gateway) }}"
                 },
                 "amount":       "{{ payment.amount|currency(payment.currency.id, app.request.locale) }}",
                 "status":        {
@@ -36,6 +41,7 @@
                 "urls": {
                     "order":    "{{ param['customer'] is defined ? path('user_order', { id: payment.order.id }) : path('order', { id: payment.order.id }) }}",
                     "store":    "{% if store is not defined %}{{ path('store', { id: payment.gateway.store.id }) }}{% endif %}",
+                    "customer": "{{ path('customer', { id: payment.order.customer.id }) }}",
                     "gateway":  "{{ path('gateway', { id: payment.gateway.id }) }}"
                 }
             }{% if not loop.last %},{% endif %}

@@ -35,9 +35,8 @@
         "stylesheets/jquery.treetable.theme.default.css"
       ]
     },
-    "momentjs": {
+    "moment": {
       "main": [
-        "moment.js",
         "min/moment-with-langs.js",
         "min/moment-with-langs.min.js"
       ]

@@ -8,13 +8,17 @@ class BaseController extends Controller
 {
     public function getStore()
     {
-        if ($this->container->has('dzangocart.store_finder')) {
-            return $this->container->get('dzangocart.store_finder')->getStore();
-        }
     }
 
     protected function getBaseTemplate()
     {
         return 'DzangocartCoreBundle::layout.html.twig';
+    }
+
+    protected function getTemplateParams()
+    {
+        return array(
+            'template' => $this->getBaseTemplate()
+        );
     }
 }

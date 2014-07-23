@@ -61,6 +61,7 @@ table.table th.amount {
 
 table.table th.actions {
 	width: 36px;
+	padding: 5px 0;
 	text-align: center;
 }
 

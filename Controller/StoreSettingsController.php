@@ -25,9 +25,11 @@ abstract class StoreSettingsController extends BaseController
      */
     public function identityAction(Request $request)
     {
-        return array(
-            'store' => $this->getStore(),
-            'template' => $this->getBaseTemplate()
+        return array_merge(
+            parent::getTemplateParams(),
+            array(
+                'store' => $this->getStore()
+            )
         );
     }
 
@@ -37,9 +39,11 @@ abstract class StoreSettingsController extends BaseController
      */
     public function gatewaysAction(Request $request)
     {
-        return array(
-            'store' => $this->getStore(),
-            'template' => $this->getBaseTemplate()
+        return array_merge(
+            parent::getTemplateParams(),
+            array(
+                'store' => $this->getStore()
+            )
         );
     }
 
@@ -49,9 +53,11 @@ abstract class StoreSettingsController extends BaseController
      */
     public function presentationAction(Request $request)
     {
-        return array(
-            'store' => $this->getStore(),
-            'template' => $this->getBaseTemplate()
+        return array_merge(
+            parent::getTemplateParams(),
+            array(
+                'store' => $this->getStore()
+            )
         );
     }
 
@@ -105,10 +111,12 @@ abstract class StoreSettingsController extends BaseController
             return $this->redirect($this->generateUrl('store_settings_user'));
         }
 
-        return array(
-            'form' => $form->createView(),
-            'store' => $this->getStore(),
-            'template' => $this->getBaseTemplate()
+        return array_merge(
+            parent::getTemplateParams(),
+            array(
+                'store' => $this->getStore(),
+                'form' => $form->createView()
+            )
         );
     }
 
@@ -157,11 +165,13 @@ abstract class StoreSettingsController extends BaseController
             return $this->redirect($this->generateUrl('api_token'));
         }
 
-        return array(
-            'form' => $form->createView(),
-            'tokens' => $tokens,
-            'store' => $this->getStore(),
-            'template' => $this->getBaseTemplate()
+        return array_merge(
+            parent::getTemplateParams(),
+            array(
+                'store' => $this->getStore(),
+                'form' => $form->createView(),
+                'tokens' => $tokens,
+            )
         );
     }
 

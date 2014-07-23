@@ -1,0 +1,26 @@
+ {% trans_default_domain "daterangepicker" %}
+
+ {
+	"{% trans %}daterangepicker.range.mtd{% endtrans %}": [moment().startOf( "month" ), moment()],
+	"{% trans %}daterangepicker.range.last_month{% endtrans %}": [
+		moment().subtract( "month", 1).startOf( "month" ),
+		moment().subtract( "month", 1).endOf( "month" )
+	],
+	"{% trans %}daterangepicker.range.qtd{% endtrans %}": [
+		moment().month( moment().quarter() * 3 ).subtract( "month", 3).startOf( "month" ),
+		moment()
+	],
+	"{% trans %}daterangepicker.range.last_quarter{% endtrans %}": [
+		moment().month( (moment().quarter() - 1) * 3 ).subtract( "month", 3 ).startOf( "month" ),
+		moment().month( (moment().quarter() - 1) * 3 ).subtract( "month", 1 ).endOf( "month" )
+	],
+	"{% trans %}daterangepicker.range.ytd{% endtrans %}": [moment().startOf( "year" ), moment()],
+	"{% trans %}daterangepicker.range.last_year{% endtrans %}": [
+		moment().subtract( "year", 1 ).startOf( "year"),
+		moment().subtract( "year", 1 ).endOf( "year" )
+	],
+	"{% trans %}daterangepicker.range.all{% endtrans %}": [
+		moment( "2009-01-01" ),
+		moment()
+	]
+}

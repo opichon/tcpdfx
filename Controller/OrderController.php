@@ -36,8 +36,7 @@ class OrderController extends BaseController
         return array_merge(
             $this->getTemplateParams(),
             array(
-                'filters' => $filters->createView(),
-                'template' => $this->getBaseTemplate()
+                'filters' => $filters->createView()
             )
         );
     }
@@ -107,10 +106,11 @@ class OrderController extends BaseController
             );
         }
 
-        return array(
-            'order' => $order,
-            'template' => $this->getBaseTemplate(),
-            'store' => $order->getStore(),
+        return array_merge(
+            $this->getTemplateParams(),
+            array(
+                'order' => $order
+            )
         );
     }
 
@@ -122,11 +122,6 @@ class OrderController extends BaseController
             ->useCustomerQuery()
                 ->innerJoinUserProfile('user_profile')
             ->endUse();
-    }
-
-    protected function getTemplateParams()
-    {
-        return array();
     }
 
     protected function getLimit(Request $request)

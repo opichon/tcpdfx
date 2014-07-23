@@ -24,6 +24,15 @@ customer:
         realm:        Realm
         surname:      Surname
 
+    orders:
+        page_title:   Orders
+
+    payments:
+        page_title:   Payments
+
+    purchases:
+        page_title:   Purchases
+
     show:
         back:         Back to customer list
         orders:       %name%: Orders

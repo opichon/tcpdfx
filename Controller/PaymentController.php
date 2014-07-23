@@ -28,7 +28,6 @@ class PaymentController extends BaseController
         return array_merge(
             $this->getTemplateParams(),
             array(
-                'template' => $this->getBaseTemplate(),
                 'filters' => $filters->createView()
             )
         );
@@ -74,12 +73,14 @@ class PaymentController extends BaseController
             ->setOffset($offset)
             ->find();
 
-        return array(
-            'draw' => $request->query->get('draw'),
-            'count_total' => $count_total,
-            'count_filtered' => $count_filtered,
-            'payments' => $payments,
-            'param' => $this->getTemplateParams()
+        return array_merge(
+            $this->getTemplateParams(),
+            array(
+                'draw' => $request->query->get('draw'),
+                'count_total' => $count_total,
+                'count_filtered' => $count_filtered,
+                'payments' => $payments
+            )
         );
     }
 
@@ -130,7 +131,8 @@ class PaymentController extends BaseController
             'order_id' => 'payment.orderId LIKE "%s%%"',
             'date_from' => 'payment.createdAt >= "%s 00:00:00"',
             'date_to' => 'payment.createdAt <= "%s 23:59:59"',
-            'service_id' => 'gateway_service.id = "%s%%"',
+            'gateway_id' => 'gateway.id = %d',
+            'service_id' => 'gateway_service.id = %d',
             'customer_id' => 'Order.customerId = %d',
             'status' => $this->getStatusQueryString()
         );
@@ -147,11 +149,6 @@ class PaymentController extends BaseController
         }
 
         return 'payment.status & "%s%%"';
-    }
-
-    protected function getTemplateParams()
-    {
-        return array();
     }
 
     protected function getLimit(Request $request)

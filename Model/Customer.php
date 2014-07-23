@@ -6,17 +6,22 @@ use Dzangocart\Bundle\CoreBundle\Model\om\BaseCustomer;
 
 class Customer extends BaseCustomer
 {
+    public function getProfile()
+    {
+        return $this->getUserProfile();
+    }
+
     public function getUser()
     {
         return $this
-            ->getUserProfile()
+            ->getProfile()
             ->getUser();
     }
 
     public function getName()
     {
         return $this
-            ->getUserProfile()
+            ->getProfile()
             ->getFullName(true);
     }
 }

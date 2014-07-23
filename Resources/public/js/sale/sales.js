@@ -57,6 +57,10 @@
         var helpers = {
             initCustomerWidget: function() {
 
+                if ( "undefined" == typeof settings.typeahead ) {
+                    return;
+                }
+
                 var widget = $( "[name='sales_filters[customer]']" );
 
                 var customers = new Bloodhound({
@@ -84,7 +88,7 @@
 
                 widget.keyup(function() {
                     if ( $(this).val() === "" ) {
-                        $( "[name='sales_filters[customer_id]']" ).val( '' );
+                        $( "[name='sales_filters[customer_id]']" ).val( "" );
                             table.api().draw();
                     }
                 })
@@ -146,27 +150,6 @@
             locale: { cancelLabel: "Clear"  },
             maxDate: moment(),
             minDate: moment( "2009-01-01" ),
-            ranges: {
-                "MTD": [moment().startOf( "month" ), moment()],
-                "Last Month": [
-                    moment().subtract( "month", 1).startOf( "month" ),
-                    moment().subtract( "month", 1).endOf( "month" )
-                ],
-                "QTD": [
-                    moment().month( moment().quarter() * 3 ).subtract( "month", 3).startOf( "month" ),
-                    moment()
-                ],
-                "Last quarter": [
-                    moment().month( (moment().quarter() - 1) * 3 ).subtract( "month", 3 ).startOf( "month" ),
-                    moment().month( (moment().quarter() - 1) * 3 ).subtract( "month", 1 ).endOf( "month" )
-                ],
-                "YTD": [moment().startOf( "year" ), moment()],
-                "Last Year": [
-                    moment().subtract( "year", 1 ).startOf( "year"),
-                    moment().subtract( "year", 1 ).endOf( "year" )
-                ]
-            },
-            startDate: moment()
         },
         date_format: "dd.MM.yy"
     };

@@ -14,7 +14,7 @@
                 "1": "{{ order.date|datetime('dd.MM.yy', 'HH:mm', null, app.request.locale) }}",
                 "2": "{% if customer is defined %}<a href='{{ path('user_order', { id: order.id }) }}'>{{ order.id  }}</a>{% else %}<a href='{{ path('order', { id: order.id }) }}'>{{ order.id  }}</a>{% endif %}",
                 "3": "{% include 'DzangocartCoreBundle:Order:store.html.twig' with { store: order.store } %}",
-                "4": "<a href='{{ path('customer_show', { id: order.customerId }) }}'>{{ order.customer.name }}</a>",
+                "4": "<a href='{{ path('customer', { id: order.customerId }) }}'>{{ order.customer.name }}</a>",
                 "5": "{{ order.status }}",
                 "6": "{{ order.currency.format(order.getAmountExcl) }}",
                 "7": "{{ order.currency.format(order.getTaxAmount)}}",
