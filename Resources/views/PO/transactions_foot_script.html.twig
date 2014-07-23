@@ -10,10 +10,13 @@
 {% endjavascripts %}
 <script>
 dzangocart.po = {
-	dataTables: {
+	datatables: {
 		ajax: {
 			url: "{{ path('po_transactions_list') }}"
 		}
+	},
+	daterangepicker: {
+		ranges: {% include "DzangocartCoreBundle::date_ranges.html.twig" %}
 	}
 };
 </script>

@@ -22,7 +22,7 @@
                         table.api().draw();
                     });
 
-                    table = $( "table.table", this ).dataTable( $.extend( true, {}, settings.dataTables, {
+                    table = $( "table.table", this ).dataTable( $.extend( true, {}, settings.datatables, {
                         initComplete: function( settings, json ) {
                             $( this ).show();
                         },
@@ -76,7 +76,7 @@
     };
 
     $.fn.transactions.defaults = {
-        dataTables: {
+        datatables: {
             autoWidth: false,
             columns: [
                 { data: "check" },
@@ -125,28 +125,7 @@
         daterangepicker: {
             locale: { cancelLabel: "Clear"  },
             maxDate: moment(),
-            minDate: moment( "2009-01-01" ),
-            ranges: {
-                "MTD": [moment().startOf( "month" ), moment()],
-                "Last Month": [
-                    moment().subtract( "month", 1).startOf( "month" ),
-                    moment().subtract( "month", 1).endOf( "month" )
-                ],
-                "QTD": [
-                    moment().month( moment().quarter() * 3 ).subtract( "month", 3).startOf( "month" ),
-                    moment()
-                ],
-                "Last quarter": [
-                    moment().month( (moment().quarter() - 1) * 3 ).subtract( "month", 3 ).startOf( "month" ),
-                    moment().month( (moment().quarter() - 1) * 3 ).subtract( "month", 1 ).endOf( "month" )
-                ],
-                "YTD": [moment().startOf( "year" ), moment()],
-                "Last Year": [
-                    moment().subtract( "year", 1 ).startOf( "year"),
-                    moment().subtract( "year", 1 ).endOf( "year" )
-                ]
-            },
-            startDate: moment()
+            minDate: moment( "2009-01-01" )
         },
         date_format: "dd.MM.yy"
     };
