@@ -7,12 +7,12 @@
 {% block bodyclass %}orders{% endblock %}
 
 {% block _core_content %}
-	{% include "DzangocartCoreBundle:Order:orders.html.twig" %}
+	{% include "DzangocartCoreBundle:Cart:carts.html.twig" %}
 {% endblock %}
 
 {% block _core_head_style %}
 	{{ parent() }}
-	{% include "DzangocartCoreBundle:Order:orders_head_style.html.twig" %}
+	{% include "DzangocartCoreBundle:Cart:carts_head_style.html.twig" %}
 {% endblock %}
 
 {% block _core_foot_script %}
