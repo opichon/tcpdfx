@@ -2,8 +2,6 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Tests\Model\Store;
 
-use PHPUnit_Framework_TestCase;
-
 use Dzangocart\Bundle\CoreBundle\Model\AffiliateQuery;
 use Dzangocart\Bundle\CoreBundle\Model\Store;
 

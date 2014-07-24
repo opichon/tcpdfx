@@ -254,7 +254,6 @@ class CustomerController extends BaseController
 
     protected function getQuery()
     {
-
         return CustomerQuery::create()
             ->innerJoinCart('cart')
             ->innerJoinUserProfile('user_profile');
