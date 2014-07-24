@@ -34,10 +34,9 @@
 
     $.fn.order.defaults = {
         datatables: {
-            orderable: false,
+            ordering: false,
             paging: false,
-            searching: false,
-            serverSide: false
+            searching: false
         }
     };
 } ( window.jQuery );
