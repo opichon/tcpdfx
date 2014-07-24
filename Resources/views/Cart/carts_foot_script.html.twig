@@ -5,12 +5,12 @@
     'bundles/dzangocartcore/vendor/moment/min/moment-with-langs.min.js'
     'bundles/dzangocartcore/vendor/bootstrap-daterangepicker/daterangepicker.min.js'
     'bundles/dzangocartcore/js/ajax.js'
-    'bundles/dzangocartcore/js/order/orders.js'
+    'bundles/dzangocartcore/js/cart/carts.js'
 %}
 	<script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 <script>
-dzangocart.orders = {
+dzangocart.carts = {
     datatables: {
         ajax: {
             url: "{{ path('cart_list') }}"
