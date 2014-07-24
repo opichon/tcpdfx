@@ -11,7 +11,7 @@ cart:
 
     carts:
         actions:
-            show:           Show order
+            show:           Show Cart
         currency:           Ccy
         customer:           Customer
         date:               Date

@@ -13,10 +13,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * @Route("/cart")
+ */
 class CartController extends BaseController
 {
     /**
-    * @Route("/cart", name="carts")
+    * @Route("/", name="carts")
     * @Template("DzangocartCoreBundle:Cart:index.html.twig")
     */
     public function indexAction(Request $request)
@@ -37,8 +40,8 @@ class CartController extends BaseController
     }
 
     /**
-     * @Route("/cart/list", name="cart_list", requirements={"_format": "json"}, defaults={"_format": "json"})
-     * @Template("DzangocartCoreBundle:Order:list.json.twig")
+     * @Route("/list", name="cart_list", requirements={"_format": "json"}, defaults={"_format": "json"})
+     * @Template("DzangocartCoreBundle:Cart:list.json.twig")
      */
     public function listAction(Request $request)
     {
@@ -62,7 +65,7 @@ class CartController extends BaseController
         $limit = $this->getLimit($request);
         $offset = $this->getOffset($request);
 
-        $orders = $query
+        $carts = $query
             ->sort($this->getSortOrder($request))
             ->setLimit($limit)
             ->setOffset($offset)
@@ -72,11 +75,11 @@ class CartController extends BaseController
             'start' => 0,
             'total_count' => $total_count,
             'filtered_count' => $filtered_count,
-            'orders' => $orders
+            'carts' => $carts
         );
     }
     /**
-     * @Route("/cart/{id}", requirements={"id": "\d+"}, name="cart_show")
+     * @Route("/{id}", requirements={"id": "\d+"}, name="cart_show")
      * @Template("DzangocartCoreBundle:Cart:show.html.twig")
      */
     public function showAction(Request $request, $id)

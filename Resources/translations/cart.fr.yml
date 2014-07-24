@@ -11,7 +11,7 @@ cart:
 
     carts:
         actions:
-            show:           Afficher la commande
+            show:           Show Cart
         currency:           Dev.
         customer:           Client
         date:               Date
