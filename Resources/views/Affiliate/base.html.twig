@@ -15,7 +15,7 @@
 {% block page_class %}affiliates{% endblock %}
 
 {% block sidebar %}
-    {% if store %}
+    {% if store is defined %}
         {% set menu = knp_menu_get("DzangocartStoreAdminBundle:AdminMenuBuilder:mainMenu", [], { affiliate: affiliate }) %}
     {% else %}
         {% set menu = knp_menu_get("DzangocartAdminBundle:AdminMenuBuilder:mainMenu", [], { affiliate: affiliate }) %}
