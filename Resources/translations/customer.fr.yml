@@ -8,6 +8,7 @@ customer:
         gender:       Gender
         given_names:  Given Name
         id:           Id
+        name:         Name
         page_title:   Customers
         realm:        Realm
         sales:
@@ -21,6 +22,7 @@ customer:
             male:     Male
         given_names:  Given Name
         id:           Id
+        name:         Name
         realm:        Realm
         surname:      Surname
 
