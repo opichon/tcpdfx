@@ -8,6 +8,8 @@
 <a href="{{ path('orders') }}"><i class="fa fa-long-arrow-left"></i> {% trans %}order.show.back{% endtrans %}</a>
 {% endblock %}
 
+{% block bodyclass %}order{% endblock %}
+
 {% block sidebar %}
 	{% include "DzangocartCoreBundle:Order:store_menu.html.twig" %}
 {% endblock %}

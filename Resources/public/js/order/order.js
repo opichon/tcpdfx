@@ -12,6 +12,11 @@
                 return this.each(function() {
                     var $this = $( this );
 
+                    table = $( "table.table", this ).dataTable( $.extend( true, {}, settings.datatables, {
+                        initComplete: function( settings, json ) {
+                            $( this ).show();
+                        }
+                    } ) );
                 });
             }
         };
@@ -28,7 +33,12 @@
     };
 
     $.fn.order.defaults = {
-
+        datatables: {
+            orderable: false,
+            paging: false,
+            searching: false,
+            serverSide: false
+        }
     };
 } ( window.jQuery );
 
