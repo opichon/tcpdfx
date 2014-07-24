@@ -264,8 +264,9 @@ class CustomerController extends BaseController
     {
         return array(
             1 => 'customer.realm',
-            2 => 'user_profile.Surname',
-            3 => 'user_profile.GivenNames'
+            2 => array('user_profile.surname', 'user_profile.given_names'),
+            3 => 'user_profile.gender',
+            4 => 'user_profile.email'
 
         );
     }
@@ -274,8 +275,8 @@ class CustomerController extends BaseController
     {
         return array(
             'realm' => 'customer.realm LIKE "%%%s%%"',
-            'surname' => 'user_profile.surname LIKE "%%%s%%"',
-            'given_names' => 'user_profile.given_names LIKE "%%%s%%"',
+            //TODO [JP 7-24-2014] only search surname, need search by given_names and email.
+            'name' => 'user_profile.surname LIKE "%%%s%%"',
             'email' => 'user_profile.email LIKE "%%%s%%"',
             'gender' => 'user_profile.gender LIKE "%s"',
         );
