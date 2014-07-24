@@ -1,0 +1,46 @@
+cart:
+    filters:
+        customer:           Customer
+        date_from:          From
+        id:                 Id
+        period:             Period
+        store:              Store
+        test:               Include test carts
+        test_carts:         Test carts
+        to:                 To
+
+    carts:
+        actions:
+            show:           Show order
+        currency:           Ccy
+        customer:           Customer
+        date:               Date
+        gross:              Gross
+        id:                 '#'
+        net:                Net
+        page_title:         Carts
+        status:             Status
+        store_name:         Store
+        tax:                Tax
+
+    show:
+        action:             Action
+        amount_excl:        Gross
+        amount_incl:        Net
+        amount_tax:         Tax
+        back:               Back to orders list
+        customer:           Customer
+        date:               Date
+        items:              Items
+        name:               Name
+        number:             'Order #'
+        page_title:         Order: %id%
+        price_excl:         Gross price
+        payment:
+            amount:         Amount
+            date:           Date
+            description:    Description
+            gateway:        Gateway
+        payments:           Payments
+        quantity:           Quantity
+        store:              Store
