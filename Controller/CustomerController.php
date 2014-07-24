@@ -65,6 +65,10 @@ class CustomerController extends BaseController
             ->groupById()
             ->useUserProfileQuery('user_profile', Criteria::INNER_JOIN)
                 ->filterBySurname(null, Criteria::ISNOTNULL)
+                ->_or()
+                ->filterByGivenNames(null, Criteria::ISNOTNULL)
+                ->_or()
+                ->filterByEmail(null, Criteria::ISNOTNULL)
             ->endUse();
 
         if ($realm = $request->query->get('realm')) {
