@@ -5,8 +5,7 @@
 		<tr>
 			<th class="selectall"></th>
 			<th class="realm">{% trans %}customer.customers.realm{% endtrans %}</th>
-			<th class="surname">{% trans %}customer.customers.surname{% endtrans %}</th>
-			<th class="given_names">{% trans %}customer.customers.given_names{% endtrans %}</th>
+			<th class="name">{% trans %}customer.customers.name{% endtrans %}</th>
 			<th class="gender">{% trans %}customer.customers.gender{% endtrans %}</th>
 			<th class="email">{% trans %}customer.customers.email{% endtrans %}</th>
 			<th class="sales">{% trans %}customer.customers.sales.ytd{% endtrans %}</th>
@@ -15,8 +14,7 @@
 		<tr class="filters">
 			<th></th>
 			<th>{{ form_widget(filters.realm) }}</th>
-			<th>{{ form_widget(filters.surname) }}</th>
-			<th>{{ form_widget(filters.given_names) }}</th>
+			<th>{{ form_widget(filters.name) }}</th>
 			<th>{{ form_widget(filters.gender) }}</th>
 			<th>{{ form_widget(filters.email) }}</th>
 			<th></th>

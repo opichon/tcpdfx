@@ -58,10 +58,10 @@
 		datatables: {
 			autoWidth: false,
             columnDefs: [
-				{ orderable: false, targets: [ 0, 7 ] },
+				{ orderable: false, targets: [ 0, 6 ] },
 				{ visible: false, targets: [ 0 ] },
-				{ className: "number", targets: [ 6 ] },
-				{ className: "actions", targets: [ 7 ] }
+				{ className: "number", targets: [ 5 ] },
+				{ className: "actions", targets: [ 6 ] }
 			],
 			destroy: true,
             language: {

@@ -12,12 +12,11 @@
 				"DT_RowClass": "customer",
 				"0": "",
 				"1": "{{ customer.realm }}",
-				"2": "<a href='{{ path('customer', { id: customer.id }) }}'>{{ customer.userProfile.surname }}</a>",
-				"3": "{{ customer.userProfile.GivenNames }}",
-				"4": "{% if(customer.userProfile.gender == '1') %} m {% elseif(customer.userProfile.gender == '0') %} f {% else %} {% endif %}",
-				"5": "{{ customer.userProfile.email }}",
-				"6": "{{ customer.getydtSales|currency('EUR', app.request.locale) }}",
-				"7": "{% include 'DzangocartCoreBundle:Customer:actions.html.twig' %}"
+				"2": "<a href='{{ path('customer', { id: customer.id }) }}'>{{ customer.userProfile.surname ? customer.name : customer.userProfile.email }}</a>",
+				"3": "{% if(customer.userProfile.gender == '1') %} m {% elseif(customer.userProfile.gender == '0') %} f {% else %} {% endif %}",
+				"4": "{{ customer.userProfile.email }}",
+				"5": "{{ customer.getydtSales|currency('EUR', app.request.locale) }}",
+				"6": "{% include 'DzangocartCoreBundle:Customer:actions.html.twig' %}"
 			}{% if not loop.last %},{% endif %}
 		{% endfor %}
 	]

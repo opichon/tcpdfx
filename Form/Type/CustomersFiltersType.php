@@ -32,15 +32,20 @@ class CustomersFiltersType extends BaseAbstractType
             'required' => false
         ));
 
-        $builder->add('surname', 'text', array(
-            'label'=>'customer.filters.surname',
+        $builder->add('name', 'text', array(
+            'label'=>'customer.filters.name',
             'required' => false
         ));
-
-        $builder->add('given_names', 'text', array(
-            'label'=>'customer.filters.given_names',
-            'required' => false
-        ));
+//        TODO: [JP 7-24-2014] may used in future.
+//        $builder->add('surname', 'text', array(
+//            'label'=>'customer.filters.surname',
+//            'required' => false
+//        ));
+//
+//        $builder->add('given_names', 'text', array(
+//            'label'=>'customer.filters.given_names',
+//            'required' => false
+//        ));
 
         $builder->add('gender', 'choice', array(
             'label'=>'customer.filters.gender',
