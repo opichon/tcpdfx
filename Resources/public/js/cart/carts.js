@@ -61,7 +61,7 @@
                     return;
                 }
 
-                var widget = $( "[name='orders_filters[customer]']" );
+                var widget = $( "[name='carts_filters[customer]']" );
 
                 var customers = new Bloodhound({
                     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
@@ -82,29 +82,29 @@
                     source: customers.ttAdapter()
                 })
                 .on( "typeahead:selected", function( e, datum ) {
-                    $( "[name='orders_filters[customer_id]']" ).val( datum.id );
+                    $( "[name='carts_filters[customer_id]']" ).val( datum.id );
                         table.api().draw();
                 });
 
                 widget.keyup( function( ) {
                     if ( $(this).val() === "" ) {
-                        $( "[name='orders_filters[customer_id]']" ).val( "" );
+                        $( "[name='carts_filters[customer_id]']" ).val( "" );
                         table.api().draw();
                     }
                 })
             },
 
             initDateRangePicker: function( elt ) {
-                $( "input[name='orders_filters[period]']" ).daterangepicker(
+                $( "input[name='carts_filters[period]']" ).daterangepicker(
                     $.extend( true, {}, settings.daterangepicker,
                         {
-                            startDate: moment( $( "input[name='orders_filters[date_from]']", elt ).val(), "YYYY-MM-DD" ),
-                            endDate: moment( $( "input[name='orders_filters[date_to]']", elt ).val(), "YYYY-MM-DD" )
+                            startDate: moment( $( "input[name='carts_filters[date_from]']", elt ).val(), "YYYY-MM-DD" ),
+                            endDate: moment( $( "input[name='carts_filters[date_to]']", elt ).val(), "YYYY-MM-DD" )
                         }
                     ),
                     function(start, end) {
-                        $( "input[name='orders_filters[date_from]']" ).val( start.format( "YYYY-MM-DD" ) );
-                        $( "input[name='orders_filters[date_to]']" ).val( end.format( "YYYY-MM-DD" ) );
+                        $( "input[name='carts_filters[date_from]']" ).val( start.format( "YYYY-MM-DD" ) );
+                        $( "input[name='carts_filters[date_to]']" ).val( end.format( "YYYY-MM-DD" ) );
                         table.api().draw();
                     }
                 )

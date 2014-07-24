@@ -4,7 +4,7 @@ namespace Dzangocart\Bundle\CoreBundle\Controller;
 
 use DateTime;
 
-use Dzangocart\Bundle\CoreBundle\Form\Type\OrdersFiltersType;
+use Dzangocart\Bundle\CoreBundle\Form\Type\CartsFiltersType;
 use Dzangocart\Bundle\CoreBundle\Model\Cart;
 use Dzangocart\Bundle\CoreBundle\Model\CartQuery;
 
@@ -22,7 +22,7 @@ class CartController extends BaseController
     public function indexAction(Request $request)
     {
         $filters = $this->createForm(
-            new OrdersFiltersType(),
+            new CartsFiltersType(),
             array(
                 'date_from' => (new DateTime())->modify('first day of this month'),
                 'date_to' => new DateTime()
@@ -188,7 +188,7 @@ class CartController extends BaseController
 
     protected function getFilters(Request $request)
     {
-        return $request->query->get('orders_filters', array());
+        return $request->query->get('carts_filters', array());
     }
 
 }
