@@ -19,6 +19,9 @@ dzangocart.carts = {
             url: "/bundles/dzangocartcore/datatables/" + dzangocart.locale + ".json"
         }
     },
+    daterangepicker: {
+        ranges: {% include "DzangocartCoreBundle::date_ranges.html.twig" %}
+    },
     typeahead: {
         remote: {
             url:  "{{ path('customer_search', { search: '__query__' }) }}"
