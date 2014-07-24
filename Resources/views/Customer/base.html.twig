@@ -19,7 +19,7 @@
 {% block page_class %}customer{% endblock %}
 
 {% block sidebar %}
-	{% if store %}
+	{% if store is defined %}
 		{% set menu = knp_menu_get("DzangocartStoreAdminBundle:AdminMenuBuilder:mainMenu", [], { customer: customer }) %}
 		{{ knp_menu_render(menu, { style: 'stacked-pills' }) }}
 	 {% else %} {{ knp_menu_render("DzangocartAdminBundle:AdminMenuBuilder:mainMenu", { style: 'stacked-pills' }) }} {% endif %}
