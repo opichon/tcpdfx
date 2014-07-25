@@ -25,8 +25,25 @@ class Profile extends BaseProfile implements ProfileInterface
 
     public function getFullName($reverse = false)
     {
-        $pattern = $reverse ? '%2$s, %1$s' : '%1$s %2$s';
+        $surname = $this->getSurname() ?: '?';
+        $given_names =  $this->getGivenNames();
+        $email = $this->getEmail();
 
-        return sprintf($pattern, $this->getGivenNames(), $this->getSurname());
+        if (empty($given_names)) {
+            $pattern = empty($email) ? '%1$s' : '%1$s [%3$s]';
+        } else {
+            $pattern = $reverse ? '%1$s, %2$s' : '%2$s %1$s';
+
+            if (!empty($email)) {
+                $pattern .= ' [%3$s]';
+            }
+        }
+
+        return sprintf(
+            $pattern,
+            $surname,
+            $given_names,
+            $email
+        );
     }
 }
