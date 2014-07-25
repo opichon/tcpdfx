@@ -28,19 +28,13 @@ cart:
         amount_excl:        Gross
         amount_incl:        Net
         amount_tax:         Tax
-        back:               Back to orders list
+        back:               Back to carts list
         customer:           Customer
         date:               Date
         items:              Items
         name:               Name
-        number:             'Order #'
-        page_title:         Order: %id%
+        number:             'Cart #'
+        page_title:         Cart: %id%
         price_excl:         Gross price
-        payment:
-            amount:         Amount
-            date:           Date
-            description:    Description
-            gateway:        Gateway
-        payments:           Payments
         quantity:           Quantity
         store:              Store
