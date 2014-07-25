@@ -219,8 +219,7 @@ class CustomerController extends BaseController
         return array_merge(
             $this->getTemplateParams(),
             array(
-                'customer' => $this->getCustomer($request, $id),
-                'filters' => $filters->createView()
+                'customer' => $this->getCustomer($request, $id)
             )
         );
     }

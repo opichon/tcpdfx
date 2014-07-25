@@ -1,42 +1,45 @@
 customer:
+    carts:
+        page_title:     Shopping carts
+
     customers:
         actions:
-            show:     Show customer
-        code:         Code
-        email:        Email
-        eu:           EU
-        gender:       Gender
-        given_names:  Given Name
-        id:           Id
-        name:         Name
-        page_title:   Customers
-        realm:        Realm
+            show:       Show customer
+        code:           Code
+        email:          Email
+        eu:             EU
+        gender:         Gender
+        given_names:    Given Name
+        id:             Id
+        name:           Name
+        page_title:     Customers
+        realm:          Realm
         sales:
-            ytd:      YTD Sales
-        surname:      Surname
+            ytd:        YTD Sales
+        surname:        Surname
 
     filters:
-        email:        Email
+        email:          Email
         gender:
-            female:   Female
-            male:     Male
-        given_names:  Given Name
-        id:           Id
-        name:         Name
-        realm:        Realm
-        surname:      Surname
+            female:     Female
+            male:       Male
+        given_names:    Given Name
+        id:             Id
+        name:           Name
+        realm:          Realm
+        surname:        Surname
 
     orders:
-        page_title:   Orders
+        page_title:     Orders
 
     payments:
-        page_title:   Payments
+        page_title:     Payments
 
     purchases:
-        page_title:   Purchases
+        page_title:     Purchases
 
     show:
-        back:         Back to customer list
-        orders:       %name%: Orders
-        page_title:   Customer: %name%
-        payments:     %name%: Payments
+        back:           Back to customer list
+        orders:         %name%: Orders
+        page_title:     Customer: %name%
+        payments:       %name%: Payments
