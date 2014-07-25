@@ -79,7 +79,7 @@ class CartController extends BaseController
         );
     }
     /**
-     * @Route("/{id}", requirements={"id": "\d+"}, name="cart_show")
+     * @Route("/{id}", requirements={"id": "\d+"}, name="cart")
      * @Template("DzangocartCoreBundle:Cart:show.html.twig")
      */
     public function showAction(Request $request, $id)
