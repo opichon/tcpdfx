@@ -1,63 +1,82 @@
-{% extends "::admin.html.twig" %}
+{% extends template %}
 
-{% trans_default_domain "order" %}
+{% trans_default_domain "cart" %}
 
-{% block page_title %}{% trans with { '%id%': order.id } %}order.show.page_title{% endtrans %}{% endblock %}
+{% block _core_page_title %}{% trans with { '%id%': cart.id } %}cart.show.page_title{% endtrans %}{% endblock %}
 
-{% block bodyclass %}order{% endblock %}
+{% block _core_page_nav %}
+<a href="{{ path('carts') }}"><i class="fa fa-long-arrow-left"></i> {% trans %}cart.show.back{% endtrans %}</a>
+{% endblock %}
 
-{% block content %}
-<div class="items">
-    <table class="table table-condensed">
-        <thead>
-            <th class="selectall"></th>
-            <th class="name">{% trans %}order.show.name{% endtrans %}</th>
-            <th class="quantity">{% trans %}order.show.quantity{% endtrans %}</th>
-            <th class="price_excl">{% trans %}order.show.price_excl{% endtrans %}</th>
-            <th class="amount_excl">{% trans %}order.show.amount_excl{% endtrans %}</th>
-            <th class="amount_tax">{% trans %}order.show.amount_tax{% endtrans %}</th>
-            <th class="amount_incl">{% trans %}order.show.amount_incl{% endtrans %}</th>
-            <th class="actions">{% trans %}order.show.actions.title{% endtrans %}</th>
-        </thead>
-        <tbody>
-        {% for item in order.items %}
-            <tr>
-                <td></td>
-                <td>{{ item.name }}</td>
-                <td>{{ item.quantity|integer(app.request.locale) }}</td>
-                <td>{{ item.priceExcl|currency(item.currencyId, app.request.locale) }}</td>
-                <td>{{ item.amountExcl|currency(item.currencyId, app.request.locale) }}</td>
-                <td>{{ item.taxAmount|currency(item.currencyId, app.request.locale) }}</td>
-                <td>{{ item.amountIncl|currency(item.currencyId, app.request.locale) }}</td>
-                <td></td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+{% block bodyclass %}cart{% endblock %}
+
+{% block _core_content %}
+
+{% block parties %}
+{% endblock %}
+<div class="row">
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <dl class="dl-horizontal">
+                    <dt>{% trans %}cart.show.number{% endtrans %}</dt>
+                    <dd>{{ cart.id }}</dd>
+                    <dt>{% trans %}cart.show.date{% endtrans %}</dt>
+                    <dd>{{ cart.date|date('dd.MM.yyyy hh:mm', null, app.request.locale) }}</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <address>
+                    <strong>{{ cart.customer.name }}</strong>
+                </address>
+            </div>
+        </div>
+    </div>
+</div>
+{% block items %}
+<div class="panel panel-default items">
+    <div class="panel-heading">
+        <h4 class="panel-title">{% trans %}cart.show.items{% endtrans %}</h4>
+    </div>
+    <div class="panel-body">
+        <table class="table table-condensed">
+            <thead>
+                <th class="name">{% trans %}cart.show.name{% endtrans %}</th>
+                <th class="quantity">{% trans %}cart.show.quantity{% endtrans %}</th>
+                <th class="amount">{% trans %}cart.show.price_excl{% endtrans %}</th>
+                <th class="amount">{% trans %}cart.show.amount_excl{% endtrans %}</th>
+                <th class="amount">{% trans %}cart.show.amount_tax{% endtrans %}</th>
+                <th class="amount">{% trans %}cart.show.amount_incl{% endtrans %}</th>
+            </thead>
+            <tbody>
+            {% for item in cart.items %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td class="number">{{ item.quantity|integer(app.request.locale) }}</td>
+                    <td class="amount">{{ item.priceExcl|currency(item.currencyId, app.request.locale) }}</td>
+                    <td class="amount">{{ item.amountExcl|currency(item.currencyId, app.request.locale) }}</td>
+                    <td class="amount">{{ item.taxAmount|currency(item.currencyId, app.request.locale) }}</td>
+                    <td class="amount">{{ item.amountIncl|currency(item.currencyId, app.request.locale) }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 {% endblock %}
 
-{% block head_style %}
-	{{ parent() }}
-	{% stylesheets filter="cssrewrite" output="css/*.css"
-        'bundles/uamdatatables/css/jquery.dataTables_bootstrap.css'
-        'bundles/dzangocartcore/css/order/order.css'
-	%}
-		<link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
-	{% endstylesheets %}
-{% endblock head_style %}
+{% endblock %}
 
-{% block foot_script %}
+{% block _core_head_style %}
 	{{ parent() }}
-	{% javascripts
-        'bundles/uamdatatables/js/jquery.dataTables.min.js'
-        'bundles/uamdatatables/js/jquery.dataTables_bootstrap.js'
-	%}
-		<script src="{{ asset_url }}"></script>
-	{% endjavascripts %}
-	<script>
-	store.order = {
+	{% include "DzangocartCoreBundle:Cart:cart_head_style.html.twig" %}
+{% endblock %}
 
-	}
-	</script>
+{% block _core_foot_script %}
+	{{ parent() }}
+	{% include "DzangocartCoreBundle:Cart:cart_foot_script.html.twig" %}
 {% endblock %}

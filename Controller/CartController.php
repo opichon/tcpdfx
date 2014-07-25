@@ -84,18 +84,23 @@ class CartController extends BaseController
      */
     public function showAction(Request $request, $id)
     {
-        $order = CartQuery::create()
+        $cart = $this->getQuery()
             ->findPk($id);
 
-        if (!$order) {
+        if (!$cart) {
             throw $this->createNotFoundException(
-                $this->get('translator')->trans('order.show.error.not_found', array(), 'order', $request->getLocale())
+                $this->get('translator')->trans(
+                    'cart.show.error.not_found',
+                    array(),
+                    'cart',
+                    $request->getLocale()
+                )
             );
         }
 
         return array(
-            'store' => $this->getStore(),
-            'order' => $order,
+            'cart' => $cart,
+            'template' => $this->getBaseTemplate()
         );
     }
 
