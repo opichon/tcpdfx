@@ -16,6 +16,9 @@
         "dzangocart/subscription-bundle": "dev-master",
         "dzangocart/domain-subscription-bundle": "dev-master"
     },
+    "require-dev": {
+        "willdurand/faker-bundle": "@stable"
+    },
     "autoload": {
         "psr-0": { "Dzangocart\\Bundle\\CoreBundle": "" }
     },
