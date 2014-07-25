@@ -32,10 +32,11 @@ class CartController extends BaseController
             )
         );
 
-        return array(
-            'store' => $this->getStore(),
-            'filters' => $filters->createView(),
-            'template' => $this->getBaseTemplate()
+        return array_merge(
+            $this->getTemplateParams(),
+            array(
+                'filters' => $filters->createView()
+            )
         );
     }
 
@@ -71,11 +72,13 @@ class CartController extends BaseController
             ->setOffset($offset)
             ->find();
 
-        return array(
-            'start' => 0,
-            'total_count' => $total_count,
-            'filtered_count' => $filtered_count,
-            'carts' => $carts
+        return array_merge(
+            $this->getTemplateParams(),
+            array(
+                'total_count' => $total_count,
+                'filtered_count' => $filtered_count,
+                'carts' => $carts
+            )
         );
     }
     /**
@@ -98,9 +101,11 @@ class CartController extends BaseController
             );
         }
 
-        return array(
-            'cart' => $cart,
-            'template' => $this->getBaseTemplate()
+        return array_merge(
+            $this->getTemplateParams(),
+            array(
+                'cart' => $cart,
+            )
         );
     }
 
