@@ -15,11 +15,10 @@
                 "2": "{% if customer is defined %}<a href='{{ path('user_order', { id: cart.id }) }}'>{{ cart.id  }}</a>{% else %}<a href='{{ path('order', { id: cart.id }) }}'>{{ cart.id  }}</a>{% endif %}",
                 "3": "{% include 'DzangocartCoreBundle:Cart:store.html.twig' with { store: cart.store } %}",
                 "4": "<a href='{{ path('customer', { id: cart.customerId }) }}'>{{ cart.customer.name }}</a>",
-                "5": "{{ cart.status }}",
-                "6": "{{ cart.currency.format(cart.getAmountExcl) }}",
-                "7": "{{ cart.currency.format(cart.getTaxAmount)}}",
-                "8": "{{ cart.currency.format(cart.getAmountIncl)}}",
-                "9": "{% include 'DzangocartCoreBundle:Cart:actions.html.twig' %}"
+                "5": "{{ cart.currency.format(cart.getAmountExcl) }}",
+                "6": "{{ cart.currency.format(cart.getTaxAmount)}}",
+                "7": "{{ cart.currency.format(cart.getAmountIncl)}}",
+                "8": "{% include 'DzangocartCoreBundle:Cart:actions.html.twig' %}"
             }{% if not loop.last %},{% endif %}
         {% endfor %}
     ]

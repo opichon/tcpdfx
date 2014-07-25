@@ -127,10 +127,10 @@
         datatables: {
             autoWidth: false,
             columnDefs: [
-                { orderable: false, targets: [ 0, 9 ] },
+                { orderable: false, targets: [ 0, 8 ] },
                 { visible: false, targets: [ 0 ] },
-                { className: "number", targets: [ 6, 7, 8 ] },
-                { className: "actions", targets: [ 9 ] }
+                { className: "number", targets: [ 5, 6, 7 ] },
+                { className: "actions", targets: [ 8 ] }
             ],
             destroy: true,
             language: {
