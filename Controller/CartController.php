@@ -111,10 +111,9 @@ class CartController extends BaseController
             2 => 'cart.id',
             3 => 'store.Name',
             4 => array('user_profile.surname', 'user_profile.given_names'),
-            5 => 'cart.status',
-            6 => 'cart.amount_excl',
-            7 => 'cart.tax_amount',
-            8 => 'cart.amount_incl'
+            5 => 'cart.amount_excl',
+            6 => 'cart.tax_amount',
+            7 => 'cart.amount_incl'
         );
     }
 
