@@ -82,21 +82,18 @@ class CustomerController extends BaseController
 
         $count_total = $query->count();
 
-        $query->datatablesSearch(
-            $request->query->get('customer_filters'),
-            $this->getDataTablesSearchColumns()
+        $query->filter(
+            $this->getFilters($request),
+            $this->getSearchColumns()
         );
 
         $count_filtered = $query->count();
 
-        $limit = min(100, $request->query->get('length', 10));
-        $offset = max(0, $request->query->get('start', 0));
+        $limit = $this->getLimit($request);
+        $offset = $this->getOffset($request);
 
         $customers = $query
-            ->dataTablesSort(
-                $request->query->get('order', array()),
-                $this->getDataTablesSortColumns()
-            )
+            ->sort($this->getSortOrder($request))
             ->setLimit($limit)
             ->setOffset($offset)
             ->find();
@@ -258,7 +255,7 @@ class CustomerController extends BaseController
             ->innerJoinUserProfile('user_profile');
     }
 
-    protected function getDataTablesSortColumns()
+    protected function getSortColumns()
     {
         return array(
             1 => 'customer.realm',
@@ -269,7 +266,7 @@ class CustomerController extends BaseController
         );
     }
 
-    protected function getDataTablesSearchColumns()
+    protected function getSearchColumns()
     {
         return array(
             'realm' => 'customer.realm LIKE "%%%s%%"',
@@ -292,5 +289,66 @@ class CustomerController extends BaseController
         }
 
         return $customer;
+    }
+
+    protected function getLimit(Request $request)
+    {
+        return min(100, $request->query->get('length', 10));
+    }
+
+    protected function getOffset(Request $request)
+    {
+        return max(0, $request->query->get('start', 0));
+    }
+
+    protected function getFilters(Request $request)
+    {
+        return $request->query->get('customer_filters', array());
+    }
+
+    /**
+     * Returns the sort order parameters in a format that can be passed
+     * as the argument to the ItemQuery#sort method.
+     *
+     * If the request query provides no sort order indications, this method
+     * should return an array reflecting the default sort order (by date).
+     *
+     * @return array
+     */
+    protected function getSortOrder(Request $request)
+    {
+        $sort = array();
+
+        $order = $request->query->get('order', array());
+
+        $columns = $this->getSortColumns();
+
+        foreach ($order as $setting) {
+
+            $index = $setting['column'];
+
+            if (array_key_exists($index, $columns)) {
+
+                if (!is_array($columns[$index])) {
+                    $columns[$index] = array($columns[$index]);
+                }
+
+                foreach ($columns[$index] as $sort_column) {
+                    $sort[] = array(
+                        $sort_column,
+                        $setting['dir']
+                    );
+                }
+            }
+        }
+
+       if (empty($sort)) {
+            $sort[] = array(
+                'customer.realm',
+                'asc'
+            );
+        }
+
+        return $sort;
     }
 }

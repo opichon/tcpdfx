@@ -2,50 +2,11 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Model;
 
-use Criteria;
-
 use Dzangocart\Bundle\CoreBundle\Model\om\BaseCustomerQuery;
 
 class CustomerQuery extends BaseCustomerQuery
 {
-    public function datatablesSort(array $order = array(), array $columns = array())
-    {
-        $control = 0;
-
-        foreach ($order as $setting) {
-
-            $index = $setting['column'];
-
-            if (array_key_exists($index, $columns)) {
-                $sort_columns = $columns[$index];
-
-                $dir = $setting['dir'] == 'asc'
-                    ? Criteria::ASC
-                    : Criteria::DESC;
-
-                if (!is_array($sort_columns)) {
-                    $sort_columns = array($sort_columns);
-                }
-
-                foreach ($sort_columns as $column) {
-                    $this->orderBy($column, $dir);
-                }
-
-                $control++;
-            }
-        }
-
-        return $control ? $this : $this->defaultSort();
-    }
-
-    protected function defaultSort()
-    {
-        return $this
-            ->orderBy('user_profile.Surname')
-            ->orderBy('user_profile.GivenNames');
-    }
-
-    public function dataTablesSearch(array $filters = null, array $columns = array())
+    public function filter(array $filters = null, array $columns = array())
     {
         if (empty($filters)) {
             return $this;
@@ -77,9 +38,25 @@ class CustomerQuery extends BaseCustomerQuery
         }
     }
 
-    public function identified()
+    /**
+     * Adds sorting to the query. The sort order is provided by the $order argument
+     * in the form of a 2-dimensional array. Each array element is an array in the form of
+     * [field, direction], where:
+     * - field is a column-name in a format understandable by this Propel query
+     * - direction is either Criteria::ASC or Criteria::DESC
+     *
+     * @param $order Array a 2-dimensional array in the form of [[field1, direction1],[field2, direction2],...]
+     *
+     * @Return CustomerQuery this query
+     */
+    public function sort(array $order = array())
     {
-        return $this
-            ->filterByUserProfileId(null, Criteria::ISNOTNULL);
+        foreach ($order as $setting) {
+            $column = $setting[0];
+            $direction = $setting[1];
+            $this->orderBy($column, $direction);
+        }
+
+        return $this;
     }
 }
