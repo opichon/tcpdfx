@@ -24,7 +24,7 @@ class AllowOrdersTest extends PHPUnit_Framework_TestCase
             ->method('isConfirmed')
             ->will($this->returnValue(false));
 
-    	$this->assertFalse($this->store->allowOrders());
+        $this->assertFalse($this->store->allowOrders());
     }
 
     public function testSuspended()
@@ -64,6 +64,6 @@ class AllowOrdersTest extends PHPUnit_Framework_TestCase
             ->method('isClosed')
             ->will($this->returnValue(false));
 
-    	$this->assertTrue($this->store->allowOrders());
+        $this->assertTrue($this->store->allowOrders());
     }
 }

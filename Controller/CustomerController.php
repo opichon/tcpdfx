@@ -308,7 +308,7 @@ class CustomerController extends BaseController
 
     /**
      * Returns the sort order parameters in a format that can be passed
-     * as the argument to the ItemQuery#sort method.
+     * as the argument to the CustomerQuery#sort method.
      *
      * If the request query provides no sort order indications, this method
      * should return an array reflecting the default sort order (by date).
