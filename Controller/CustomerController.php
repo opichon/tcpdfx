@@ -344,7 +344,12 @@ class CustomerController extends BaseController
 
        if (empty($sort)) {
             $sort[] = array(
-                'customer.realm',
+                'user_profile.surname',
+                'asc'
+            );
+
+            $sort[] = array(
+                'user_profile.given_names',
                 'asc'
             );
         }
