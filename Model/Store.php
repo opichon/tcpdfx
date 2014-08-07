@@ -2,6 +2,8 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Model;
 
+use Dzangocart\Bundle\CoreBundle\Model\Affiliate;
+use Dzangocart\Bundle\CoreBundle\Model\Customer;
 use Dzangocart\Bundle\CoreBundle\Model\Gateway\GatewayQuery;
 use Dzangocart\Bundle\CoreBundle\Model\om\BaseStore;
 
@@ -244,5 +246,10 @@ class Store extends BaseStore
             ->filterByStatus(gateway::STATUS_ACTIVE, Criteria::GREATER_THAN)
             ->filterByTesting(false)
             ->count();
+    }
+
+    public function createCart(Customer $customer = null, Affiliate $affiliate = null)
+    {
+        //TODO
     }
 }

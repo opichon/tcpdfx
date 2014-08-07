@@ -2,6 +2,7 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Model;
 
+use Dzangocart\Bundle\CoreBundle\Model\Affiliate;
 use Dzangocart\Bundle\CoreBundle\Model\om\BaseUser;
 
 use FOS\UserBundle\Model\UserInterface;
@@ -306,4 +307,8 @@ class User extends BaseUser implements UserInterface
         return $query->count() > 0;
     }
 
+    public function getCart(Affiliate $affiliate = null)
+    {
+        //TODO
+    }
 }
