@@ -33,7 +33,7 @@ class AffiliateQuery extends BaseAffiliateQuery
         return $control ? $this : $this->defaultSort();
     }
 
-     protected function defaultSort()
+    protected function defaultSort()
     {
         return $this->orderBy('affiliate.id');
     }
@@ -57,6 +57,5 @@ class AffiliateQuery extends BaseAffiliateQuery
         }
 
         return $this->where($conditions, 'or');
-     }
-
+    }
 }
