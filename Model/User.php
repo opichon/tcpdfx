@@ -309,6 +309,8 @@ class User extends BaseUser implements UserInterface
 
     public function getCart(Affiliate $affiliate = null)
     {
-        //TODO
+        return CartQuery::create()
+            ->filterByAffiliate($affiliate)
+            ->find();
     }
 }
