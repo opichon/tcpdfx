@@ -309,8 +309,23 @@ class User extends BaseUser implements UserInterface
 
     public function getCart(Affiliate $affiliate = null)
     {
-        return CartQuery::create()
-            ->filterByAffiliate($affiliate)
-            ->find();
+        // if affiliate is null,
+        // there may be to case 1. user is anynomous  2. user is authenticated .
+        // this method does not concern about anynomous user.
+        $query = CartQuery::create();
+
+        if ($affiliate) {
+            $query
+                ->filterByAffiliate($affiliate);
+        } else {
+            $query
+                ->useCustomerQuery()
+                    ->useUserProfileQuery()
+                        ->filterByUser($this)
+                    ->endUse()
+                ->endUse();
+        }
+
+        return $query->find();
     }
 }
