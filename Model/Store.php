@@ -248,6 +248,11 @@ class Store extends BaseStore
             ->count();
     }
 
+    public function getCart(Customer $customer, Affiliate $affiliate = null)
+    {
+        return null;
+    }
+
     public function createCart(Customer $customer = null, Affiliate $affiliate = null)
     {
         //TODO
