@@ -312,7 +312,8 @@ class User extends BaseUser implements UserInterface
         // if affiliate is null,
         // there may be to case 1. user is anynomous  2. user is authenticated .
         // this method does not concern about anynomous user.
-        $query = CartQuery::create();
+        $query = CartQuery::create()
+            ->filterByStatus(Cart::STATUS_OPEN);
 
         if ($affiliate) {
             $query
