@@ -315,7 +315,7 @@ class User extends BaseUser implements UserInterface
         $query = CartQuery::create()
             ->filterByStatus(Cart::STATUS_OPEN);
 
-        if ($affiliate) {
+        if ($affiliate != null) {
             $query
                 ->filterByAffiliate($affiliate);
         } else {
@@ -327,6 +327,6 @@ class User extends BaseUser implements UserInterface
                 ->endUse();
         }
 
-        return $query->find();
+        return $query->findOne();
     }
 }
