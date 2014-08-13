@@ -268,17 +268,16 @@ class Store extends BaseStore
 
     public function getDefaultCategory()
     {
-        $query = CategoryQuery::create();
-
-        $catalouge = $query
-            ->findRoot($this->getId());
-
         $default_category_id = $this->getDefaultCategoryId();
 
         if ($default_category_id !== null) {
-            return $query
-            ->findPk($default_category_id);
+            return CategoryQuery::create()
+                ->filterByStore($this)
+                ->findPk($default_category_id);
         }
+
+        $catalouge = CategoryQuery::create()
+            ->findRoot($this->getId());
 
         if ($default_category_id == null && !empty($catalouge)) {
             return;
