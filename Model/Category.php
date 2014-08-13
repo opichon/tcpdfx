@@ -24,4 +24,14 @@ class Category extends BaseCategory
 
         return $this;
     }
+
+    public function isPackOnly()
+    {
+        return $this->getPackOnly();
+    }
+
+    public function isNotForSale()
+    {
+        return $this->getNotForSale();
+    }
 }
