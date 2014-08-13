@@ -257,4 +257,15 @@ class Store extends BaseStore
     {
         //TODO
     }
+
+    //FIX ME: this may accept more paramter
+    public function getCategoryByCode($code)
+    {
+        //TODO
+    }
+
+    public function getDefaultCategory()
+    {
+        //TODO
+    }
 }
