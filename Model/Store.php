@@ -266,6 +266,25 @@ class Store extends BaseStore
 
     public function getDefaultCategory()
     {
-        //TODO
+        $query = CategoryQuery::create();
+
+        $catalouge = $query
+            ->findRoot($this->getId());
+
+        $default_category_id = $this->getDefaultCategoryId();
+
+        if ($default_category_id !== null) {
+            return $query
+            ->findPk($default_category_id);
+        }
+
+        if ($default_category_id == null && !empty($catalouge)) {
+            return;
+        }
+
+        //FIX ME: [JP 13-08-2014]
+        //if default category id is null and store catalouge is empty,
+        //new default category is created for this store.
+        return;
     }
 }
