@@ -276,10 +276,10 @@ class Store extends BaseStore
                 ->findPk($default_category_id);
         }
 
-        $catalouge = CategoryQuery::create()
+        $catalogue = CategoryQuery::create()
             ->findRoot($this->getId());
 
-        if ($default_category_id == null && !empty($catalouge)) {
+        if ($default_category_id == null && !empty($catalogue)) {
             return;
         }
 
