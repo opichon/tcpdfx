@@ -258,10 +258,12 @@ class Store extends BaseStore
         //TODO
     }
 
-    //FIX ME: this may accept more paramter
+    //FIX ME: this may accept more paramter, need to adjust
     public function getCategoryByCode($code)
     {
-        //TODO
+        return CategoryQuery::create()
+            ->filterByCode($code)
+            ->findOne();
     }
 
     public function getDefaultCategory()
