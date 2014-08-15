@@ -2,11 +2,12 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Exception;
 
-use Exception;
+use RuntimeException;
 
+use Dzangocart\Bundle\CoreBundle\Exception\DzangocartExceptionInterface;
 use Dzangocart\Bundle\CoreBundle\Model\Store;
 
-abstract class StoreException extends RuntimeException implements DzangocartException
+abstract class StoreException extends RuntimeException implements DzangocartExceptionInterface
 {
 	protected $store;
 
