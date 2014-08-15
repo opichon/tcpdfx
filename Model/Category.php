@@ -39,7 +39,17 @@ class Category extends BaseCategory
 
     public function addItemToCart($cart, $name, $price, $quantity, $code, $options)
     {
-        //TODO
+        $factory = $this->getItemFactory();
+
+        if (empty($name)) {
+            $name = $this->getName();
+        }
+
+        if (empty($price)) {
+            $price = $this->getPrice();
+        }
+
+        return $factory->addItemToCart($cart, $name, $price, $quantity, $code, $options);
     }
 
     public function getItemFactory()
