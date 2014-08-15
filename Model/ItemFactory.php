@@ -45,4 +45,24 @@ class ItemFactory
     {
         //TODO
     }
+
+    public function setItemName($item, $name, $option = null)
+    {
+        //TODO
+    }
+
+    public function setItemCode($item, $code, $option = null)
+    {
+        //TODO
+    }
+
+    public function setItemQuantity($item, $quantity, $option = null)
+    {
+        //TODO
+    }
+
+    public function setItemPrice($item, $price, $option = null)
+    {
+        //TODO
+    }
 }
