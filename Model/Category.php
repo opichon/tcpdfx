@@ -34,4 +34,20 @@ class Category extends BaseCategory
     {
         return $this->getNotForSale();
     }
+
+    public function addItemToCart($cart, $name, $price, $quantity, $code, $options)
+    {
+        //TODO
+    }
+
+    public function getItemFactory()
+    {
+        //TODO
+    }
+
+    public function getItemFactoryClass()
+    {
+        //TODO
+        //return parent::getItemFactoryClass();
+    }
 }
