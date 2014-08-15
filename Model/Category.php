@@ -6,6 +6,8 @@ use Dzangocart\Bundle\CoreBundle\Model\om\BaseCategory;
 
 class Category extends BaseCategory
 {
+    protected $item_factory;
+
     public function getPcode()
     {
         return $this->pcode;
