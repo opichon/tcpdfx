@@ -1,8 +1,16 @@
 <?php
 
+use Dzangocart\Bundle\CoreBundle\Model\Category;
 
 class ItemFactory
 {
+    protected $category;
+
+    public function __construct(Category $category)
+    {
+        $this->category = $category;
+    }
+
     public function addItemToCart($cart, $name, $price, $quantity, $code, $options)
     {
         //TODO
