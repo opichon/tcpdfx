@@ -70,4 +70,9 @@ class Cart extends BaseCart
         // TODO
         return false;
     }
+
+    public function addNewItem($category, $name, $price, $quantity, $code, $options = array())
+    {
+        //TODO
+    }
 }
