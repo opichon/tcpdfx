@@ -44,10 +44,4 @@ class Category extends BaseCategory
     {
         //TODO
     }
-
-    public function getItemFactoryClass()
-    {
-        //TODO
-        //return parent::getItemFactoryClass();
-    }
 }
