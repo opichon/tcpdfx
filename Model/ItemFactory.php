@@ -21,7 +21,7 @@ class ItemFactory
 
         $item = $this->getCurrentItem($cart, $name, $code, $price, $options);
 
-        $adjusted_quantity = $this->getAllowedQuantity($cart, $name, $quantity, $code, $options);
+        $adjusted_quantity = $this->getAllowedQuantity($cart,$quantity, $code);
 
         if ($adjusted_quantity == 0) {
             return;
@@ -37,7 +37,7 @@ class ItemFactory
             $this->addNewItem($cart, $name, $price, $adjusted_quantity, $code, $options);
         }
 
-        $item->save();
+        //$item->save();
 
         $cart->reload(true);
 
@@ -46,9 +46,33 @@ class ItemFactory
         return $item;
     }
 
-    public function getAllowedQuantity($cart, $name, $quantity, $code, $options)
+    public function getAllowedQuantity($cart, $quantity, $code)
     {
-        //TODO
+        if (!$cart || !$quantity) {
+            return;
+        }
+
+        $max_quantity = $this->category->getMaxQuantity();
+
+        // no limit
+        if ($max_quantity == 0) {
+            return $quantity;
+        }
+
+        $max_per_code = $this->category->getMaxPerCode();
+
+        //FIX ME: create the logic to get $current_quantity;
+        $current_quantity = 0;
+
+//        $current_quantity = $cart->getCustomer()
+//            ? $cart->getCustomer()->getQuantity() + $cart->getQuantity()
+//            : $cart->getQuantity();
+
+        if ($current_quantity >= $max_quantity) {
+            return;
+        }
+
+        return min($quantity, $max_quantity - $current_quantity);
     }
 
     protected function getCurrentItem($cart, $name, $code, $price, $options = array())
