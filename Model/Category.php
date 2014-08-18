@@ -56,7 +56,7 @@ class Category extends BaseCategory
     {
         if (!$this->item_factory) {
             //FIXME: [JP 15-08-2014] need to consider pack item.
-            $cls = $this->getItemFactoryClass() ? $this->getItemFactoryClass() : 'ItemFactory';
+            $cls = $this->getItemFactoryClass() ? $this->getItemFactoryClass() : 'Dzangocart\Bundle\CoreBundle\Model\ItemFactory';
             $this->item_factory = new $cls($this);
         }
 
