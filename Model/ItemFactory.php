@@ -49,7 +49,7 @@ class ItemFactory
     public function getAllowedQuantity($cart, $quantity, $code)
     {
         if (!$cart || !$quantity) {
-            return;
+            return 0;
         }
 
         $max_quantity = $this->category->getMaxQuantity();
@@ -69,7 +69,7 @@ class ItemFactory
 //            : $cart->getQuantity();
 
         if ($current_quantity >= $max_quantity) {
-            return;
+            return 0;
         }
 
         return min($quantity, $max_quantity - $current_quantity);
