@@ -15,7 +15,35 @@ class ItemFactory
 
     public function addItemToCart($cart, $name, $price, $quantity, $code, $options)
     {
-        //TODO
+        if ($cart->isNew()) {
+            $cart->save();
+        }
+
+        $item = $this->getCurrentItem($cart, $name, $code, $price, $options);
+
+        $adjusted_quantity = $this->getAllowedQuantity($cart, $name, $quantity, $code, $options);
+
+        if ($adjusted_quantity == 0) {
+            return;
+        }
+
+        if ($adjusted_quantity > 0) {
+            $this->increaseQuantity($item, $adjusted_quantity);
+        } else {
+            $this->updateItemPrice($item, $price, $options);
+        }
+
+        if (!$item) {
+            $this->addNewItem($cart, $name, $price, $adjusted_quantity, $code, $options);
+        }
+
+        $item->save();
+
+        $cart->reload(true);
+
+        //$cart->updateAmounts();
+
+        return $item;
     }
 
     public function getAllowedQuantity($cart, $name, $quantity, $code, $options)
