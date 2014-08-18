@@ -7,6 +7,10 @@
         <column name="city"    type="varchar" size="30" required="true" />
         <column name="state"   type="varchar" size="30" required="false" />
         <column name="zip"     type="varchar" size="15" required="false" />
-        <column name="country" type="varchar" size="2" required="true" defaultValue="FR" />
+        <column name="country" type="varchar" size="2"  required="true" defaultValue="FR" />
+        
+        <behavior name="timestampable">
+            <parameter name="created_at" value="created_on" />
+        </behavior>
     </table>
 </database>
