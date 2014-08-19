@@ -23,6 +23,7 @@ class ItemFactory
             return;
         }
 
+        // if item exist, no need to add to cart but modified existing item.
         $item = $this->getCurrentItem($cart, $name, $code, $price, $options);
 
         if ($adjusted_quantity > 0) {
