@@ -15,10 +15,6 @@ class ItemFactory
 
     public function addItemToCart($cart, $name, $price, $quantity, $code, $options)
     {
-        if ($cart->isNew()) {
-            $cart->save();
-        }
-
         $item = $this->getCurrentItem($cart, $name, $code, $price, $options);
 
         $adjusted_quantity = $this->getAllowedQuantity($cart,$quantity, $code);
