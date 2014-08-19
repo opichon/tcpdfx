@@ -2,6 +2,7 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Model;
 
+use Dzangocart\Bundle\CoreBundle\Model\Cart;
 use Dzangocart\Bundle\CoreBundle\Model\Category;
 
 class ItemFactory
@@ -13,11 +14,11 @@ class ItemFactory
         $this->category = $category;
     }
 
-    public function addItemToCart($cart, $name, $price, $quantity, $code, $options)
+    public function addItemToCart(Cart $cart, $name, $price, $quantity, $code, $options = array())
     {
         $item = $this->getCurrentItem($cart, $name, $code, $price, $options);
 
-        $adjusted_quantity = $this->getAllowedQuantity($cart,$quantity, $code);
+        $adjusted_quantity = $this->getAllowedQuantity($cart,$quantity, $code, $options);
 
         if ($adjusted_quantity == 0) {
             return;
@@ -42,7 +43,7 @@ class ItemFactory
         return $item;
     }
 
-    public function getAllowedQuantity($cart, $quantity, $code)
+    public function getAllowedQuantity(Cart $cart, $quantity, $code, $options = array())
     {
         if (!$cart || !$quantity) {
             return 0;
@@ -71,7 +72,7 @@ class ItemFactory
         return min($quantity, $max_quantity - $current_quantity);
     }
 
-    protected function getCurrentItem($cart, $name, $code, $price, $options = array())
+    protected function getCurrentItem(Cart $cart, $name, $code, $price, $options = array())
     {
         //TODO
     }
@@ -81,7 +82,7 @@ class ItemFactory
         //TODO
     }
 
-    protected function addNewItem($cart, $name, $price, $adjusted_quantity, $code, $options)
+    protected function addNewItem(Cart $cart, $name, $price, $adjusted_quantity, $code, $options)
     {
         //TODO
     }
