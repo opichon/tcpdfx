@@ -6,6 +6,9 @@ use Dzangocart\Bundle\CoreBundle\Model\om\BaseAddress;
 
 class Address extends BaseAddress 
 {
+    public function getName() {
+	
+    }
 
 }
 
