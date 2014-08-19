@@ -16,13 +16,14 @@ class ItemFactory
 
     public function addItemToCart(Cart $cart, $name, $price, $quantity, $code, $options = array())
     {
-        $item = $this->getCurrentItem($cart, $name, $code, $price, $options);
 
         $adjusted_quantity = $this->getAllowedQuantity($cart,$quantity, $code, $options);
 
         if ($adjusted_quantity == 0) {
             return;
         }
+
+        $item = $this->getCurrentItem($cart, $name, $code, $price, $options);
 
         if ($adjusted_quantity > 0) {
             $this->increaseQuantity($item, $adjusted_quantity);
@@ -31,7 +32,7 @@ class ItemFactory
         }
 
         if (!$item) {
-            $this->addNewItem($cart, $name, $price, $adjusted_quantity, $code, $options);
+            $item = $this->addNewItem($cart, $name, $price, $adjusted_quantity, $code, $options);
         }
 
         //$item->save();
