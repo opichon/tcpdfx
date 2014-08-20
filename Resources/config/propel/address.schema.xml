@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <database name="default" namespace="Dzangocart\Bundle\CoreBundle\Model" defaultIdMethod="native">
     <table name="address" idMethod="native">
-       <column name="id" type="integer" primaryKey="true" autoIncrement="true" required="true" />
-        <behavior name="addressable" >
+        <column name="id" type="integer" primaryKey="true" autoIncrement="true" required="true" />
+        <behavior name="addressable">
             <parameter name="street_column"      value="line1" />
             <parameter name="complement_column"  value="line2" />
             <parameter name="locality_column"    value="city" />
