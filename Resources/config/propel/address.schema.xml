@@ -9,6 +9,7 @@
             <parameter name="region_column"      value="state" />
             <parameter name="postal_code_column" value="zip" />
             <parameter name="country_id_column"  value="country" />
+            <parameter name="name_column"        value="name" />
         </behavior>
     </table>
 </database>
