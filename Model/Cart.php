@@ -75,4 +75,10 @@ class Cart extends BaseCart
     {
         $category->addItemToCart($this, $name, $price, $quantity,$code, $options);
     }
+
+    //returns the sum of quantity of item for cart
+    public function getQuantity(Category $category, $name = null, $code = null)
+    {
+        return 0;
+    }
 }
