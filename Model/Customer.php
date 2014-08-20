@@ -25,7 +25,9 @@ class Customer extends BaseCustomer
             ->getFullName(true);
     }
 
-    //returns the sum of quantity of item for cart
+    /**
+     * @return the sum of quantity of item for customer
+     */
     public function getQuantity(Category $category, $name = null, $code = null)
     {
         return 0;
