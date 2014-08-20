@@ -80,7 +80,7 @@ class Cart extends BaseCart
      *
      *  @return the sum of quantity of item for cart
      */
-    public function getQuantity(Category $category, $name = null, $code = null)
+    public function getQuantity(Category $category, $code = null)
     {
         return 0;
     }

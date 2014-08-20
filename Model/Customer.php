@@ -28,7 +28,7 @@ class Customer extends BaseCustomer
     /**
      * @return the sum of quantity of item for customer
      */
-    public function getQuantity(Category $category, $name = null, $code = null)
+    public function getQuantity(Category $category, $code = null)
     {
         return 0;
     }
