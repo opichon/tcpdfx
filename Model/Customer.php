@@ -24,4 +24,10 @@ class Customer extends BaseCustomer
             ->getProfile()
             ->getFullName(true);
     }
+
+    //returns the sum of quantity of item for cart
+    public function getQuantity(Category $category, $name = null, $code = null)
+    {
+        return 0;
+    }
 }
