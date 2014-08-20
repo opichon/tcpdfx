@@ -2,6 +2,8 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Model;
 
+use Criteria;
+
 use Dzangocart\Bundle\CoreBundle\Model\om\BaseCustomer;
 
 class Customer extends BaseCustomer
@@ -30,6 +32,20 @@ class Customer extends BaseCustomer
      */
     public function getQuantity(Category $category, $code = null)
     {
-        return 0;
+        $query = ItemQuery::create()
+            ->useCartQuery()
+                ->filterByCustomer($this)
+            ->endUse()
+            ->filterByCategory($category)
+            ->filterByDeletedAt(null, Criteria::ISNULL);
+
+        if ($code) {
+            $query->filterByCode($code, Criteria::LIKE);
+        }
+
+        $item = $query->withColumn('SUM(item.quantity)', 'customerQuantity')
+            ->findOne();
+
+        return $item->getCustomerQuantity() ? $item->getCustomerQuantity() : 0;
     }
 }
