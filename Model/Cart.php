@@ -2,6 +2,8 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Model;
 
+use Criteria;
+
 use Dzangocart\Bundle\CoreBundle\Model\om\BaseCart;
 
 class Cart extends BaseCart
@@ -82,6 +84,18 @@ class Cart extends BaseCart
      */
     public function getQuantity(Category $category, $code = null)
     {
-        return 0;
+        $query = ItemQuery::create()
+            ->filterByCart($this)
+            ->filterByCategory($category)
+            ->filterByDeletedAt(null, Criteria::ISNULL);
+
+        if ($code) {
+            $query->filterByCode($code, Criteria::LIKE);
+        }
+
+        $item = $query->withColumn('SUM(item.quantity)', 'cartQuantity')
+            ->findOne();
+
+        return $item->getCartQuantity() ? $item->getcartQuantity() : 0;
     }
 }
