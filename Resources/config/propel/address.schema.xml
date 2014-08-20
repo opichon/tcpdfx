@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <database name="default" namespace="Dzangocart\Bundle\CoreBundle\Model" defaultIdMethod="native">
     <table name="address" idMethod="native">
-        <column name="id"      type="integer" primaryKey="true" autoIncrement="true" required="true" />
-        <column name="line1"   type="varchar" size="30" required="true" />
-        <column name="line2"   type="varchar" size="30" required="false" />
-        <column name="city"    type="varchar" size="30" required="true" />
-        <column name="state"   type="varchar" size="30" required="false" />
-        <column name="zip"     type="varchar" size="15" required="false" />
-        <column name="country" type="varchar" size="2"  required="true" defaultValue="FR" />
+       <column name="id" type="integer" primaryKey="true" autoIncrement="true" required="true" />
+        <behavior name="addressable" >
+            <parameter name="street_column"      value="line1" />
+            <parameter name="complement_column"  value="line2" />
+            <parameter name="locality_column"    value="city" />
+            <parameter name="region_column"      value="state" />
+            <parameter name="postal_code_column" value="zip" />
+            <parameter name="country_id_column"  value="country" />
+        </behavior>
     </table>
 </database>
