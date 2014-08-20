@@ -60,18 +60,20 @@ class ItemFactory
 
         $max_per_code = $this->category->getMaxPerCode();
 
+        $current_quantity = $cart->getQuantity(
+            $this->category,
+            $max_per_code ? $code : null
+        );
+
         if ($cart->getCustomer()) {
-            $current_quantity = $cart->getCustomer()->getQuantity($this->category, $max_per_code ? $code : null) + $cart->getQuantity($this->category, $max_per_code ? $code : null);
-
-        } else {
-            $current_quantity = $cart->getQuantity($this->category, $max_per_code ? $code : null);
+            $current_quantity +=
+                $cart->getCustomer()->getQuantity(
+                    $this->category,
+                    $max_per_code ? $code : null
+                 );
         }
 
-        if ($current_quantity >= $max_quantity) {
-            return 0;
-        }
-
-        return min($quantity, $max_quantity - $current_quantity);
+        return min($quantity, max(0, $max_quantity - $current_quantity));
     }
 
     protected function getCurrentItem(Cart $cart, $name, $code, $price, $options = array())
