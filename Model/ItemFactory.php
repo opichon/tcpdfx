@@ -60,20 +60,12 @@ class ItemFactory
 
         $max_per_code = $this->category->getMaxPerCode();
 
-        $current_quantity = $cart->getCustomer() ? $cart->getCustomer()->getQuantity(
-            $this->category,
-            $name,
-            $max_per_code ? $code : null
-        ) + $cart->getQuantity(
-            $this->category,
-            $name,
-            $max_per_code ? $code : null
+        if ($cart->getCustomer()) {
+            $current_quantity = $cart->getCustomer()->getQuantity($this->category, $name, $max_per_code ? $code : null) + $cart->getQuantity($this->category, $name, $max_per_code ? $code : null);
 
-        ) : $cart->getQuantity(
-            $this->category,
-            $name,
-            $max_per_code ? $code : null
-        );
+        } else {
+            $current_quantity = $cart->getQuantity($this->category, $name, $max_per_code ? $code : null);
+        }
 
         if ($current_quantity >= $max_quantity) {
             return 0;
