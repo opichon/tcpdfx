@@ -79,7 +79,12 @@ class ItemFactory
 
     protected function getCurrentItem(Cart $cart, $name, $code, $price, $options = array())
     {
-        //TODO
+        return $cart->getItem(
+            $this->category,
+            Option::getAdjustedCode($name, @$options['n']),
+            Option::getAdjustedCode($code, @$options['c']),
+            $price
+        );
     }
 
     public function increaseQuantity($item, $adjusted_quantity)

@@ -98,4 +98,21 @@ class Cart extends BaseCart
 
         return $item->getCartQuantity() ? $item->getcartQuantity() : 0;
     }
+
+    public function getItem(Category $category, $name = null, $code = null, $price = null)
+    {
+        $query = ItemQuery::create()
+            ->filterByCategory($category)
+            ->filterByOrderId($this->getId());
+
+        if ($name) {
+            $query->filterByName($name);
+        }
+
+        if ($code) {
+            $query->filterByCode($code);
+        }
+
+        return $query->findOne();
+    }
 }
