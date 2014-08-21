@@ -21,7 +21,7 @@ class OrderController extends BaseController
 {
     /**
     * @Route("/", name="orders")
-    * @Template("DzangocartCoreBundle:Order:index.html.twig")
+    * @Template()
     */
     public function indexAction(Request $request)
     {
