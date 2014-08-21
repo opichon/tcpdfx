@@ -4,6 +4,7 @@ namespace Dzangocart\Bundle\CoreBundle\Model;
 
 use Dzangocart\Bundle\CoreBundle\Model\Cart;
 use Dzangocart\Bundle\CoreBundle\Model\Category;
+use Dzangocart\Bundle\CoreBundle\Model\Option;
 
 class ItemFactory
 {
@@ -17,7 +18,7 @@ class ItemFactory
     public function addItemToCart(Cart $cart, $name, $price, $quantity, $code, $options = array())
     {
 
-        $adjusted_quantity = $this->getAllowedQuantity($cart, $quantity, $code, $options);
+        $adjusted_quantity = $this->getAllowedQuantity($cart, Option::getAdjustedValue($quantity, @$options['q']), $code, $options);
 
         if ($adjusted_quantity == 0) {
             return;
@@ -29,7 +30,7 @@ class ItemFactory
         if ($adjusted_quantity > 0) {
             $this->increaseQuantity($item, $adjusted_quantity);
         } else {
-            $this->updateItemPrice($item, $price, $options);
+            $this->updateItemPrice($item, $price, @$options['p']);
         }
 
         if (!$item) {
