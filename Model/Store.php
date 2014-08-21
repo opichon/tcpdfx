@@ -255,11 +255,11 @@ class Store extends BaseStore
 
     public function createCart(Customer $customer = null, Affiliate $affiliate = null)
     {
-        //TODO
+        // TODO
     }
 
-    //FIX ME: this may accept more paramter, need to adjust
-    public function getCategoryByCode($code)
+    // FIX ME [JP 21-08-2014]: adjust query according to code and strict
+    public function getCategoryByCode($code, $pcode = null, $strict = true)
     {
         return CategoryQuery::create()
             ->filterByCode($code)
