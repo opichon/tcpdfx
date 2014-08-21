@@ -258,7 +258,7 @@ class Store extends BaseStore
         // TODO
     }
 
-    // FIX ME [JP 21-08-2014]: adjust query according to code and strict
+    // FIX ME [JP 21-08-2014]: adjust query according to pcode and strict
     public function getCategoryByCode($code, $pcode = null, $strict = true)
     {
         return CategoryQuery::create()
