@@ -70,7 +70,7 @@ class ItemFactory
                 $cart->getCustomer()->getQuantity(
                     $this->category,
                     $max_per_code ? $code : null
-                 );
+                );
         }
 
         return min($quantity, max(0, $max_quantity - $current_quantity));
