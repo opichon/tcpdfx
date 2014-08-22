@@ -33,9 +33,9 @@ class ItemFactory
 
             if ($adjusted_quantity > 0) {
                 $this->increaseQuantity($item, $adjusted_quantity);
-            } else {
-                $this->updateItemPrice($item, $price, @$options['p']);
             }
+
+            $this->updateItemPrice($item, $price, @$options['p']);
         }
 
         //$item->save();
@@ -100,7 +100,7 @@ class ItemFactory
 
     protected function updateItemPrice($item, $price, $option = null)
     {
-       //TODO
+        $this->setItemPrice($item, $price, $option);
     }
 
     public function createItem($name, $price, $quantity, $code, $options = array())
@@ -110,17 +110,17 @@ class ItemFactory
 
     public function setItemName($item, $name, $option = null)
     {
-        //TODO
+        $item->setName(Option::getAdjustedCode($name, $option));
     }
 
     public function setItemCode($item, $code, $option = null)
     {
-        //TODO
+        $item->setCode(Option::getAdjustedCode($code, $option));
     }
 
     public function setItemQuantity($item, $quantity, $option = null)
     {
-        //TODO
+        $item->setQuantity(Option::getAdjustedValue($quantity, $option));
     }
 
     public function setItemPrice($item, $price, $option = null)
