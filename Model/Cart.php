@@ -115,4 +115,9 @@ class Cart extends BaseCart
 
         return $query->findOne();
     }
+
+    public function updateAmounts()
+    {
+        // TODO
+    }
 }

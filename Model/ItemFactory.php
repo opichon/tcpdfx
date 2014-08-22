@@ -42,7 +42,7 @@ class ItemFactory
 
         $cart->reload(true);
 
-        //$cart->updateAmounts();
+        $cart->updateAmounts();
 
         return $item;
     }
