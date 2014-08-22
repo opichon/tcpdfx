@@ -27,14 +27,15 @@ class ItemFactory
         // if item exist, no need to add to cart but modified existing item.
         $item = $this->getCurrentItem($cart, $name, $code, $price, $options);
 
-        if ($adjusted_quantity > 0) {
-            $this->increaseQuantity($item, $adjusted_quantity);
-        } else {
-            $this->updateItemPrice($item, $price, @$options['p']);
-        }
-
         if (!$item) {
             $item = $this->addNewItem($cart, $name, $price, $adjusted_quantity, $code, $options);
+        } else {
+
+            if ($adjusted_quantity > 0) {
+                $this->increaseQuantity($item, $adjusted_quantity);
+            } else {
+                $this->updateItemPrice($item, $price, @$options['p']);
+            }
         }
 
         //$item->save();
@@ -89,7 +90,7 @@ class ItemFactory
 
     public function increaseQuantity($item, $adjusted_quantity)
     {
-        //TODO
+        $item->addQuantity($adjusted_quantity);
     }
 
     protected function addNewItem(Cart $cart, $name, $price, $adjusted_quantity, $code, $options)

@@ -10,4 +10,9 @@ class Item extends BaseItem
     {
         return $this->getCart();
     }
+
+    public function addQuantity($quantity)
+    {
+        $this->setQuantity($this->getQuantity() + $quantity);
+    }
 }
