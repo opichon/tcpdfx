@@ -125,6 +125,6 @@ class ItemFactory
 
     public function setItemPrice($item, $price, $option = null)
     {
-        //TODO
+        $item->setPrice(Option::getAdjustedValue($price, $option));
     }
 }
