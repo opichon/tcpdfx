@@ -38,7 +38,7 @@ class ItemFactory
             $this->updateItemPrice($item, $price, @$options['p']);
         }
 
-        //$item->save();
+        $item->save();
 
         $cart->reload(true);
 
@@ -95,7 +95,11 @@ class ItemFactory
 
     protected function addNewItem(Cart $cart, $name, $price, $adjusted_quantity, $code, $options)
     {
-        //TODO
+        $item = $this->createItem($name, $price, $adjusted_quantity, $code, $options);
+
+        $item->setCart($cart);
+
+        return $item;
     }
 
     protected function updateItemPrice($item, $price, $option = null)
@@ -103,9 +107,29 @@ class ItemFactory
         $this->setItemPrice($item, $price, $option);
     }
 
-    public function createItem($name, $price, $quantity, $code, $options = array())
+    public function createItem($name, $price, $quantity, $code, $options)
     {
-        //TODO
+        $item = new Item();
+
+        $item->setCategory($this->category);
+
+        $item->setExport($this->category->getExport());
+
+        $this->setItemName($item, $name, @$options['n']);
+
+        $this->setItemCode($item, $code, @$options['c']);
+
+        $this->setItemPrice($item, $price, @$options['p']);
+
+        $item->setQuantity($quantity);
+
+        $item->setCurrencyId($this->category->getStore()->getCurrencyId());
+
+        $item->setTaxRate($this->category->getTaxRate());
+
+        $item->setTaxIncluded(array_key_exists('tax_incl', $options) ? $options['tax_incl'] : $this->category->getTaxIncluded());
+
+        return $item;
     }
 
     public function setItemName($item, $name, $option = null)
