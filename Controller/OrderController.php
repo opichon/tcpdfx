@@ -20,7 +20,6 @@ use Symfony\Component\HttpFoundation\Request;
 class OrderController extends BaseController
 {
     /**
-    * @Route("/", name="orders")
     * @Template()
     */
     public function indexAction(Request $request)
