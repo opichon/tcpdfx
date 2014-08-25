@@ -9,7 +9,7 @@ class Option
      * 
      * @return options after parsing
      */
-    public static function parse_options($options)
+    public static function parse($options)
     {
         return $options;
     }
