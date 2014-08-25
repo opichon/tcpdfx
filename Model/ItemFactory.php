@@ -31,9 +31,7 @@ class ItemFactory
             $item = $this->addNewItem($cart, $name, $price, $adjusted_quantity, $code, $options);
         } else {
 
-            if ($adjusted_quantity > 0) {
-                $this->increaseQuantity($item, $adjusted_quantity);
-            }
+            $this->increaseQuantity($item, $adjusted_quantity);
 
             $this->updateItemPrice($item, $price, @$options['p']);
         }
