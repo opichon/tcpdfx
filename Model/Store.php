@@ -262,6 +262,7 @@ class Store extends BaseStore
     public function getCategoryByCode($code, $pcode = null, $strict = true)
     {
         return CategoryQuery::create()
+            ->filterByStore($this)
             ->filterByCode($code)
             ->findOne();
     }
