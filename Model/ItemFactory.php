@@ -36,8 +36,6 @@ class ItemFactory
             $this->updateItemPrice($item, $price, @$options['p']);
         }
 
-        $item->save();
-
         $cart->reload(true);
 
         $cart->updateAmounts();
