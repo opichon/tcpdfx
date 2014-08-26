@@ -10,7 +10,7 @@
             {
                 "DT_RowId":     "{{ 'o_' ~ order.id }}",
                 "DT_RowClass":  "order",
-                "id":           "order.id",
+                "id":           "{{ order.id }}",
                 "date":         "{{ order.date|datetime('dd.MM.yy', 'HH:mm', null, app.request.locale) }}",
                 "order":        {
                     "front":    "{{ path('order', { id: order.id }) }}",
@@ -21,10 +21,10 @@
                 "status":       "{{ order.status }}",
                 "amount":       {
                     "exclude":  "{{ order.currency.format(order.getAmountExcl) }}",
-                    "tax":  "{{ order.currency.format(order.getTaxAmount)}}",
-                    "include": "{{ order.currency.format(order.getAmountIncl)}}"
+                    "tax":      "{{ order.currency.format(order.getTaxAmount)}}",
+                    "include":  "{{ order.currency.format(order.getAmountIncl)}}"
                 },
-                "actions": "{% include 'DzangocartCoreBundle:Order:actions.html.twig' %}"
+                "actions":      "{% include 'DzangocartCoreBundle:Order:actions.html.twig' %}"
             }{% if not loop.last %},{% endif %}
         {% endfor %}
     ]
