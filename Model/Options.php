@@ -13,15 +13,6 @@ class Options
 
     /**
      * 
-     * @return options after parsing
-     */
-    public function parse($options)
-    {
-        return $options;
-    }
-
-    /**
-     * 
      * @return adjusted code
      */
     public function getAdjustedCode($code = null)
