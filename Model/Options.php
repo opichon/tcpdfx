@@ -2,14 +2,20 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Model;
 
-class Option
+class Options
 {
+    protected $options;
+
+    public function __construct($options = array())
+    {
+        $this->options = $options;
+    }
 
     /**
      * 
      * @return options after parsing
      */
-    public static function parse($options)
+    public function parse($options)
     {
         return $options;
     }
@@ -18,7 +24,7 @@ class Option
      * 
      * @return adjusted code
      */
-    public static function getAdjustedCode($code = null, $option = null)
+    public function getAdjustedCode($code = null)
     {
         return $code;
     }
@@ -27,7 +33,7 @@ class Option
      * 
      * @return adjusted value
      */
-    public static function getAdjustedValue($value, $option = null)
+    public function getAdjustedValue($value)
     {
         return $value;
     }
