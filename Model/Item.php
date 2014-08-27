@@ -27,6 +27,21 @@ class Item extends BaseItem
         $this->updateAmount();
     }
 
+    public function getItems()
+    {
+        return iterator_to_array($this->getItemsRelatedById(null));
+    }
+
+    public function isTaxIncluded()
+    {
+        return $this->getTaxIncluded();
+    }
+
+    public function isCredit()
+    {
+        return $this->getCredit();
+    }
+
     public function updateAmount($updateOrder = true)
     {
         if ($items = $this->getItems()) {

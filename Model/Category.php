@@ -37,7 +37,7 @@ class Category extends BaseCategory
         return $this->getNotForSale();
     }
 
-    public function addItemToCart($cart, $name, $price, $quantity, $code, $options)
+    public function addItemToCart($cart, $name, $price, $quantity, $code, Options $options)
     {
         $factory = $this->getItemFactory();
 

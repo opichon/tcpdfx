@@ -4,7 +4,7 @@ namespace Dzangocart\Bundle\CoreBundle\Model;
 
 use Dzangocart\Bundle\CoreBundle\Model\Cart;
 use Dzangocart\Bundle\CoreBundle\Model\Category;
-use Dzangocart\Bundle\CoreBundle\Model\Option;
+use Dzangocart\Bundle\CoreBundle\Model\Options;
 
 class ItemFactory
 {
@@ -15,10 +15,10 @@ class ItemFactory
         $this->category = $category;
     }
 
-    public function addItemToCart(Cart $cart, $name, $price, $quantity, $code, $options = array())
+    public function addItemToCart(Cart $cart, $name, $price, $quantity, $code, Options $options)
     {
 
-        $adjusted_quantity = $this->getAllowedQuantity($cart, Option::getAdjustedValue($quantity, @$options['q']), $code, $options);
+        $adjusted_quantity = $this->getAllowedQuantity($cart, $options->getAdjustedValue($quantity), $code, $options);
 
         if ($adjusted_quantity == 0) {
             return;
@@ -33,10 +33,8 @@ class ItemFactory
 
             $this->increaseQuantity($item, $adjusted_quantity);
 
-            $this->updateItemPrice($item, $price, @$options['p']);
+            $this->updateItemPrice($item, $price, $options);
         }
-
-        $item->save();
 
         $cart->reload(true);
 
@@ -45,7 +43,7 @@ class ItemFactory
         return $item;
     }
 
-    public function getAllowedQuantity(Cart $cart, $quantity, $code, $options = array())
+    public function getAllowedQuantity(Cart $cart, $quantity, $code, Options $options)
     {
         if (!$quantity) {
             return 0;
@@ -76,12 +74,12 @@ class ItemFactory
         return min($quantity, max(0, $max_quantity - $current_quantity));
     }
 
-    protected function getCurrentItem(Cart $cart, $name, $code, $price, $options = array())
+    protected function getCurrentItem(Cart $cart, $name, $code, $price, Options $options)
     {
         return $cart->getItem(
             $this->category,
-            Option::getAdjustedCode($name, @$options['n']),
-            Option::getAdjustedCode($code, @$options['c']),
+            $options->getAdjustedValue($name),
+            $options->getAdjustedCode($code),
             $price
         );
     }
@@ -91,7 +89,7 @@ class ItemFactory
         $item->addQuantity($adjusted_quantity);
     }
 
-    protected function addNewItem(Cart $cart, $name, $price, $adjusted_quantity, $code, $options)
+    protected function addNewItem(Cart $cart, $name, $price, $adjusted_quantity, $code, Options $options)
     {
         $item = $this->createItem($name, $price, $adjusted_quantity, $code, $options);
 
@@ -100,12 +98,12 @@ class ItemFactory
         return $item;
     }
 
-    protected function updateItemPrice($item, $price, $option = null)
+    protected function updateItemPrice($item, $price, Options $options)
     {
-        $this->setItemPrice($item, $price, $option);
+        $this->setItemPrice($item, $price, $options);
     }
 
-    public function createItem($name, $price, $quantity, $code, $options)
+    public function createItem($name, $price, $quantity, $code, Options $options)
     {
         $item = new Item();
 
@@ -113,11 +111,11 @@ class ItemFactory
 
         $item->setExport($this->category->getExport());
 
-        $this->setItemName($item, $name, @$options['n']);
+        $this->setItemName($item, $name, $options);
 
-        $this->setItemCode($item, $code, @$options['c']);
+        $this->setItemCode($item, $code, $options);
 
-        $this->setItemPrice($item, $price, @$options['p']);
+        $this->setItemPrice($item, $price, $options);
 
         $item->setQuantity($quantity);
 
@@ -125,28 +123,28 @@ class ItemFactory
 
         $item->setTaxRate($this->category->getTaxRate());
 
-        $item->setTaxIncluded(array_key_exists('tax_incl', $options) ? $options['tax_incl'] : $this->category->getTaxIncluded());
+        //$item->setTaxIncluded(array_key_exists('tax_incl', $options) ? $options['tax_incl'] : $this->category->getTaxIncluded());
 
         return $item;
     }
 
-    public function setItemName($item, $name, $option = null)
+    public function setItemName($item, $name, Options $options)
     {
-        $item->setName(Option::getAdjustedCode($name, $option));
+        $item->setName($options->getAdjustedCode($name));
     }
 
-    public function setItemCode($item, $code, $option = null)
+    public function setItemCode($item, $code, Options $options)
     {
-        $item->setCode(Option::getAdjustedCode($code, $option));
+        $item->setCode($options->getAdjustedCode($code));
     }
 
-    public function setItemQuantity($item, $quantity, $option = null)
+    public function setItemQuantity($item, $quantity, Options $options)
     {
-        $item->setQuantity(Option::getAdjustedValue($quantity, $option));
+        $item->setQuantity($options->getAdjustedValue($quantity));
     }
 
-    public function setItemPrice($item, $price, $option = null)
+    public function setItemPrice($item, $price, Options $options)
     {
-        $item->setPrice(Option::getAdjustedValue($price, $option));
+        $item->setPrice($options->getAdjustedValue($price));
     }
 }

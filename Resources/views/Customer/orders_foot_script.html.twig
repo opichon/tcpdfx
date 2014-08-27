@@ -10,9 +10,9 @@
 {% endjavascripts %}
 <script>
 dzangocart.orders = {
-	dataTables: {
+	datatables: {
 		ajax: {
-			url: "{{ path('orders_list', { customer_id: customer.id })|raw }}"
+			url: "{{ path('store_orders_list', { customer_id: customer.id })|raw }}"
 		},
 		columnDefs: [
 			{ visible: false, targets: [ 0, 3, 4 ] }
