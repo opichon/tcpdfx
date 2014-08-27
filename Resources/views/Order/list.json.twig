@@ -8,23 +8,23 @@
     "data" : [
         {% for order in orders %}
             {
-                "DT_RowId":     "{{ 'o_' ~ order.id }}",
-                "DT_RowClass":  "order",
-                "id":           "{{ order.id }}",
-                "date":         "{{ order.date|datetime('dd.MM.yy', 'HH:mm', null, app.request.locale) }}",
-                "order":        {
-                    "front":    "{{ path('order', { id: order.id }) }}",
-                    "store":    "{{ path('store_order', { id: order.id }) }}"    
+                "DT_RowId":           "{{ 'o_' ~ order.id }}",
+                "DT_RowClass":        "order",
+                "id":                 "{{ order.id }}",
+                "date":               "{{ order.date|datetime('dd.MM.yy', 'HH:mm', null, app.request.locale) }}",
+                "urls":                {
+                    "frontend":       "{{ path('order', { id: order.id }) }}",
+                    "store_admin":    "{{ path('store_order', { id: order.id }) }}"
                 },
-                "store":        "{% include 'DzangocartCoreBundle:Order:store.html.twig' with { store: order.store } %}",
-                "customer":     "<a href='{{ path('customer', { id: order.customerId }) }}'>{{ order.customer.name }}</a>",
-                "status":       "{{ order.status }}",
-                "amount":       {
-                    "exclude":  "{{ order.currency.format(order.getAmountExcl) }}",
-                    "tax":      "{{ order.currency.format(order.getTaxAmount)}}",
-                    "include":  "{{ order.currency.format(order.getAmountIncl)}}"
+                "store_id":           "{{ order.store.id }}",
+                "customer":           "<a href='{{ path('customer', { id: order.customerId }) }}'>{{ order.customer.name }}</a>",
+                "status":             "{{ order.status }}",
+                "amount":             {
+                    "exclude":        "{{ order.currency.format(order.getAmountExcl) }}",
+                    "tax":            "{{ order.currency.format(order.getTaxAmount)}}",
+                    "include":        "{{ order.currency.format(order.getAmountIncl)}}"
                 },
-                "actions":      "{% include 'DzangocartCoreBundle:Order:actions.html.twig' %}"
+                "actions":            "{% include 'DzangocartCoreBundle:Order:actions.html.twig' %}"
             }{% if not loop.last %},{% endif %}
         {% endfor %}
     ]
