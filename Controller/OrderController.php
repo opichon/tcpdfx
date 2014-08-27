@@ -9,7 +9,6 @@ use DateTime;
 use Dzangocart\Bundle\CoreBundle\Form\Type\OrdersFiltersType;
 use Dzangocart\Bundle\CoreBundle\Model\CartQuery;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use Symfony\Component\HttpFoundation\Request;
