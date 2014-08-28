@@ -75,7 +75,7 @@ class Cart extends BaseCart
 
     public function addNewItem($category, $name, $price, $quantity, $code, Options $options)
     {
-        $category->addItemToCart($this, $name, $price, $quantity,$code, $options);
+        return $category->addItemToCart($this, $name, $price, $quantity,$code, $options);
     }
 
     /**
