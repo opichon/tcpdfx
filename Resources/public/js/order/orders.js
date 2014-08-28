@@ -132,7 +132,10 @@
 				{
 					data: function( row, type, val, meta ) {
 						if ( "display" === type ) {
-								return "<a href='order/" + row.id + "'>" + row.id + "</a>";
+                                var order = {
+                                    id: row.id
+                                };
+                                return Mustache.render( dzangocart.mustache.url, order );
 							}
 
 							return "";
