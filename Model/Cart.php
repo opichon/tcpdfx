@@ -118,31 +118,31 @@ class Cart extends BaseCart
 
     public function updateAmounts()
     {
-//        if ($items = $this->getItems()) {
-//            $amount_excl = 0;
-//            $tax_amount = 0;
-//
-//            foreach ($items as $item) {
-//                $amount_excl += $item->getAmountExcl();
-//                $tax_amount += $item->getTaxAmount();
-//            }
-//
-//            $this->setAmountExcl($amount_excl);
-//            $this->setTaxAmount($tax_amount);
-//            $this->setAmountIncl($amount_excl + $tax_amount);
-//
-//            if ($this->isCredit()) {
-//                $credit_amount = $this->getAmountIncl();
-//            } else {
-//                $credit_amount = min(
-//                    array(
-//                        $this->getAmountIncl(),
-//                        $this->getCustomer() ? $this->getCustomer()->getCreditBalance() : 0
-//                    )
-//                );
-//            }
-//
-//            $this->setCreditAmount($credit_amount);
-//        }
+        if ($items = $this->getItems()) {
+            $amount_excl = 0;
+            $tax_amount = 0;
+
+            foreach ($items as $item) {
+                $amount_excl += $item->getAmountExcl();
+                $tax_amount += $item->getTaxAmount();
+            }
+
+            $this->setAmountExcl($amount_excl);
+            $this->setTaxAmount($tax_amount);
+            $this->setAmountIncl($amount_excl + $tax_amount);
+
+            if ($this->isCredit()) {
+                $credit_amount = $this->getAmountIncl();
+            } else {
+                $credit_amount = min(
+                    array(
+                        $this->getAmountIncl(),
+                        $this->getCustomer() ? $this->getCustomer()->getCreditBalance() : 0
+                    )
+                );
+            }
+
+            $this->setCreditAmount($credit_amount);
+        }
     }
 }
