@@ -116,7 +116,7 @@ class Cart extends BaseCart
         return $query->findOne();
     }
 
-    public function updateAmounts()
+    public function updateAmount()
     {
         if ($items = $this->getItems()) {
             $amount_excl = 0;
