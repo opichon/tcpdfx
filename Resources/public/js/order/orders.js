@@ -132,17 +132,34 @@
 				{
 					data: function( row, type, val, meta ) {
 						if ( "display" === type ) {
-								return "<a href='order/" + row.id + "'>" + row.id + "</a>";
+								var order = {
+									id: row.id
+								};
+								return Mustache.render( dzangocart.mustache.order.url, order );
 							}
 
 							return "";
 						}
 				},
-				{ data: "store.name" },
+				{
+					data: function( row, type, val, meta ) {
+						if ("display" === type ) {
+							var store = {
+								id: row.store.id,
+								name: row.store.name
+							};
+							return Mustache.render( dzangocart.mustache.store.url, store);
+						}
+					}
+				},
 				{
 					data: function( row, type, val, meta ) {
 						if ( "display" === type ) {
-								return "<a href='customer/" + row.customer.id + "'>" + row.customer.name + "</a>";
+								var customer = {
+									id: row.customer.id,
+									name: row.customer.name
+								};
+								return Mustache.render( dzangocart.mustache.customer.url, customer );	  
 							}
 
 							return "";
@@ -152,7 +169,18 @@
 				{ data: "amount.excl" },
 				{ data: "amount.tax" },
 				{ data: "amount.incl" },
-				{ data: "id" }
+				{
+					data: function( row, type, val, meta ) {
+						if ( "display" === type ) {
+								var action = {
+									id: row.id,
+								};
+								return Mustache.render( dzangocart.mustache.actions.url, action );	  
+							}
+
+							return "";
+						}
+				}
 			],
 			columnDefs: [
 				{ orderable: false, targets: [ 0, 9 ] },
