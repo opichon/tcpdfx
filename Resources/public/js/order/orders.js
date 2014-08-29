@@ -169,7 +169,18 @@
 				{ data: "amount.excl" },
 				{ data: "amount.tax" },
 				{ data: "amount.incl" },
-				{ data: "id" }
+				{
+					data: function( row, type, val, meta ) {
+						if ( "display" === type ) {
+								var action = {
+									id: row.id,
+								};
+								return Mustache.render( dzangocart.mustache.actions.url, action );	  
+							}
+
+							return "";
+						}
+				}
 			],
 			columnDefs: [
 				{ orderable: false, targets: [ 0, 9 ] },
