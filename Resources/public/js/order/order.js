@@ -28,11 +28,11 @@
 
 		var helpers = {
 			returnLink: function() {
-                if(dzangocart.mustache.urls.back){
-                    var template = Mustache.to_html(dzangocart.mustache.urls.back);
+				if(dzangocart.mustache.urls.back){
+					var template = Mustache.to_html(dzangocart.mustache.urls.back);
 
-                    $('#return').html(template);
-                }
+					$('#return').html(template);
+				}
 			}
 		};
 
