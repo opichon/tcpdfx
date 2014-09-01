@@ -132,10 +132,7 @@
 				{
 					data: function( row, type, val, meta ) {
 						if ( "display" === type ) {
-								var order = {
-									id: row.id
-								};
-								return Mustache.render( dzangocart.mustache.order.url, order );
+								return Mustache.render( dzangocart.mustache.order.url, {id: row.id } );
 							}
 
 							return "";
@@ -144,22 +141,16 @@
 				{
 					data: function( row, type, val, meta ) {
 						if ("display" === type ) {
-							var store = {
-								id: row.store.id,
-								name: row.store.name
-							};
-							return Mustache.render( dzangocart.mustache.store.url, store);
-						}
+								return Mustache.render( dzangocart.mustache.store.url, row.store );
+							}
+
+							return "";
 					}
 				},
 				{
 					data: function( row, type, val, meta ) {
 						if ( "display" === type ) {
-								var customer = {
-									id: row.customer.id,
-									name: row.customer.name
-								};
-								return Mustache.render( dzangocart.mustache.customer.url, customer );	  
+								return Mustache.render( dzangocart.mustache.customer.url, row.customer );
 							}
 
 							return "";
@@ -172,10 +163,7 @@
 				{
 					data: function( row, type, val, meta ) {
 						if ( "display" === type ) {
-								var action = {
-									id: row.id,
-								};
-								return Mustache.render( dzangocart.mustache.actions.url, action );	  
+								return Mustache.render( dzangocart.mustache.actions.url, { id: row.id } );
 							}
 
 							return "";
