@@ -132,7 +132,7 @@
 				{
 					data: function( row, type, val, meta ) {
 						if ( "display" === type ) {
-								return Mustache.render( dzangocart.mustache.order.url, row.id );
+								return Mustache.render( dzangocart.mustache.order.url, {id: row.id } );
 							}
 
 							return "";
@@ -163,7 +163,7 @@
 				{
 					data: function( row, type, val, meta ) {
 						if ( "display" === type ) {
-								return Mustache.render( dzangocart.mustache.actions.url, row.id );
+								return Mustache.render( dzangocart.mustache.actions.url, { id: row.id } );
 							}
 
 							return "";
