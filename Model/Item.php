@@ -75,7 +75,7 @@ class Item extends BaseItem
         }
 
         if ($updateOrder && ($order = $this->getOrder())) {
-            $order->updateAmounts();
+            $order->updateAmount();
         }
     }
 }

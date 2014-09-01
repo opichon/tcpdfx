@@ -75,7 +75,7 @@ class Cart extends BaseCart
 
     public function addNewItem($category, $name, $price, $quantity, $code, Options $options)
     {
-        $category->addItemToCart($this, $name, $price, $quantity,$code, $options);
+        return $category->addItemToCart($this, $name, $price, $quantity, $code, $options);
     }
 
     /**
@@ -116,33 +116,33 @@ class Cart extends BaseCart
         return $query->findOne();
     }
 
-    public function updateAmounts()
+    public function updateAmount()
     {
-//        if ($items = $this->getItems()) {
-//            $amount_excl = 0;
-//            $tax_amount = 0;
-//
-//            foreach ($items as $item) {
-//                $amount_excl += $item->getAmountExcl();
-//                $tax_amount += $item->getTaxAmount();
-//            }
-//
-//            $this->setAmountExcl($amount_excl);
-//            $this->setTaxAmount($tax_amount);
-//            $this->setAmountIncl($amount_excl + $tax_amount);
-//
-//            if ($this->isCredit()) {
-//                $credit_amount = $this->getAmountIncl();
-//            } else {
-//                $credit_amount = min(
-//                    array(
-//                        $this->getAmountIncl(),
-//                        $this->getCustomer() ? $this->getCustomer()->getCreditBalance() : 0
-//                    )
-//                );
-//            }
-//
-//            $this->setCreditAmount($credit_amount);
-//        }
+        if ($items = $this->getItems()) {
+            $amount_excl = 0;
+            $tax_amount = 0;
+
+            foreach ($items as $item) {
+                $amount_excl += $item->getAmountExcl();
+                $tax_amount += $item->getTaxAmount();
+            }
+
+            $this->setAmountExcl($amount_excl);
+            $this->setTaxAmount($tax_amount);
+            $this->setAmountIncl($amount_excl + $tax_amount);
+
+            if ($this->isCredit()) {
+                $credit_amount = $this->getAmountIncl();
+            } else {
+                $credit_amount = min(
+                    array(
+                        $this->getAmountIncl(),
+                        $this->getCustomer() ? $this->getCustomer()->getCreditBalance() : 0
+                    )
+                );
+            }
+
+            $this->setCreditAmount($credit_amount);
+        }
     }
 }

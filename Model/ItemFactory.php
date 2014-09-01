@@ -36,10 +36,6 @@ class ItemFactory
             $this->updateItemPrice($item, $price, $options);
         }
 
-        $cart->reload(true);
-
-        $cart->updateAmounts();
-
         return $item;
     }
 

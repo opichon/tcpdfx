@@ -12,10 +12,6 @@
                 "DT_RowClass": "order",
                 "id": "{{ order.id }}",
                 "date": "{{ order.date|datetime('dd.MM.yy', 'HH:mm', null, app.request.locale) }}",
-                "urls": {
-                    "frontend": "{{ path('order', { id: order.id }) }}",
-                    "store_admin": "{{ path('store_order', { id: order.id }) }}"
-                },
                 "store": {
                     "id": {{ order.store.id }},
                     "name": "{{ order.store.name }}"
