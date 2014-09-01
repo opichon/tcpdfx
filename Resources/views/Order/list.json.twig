@@ -10,9 +10,7 @@
             {
                 "DT_RowId": "{{ 'o_' ~ order.id }}",
                 "DT_RowClass": "order",
-                "id": {
-                    "id" : "{{ order.id }}"
-                },
+                "id": {{ order.id }},
                 "date": "{{ order.date|datetime('dd.MM.yy', 'HH:mm', null, app.request.locale) }}",
                 "store": {
                     "id": {{ order.store.id }},
