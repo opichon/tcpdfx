@@ -36,6 +36,8 @@ class ItemFactory
             $this->updateItemPrice($item, $price, $options);
         }
 
+        $item->save();
+
         return $item;
     }
 
