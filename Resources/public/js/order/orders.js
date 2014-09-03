@@ -132,10 +132,8 @@
 				{
 					data: function( row, type, val, meta ) {
 						if ( "display" === type ) {
-								var order = {
-									id: row.id
-								};
-								return Mustache.render( dzangocart.mustache.order.url, order );
+                                var url = dzangocart.mustache.order.url.replace( /__id__/g, "{{id}}");
+                                return Mustache.render( url, {id: row.id } );
 							}
 
 							return "";
@@ -144,22 +142,18 @@
 				{
 					data: function( row, type, val, meta ) {
 						if ("display" === type ) {
-							var store = {
-								id: row.store.id,
-								name: row.store.name
-							};
-							return Mustache.render( dzangocart.mustache.store.url, store);
-						}
+                                var url = dzangocart.mustache.store.url.replace( /__id__/g, "{{id}}");
+								return Mustache.render( url, row.store );
+							}
+
+							return "";
 					}
 				},
 				{
 					data: function( row, type, val, meta ) {
 						if ( "display" === type ) {
-								var customer = {
-									id: row.customer.id,
-									name: row.customer.name
-								};
-								return Mustache.render( dzangocart.mustache.customer.url, customer );	  
+                                var url = dzangocart.mustache.customer.url.replace( /__id__/g, "{{id}}");
+								return Mustache.render( url, row.customer );
 							}
 
 							return "";
@@ -172,10 +166,8 @@
 				{
 					data: function( row, type, val, meta ) {
 						if ( "display" === type ) {
-								var action = {
-									id: row.id,
-								};
-								return Mustache.render( dzangocart.mustache.actions.url, action );	  
+                                var url = dzangocart.mustache.actions.url.replace(/__id__/g, "{{id}}");
+								return Mustache.render( url, { id: row.id } );
 							}
 
 							return "";

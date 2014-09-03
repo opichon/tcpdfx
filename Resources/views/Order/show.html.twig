@@ -5,17 +5,7 @@
 {% block _core_page_title %}{% trans with { '%id%': order.id } %}order.show.page_title{% endtrans %}{% endblock %}
 
 {% block _core_page_nav %}
-    {% if customer is defined %}
-        <a href="{{ path('orders') }}">
-            <i class="fa fa-long-arrow-left"></i> 
-            {% trans %}order.show.back{% endtrans %}
-        </a>
-    {% else %}
-        <a href="{{ path('store_orders') }}">
-            <i class="fa fa-long-arrow-left"></i> 
-            {% trans %}order.show.back{% endtrans %}
-        </a>
-    {% endif %}
+    <div id="return"></div>
 {% endblock %}
 
 {% block bodyclass %}order{% endblock %}
