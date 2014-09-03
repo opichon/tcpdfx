@@ -110,7 +110,7 @@ class CustomerController extends BaseController
     }
 
     /**
-     * @Route("/{id}", name="customer", requirements={"id": "\d+"})
+     * @Route("/{id}", name="customer", requirements={"id": "\d+|__id__"})
      * @Template("DzangocartCoreBundle:Customer:show.html.twig")
      */
     public function showAction(Request $request, $id)
