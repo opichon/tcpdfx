@@ -132,8 +132,8 @@
 				{
 					data: function( row, type, val, meta ) {
 						if ( "display" === type ) {
-                                var url = dzangocart.mustache.order.url.replace( /__id__/g, "{{id}}");
-                                return Mustache.render( url, {id: row.id } );
+								var url = dzangocart.mustache.order.url.replace( /__id__/g, "{{id}}");
+								return Mustache.render( url, {id: row.id } );
 							}
 
 							return "";
@@ -142,7 +142,7 @@
 				{
 					data: function( row, type, val, meta ) {
 						if ("display" === type ) {
-                                var url = dzangocart.mustache.store.url.replace( /__id__/g, "{{id}}");
+								var url = dzangocart.mustache.store.url.replace( /__id__/g, "{{id}}");
 								return Mustache.render( url, row.store );
 							}
 
@@ -152,7 +152,7 @@
 				{
 					data: function( row, type, val, meta ) {
 						if ( "display" === type ) {
-                                var url = dzangocart.mustache.customer.url.replace( /__id__/g, "{{id}}");
+								var url = dzangocart.mustache.customer.url.replace( /__id__/g, "{{id}}");
 								return Mustache.render( url, row.customer );
 							}
 
@@ -166,8 +166,8 @@
 				{
 					data: function( row, type, val, meta ) {
 						if ( "display" === type ) {
-                                var url = dzangocart.mustache.actions.url.replace(/__id__/g, "{{id}}");
-								return Mustache.render( url, { id: row.id } );
+								var action = dzangocart.mustache.order.actions.replace(/__id__/g, "{{id}}");
+								return Mustache.render( action, { id: row.id } );
 							}
 
 							return "";
