@@ -166,8 +166,8 @@
 				{
 					data: function( row, type, val, meta ) {
 						if ( "display" === type ) {
-                                var url = dzangocart.mustache.actions.url.replace(/__id__/g, "{{id}}");
-								return Mustache.render( url, { id: row.id } );
+                                var action = dzangocart.mustache.order.actions.replace(/__id__/g, "{{id}}");
+								return Mustache.render( action, { id: row.id } );
 							}
 
 							return "";
