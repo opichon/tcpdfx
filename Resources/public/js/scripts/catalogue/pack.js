@@ -11,23 +11,23 @@
 
 				return this.each(function() {
 					var $this = $( this );
-                    
-                    var checked = $("input[name='catagory_edit[pack]']").is(':checked');
-                    
-                    if( checked ) {
-                        $('.pack_component tbody').hide();
-                    } else {
-                        
-                    }
+					
+					var checked = $("input[name='catagory_edit[pack]']").is(':checked');
+					
+					if( checked ) {
+						$('.pack_component tbody').hide();
+					} else {
+						
+					}
 
-                    $("input[name='catagory_edit[pack]']").change(function(){
-                        if ($(this).is(':checked')) {
-                            $('.pack_component').show();
-                            $('.pack_component tbody').show();
-                    } else {
-                            $('.pack_component').hide();
-                        }    
-                    });
+					$("input[name='catagory_edit[pack]']").change(function(){
+						if ($(this).is(':checked')) {
+							$('.pack_component').show();
+							$('.pack_component tbody').show();
+					} else {
+							$('.pack_component').hide();
+						}	
+					});
 				});
 			}
 		};

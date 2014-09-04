@@ -12,6 +12,8 @@
 				return this.each(function() {
 					var $this = $( this );
 
+					moment.locale( dzangocart.locale );
+
 					$( ".filters_keyup input" ).keyup(function( event ) {
 						event.stopPropagation();
 						table.api().draw();
@@ -49,9 +51,9 @@
 		var helpers = {
 			initCustomerWidget: function() {
 
-                if ( "undefined" == typeof settings.typeahead ) {
-                    return;
-                }
+				if ( "undefined" == typeof settings.typeahead ) {
+					return;
+				}
 
 				var widget = $( "[name='payments_filters[customer]']" );
 

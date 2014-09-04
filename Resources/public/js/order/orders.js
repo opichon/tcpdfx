@@ -12,7 +12,7 @@
 				return this.each(function() {
 					var $this = $( this );
 
-					moment.lang( dzangocart.locale );
+					moment.locale( dzangocart.locale );
 
 					$( ".filters_keyup input" ).keyup(function(event) {
 						event.stopPropagation();

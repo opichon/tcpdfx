@@ -17,7 +17,7 @@
 						table.api().draw();
 					});
 
-                    $( ".filters select" ).change(function( event ) {
+					$( ".filters select" ).change(function( event ) {
 						event.stopPropagation();
 						table.api().draw();
 					});
@@ -57,16 +57,16 @@
 	$.fn.customers.defaults = {
 		datatables: {
 			autoWidth: false,
-            columnDefs: [
+			columnDefs: [
 				{ orderable: false, targets: [ 0, 6 ] },
 				{ visible: false, targets: [ 0 ] },
 				{ className: "number", targets: [ 5 ] },
 				{ className: "actions", targets: [ 6 ] }
 			],
 			destroy: true,
-            language: {
-                url: "/bundles/dzangocartcore/datatables/" + dzangocart.locale + ".json"
-            },
+			language: {
+				url: "/bundles/dzangocartcore/datatables/" + dzangocart.locale + ".json"
+			},
 			orderable: true,
 			orderCellsTop: true,
 			paginate: true,
@@ -80,7 +80,7 @@
 } ( window.jQuery );
 
 $( document ).ready(function() {
-    $( ".customers" ).customers( dzangocart.customers );
+	$( ".customers" ).customers( dzangocart.customers );
 });
 
 
