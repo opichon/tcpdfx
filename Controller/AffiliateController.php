@@ -17,14 +17,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- * @Route("/affiliate")
- */
 class AffiliateController extends BaseController
 {
     /**
-     * @Route("/", name="affiliates")
-     * @Template("DzangocartCoreBundle:Affiliate:index.html.twig")
+     * @Template()
      */
     public function indexAction(Request $request)
     {
@@ -37,7 +33,6 @@ class AffiliateController extends BaseController
     }
 
     /**
-     * @Route("/list", name="affiliates_list", requirements={"_format": "json"}, defaults={"_format": "json"})
      * @Template("DzangocartCoreBundle:Affiliate:list.json.twig")
      */
     public function listAction(Request $request)
@@ -81,7 +76,6 @@ class AffiliateController extends BaseController
     }
 
     /**
-     * @Route("/{id}", requirements={"id" = "\d+"}, name="affiliate_show")
      * @Template("DzangocartCoreBundle:Affiliate:show.html.twig")
      */
     public function showAction(Request $request, $id)
@@ -97,7 +91,6 @@ class AffiliateController extends BaseController
     }
 
      /**
-     * @Route("/{id}/order",name="affiliate_orders")
      * @Template("DzangocartCoreBundle:Affiliate:orders.html.twig")
      */
     public function ordersAction(Request $request, $id)
@@ -122,7 +115,6 @@ class AffiliateController extends BaseController
     }
 
     /**
-     * @Route("/{id}/sale", name="affiliate_sales")
      * @Template("DzangocartCoreBundle:Affiliate:sales.html.twig")
      */
     public function salesAction(Request $request, $id)
