@@ -49,9 +49,9 @@
 		var helpers = {
 			initCustomerWidget: function() {
 
-                if ( "undefined" == typeof settings.typeahead ) {
-                    return;
-                }
+				if ( "undefined" == typeof settings.typeahead ) {
+					return;
+				}
 
 				var widget = $( "[name='payments_filters[customer]']" );
 
