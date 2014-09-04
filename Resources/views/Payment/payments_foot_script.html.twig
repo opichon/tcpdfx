@@ -2,7 +2,8 @@
 	'bundles/dzangocartcore/vendor/datatables/media/js/jquery.dataTables.min.js'
 	'bundles/dzangocartcore/vendor/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js'
 	'bundles/dzangocartcore/vendor/typeahead.js/dist/typeahead.bundle.min.js'
-	'bundles/dzangocartcore/vendor/moment/min/moment-with-langs.min.js'
+	'bundles/dzangocartcore/vendor/moment/min/moment.min.js'
+	'bundles/dzangocartcore/vendor/moment/locale/fr.js'
 	'bundles/dzangocartcore/vendor/bootstrap-daterangepicker/daterangepicker.min.js'
 	'bundles/dzangocartcore/js/ajax.js'
 	'bundles/dzangocartcore/js/payment/payments.js'
@@ -11,18 +12,18 @@
 {% endjavascripts %}
 <script>
 dzangocart.payments = {
-    datatables: {
-        ajax: {
-            url: "{{ path('payments_list') }}"
-        }
-    },
-    daterangepicker: {
-        ranges: {% include "DzangocartCoreBundle::date_ranges.html.twig" %}
-    },
-    typeahead: {
-        remote: {
-            url:  "{{ path('customer_search', { search: '__query__' }) }}"
-        }
-    }
+	datatables: {
+		ajax: {
+			url: "{{ path('payments_list') }}"
+		}
+	},
+	daterangepicker: {
+		ranges: {% include "DzangocartCoreBundle::date_ranges.html.twig" %}
+	},
+	typeahead: {
+		remote: {
+			url:  "{{ path('customer_search', { search: '__query__' }) }}"
+		}
+	}
 };
 </script>
