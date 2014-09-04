@@ -12,6 +12,8 @@
 				return this.each(function() {
 					var $this = $( this );
 
+					moment.locale( dzangocart.locale );
+
 					$( ".filters_keyup input" ).keyup(function( event ) {
 						event.stopPropagation();
 						table.api().draw();
