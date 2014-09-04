@@ -32,15 +32,11 @@ class TCPDF extends FPDI
     protected $document_title_align = 'C';
     protected $document_title_cell_height = 12;
 
-    protected $title_font = 'Verdana';
-    protected $title_size = 11;
-    protected $title_style = 'B';
+    protected $title_font = array('Verdana', 'B', 11);
     protected $title_cell_height = 6;
     protected $title_align = 'L';
 
-    protected $subtitle_font = 'Verdana';
-    protected $subtitle_size = 11;
-    protected $subtitle_style = 'B';
+    protected $subtitle_font = array('Verdana', 'B', 11);
     protected $subtitle_cell_height = 6;
 
     protected $default_cell_padding = array('L' => 0.3, 'T' => 0.3, 'R' => 0.3, 'B' => 0.3);
