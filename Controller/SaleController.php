@@ -12,14 +12,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- * @Route("/sale")
- */
 class SaleController extends BaseController
 {
     /**
-     * @Route("/", name="sales")
-     * @Template("DzangocartCoreBundle:Sale:index.html.twig")
+     * @Template()
      */
     public function indexAction(Request $request)
     {
@@ -41,7 +37,6 @@ class SaleController extends BaseController
     }
 
     /**
-     * @Route("/list", name="sales_list", requirements={"_format": "json"}, defaults={"_format": "json"})
      * @Template("DzangocartCoreBundle:Sale:list.json.twig")
      */
     public function listAction(Request $request)
