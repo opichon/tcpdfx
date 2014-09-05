@@ -139,7 +139,6 @@ class AffiliateController extends BaseController
     }
 
     /**
-     * @Route("/{id}/customer", name="affiliate_customer")
      * @Template("DzangocartCoreBundle:Affiliate:customers.html.twig")
      */
     public function customerAction(Request $request, $id)
@@ -176,7 +175,6 @@ class AffiliateController extends BaseController
     }
 
     /**
-     *@Route("/create", name="affiliate_create")
      *@Template("DzangocartCoreBundle:Affiliate:create.html.twig")
      */
     public function createAction(Request $request)
@@ -191,7 +189,7 @@ class AffiliateController extends BaseController
             new AffiliateType(),
             $affiliate,
             array(
-                'action' => $this->generateUrl('affiliate_create')
+                'action' => $this->generateUrl('store_affiliate_create')
             )
         );
 
@@ -214,7 +212,7 @@ class AffiliateController extends BaseController
                 )
             );
 
-            return $this->redirect($this->generateUrl('affiliates'));
+            return $this->redirect($this->generateUrl('store_affiliates'));
         }
 
         return array(
