@@ -162,11 +162,11 @@
 				{ data: "sale.amount.exl" },
 				{ data: "sale.amount.tax" },
 				{ data: "sale.amount.incl" },
-                {
+				{
 					data: function( row, type, val, meta ) {
 						if ( 'display' === type ){
 							var url = dzangocart.mustache.sale.actions.replace( /__id__/g, "{{id}}");
-							return Mustache.render( url, { id: row.order.id } );
+							return Mustache.render( url, row.order );
 						}
 
 						return "";

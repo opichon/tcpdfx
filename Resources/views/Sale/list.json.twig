@@ -13,7 +13,7 @@
                 "id": "{{ sale.id }}",
                 "date": "{{ sale.cart.date|datetime('dd.MM.yy', 'HH:mm', time_zone, app.request.locale) }}",
                 "order": {
-                    "id": "{{ sale.orderId}}"
+                    "id": "{{ sale.orderId }}"
                 },
                 "store": {
                     "name": "{{sale.order.store.name}}"
