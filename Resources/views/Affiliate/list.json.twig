@@ -11,11 +11,11 @@
                 "DT_RowId": "{{ '_' ~ affiliate.id }}",
                 "DT_RowClass": "{{ 'affiliate' }}",
                 "id": "{{ affiliate.id }}",
-                "0": "",
-                "1": "{% include 'DzangocartCoreBundle:Affiliate:store.html.twig' with { store: affiliate.store } %}",
-                "2": "{{ affiliate.name }}",
-                "3": "{{ affiliate.website }}",
-                "4": "<a href='{{ path('affiliate_show', { id: affiliate.id }) }}'><i class='fa fa-edit'></i></a>"
+                "affiliate": {
+                    "store": "{{ affiliate.store.name}}",
+                    "name": "{{ affiliate.name }}",
+                    "website": "{{ affiliate.website }}"
+                }
             }{% if not loop.last %},{% endif %}
         {% endfor %}
     ]

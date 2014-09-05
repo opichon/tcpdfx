@@ -39,6 +39,22 @@
 				{ visible: false, targets: [ 0 ] },
 				{ className: "actions", targets: [ 4 ] }
 			],
+			columns: [
+				{ data: "id" },
+				{ data: "affiliate.store" },
+				{ data: "affiliate.name" },
+				{ data: "affiliate.website" },
+				{
+					data: function( row, type, val, meta ) {
+						if ( "display" === type ) {
+								var url = dzangocart.mustache.affiliate.actions.replace( /__id__/g, "{{id}}");
+								return Mustache.render( url, {id: row.id } );
+							}
+
+							return "";
+						}
+				}
+			],
 			stripeClasses: [],
 			autoWidth: false,
 			paging: true,
