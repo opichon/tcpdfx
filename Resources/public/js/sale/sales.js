@@ -133,6 +133,46 @@
 				{ className: "amount", targets: [ 7, 8, 9 ] },
 				{ className: "actions", targets: [ 10 ] }
 			],
+			columns: [
+				{ data: "id" },
+				{ data: "date" },
+				{
+					data: function( row, type, val, meta ) {
+						if ( 'display' === type ){
+							var url = dzangocart.mustache.order.url.replace( /__id__/g, "{{id}}");
+							return Mustache.render( url, row.order );
+						}
+
+						return "";
+					}
+				},
+				{ data: "store.name" },
+				{
+					data: function( row, type, val, meta ) {
+						if ( 'display' === type ){
+							var url = dzangocart.mustache.customer.url.replace( /__id__/g, "{{id}}");
+							return Mustache.render( url, row.customer );
+						}
+
+						return "";
+					}
+				},
+				{ data: "sale.name" },
+				{ data: "sale.quantity" },
+				{ data: "sale.amount.exl" },
+				{ data: "sale.amount.tax" },
+				{ data: "sale.amount.incl" },
+				{
+					data: function( row, type, val, meta ) {
+						if ( 'display' === type ){
+							var url = dzangocart.mustache.sale.actions.replace( /__id__/g, "{{id}}");
+							return Mustache.render( url, row.order );
+						}
+
+						return "";
+					}
+				}
+			],
 			destroy: true,
 			language: {
 				url: "/bundles/dzangocartcore/datatables/" + dzangocart.locale + ".json"
