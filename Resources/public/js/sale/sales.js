@@ -147,15 +147,15 @@
 					}
 				},
 				{
-                    data: function( row, type, val, meta ) {
-                        if ( 'display' === type ) {
-                            var url = dzangocart.mustache.store.url.replace( /__id__/g, "{{id}}");
-                            return Mustache.render( url, row.store );
-                        }
+					data: function( row, type, val, meta ) {
+						if ( 'display' === type ) {
+							var url = dzangocart.mustache.store.url.replace( /__id__/g, "{{id}}");
+							return Mustache.render( url, row.store );
+						}
 
-                        return "";
-                    }
-                },
+						return "";
+					}
+				},
 				{
 					data: function( row, type, val, meta ) {
 						if ( 'display' === type ) {
