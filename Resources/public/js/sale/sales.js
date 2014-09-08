@@ -138,7 +138,7 @@
 				{ data: "date" },
 				{
 					data: function( row, type, val, meta ) {
-						if ( 'display' === type ){
+						if ( 'display' === type ) {
 							var url = dzangocart.mustache.order.url.replace( /__id__/g, "{{id}}");
 							return Mustache.render( url, row.order );
 						}
@@ -146,10 +146,19 @@
 						return "";
 					}
 				},
-				{ data: "store.name" },
+				{
+                    data: function( row, type, val, meta ) {
+                        if ( 'display' === type ) {
+                            var url = dzangocart.mustache.store.url.replace( /__id__/g, "{{id}}");
+                            return Mustache.render( url, row.store );
+                        }
+
+                        return "";
+                    }
+                },
 				{
 					data: function( row, type, val, meta ) {
-						if ( 'display' === type ){
+						if ( 'display' === type ) {
 							var url = dzangocart.mustache.customer.url.replace( /__id__/g, "{{id}}");
 							return Mustache.render( url, row.customer );
 						}
@@ -164,7 +173,7 @@
 				{ data: "sale.amount.incl" },
 				{
 					data: function( row, type, val, meta ) {
-						if ( 'display' === type ){
+						if ( 'display' === type ) {
 							var url = dzangocart.mustache.sale.actions.replace( /__id__/g, "{{id}}");
 							return Mustache.render( url, row.order );
 						}
