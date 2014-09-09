@@ -41,6 +41,7 @@
 				{ className: "actions", targets: [ 5 ] }
 			],
 			columns: [
+				{ data: "" },
 				{ data: "name" },
 				{ data: "code" },
 				{ data: "date_from" },
