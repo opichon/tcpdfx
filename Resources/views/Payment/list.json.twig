@@ -37,13 +37,7 @@
                     "class":    "{{ ('payment.status.class.' ~ status.name(payment))|trans }}",
                     "label":    "{{ ('payment.status.label.' ~ status.name(payment))|trans }}"
                 },
-                "actions":      "{% include 'DzangocartCoreBundle:Payment:actions.html.twig' %}",
-                "urls": {
-                    "order":    "{{ param['customer'] is defined ? path('user_order', { id: payment.order.id }) : path('order', { id: payment.order.id }) }}",
-                    "store":    "{% if store is not defined %}{{ path('store', { id: payment.gateway.store.id }) }}{% endif %}",
-                    "customer": "{{ path('customer', { id: payment.order.customer.id }) }}",
-                    "gateway":  "{{ path('gateway', { id: payment.gateway.id }) }}"
-                }
+                "actions":      ""
             }{% if not loop.last %},{% endif %}
         {% endfor %}
     ]

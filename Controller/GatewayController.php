@@ -73,7 +73,7 @@ class GatewayController extends BaseController
     }
 
     /**
-     * @Route("/gateway/{id}", name="gateway", requirements={"id": "\d+"})
+     * @Route("/gateway/{id}", name="gateway", requirements={"id": "\d+|__id__"})
      * @Template("DzangocartCoreBundle:Gateway:show.html.twig")
      */
     public function showAction(Request $request, $id)
