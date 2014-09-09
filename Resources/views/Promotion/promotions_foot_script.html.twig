@@ -1,6 +1,7 @@
 {% javascripts
 	'bundles/dzangocartcore/vendor/datatables/media/js/jquery.dataTables.min.js'
 	'bundles/dzangocartcore/vendor/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js'
+	'bundles/dzangocartcore/js/ajax.js'
 	'bundles/dzangocartcore/js/promotion/promotions.js'
 %}
 	<script src="{{ asset_url }}"></script>
@@ -8,7 +9,9 @@
 <script>
 dzangocart.promotions = {
 	datatables: {
-		sAjaxSource: "{{ path('promotions', { _format: 'json' }) }}"
-	}
+        ajax: {
+            url: "{{ path('promotions_list') }}"
+        }
+    }
 };
 </script>

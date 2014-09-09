@@ -1,0 +1,22 @@
+{% trans_default_domain "promotion" %}
+
+{% spaceless %}
+{
+    "draw": "{{ draw }}",
+    "recordsTotal": {{ total_count }},
+    "recordsFiltered": {{ filtered_count }},
+    "data" : [
+        {% for promotion in promotions %}
+            {
+                "DT_RowId": "{{ '_promotion_' ~ promotion.id }}",
+                "DT_RowClass": "{{ 'promotion' }}",
+                "name": "{{ promotion.name }}",
+                "code": "{{ promotion.code }}",
+                "date_from": "{% if promotion.dateFrom %}{{ promotion.dateFrom|datetime('dd.MM.yy', 'HH:mm', time_zone, app.request.locale) }}{% endif %}",
+                "date_to": "{% if promotion.dateTo %}{{ promotion.dateTo|datetime('dd.MM.yy', 'HH:mm', time_zone, app.request.locale) }}{% endif %}",
+                "actions": "{% include 'DzangocartCoreBundle:Promotion:actions.html.twig' %}"
+            }{% if not loop.last %},{% endif %}
+        {% endfor %}
+    ]
+}
+{% endspaceless %}

@@ -13,8 +13,8 @@
 					var $this = $( this );
 
 					table = $( "table.table", this ).dataTable( $.extend( true, {}, settings.datatables, {
-						fnInitComplete: function( oSettings, json ) {
-							$( oSettings.nTable ).show();
+						initComplete: function( settings, json ) {
+							$( this ).show();
 						},
 					} ) );
 				});
@@ -34,20 +34,27 @@
 
 	$.fn.promotions.defaults = {
 		datatables: {
-			aoColumnDefs: [
-				{ bSortable: false, aTargets: [ 0, 5 ] },
-				{ bVisible: false, aTargets: [ 0 ] },
-				{ sClass: "actions", aTargets: [ 5 ] }
+			autoWidth: false,
+			columnDefs: [
+				{ orderable: false, targets: [ 0, 5 ] },
+				{ visible: false, targets: [ 0 ] },
+				{ className: "actions", targets: [ 5 ] }
 			],
-			asStripeClasses: [],
-			bAutoWidth: false,
-			bDestroy: true,
-			bPaginate: true,
-			bProcessing: true,
-			bServerSide: true,
-			bSortable: true,
-			oLanguage: {
-				sUrl: "/bundles/uamdatatables/lang/" + dzangocart.locale + ".txt"
+			columns: [
+				{ data: "name" },
+				{ data: "code" },
+				{ data: "date_from" },
+				{ data: "date_to" },
+				{ data: "actions" }
+			],
+			destroy: true,
+			orderable: true,
+			paging: true,
+			processing: true,
+			serverSide: true,
+			stripeClasses: [],
+			language: {
+				url: "/bundles/dzangocartcore/datatables/" + dzangocart.locale + ".json"
 			}
 		}
 	};
