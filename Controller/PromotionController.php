@@ -22,52 +22,52 @@ class PromotionController extends BaseController
      */
     public function indexAction(Request $request)
     {
-        if ($request->isXmlHttpRequest() || 'json' == $request->getRequestFormat()) {
-
-            $store_id = $request->query->get('store_id');
-
-            $query = $this->getQuery()
-                ->joinWithI18n($request->getLocale());
-
-            if ($store_id = $request->query->get('store_id')) {
-                $query->filterByStoreId($store_id);
-            }
-
-            $total_count = $query->count();
-
-            $query->datatablesSearch(
-                $request->query->get('sSearch'),
-                $this->getDataTablesSearchColumns()
-            );
-
-            $filtered_count = $query->count();
-
-            $limit = min(100, $request->query->get('iDisplayLength'));
-            $offset = max(0, $request->query->get('iDisplayStart'));
-
-            $promotions = $query
-                ->dataTablesSort($request->query, $this->getDataTablesSortColumns())
-                ->setLimit($limit)
-                ->setOffset($offset)
-                ->find();
-
-            $data = array(
-                'sEcho' => $request->query->get('sEcho'),
-                'iStart' => 0,
-                'iTotalRecords' => $total_count,
-                'iTotalDisplayRecords' => $filtered_count,
-                'promotions' => $promotions
-            );
-
-            $view = $this->renderView('DzangocartCoreBundle:Promotion:index.json.twig', $data);
-
-            return new Response($view, 200, array('Content-Type' => 'application/json'));
-        }
-
         return array(
             'store' => $this->getStore(),
             'template' => $this->getBaseTemplate()
         );
+    }
+
+    /**
+     * @Route("/promotion/list", name="promotions_list")
+     * @Template("DzangocartCoreBundle:Promotion:list.json.twig")
+     */
+    public function listAction(Request $request)
+    {
+        $store_id = $request->query->get('store_id');
+
+        $query = $this->getQuery()
+            ->joinWithI18n($request->getLocale());
+
+        if ($store_id = $request->query->get('store_id')) {
+            $query->filterByStoreId($store_id);
+        }
+
+        $total_count = $query->count();
+
+        $query->datatablesSearch(
+            $request->query->get('sSearch'),
+            $this->getDataTablesSearchColumns()
+        );
+
+        $filtered_count = $query->count();
+
+        $limit = min(100, $request->query->get('lenght'));
+        $offset = max(0, $request->query->get('start'));
+
+        $promotions = $query
+            ->dataTablesSort($request->query, $this->getDataTablesSortColumns())
+            ->setLimit($limit)
+            ->setOffset($offset)
+            ->find();
+
+        return array(
+                'draw' => $request->query->get('draw'),
+                'start' => 0,
+                'total_count' => $total_count,
+                'filtered_count' => $filtered_count,
+                'promotions' => $promotions
+            );
     }
 
     protected function getDatatablesSortColumns()
