@@ -125,7 +125,8 @@
 				{ data: "date" },
 				{ data: function( row, type, val, meta ) {
 						if ( "display" === type ) {
-							return "<a href='" + row.urls.store + "'>" + row.store.name + "</a>";
+							var url = dzangocart.mustache.store.url.replace( /__id__/g, '{{id}}');
+							return Mustache.render( url, row.store );
 						}
 
 						return "";
@@ -133,7 +134,8 @@
 				},
 				{ data: function( row, type, val, meta ) {
 						if ( "display" === type ) {
-							return "<a href='" + row.urls.order + "'>" + row.order.id + "</a>";
+							var url = dzangocart.mustache.order.url.replace( /__id__/g, '{{id}}');
+							return Mustache.render( url, row.order );
 						}
 
 						return "";
@@ -141,7 +143,8 @@
 				},
 				{ data: function( row, type, val, meta ) {
 						if ( "display" == type ) {
-							return "<a href='" + row.urls.customer + "'>" + row.customer.name + "</a>";
+							var url = dzangocart.mustache.customer.url.replace( /__id__/g, '{{id}}');
+							return Mustache.render( url, row.customer );
 						}
 
 						return "";
@@ -149,7 +152,8 @@
 				},
 				{ data: function( row, type, val, meta ) {
 						if ( "display" === type ) {
-					   		return "<a href='" + row.urls.gateway + "'>" + row.gateway.name + "</a>";
+					   		var url = dzangocart.mustache.gateway.url.replace( /__id__/g, '{{id}}');
+							return Mustache.render( url, row.gateway );
 						}
 
 						return "";
@@ -164,7 +168,15 @@
 						return "";
 					}
 				},
-				{ data: "actions" }
+				{ data: function( row, type, val, meta ) {
+						if ( "display" === type ) {
+							var url = dzangocart.mustache.order.actions.replace( /__id__/g, '{{id}}');
+							return Mustache.render( url, { id : row.order.id } );
+						}
+
+						return "";
+					}
+				}
 			],
 			columnDefs: [
 				{ orderable: false, targets: [ 0, 8 ] },
