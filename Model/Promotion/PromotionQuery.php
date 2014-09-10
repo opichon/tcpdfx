@@ -80,7 +80,9 @@ class PromotionQuery extends BasePromotionQuery
         $conditions = array();
 
         if (is_array($filters)) {
+
             foreach ($columns as $name => $condition) {
+
                 if (!array_key_exists($name, $filters)) {
                     continue;
                 }
@@ -91,17 +93,41 @@ class PromotionQuery extends BasePromotionQuery
                     continue;
                 }
 
-                $this->condition(
-                    'search_' . $name,
-                    sprintf($condition, $value)
-                );
+                if (is_array($condition)) {
+
+                    $sub_conditions = array();
+
+                    foreach ($condition as $i => $sub_condition) {
+                        $sub_name = sprintf('search_%s_%d', $name, $i);
+
+                        $this->condition(
+                            $sub_name,
+                            sprintf($sub_condition, $value)
+                        );
+
+                        $sub_conditions[] = $sub_name;
+                    }
+
+                    if (!empty($sub_conditions)) {
+                        $this->combine($sub_conditions, 'or', 'search_' . $name);
+                    }
+
+                } else {
+
+                    $this->condition(
+                        'search_' . $name,
+                        sprintf($condition, $value)
+                    );
+
+                }
 
                 $conditions[] = 'search_' . $name;
             }
 
-            if (!empty($conditions)) {
-                return $this->where($conditions, 'and');
-            }
+        if (!empty($conditions)) {
+            return $this->where($conditions, 'and');
+        }
+
         } else {
             $value = trim($filters);
 
