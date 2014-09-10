@@ -12,6 +12,9 @@ dzangocart.promotions = {
         ajax: {
             url: "{{ path('promotions_list') }}"
         }
-    }
+    },
+	daterangepicker: {
+		ranges: {% include "DzangocartCoreBundle::date_ranges.html.twig" %}
+	},
 };
 </script>

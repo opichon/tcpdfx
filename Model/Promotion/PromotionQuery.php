@@ -10,6 +10,9 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 
 class PromotionQuery extends BasePromotionQuery
 {
+    /**
+     * @deprecated
+     */
     public function dataTablesSort(ParameterBag $params, array $columns = array())
     {
         $control = 0;
@@ -56,4 +59,63 @@ class PromotionQuery extends BasePromotionQuery
     {
         return $this->orderBy('promotion.id');
     }
+
+    public function sort(array $order = array())
+    {
+        foreach ($order as $setting) {
+            $column = $setting[0];
+            $direction = $setting[1];
+            $this->orderBy($column, $direction);
+        }
+
+        return $this;
+    }
+
+    public function filter($filters = null, array $columns = array())
+    {
+        if (empty($filters)) {
+            return $this;
+        }
+
+        $conditions = array();
+
+        if (is_array($filters)) {
+            foreach ($columns as $name => $condition) {
+                if (!array_key_exists($name, $filters)) {
+                    continue;
+                }
+
+                $value = trim($filters[$name]);
+
+                if (empty($value) && !is_numeric($value)) {
+                    continue;
+                }
+
+                $this->condition(
+                    'search_' . $name,
+                    sprintf($condition, $value)
+                );
+
+                $conditions[] = 'search_' . $name;
+            }
+
+            if (!empty($conditions)) {
+                return $this->where($conditions, 'and');
+            }
+        } else {
+            $value = trim($filters);
+
+            foreach ($columns as $name => $condition) {
+                $this->condition(
+                    'search_' . $name,
+                    sprintf($condition, $value)
+                );
+
+                $conditions[] = 'search_' . $name;
+            }
+
+            return $this->where($conditions, 'or');
+        }
+    }
+    
 }
