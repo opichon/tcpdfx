@@ -145,4 +145,9 @@ class Cart extends BaseCart
             $this->setCreditAmount($credit_amount);
         }
     }
+
+    public function isProcessed()
+    {
+        return $this->getStatus() & self::STATUS_PROCESSED;
+    }
 }
