@@ -2,6 +2,8 @@
 
 namespace Dzangocart\Bundle\CoreBundle\Controller;
 
+use DateTime;
+
 use Dzangocart\Bundle\CoreBundle\Form\Type\PromotionFormType;
 use Dzangocart\Bundle\CoreBundle\Model\ItemQuery;
 use Dzangocart\Bundle\CoreBundle\Model\Promotion\Promotion;
@@ -22,9 +24,19 @@ class PromotionController extends BaseController
      */
     public function indexAction(Request $request)
     {
-        return array(
-            'store' => $this->getStore(),
-            'template' => $this->getBaseTemplate()
+        $filters = $this->createForm(
+            new PromotionFormType(),
+            array(
+                'date_from' => (new DateTime())->modify('first day of this month'),
+                'date_to' => new DateTime()
+            )
+        );
+
+        return array_merge(
+            $this->getTemplateParams(),
+            array(
+                'filters' => $filters->createView()
+            )
         );
     }
 
@@ -45,8 +57,8 @@ class PromotionController extends BaseController
 
         $total_count = $query->count();
 
-        $query->datatablesSearch(
-            $request->query->get('sSearch'),
+        $query->filter(
+            $request->query->get('promotion'),
             $this->getDataTablesSearchColumns()
         );
 
@@ -56,7 +68,7 @@ class PromotionController extends BaseController
         $offset = max(0, $request->query->get('start'));
 
         $promotions = $query
-            ->dataTablesSort($request->query, $this->getDataTablesSortColumns())
+            ->sort($this->getSortOrder($request))
             ->setLimit($limit)
             ->setOffset($offset)
             ->find();
@@ -73,16 +85,15 @@ class PromotionController extends BaseController
     protected function getDatatablesSortColumns()
     {
         return array(
-            1 => 'promotion.id',
-            2 => 'promotion.storeId'
+           1 => 'PromotionI18n.name'
         );
-
     }
 
     protected function getDataTablesSearchColumns()
     {
         return array(
-            'promotion.id'
+            'name' => 'PromotionI18n.name LIKE "%%%s%%"',
+            'code' => 'promotion.code LIKE "%%%s%%"'
         );
     }
 
@@ -218,5 +229,44 @@ class PromotionController extends BaseController
     protected function getQuery()
     {
         return PromotionQuery::create();
+    }
+
+    protected function getSortOrder(Request $request)
+    {
+        $sort = array();
+
+        $order = $request->query->get('order', array());
+
+        $columns = $this->getDatatablesSortColumns();
+
+        foreach ($order as $setting) {
+
+            $index = $setting['column'];
+
+            if (array_key_exists($index, $columns)) {
+
+                $column = $columns[$index];
+
+                if (!is_array($column)) {
+                    $column = array($column);
+                }
+
+                foreach ($column as $c) {
+                    $sort[] = array(
+                        $c,
+                        $setting['dir']
+                    );
+                }
+            }
+        }
+
+       if (empty($sort)) {
+            $sort[] = array(
+                'promotion.id',
+                'asc'
+            );
+        }
+
+        return $sort;
     }
 }
