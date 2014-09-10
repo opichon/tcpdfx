@@ -49,7 +49,7 @@ class PromotionFormType extends BaseAbstractType
             'mapped' => false,
             'required' => true,
             'data' => '',
-            'label' => 'promotion.form.period',
+            'label' => 'promotion.form.period.label',
             'attr' => array(
                 'class' => 'period'
             )
