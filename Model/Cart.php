@@ -160,7 +160,7 @@ class Cart extends BaseCart
         $promotions = $this->getStore()->getPromotions();
 
         foreach ($promotions as $promotion) {
-            // TODO: execute promotion
+            $promotion->execute($this);
         }
     }
 }
