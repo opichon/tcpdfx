@@ -19,6 +19,8 @@ promotion:
             label:   Description
         name:
             label:   Name
+        period:
+            label:   Period
         submit:      Save
 
     promotions:

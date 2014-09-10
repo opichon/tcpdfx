@@ -27,16 +27,32 @@ class PromotionFormType extends BaseAbstractType
             'required' => false
         ));
 
-        $builder->add('dateFrom', 'date', array(
+        $builder->add('date_from', 'date', array(
             'label' => 'promotion.form.date_from.label',
             'required' => false,
             'widget' => 'single_text',
+            'attr' => array(
+                'class' => 'date date_from'
+            )
         ));
 
-        $builder->add('dateTo', 'date', array(
+        $builder->add('date_to', 'date', array(
             'label' => 'promotion.form.date_to.label',
             'required' => false,
             'widget' => 'single_text',
+            'attr' => array(
+               'class' => 'date date_from'
+            )
+        ));
+
+        $builder->add('period', 'text', array(
+            'mapped' => false,
+            'required' => true,
+            'data' => '',
+            'label' => 'promotion.form.period.label',
+            'attr' => array(
+                'class' => 'period'
+            )
         ));
 
         $builder->add('name', 'text', array(
