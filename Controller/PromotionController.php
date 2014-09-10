@@ -85,7 +85,10 @@ class PromotionController extends BaseController
     protected function getDatatablesSortColumns()
     {
         return array(
-           1 => 'PromotionI18n.name'
+           1 => 'PromotionI18n.name',
+           2 => 'promotion.code',
+           3 => 'promotion.date_from',
+           4 => 'promotion.date_to'
         );
     }
 
