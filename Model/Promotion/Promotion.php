@@ -15,9 +15,9 @@ class Promotion extends BasePromotion
             $action = $this->getAction();
 
             if ($this->isEligible($cart)) {
-                //$action->execute($cart);
+                // $action->execute($cart, $this);
             } else {
-                // $action->cancel($cart)
+                // $action->cancel($cart, $this)
             }
 
         } catch (Exception $ex) {
