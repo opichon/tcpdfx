@@ -145,4 +145,22 @@ class Cart extends BaseCart
             $this->setCreditAmount($credit_amount);
         }
     }
+
+    public function isProcessed()
+    {
+        return $this->getStatus() & self::STATUS_PROCESSED;
+    }
+
+    public function runPromotions()
+    {
+        if ($this->isProcessed()) {
+            return;
+        }
+
+        $promotions = $this->getStore()->getPromotions();
+
+        foreach ($promotions as $promotion) {
+            $promotion->execute($this);
+        }
+    }
 }

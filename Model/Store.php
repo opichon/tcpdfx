@@ -7,6 +7,8 @@ use Dzangocart\Bundle\CoreBundle\Model\Customer;
 use Dzangocart\Bundle\CoreBundle\Model\Gateway\GatewayQuery;
 use Dzangocart\Bundle\CoreBundle\Model\om\BaseStore;
 
+use Dzangocart\Bundle\CoreBundle\Model\Promotion\PromotionQuery;
+
 class Store extends BaseStore
 {
     const STATUS_UNCONFIRMED = 0; // Domain has been reserved
@@ -286,5 +288,16 @@ class Store extends BaseStore
         //if default category id is null and store catalouge is empty,
         //new default category is created for this store.
         return $category;
+    }
+
+    /**
+     *
+     * @return promotions of store
+     */
+    public function getPromotions()
+    {
+        return PromotionQuery::create()
+            ->filterByStoreId($this->getId())
+            ->find();
     }
 }
