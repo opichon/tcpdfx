@@ -150,4 +150,17 @@ class Cart extends BaseCart
     {
         return $this->getStatus() & self::STATUS_PROCESSED;
     }
+
+    public function runPromotions()
+    {
+        if ($this->isProcessed()) {
+            return;
+        }
+
+        $promotions = $this->getStore()->getPromotions();
+
+        foreach ($promotions as $promotion) {
+            // TODO: execute promotion
+        }
+    }
 }
