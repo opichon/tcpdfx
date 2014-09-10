@@ -164,9 +164,9 @@ class PromotionController extends BaseController
             $item->save();
         }
 
-       $promotion->delete();
+        $promotion->delete();
 
-       $promotion_i18n->delete();
+        $promotion_i18n->delete();
 
         $this->get('session')->getFlashBag()->add(
             'success',
@@ -260,7 +260,7 @@ class PromotionController extends BaseController
             }
         }
 
-       if (empty($sort)) {
+        if (empty($sort)) {
             $sort[] = array(
                 'promotion.id',
                 'asc'
