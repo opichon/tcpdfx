@@ -25,13 +25,6 @@ class Promotion extends BasePromotion
         }
     }
 
-    public function getAction()
-    {
-        return ActionQuery::create()
-            ->filterById($this->getActionId())
-            ->findOne();
-    }
-
     public function isEligible(Cart $cart)
     {
         // TODO: check eligibility of cart;
