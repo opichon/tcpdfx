@@ -289,15 +289,4 @@ class Store extends BaseStore
         //new default category is created for this store.
         return $category;
     }
-
-    /**
-     *
-     * @return promotions of store
-     */
-    public function getPromotions()
-    {
-        return PromotionQuery::create()
-            ->filterByStoreId($this->getId())
-            ->find();
-    }
 }
