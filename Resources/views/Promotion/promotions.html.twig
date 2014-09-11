@@ -3,24 +3,24 @@
 {% include "DzangocartCoreBundle:Promotion:filters.html.twig" %}
 
 <table class="table table-condensed table-hover" id="promotions">
-    <thead>
-        <tr>
-            <th class="selectall"></th>
-            <th class="name">{% trans %}promotion.promotions.name{% endtrans %}</th>
-            <th class="code">{% trans %}promotion.promotions.code{% endtrans %}</th>
-            <th class="datetime">{% trans %}promotion.promotions.date_from{% endtrans %}</th>
-            <th class="datetime">{% trans %}promotion.promotions.date_to{% endtrans %}</th>
-            <th class="actions">{% trans %}promotion.promotions.actions.title{% endtrans %}</th>
-        </tr>
+	<thead>
+		<tr>
+			<th class="selectall"></th>
+			<th class="name">{% trans %}promotion.promotions.name{% endtrans %}</th>
+			<th class="code">{% trans %}promotion.promotions.code{% endtrans %}</th>
+			<th class="datetime">{% trans %}promotion.promotions.date_from{% endtrans %}</th>
+			<th class="datetime">{% trans %}promotion.promotions.date_to{% endtrans %}</th>
+			<th class="actions">{% trans %}promotion.promotions.actions.title{% endtrans %}</th>
+		</tr>
 		<tr class="filters" >
-            <th></th>
-            <th>{{ form_widget(filters.name) }}</th>
-            <th>{{ form_widget(filters.code) }}</th>
-            <th></th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-    </tbody>
+			<th></th>
+			<th>{{ form_widget(filters.name) }}</th>
+			<th>{{ form_widget(filters.code) }}</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+	</tbody>
 </table>
