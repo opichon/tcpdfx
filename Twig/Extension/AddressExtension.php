@@ -21,7 +21,9 @@ class AddressExtension extends Twig_Extension
         $state = $address->getRegion();
         $zip = $address->getPostalCode();
 
-        return $city . ' ' . $state . ' ' . $zip;
+        $formatted_address = $city . ' ' . $state . ' ' . $zip;
+
+        return $formatted_address;
     }
 
     public function getName()
