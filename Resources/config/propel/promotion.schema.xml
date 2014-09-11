@@ -10,12 +10,18 @@
         <column name="date_to"      type="timestamp" required="false" />
         <column name="rule_id"      type="integer" required="true" />
         <column name="rule_param"   type="varchar" size="128" required="false" />
-        <column name="action_id"    type="integer" required="true"/>
+        <column name="action_id"    type="integer" required="true" />
         <column name="action_param" type="varchar" size="128" required="false" />
         <column name="rank"         type="integer" required="true" defaultValue="0" />
         <column name="code"         type="varchar" size="128" required="false" />
         <foreign-key foreignTable="store" name="FI_promotion_store" onDelete="restrict" onUpdate="restrict">
             <reference local="store_id" foreign="id" />
+        </foreign-key>
+        <foreign-key foreignTable="promotion_rule" name="FI_promotion_promotion_rule" onDelete="restrict" onUpdate="restrict">
+            <reference local="rule_id" foreign="id" />
+        </foreign-key>
+        <foreign-key foreignTable="promotion_action" name="FI_promotion_promotion_action" onDelete="restrict" onUpdate="restrict">
+            <reference local="action_id" foreign="id" />
         </foreign-key>
         <index name="store_id">
             <index-column name="store_id" />
