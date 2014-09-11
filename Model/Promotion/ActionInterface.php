@@ -15,12 +15,4 @@ interface ActionInterface
      *
      */
     public function execute(Cart $cart, Promotion $promotion);
-
-    /**
-     * checks the eligibility of cart
-     *
-     * @param Cart $cart
-     * @return either true or false
-     */
-    public function isEligible(Cart $cart);
 }

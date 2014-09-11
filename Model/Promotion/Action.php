@@ -12,8 +12,4 @@ class Action extends BaseAction implements ActionInterface
     {
     }
 
-    public function isEligible(Cart $cart)
-    {
-    }
-
 }

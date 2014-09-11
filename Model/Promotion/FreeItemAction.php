@@ -15,8 +15,4 @@ class FreeItemAction extends Action implements ActionInterface
     public function execute(Cart $cart, Promotion $promotion)
     {
     }
-
-    public function isEligible(Cart $cart)
-    {
-    }
 }
