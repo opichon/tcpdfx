@@ -14,19 +14,10 @@ class Promotion extends BasePromotion
 
             $action = $this->getAction();
 
-            if ($this->isEligible($cart)) {
-                // $action->execute($cart, $this);
-            } else {
-                // $action->cancel($cart, $this)
-            }
+            $action->execute($cart, $this);
 
         } catch (Exception $ex) {
             // throw exception
         }
-    }
-
-    public function isEligible(Cart $cart)
-    {
-        // TODO: check eligibility of cart;
     }
 }
