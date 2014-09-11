@@ -86,7 +86,7 @@
 		datatables: {
 			autoWidth: false,
 			columnDefs: [
-				{ orderable: false, targets: [ 0, 2, 3, 4, 5 ] },
+				{ orderable: false, targets: [ 0, 5 ] },
 				{ visible: false, targets: [ 0 ] },
 				{ className: "actions", targets: [ 5 ] }
 			],
