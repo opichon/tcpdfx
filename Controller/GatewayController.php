@@ -13,8 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 class GatewayController extends BaseController
 {
     /**
-     * @Route("/gateway", name="gateways")
-     * @Template("DzangocartCoreBundle:Gateway:index.html.twig")
+     * @Template()
      */
     public function indexAction(Request $request)
     {
@@ -32,7 +31,6 @@ class GatewayController extends BaseController
     }
 
     /**
-     * @Route("/list", name="gateways_list", requirements={"_format": "json"}, defaults={"_format": "json"})
      * @Template("DzangocartCoreBundle:Gateway:list.json.twig")
      */
     public function listAction(Request $request)
@@ -73,7 +71,6 @@ class GatewayController extends BaseController
     }
 
     /**
-     * @Route("/gateway/{id}", name="gateway", requirements={"id": "\d+|__id__"})
      * @Template("DzangocartCoreBundle:Gateway:show.html.twig")
      */
     public function showAction(Request $request, $id)
