@@ -14,5 +14,6 @@ class VoucherRule extends Rule implements RuleInterface
 
     public function isEligible(Cart $cart)
     {
+        return true;
     }
 }

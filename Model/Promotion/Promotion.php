@@ -10,14 +10,8 @@ class Promotion extends BasePromotion
 {
     public function execute(Cart $cart)
     {
-        try {
+        $action = $this->getAction();
 
-            $action = $this->getAction();
-
-            $action->execute($cart, $this);
-
-        } catch (Exception $ex) {
-            // throw exception
-        }
+        $action->execute($cart, $this);
     }
 }
