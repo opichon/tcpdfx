@@ -34,9 +34,17 @@ class VoucherRule extends Rule implements RuleInterface
         $cart_hasCategory = true;
 
         // verify the rule
-        // $is_Verified = $this->verify($cart, $promotion->getRuleParam());
-        $is_Verified = true;
+        $is_Verified = $this->verify($cart, $promotion->getRuleParam());
 
         return $isValid_date && $cart_hasCategory && $is_Verified;
+    }
+
+    protected function verify(Cart $cart, $rule_param)
+    {
+        if (!$rule_param) {
+            return false;
+        }
+
+        return $rule_param == $cart->getVoucher();
     }
 }
