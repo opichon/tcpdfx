@@ -12,8 +12,31 @@ class VoucherRule extends Rule implements RuleInterface
         $this->setClassKey(RulePeer::CLASSKEY_1);
     }
 
-    public function isEligible(Cart $cart)
+    public function isEligible(Cart $cart, Promotion $promotion)
     {
-        return true;
+        // get cart date
+        $cart_date = $cart->getUpdatedAt();
+
+        // get promotion valid from
+        $promotion_valid_from = $promotion->getDateFrom();
+
+        // get promotion valid to
+        $promotion_valid_to = $promotion->getDateTo();
+
+        // get the promotional category
+        $category = $promotion->getCategory();
+
+        // check cart is within period of promotion validity
+        $isValid_date = ($cart_date >= $promotion_valid_from) && ($cart_date <= $promotion_valid_to);
+
+        // check that cart has category
+        // $cart_hasCategory = $category && !$cart->hasCategory($category, true, true);
+        $cart_hasCategory = true;
+
+        // verify the rule
+        // $is_Verified = $this->verify($cart, $promotion->getRuleParam());
+        $is_Verified = true;
+
+        return $isValid_date && $cart_hasCategory && $is_Verified;
     }
 }

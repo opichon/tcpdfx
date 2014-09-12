@@ -18,7 +18,7 @@ class FreeItemAction extends Action implements ActionInterface
 
             $rule = $promotion->getRule();
 
-            if ($rule->isEligible($cart)) {
+            if ($rule->isEligible($cart, $promotion)) {
                 $this->cancel($cart, $promotion);
                 $this->createItem($cart, $promotion);
             } else {
