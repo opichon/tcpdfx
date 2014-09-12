@@ -61,17 +61,19 @@
 				{ data: "id" },
 				{ data: function( row, type, val, meta ) {
 						if ( "display" === type ) {
-						   return "<a href='" + row.urls.show + "'>" + row.name + "</a>"
+						   var url = dzangocart.mustache.gateway.url.replace(/__id__/g, "{{id}}");
+						   return Mustache.render(url, row);
 						}
-						
+
 						return "";
 					}
 				},
 				{ data: function( row, type, val, meta ) {
 						if ( "display" === type ) {
-							return "<a href='" + row.urls.store + "'>" + row.store.name + "</a>";
+						   var url = dzangocart.mustache.store.url.replace(/__id__/g, "{{id}}");
+						   return Mustache.render(url, row.store);
 						}
-						
+
 						return "";
 					}
 				},
@@ -94,7 +96,13 @@
 						return "";
 					}
 				},
-				{ data: "actions" }
+				{ data: function( row, type, val, meta ) {
+						if( "display" === type ) {
+						   var url = dzangocart.mustache.gateway.actions.replace(/__id__/g, "{{id}}");
+						   return Mustache.render(url, row);
+						}
+					}
+				}
 			],
 			columnDefs: [
 				{ orderable: false, targets: [ 0, 6 ] },
