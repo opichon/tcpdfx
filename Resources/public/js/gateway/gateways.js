@@ -70,7 +70,7 @@
 				},
 				{ data: function( row, type, val, meta ) {
 						if ( "display" === type ) {
-                           var url = dzangocart.mustache.store.url.replace(/__id__/g, "{{id}}");
+						   var url = dzangocart.mustache.store.url.replace(/__id__/g, "{{id}}");
 						   return Mustache.render(url, row.store);
 						}
 
@@ -97,12 +97,12 @@
 					}
 				},
 				{ data: function( row, type, val, meta ) {
-                        if( "display" === type ) {
-                           var url = dzangocart.mustache.gateway.actions.replace(/__id__/g, "{{id}}");
+						if( "display" === type ) {
+						   var url = dzangocart.mustache.gateway.actions.replace(/__id__/g, "{{id}}");
 						   return Mustache.render(url, row);
-                        }
-                    }
-                }
+						}
+					}
+				}
 			],
 			columnDefs: [
 				{ orderable: false, targets: [ 0, 6 ] },
