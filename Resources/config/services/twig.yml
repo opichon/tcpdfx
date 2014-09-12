@@ -3,8 +3,3 @@ services:
         class: Dzangocart\Bundle\CoreBundle\Twig\Extension\DzangocartExtension
         tags:
             - { name: twig.extension }
-
-    twig.extension.address:
-        class: Dzangocart\Bundle\CoreBundle\Twig\Extension\AddressExtension
-        tags:
-            - { name: twig.extension }
