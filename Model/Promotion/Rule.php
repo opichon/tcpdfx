@@ -7,7 +7,7 @@ use Dzangocart\Bundle\CoreBundle\Model\Promotion\om\BaseRule;
 
 class Rule extends BaseRule implements RuleInterface
 {
-    public function isEligible(Cart $cart)
+    public function isEligible(Cart $cart, Promotion $promotion)
     {
     }
 }

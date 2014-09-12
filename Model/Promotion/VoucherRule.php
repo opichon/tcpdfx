@@ -12,7 +12,8 @@ class VoucherRule extends Rule implements RuleInterface
         $this->setClassKey(RulePeer::CLASSKEY_1);
     }
 
-    public function isEligible(Cart $cart)
+    public function isEligible(Cart $cart, Promotion $promotion)
     {
+        return true;
     }
 }
