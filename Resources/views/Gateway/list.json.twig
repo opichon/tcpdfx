@@ -31,11 +31,6 @@
                     "status": {{ gateway.status }},
                     "class": "{{ ('gateway.status.class.' ~ gateway.status)|trans }}",
                     "label": "{{ ('gateway.status.label.' ~ gateway.status)|trans }}"
-                },
-                "actions": "{% include 'DzangocartCoreBundle:Gateway:actions.html.twig' %}",
-                "urls": {
-                    "show": "{{ path('gateway', { id: gateway.id }) }}",
-                    "store": "{{ path('store', { id: gateway.store.id }) }}"
                 }
             }{% if not loop.last %},{% endif %}
         {% endfor %}
