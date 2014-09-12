@@ -37,6 +37,9 @@
 				<address>
 					<strong>{{ order.customer.name }}</strong>
 				</address>
+				<address>
+					{{ order.customer.userProfile.address|address() }}
+				</address>
 			</div>
 		</div>
 	</div>
