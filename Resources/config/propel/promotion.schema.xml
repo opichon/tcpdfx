@@ -23,6 +23,9 @@
         <foreign-key foreignTable="promotion_action" name="FI_promotion_promotion_action" onDelete="restrict" onUpdate="restrict">
             <reference local="action_id" foreign="id" />
         </foreign-key>
+        <foreign-key foreignTable="category" name="FI_promotion_category" onDelete="restrict" onUpdate="restrict">
+            <reference local="category_id" foreign="id" />
+        </foreign-key>
         <index name="store_id">
             <index-column name="store_id" />
             <index-column name="category_id" />
