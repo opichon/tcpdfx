@@ -1,98 +1,66 @@
 {
-  "name": "dzangocart/core-bundle",
-  "dependencies": {
-    "autotabs": "~2.1",
-    "bootbox": "~4.3.0",
-    "bootstrap": "~3.1.1",
-    "bootstrap-daterangepicker": "~1.3.10",
-    "datatables": "~1.10",
-    "datatables-plugins": "*",
-    "font-awesome": "~4.1",
-    "jquery": "~1.11",
-    "jquery.cookie": "~1.4",
-    "jquery.easing": "~1.3",
-    "jquery-form": "~3.46",
-    "jquery-treetable": "~3.1.0",
-    "modernizr": "~2.7",
-    "moment": "^2.8.1",
-    "mustache": "~0.8.2",
-    "respond": "~1.4",
-    "typeahead.js": "~0.10"
-  },
-  "overrides": {
-    "bootstrap": {
-      "main": [
-        "./dist/css/bootstrap.css",
-        "./dist/css/bootstrap.min.css",
-        "./dist/css/bootstrap.css.map",
-        "./dist/js/bootstrap.js",
-        "./dist/js/bootstrap.min.js"
-      ]
-    },
-    "bootstrap-daterangepicker": {
-      "main": [
-        "daterangepicker.js",
-        "daterangepicker-bs3.css"
-      ]
-    },
-    "datatables-plugins": {
-      "main": [
-        "integration/bootstrap/3/dataTables.bootstrap.css",
-        "integration/bootstrap/3/dataTables.bootstrap.js",
-        "integration/bootstrap/images/sort_asc.png",
-        "integration/bootstrap/images/sort_asc_disabled.png",
-        "integration/bootstrap/images/sort_both.png",
-        "integration/bootstrap/images/sort_desc.png",
-        "integration/bootstrap/images/sort_desc_disabled.png"
-      ]
-    },
-    "font-awesome": {
-      "main": [
-        "./css/font-awesome.css",
-        "./css/font-awesome.min.css",
-        "./fonts/*"
-      ]
-    },
-    "jquery": {
-      "main": [
-        "dist/jquery.js",
-        "dist/jquery.min.js",
-        "dist/jquery.min.map"
-      ]
-    },
-    "jquery-treetable": {
-      "main": [
-        "javascripts/src/jquery.treetable.js",
-        "stylesheets/jquery.treetable.css",
-        "stylesheets/jquery.treetable.theme.default.css"
-      ]
-    },
-    "modernizr": {
-      "main": [
-        "modernizr.js"
-      ]
-    },
-    "moment": {
-      "main": [
-        "locale/fr.js",
-        "min/moment.min.js",
-        "min/moment.js"
-      ]
-    },
-    "respond": {
-      "main": [
-        "dest/respond.min.js",
-        "dest/respond.src.js"
-      ]
-    },
-    "typeahead.js": {
-      "main": [
-        "dist/typeahead.bundle.js",
-        "dist/typeahead.bundle.min,js",
-      ]
-    }
-  },
-  "resolutions": {
-    "jquery": "~1.11"
-  }
+	"name": "dzangocart/core-bundle",
+	"dependencies": {
+		"autotabs": "~2.1",
+		"bootbox": "~4.3.0",
+		"bootstrap-daterangepicker": "~1.3.10",
+		"datatables": "~1.10",
+		"datatables-plugins": "*",
+		"jquery": "~1.11",
+		"jquery.cookie": "~1.4",
+		"jquery.easing": "~1.3",
+		"jquery-form": "~3.46",
+		"jquery-treetable": "~3.1.0",
+		"moment": "^2.8.1",
+		"mustache": "~0.8.2",
+		"typeahead.js": "~0.10"
+	},
+	"overrides": {
+		"bootstrap": {
+			"ignore": true
+		},
+		"bootstrap-daterangepicker": {
+			"main": [
+				"daterangepicker.js",
+				"daterangepicker-bs3.css"
+			]
+		},
+		"datatables-plugins": {
+			"main": [
+				"integration/bootstrap/3/dataTables.bootstrap.css",
+				"integration/bootstrap/3/dataTables.bootstrap.js",
+				"integration/bootstrap/images/sort_asc.png",
+				"integration/bootstrap/images/sort_asc_disabled.png",
+				"integration/bootstrap/images/sort_both.png",
+				"integration/bootstrap/images/sort_desc.png",
+				"integration/bootstrap/images/sort_desc_disabled.png"
+			]
+		},
+		"jquery": {
+			"ignore": true
+		},
+		"jquery-treetable": {
+			"main": [
+				"javascripts/src/jquery.treetable.js",
+				"stylesheets/jquery.treetable.css",
+				"stylesheets/jquery.treetable.theme.default.css"
+			]
+		},
+		"moment": {
+			"main": [
+				"locale/fr.js",
+				"min/moment.min.js",
+				"moment.js"
+			]
+		},
+		"typeahead.js": {
+			"main": [
+				"dist/typeahead.bundle.js",
+				"dist/typeahead.bundle.min,js"
+			]
+		}
+	},
+	"resolutions": {
+		"jquery": "~1.11"
+	}
 }

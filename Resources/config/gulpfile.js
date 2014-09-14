@@ -18,7 +18,6 @@ gulp.task('minify', ['bower-files'], function() {
 			'../public/vendor/jquery-form/*.js',
 			'../public/vendor/jquery-treetable/*.js',
 			'../public/vendor/jquery.cookie/*.js',
-			'../public/vendor/modernizr/*.js',
 			'../public/vendor/mustache/mustache.js',
 			'!../public/vendor/**/*min.js'
 		], { base: '../public/vendor' })
