@@ -49,8 +49,7 @@
 		"moment": {
 			"main": [
 				"locale/fr.js",
-				"min/moment.min.js",
-				"moment.js"
+				"min/moment.min.js"
 			]
 		},
 		"typeahead.js": {
