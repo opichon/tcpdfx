@@ -2,7 +2,7 @@
 
 namespace UAM\Pdf;
 
-use \fpdi\FPDI;
+use fpdi\FPDI;
 
 class ConcatPDF extends FPDI
 {
@@ -31,7 +31,7 @@ class ConcatPDF extends FPDI
 
                 $s = $this->getTemplatesize($tplidx);
 
-                $orientation = @$this->files_orientation[$num] ? $this->files_orientation[$num] : 'P';
+                $orientation = @$this->files_orientation[$num] ? $this->files_orientation[$num] : ($s['h'] > $s['w'] ? 'P' : 'L');
 
                 $this->AddPage($orientation, array($s['w'], $s['h']));
 

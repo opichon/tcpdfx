@@ -24,7 +24,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "UAM\\pdf\\": "lib/"
+            "UAM\\Pdf\\": "lib/"
         },
         "classmap": [
           "data/fonts",
