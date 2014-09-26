@@ -31,7 +31,7 @@ class ConcatPDF extends FPDI
 
                 $s = $this->getTemplatesize($tplidx);
 
-                $orientation = @$this->files_orientation[$num] ? $this->files_orientation[$num] : ($s['h'] > $s['w'] : 'P' : 'L');
+                $orientation = @$this->files_orientation[$num] ? $this->files_orientation[$num] : ($s['h'] > $s['w'] ? 'P' : 'L');
 
                 $this->AddPage($orientation, array($s['w'], $s['h']));
 
