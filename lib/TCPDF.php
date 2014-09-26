@@ -1,4 +1,5 @@
 <?php
+
 namespace UAM\Pdf;
 
 $error_reporting = error_reporting(E_ALL & ~E_STRICT & ~E_NOTICE);
@@ -239,6 +240,7 @@ class TCPDF extends FPDI
     {
         $this->document_title_cell_height = $height;
     }
+
     /**
      * Do not override. Override 'generate' method instead.
      *
@@ -308,7 +310,10 @@ class TCPDF extends FPDI
         $this->SetAutoPageBreak(true, $this->bottom_margin);
     }
 
-    protected function generate() {}
+    protected function generate()
+    {
+
+    }
 
     /**
      * Adds the document;s letterhead.
@@ -344,7 +349,6 @@ class TCPDF extends FPDI
             return;
         }
 
-        $color = $this->TextColor;
         $x = $this->GetX();
         $y = $this->getY();
 
@@ -370,7 +374,10 @@ class TCPDF extends FPDI
             $w,
             $this->watermark_cell,
             $watermark,
-            0, 'C', 0, 0
+            0,
+            'C',
+            0,
+            0
         );
 
         $this->StopTransform();
@@ -445,8 +452,8 @@ class TCPDF extends FPDI
 
         return strtr(
             $this->InHeader
-                ? $this->getPaginationInHeader()
-                : $this->getPaginationInFooter(),
+            ? $this->getPaginationInHeader()
+            : $this->getPaginationInFooter(),
             $params
         );
     }
@@ -551,8 +558,8 @@ class TCPDF extends FPDI
         $min_row_height = 0,
         $headers = array(),
         $footers = array(),
-        $fill = 0)
-    {
+        $fill = 0
+    ) {
 
         // print headers
         foreach ($headers as $h) {
@@ -627,7 +634,8 @@ class TCPDF extends FPDI
                 $f['font_size'],
                 $f['cell_height'],
                 $f['min_row_height'],
-                isset($f['fill']) ? $f['fill'] : 0);
+                isset($f['fill']) ? $f['fill'] : 0
+            );
         }
     }
 
@@ -654,8 +662,8 @@ class TCPDF extends FPDI
         $cell_height,
         $min_row_height = 0,
         $headers = array(),
-        $footers = array())
-    {
+        $footers = array()
+    ) {
 
         $height = 0;
 
@@ -715,8 +723,8 @@ class TCPDF extends FPDI
         $cell_height,
         $min_height = 0,
         $height = 0,
-        $fill = 0)
-    {
+        $fill = 0
+    ) {
         $x0 = $this->GetX();
         $y0 = $this->GetY();
 
@@ -775,8 +783,8 @@ class TCPDF extends FPDI
         $font_style,
         $font_size,
         $cell_height,
-        $min_height = 0)
-    {
+        $min_height = 0
+    ) {
         $lines = array();
 
         $height = array($cell_height, $min_height);
@@ -789,7 +797,8 @@ class TCPDF extends FPDI
             $this->SetFont(
                 is_array($font) ? $font[$i] : $font,
                 is_array($font_style) ? $font_style[$i] : $font_style,
-                is_array($font_size) ? $font_size[$i] : $font_size);
+                is_array($font_size) ? $font_size[$i] : $font_size
+            );
 
             $height[] = $this->getStringHeight(
                 $w ? $w : $width[$i],
