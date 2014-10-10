@@ -3,7 +3,7 @@
     "type": "library",
     "description": "Extension of TCPDF library and FPDI library with added convenience methods.",
     "keywords": ["tcpdf", "pdf", "fpdi", "fpdf"],
-    "homepage": "https://gitlab.com/opichon/tcpdfx",
+    "homepage": "https://github.com/opichon/tcpdfx",
     "license": "MIT",
     "authors": [
         {
