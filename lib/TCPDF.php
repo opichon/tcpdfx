@@ -492,16 +492,16 @@ class TCPDF extends FPDI
     {
         // Get bullet width including margins
         $paddings = $this->getCellPaddings();
-        $bullet_width = $this->GetStringWidth($bullett) + $paddings['L'] + $paddings['R'];
+        $bullet_width = $this->GetStringWidth($bullet) + $paddings['L'] + $paddings['R'];
 
         // Save x
         $x = $this->GetX();
 
         // Output bullet
-        $this->Cell($bullet_width, $h, $this->unhtmlEntities($bullet), 0, '', $fill);
+        $this->Cell($bullet_width, $line_height, $this->unhtmlEntities($bullet), 0, '', $fill);
 
         // Output text
-        $this->MultiCell($width - $bullet_width, $ine_height, $text, $border, $align, $fill, 1);
+        $this->MultiCell($width - $bullet_width, $line_height, $text, $border, $align, $fill, 1);
 
         // Restore x
         $this->SetX($x);
