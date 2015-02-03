@@ -832,7 +832,7 @@ class TCPDF extends FPDI
             '%s/%s.%s',
             $path_parts['dirname'],
             $this->sanitizeName($path_parts['filename']),
-            $path_parts['extension']
+            array_key_exists('extension', $path_parts) ? $path_parts['extension'] : 'pdf'
         );
     }
 }
