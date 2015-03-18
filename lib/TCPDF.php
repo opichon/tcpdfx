@@ -37,8 +37,21 @@ class TCPDF extends FPDI
     protected $title_cell_height = 6;
     protected $title_align = 'L';
 
-    protected $subtitle_font = array('Verdana', 'B', 11);
-    protected $subtitle_cell_height = 6;
+    protected $subtitle_font = array(
+        1 => array('Verdana', 'B', 11)
+    );
+
+    protected $subtitle_cell_height = array(
+        1 => 6
+    );
+
+    protected $subtitle_border = array(
+        1 => 0
+    );
+
+    protected $subtitle_align = array(
+        1 => 'L'
+    );
 
     protected $default_cell_padding = array('L' => 0.3, 'T' => 0.3, 'R' => 0.3, 'B' => 0.3);
 
@@ -239,6 +252,46 @@ class TCPDF extends FPDI
     public function setDocumentTitleCellHeight($height)
     {
         $this->document_title_cell_height = $height;
+    }
+
+    public function getSubtitleFont($level = 1)
+    {
+        return $this->subtitle_font[$level];
+    }
+
+    public function setSubtitleFont(array $font, $level = 1)
+    {
+        $this->subtitle_font[$level] = $font;
+    }
+
+    public function getSubtitleBorder($level = 1)
+    {
+        return $this->subtitle_border[$level];
+    }
+
+    public function setSubtitleBorder($border, $level = 1)
+    {
+        $this->subtitle_border[$level] = $border;
+    }
+
+    public function getSubtitleAlign($level = 1)
+    {
+        return $this->subtitle_align[$level];
+    }
+
+    public function setSubtitleAlign($align, $level = 1)
+    {
+        $this->subtitle_align[$level] = $align;
+    }
+
+    public function getSubtitleCellHeight($level = 1)
+    {
+        return $this->subtitle_cell_height[$level];
+    }
+
+    public function setSubtitleCellHeight($height, $level = 1)
+    {
+        $this->subtitle_cell_height[$level] = $height;
     }
 
     /**
@@ -487,6 +540,29 @@ class TCPDF extends FPDI
         $this->setGraphicVars($gvars);
     }
 
+    protected function printSubtitle($title, $level)
+    {
+        // save current graphic settings
+        $gvars = $this->getGraphicVars();
+
+        $font = $this->getSubtitleFont($level);
+
+        $this->SetFont($font[0], $font[1], $font[2]);
+
+        $this->MultiCell(
+            0,
+            $this->getSubtitleCellHeight($level),
+            $title,
+            $this->getSubtitleBorder($level),
+            $this->getSubtitleAlign($level),
+            0,
+            1
+        );
+
+        // restore graphic settings
+        $this->setGraphicVars($gvars);
+    }
+
     // MultiCell with bullet
     public function MultiCellBlt($width = 0, $line_height = 0, $bullet, $text, $border = 0, $align = 'L', $fill = 0)
     {
@@ -501,7 +577,7 @@ class TCPDF extends FPDI
         $this->Cell($bullet_width, $line_height, $this->unhtmlEntities($bullet), 0, '', $fill);
 
         // Output text
-        $this->MultiCell($width - $bullet_width, $line_height, $text, $border, $align, $fill, 1);
+        $this->MultiCell($width - $bullet_width, $line_height, $text, $border, $align, $fill, 1, '', '', true, 0, true);
 
         // Restore x
         $this->SetX($x);
