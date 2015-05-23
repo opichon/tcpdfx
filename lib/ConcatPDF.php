@@ -39,4 +39,21 @@ class ConcatPDF extends FPDI
             }
         }
     }
+
+    public function Output($name = null, $dest = 'D')
+    {
+        $this->concat();
+
+        $filename = $this->sanitize($name ? $name : $this->getName());
+
+        parent::Output($name, $dest);
+
+        return $filename;
+    }
+
+    protected function sanitize($filename)
+    {
+        return Sanitizer::getInstance()
+            ->sanitize($filename);
+    }
 }

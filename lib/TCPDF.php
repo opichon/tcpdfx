@@ -891,25 +891,14 @@ class TCPDF extends FPDI
 
     public function sanitizeName($string)
     {
-        $string = strtr(
-            utf8_decode($string),
-            utf8_decode("()!$'?: ,&+-/.ŠŒŽšœžŸ¥µÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýÿ"),
-            "--------------SOZsozYYuAAAAAAACEEEEIIIIDNOOOOOOUUUUYsaaaaaaaceeeeiiiionoooooouuuuyy"
-        );
-
-        return mb_strtolower(preg_replace('/--+/u', '-', $string), 'UTF-8');
+        return Sanitizer::getInstance()
+            ->sanitizeName($string);
     }
 
     public function sanitize($filename)
     {
-        $path_parts = pathinfo($filename);
-
-        return sprintf(
-            '%s/%s.%s',
-            $path_parts['dirname'],
-            $this->sanitizeName($path_parts['filename']),
-            array_key_exists('extension', $path_parts) ? $path_parts['extension'] : 'pdf'
-        );
+        return Sanitizer::getInstance()
+            ->sanitize($filename);
     }
 }
 
