@@ -14,7 +14,7 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "onigoetz/fpdi_tcpdf": "~1.4"
+        "setasign/fpdi-tcpdf": "~1.6"
     },
     "repositories": [
         {
