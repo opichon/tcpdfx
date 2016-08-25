@@ -2,7 +2,7 @@
 
 namespace UAM\Pdf;
 
-use fpdi\FPDI;
+use FPDI;
 
 class ConcatPDF extends FPDI
 {
