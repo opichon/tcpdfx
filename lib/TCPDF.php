@@ -540,7 +540,7 @@ class TCPDF extends FPDI
         $this->setGraphicVars($gvars);
     }
 
-    protected function printSubtitle($title, $level)
+    public function printSubtitle($title, $level)
     {
         // save current graphic settings
         $gvars = $this->getGraphicVars();
