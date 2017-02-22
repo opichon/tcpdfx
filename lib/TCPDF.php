@@ -398,7 +398,7 @@ class TCPDF extends FPDI
 
         $watermark = $this->getWatermark();
 
-        if (!is_array($watermark) || empty($watermark)) {
+        if (empty($watermark)) {
             return;
         }
 
@@ -425,7 +425,7 @@ class TCPDF extends FPDI
 
         $this->MultiCell(
             $w,
-            $this->watermark_cell,
+            0,
             $watermark,
             0,
             'C',
